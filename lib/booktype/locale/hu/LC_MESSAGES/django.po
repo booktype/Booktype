@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 22:12-0600\n"
-"PO-Revision-Date: 2017-07-24 21:09+0000\n"
+"POT-Creation-Date: 2017-08-03 21:43-0600\n"
+"PO-Revision-Date: 2017-08-07 09:07+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:89
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:553 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:573 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr "Fejezet"
 
@@ -440,7 +440,7 @@ msgstr "Szerepek megadása az alábbi meghíváshoz"
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:60
 msgid "Roles"
 msgstr "Feladatkörök"
 
@@ -1018,7 +1018,7 @@ msgstr "Jogosultság"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:60
+#: lib/booktype/apps/edit/views.py:61
 msgid "Permissions"
 msgstr "Jogosultságok"
 
@@ -1358,46 +1358,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1392
-#: lib/booktype/apps/edit/channel.py:1397
+#: lib/booktype/apps/edit/channel.py:1395
+#: lib/booktype/apps/edit/channel.py:1400
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1403
+#: lib/booktype/apps/edit/channel.py:1406
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1410
-#: lib/booktype/apps/edit/channel.py:1414
+#: lib/booktype/apps/edit/channel.py:1413
+#: lib/booktype/apps/edit/channel.py:1417
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1423
+#: lib/booktype/apps/edit/channel.py:1426
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1427
+#: lib/booktype/apps/edit/channel.py:1430
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Fejezet ezzel a címmel már létezik."
 
-#: lib/booktype/apps/edit/channel.py:1573
+#: lib/booktype/apps/edit/channel.py:1576
 msgid "You have no permissions for editing this chapter."
 msgstr "Ön nem rendelkezik jogosultsággal a fejezet szerkesztéséhez."
 
-#: lib/booktype/apps/edit/channel.py:1581
+#: lib/booktype/apps/edit/channel.py:1584
 msgid "Chapter currently being edited."
 msgstr "A fejezet jelenleg szerkesztés alatt áll."
 
-#: lib/booktype/apps/edit/channel.py:1586
+#: lib/booktype/apps/edit/channel.py:1589
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Önnek nincs jogosultsága az elzárt fejezetek szerkesztéséhez."
 
-#: lib/booktype/apps/edit/channel.py:1590
+#: lib/booktype/apps/edit/channel.py:1593
 msgid "Chapter currently is locked from everyone."
 msgstr "A fejezet jelenleg el van zárva mindenkitől."
 
-#: lib/booktype/apps/edit/channel.py:2195
+#: lib/booktype/apps/edit/channel.py:2198
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1456,7 +1456,7 @@ msgstr "Megváltozott"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:631
+#: lib/booktype/apps/edit/views.py:651
 msgid "Revision"
 msgstr "Változat"
 
@@ -1491,67 +1491,65 @@ msgstr ""
 msgid "Choose the outputs where you want to show this section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:21
+msgid "Output Name"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:22
 msgid "Show"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:27
-msgid "Hide"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:30
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Tartalomjegyzék"
-
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:32
-msgid "Show section and chapters"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:33
-msgid "Show section / hide chapters"
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+msgid "In Table of Contents"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
-msgid "Hide section / show chapters"
+msgid "Show section and chapters"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
+msgid "Show section but hide chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:36
+msgid "Hide section but show chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:37
 msgid "Hide section and chapters"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
 msgid "Extra"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:43
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
 msgid "Set extra options"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:46
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:52
 msgid "Mark section as"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:55
 msgid "Frontmatter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:57
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:63
 msgid "Mainmatter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:65
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:71
 msgid "Backmatter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:73
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:78
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:84
 msgid "Custom"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:85
 msgid "e.g. Authors"
 msgstr ""
 
@@ -2886,8 +2884,8 @@ msgstr "ELTÁVOLÍTÁS"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:78
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:89
 msgid "EDIT"
 msgstr "SZERKESZTÉS"
 
@@ -3050,7 +3048,7 @@ msgstr "A kép mérete"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:571
+#: lib/booktype/apps/edit/views.py:591
 msgid "Book History"
 msgstr "A könyv története"
 
@@ -3415,6 +3413,7 @@ msgid "No available publish formats."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
+#: lib/booktype/convert/mpdf/converter.py:101
 msgid "Printers' PDF"
 msgstr ""
 
@@ -3428,6 +3427,7 @@ msgid "settings"
 msgstr "beállítások"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
+#: lib/booktype/convert/screenpdf/converter.py:32
 msgid "Screen PDF"
 msgstr "PDF képernyő"
 
@@ -3437,7 +3437,7 @@ msgid "EPUB3"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:577
-#: lib/booktype/convert/epub/converter.py:511
+#: lib/booktype/convert/epub/converter.py:512
 msgid "EPUB2"
 msgstr ""
 
@@ -3517,13 +3517,13 @@ msgid "Metadata"
 msgstr "Metaadatok"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:58
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:97
 msgid "Book Metadata"
 msgstr "A könyv metaadatai"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:59
 msgid "Additional Metadata"
 msgstr ""
 
@@ -3634,6 +3634,11 @@ msgstr "Zárolva"
 msgid "Locked exclusively"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Tartalomjegyzék"
+
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
 msgid "Detail View"
 msgstr "Részletes Megtekintés"
@@ -3738,7 +3743,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:61
+#: lib/booktype/apps/edit/views.py:62
 msgid "Chapter Status"
 msgstr "A fejezet állapota"
 
@@ -3774,13 +3779,13 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
 msgid "Open book information page"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3790,69 +3795,69 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr "Tartalomjegyzék"
 
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:55
 msgid "General Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:56
 msgid "Book Language"
 msgstr "A könyv nyelve"
 
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:57
 msgid "Book License"
 msgstr "Könyv liszensz"
 
-#: lib/booktype/apps/edit/views.py:522
+#: lib/booktype/apps/edit/views.py:542
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:600
+#: lib/booktype/apps/edit/views.py:620
 msgid "Chapter diff"
 msgstr "Fejezet eltérés"
 
-#: lib/booktype/apps/edit/views.py:638
+#: lib/booktype/apps/edit/views.py:658
 msgid "Book History | Chapter Revision"
 msgstr "Könyv Előzmények | Fejezet Változatok"
 
-#: lib/booktype/apps/edit/views.py:661
+#: lib/booktype/apps/edit/views.py:681
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Visszaállítva a következő változatra: %s."
 
-#: lib/booktype/apps/edit/views.py:680
+#: lib/booktype/apps/edit/views.py:700
 msgid "Chapter revision successfully reverted."
 msgstr "A fejezet korábbi változatának visszaállítása sikeresen megtörtént."
 
-#: lib/booktype/apps/edit/views.py:682
+#: lib/booktype/apps/edit/views.py:702
 msgid "Chapter revision could not be reverted."
 msgstr "A fejezet a korábbi változatra nem állítható vissza."
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:773
 msgid "Successfully saved settings."
 msgstr "A beállítások sikeres mentése megtörtént."
 
-#: lib/booktype/apps/edit/views.py:755
+#: lib/booktype/apps/edit/views.py:775
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:758
+#: lib/booktype/apps/edit/views.py:778
 msgid "Unknown error while saving changes."
 msgstr "Ismeretlen hiba a változtatások mentése közben."
 
-#: lib/booktype/apps/edit/views.py:821
+#: lib/booktype/apps/edit/views.py:841
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:835
+#: lib/booktype/apps/edit/views.py:855
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:837
+#: lib/booktype/apps/edit/views.py:857
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:844
+#: lib/booktype/apps/edit/views.py:864
 msgid "USING REVISION"
 msgstr ""
 
@@ -4273,8 +4278,8 @@ msgid "No content yet"
 msgstr "Még nincs tartalom"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:83
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:77
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:88
 msgid "Edit this chapter"
 msgstr "A fejezet szerkesztése"
 
@@ -4282,27 +4287,27 @@ msgstr "A fejezet szerkesztése"
 msgid "No content yet."
 msgstr "Még nincs tartalom."
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:38
 msgid "Toggle table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:45
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:50
 msgid "Table of contents"
 msgstr ""
 
@@ -4622,16 +4627,8 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: lib/booktype/convert/mpdf/converter.py:99
-msgid "PDF print"
-msgstr ""
-
 #: lib/booktype/convert/pdf/converter.py:45
 msgid "PDF Legacy (deprecated)"
-msgstr ""
-
-#: lib/booktype/convert/screenpdf/converter.py:32
-msgid "PDF screen"
 msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:95

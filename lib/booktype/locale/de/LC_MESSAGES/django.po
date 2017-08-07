@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 22:12-0600\n"
-"PO-Revision-Date: 2017-07-24 21:09+0000\n"
+"POT-Creation-Date: 2017-08-03 21:43-0600\n"
+"PO-Revision-Date: 2017-08-07 09:07+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "Rollen löschen"
 
 #: lib/booktype/api/editor/serializers.py:89
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:553 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:573 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr "Kapitel"
 
@@ -439,7 +439,7 @@ msgstr "Rollen für Einladung setzen"
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:60
 msgid "Roles"
 msgstr "Rollen"
 
@@ -1017,7 +1017,7 @@ msgstr "Berechtigung"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:60
+#: lib/booktype/apps/edit/views.py:61
 msgid "Permissions"
 msgstr "Berechtigungen"
 
@@ -1357,46 +1357,46 @@ msgstr "Abschnitt Einstellungen bearbeiten"
 msgid "Generate Invite Code"
 msgstr "Einladungscode generieren"
 
-#: lib/booktype/apps/edit/channel.py:1392
-#: lib/booktype/apps/edit/channel.py:1397
+#: lib/booktype/apps/edit/channel.py:1395
+#: lib/booktype/apps/edit/channel.py:1400
 msgid "You have no permissions for splitting the chapter."
 msgstr "Keine Berechtigung Kapitel umzubrechen."
 
-#: lib/booktype/apps/edit/channel.py:1403
+#: lib/booktype/apps/edit/channel.py:1406
 msgid "Chapter is under edit."
 msgstr "Kapitel in Bearbeitung"
 
-#: lib/booktype/apps/edit/channel.py:1410
-#: lib/booktype/apps/edit/channel.py:1414
+#: lib/booktype/apps/edit/channel.py:1413
+#: lib/booktype/apps/edit/channel.py:1417
 msgid "You have no permissions for splitting locked chapter."
 msgstr "Keine Berechtigung gesperrtes Kapitel umzubrechen."
 
-#: lib/booktype/apps/edit/channel.py:1423
+#: lib/booktype/apps/edit/channel.py:1426
 msgid "You have selected invalid title name."
 msgstr "Ungültiger Titel gewählt"
 
-#: lib/booktype/apps/edit/channel.py:1427
+#: lib/booktype/apps/edit/channel.py:1430
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Ein Kapitel mit diesem Titel existiert bereits."
 
-#: lib/booktype/apps/edit/channel.py:1573
+#: lib/booktype/apps/edit/channel.py:1576
 msgid "You have no permissions for editing this chapter."
 msgstr "Keine Berechtigung das Kapitel zu bearbeiten."
 
-#: lib/booktype/apps/edit/channel.py:1581
+#: lib/booktype/apps/edit/channel.py:1584
 msgid "Chapter currently being edited."
 msgstr "Kapitel zur Zeit in Bearbeitung"
 
-#: lib/booktype/apps/edit/channel.py:1586
+#: lib/booktype/apps/edit/channel.py:1589
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Keine Berechtigung gesperrte Kapitel zu bearbeiten."
 
-#: lib/booktype/apps/edit/channel.py:1590
+#: lib/booktype/apps/edit/channel.py:1593
 msgid "Chapter currently is locked from everyone."
 msgstr "Kapitel zur Zeit für Bearbeitung gesperrt."
 
-#: lib/booktype/apps/edit/channel.py:2195
+#: lib/booktype/apps/edit/channel.py:2198
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "Eines der ausgewählten Formate wird nicht unterstützt. Bitte Seite neu laden. "
 
@@ -1455,7 +1455,7 @@ msgstr "Geändert"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:631
+#: lib/booktype/apps/edit/views.py:651
 msgid "Revision"
 msgstr "Version "
 
@@ -1490,67 +1490,65 @@ msgstr "Anzeige Einstellungen"
 msgid "Choose the outputs where you want to show this section"
 msgstr "Wähle die Ausgabeformate in denen dieser Abschnitt erscheinen soll."
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:21
+msgid "Output Name"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:22
 msgid "Show"
 msgstr "Zeige"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:27
-msgid "Hide"
-msgstr "Verbergen"
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+msgid "In Table of Contents"
+msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:30
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Inhaltsverzeichnis"
-
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:32
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
 msgid "Show section and chapters"
 msgstr "Zeige Abschnitte und Kapitel"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:33
-msgid "Show section / hide chapters"
-msgstr "Zeige Abschnitt / verberge Kapitel"
-
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
-msgid "Hide section / show chapters"
-msgstr "Verberge Abschnitt / zeige Kapitel"
-
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
+msgid "Show section but hide chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:36
+msgid "Hide section but show chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:37
 msgid "Hide section and chapters"
 msgstr "Verberge Abschnitte und Kapitel"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
 msgid "Extra"
 msgstr "Extra"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:43
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
 msgid "Set extra options"
 msgstr "Extra Einstellungen "
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:46
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:52
 msgid "Mark section as"
 msgstr "Markiere Abschnitt als"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:55
 msgid "Frontmatter"
 msgstr "Titelei"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:57
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:63
 msgid "Mainmatter"
 msgstr "Textteil"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:65
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:71
 msgid "Backmatter"
 msgstr "Anhang"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:73
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:78
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:84
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:85
 msgid "e.g. Authors"
 msgstr "z. B. Autoren/innen"
 
@@ -2885,8 +2883,8 @@ msgstr "ENTFERNEN"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:78
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:89
 msgid "EDIT"
 msgstr "BEARBEITEN"
 
@@ -3049,7 +3047,7 @@ msgstr "Bildmaße"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:571
+#: lib/booktype/apps/edit/views.py:591
 msgid "Book History"
 msgstr "Buch-Versionen"
 
@@ -3414,6 +3412,7 @@ msgid "No available publish formats."
 msgstr "Keine Ausgabeformate verfügbar"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
+#: lib/booktype/convert/mpdf/converter.py:101
 msgid "Printers' PDF"
 msgstr "Druck PDF"
 
@@ -3427,6 +3426,7 @@ msgid "settings"
 msgstr "Einstellungen"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
+#: lib/booktype/convert/screenpdf/converter.py:32
 msgid "Screen PDF"
 msgstr "Screen Pdf"
 
@@ -3436,7 +3436,7 @@ msgid "EPUB3"
 msgstr "EPUB3"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:577
-#: lib/booktype/convert/epub/converter.py:511
+#: lib/booktype/convert/epub/converter.py:512
 msgid "EPUB2"
 msgstr "EPUB2"
 
@@ -3516,13 +3516,13 @@ msgid "Metadata"
 msgstr "Metadaten"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:58
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:97
 msgid "Book Metadata"
 msgstr "Metadaten des Buches "
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:59
 msgid "Additional Metadata"
 msgstr "Zusätzliche Metadaten"
 
@@ -3633,6 +3633,11 @@ msgstr "Gesperrt"
 msgid "Locked exclusively"
 msgstr "Exklusiv gesperrt"
 
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Inhaltsverzeichnis"
+
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
 msgid "Detail View"
 msgstr "Detailansicht"
@@ -3737,7 +3742,7 @@ msgid ""
 msgstr "Feld löschen? Es kann nicht wieder hergestellt werden!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:61
+#: lib/booktype/apps/edit/views.py:62
 msgid "Chapter Status"
 msgstr "Kapitel-Status"
 
@@ -3773,13 +3778,13 @@ msgstr "Metadaten Inhalt löschen? Er kann nicht wieder hergestellt werden!"
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
 msgid "Open book information page"
 msgstr "Buchinformationen öffnen"
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3789,69 +3794,69 @@ msgstr "Info"
 msgid "Table Of Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:55
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:56
 msgid "Book Language"
 msgstr "Sprache des Buches"
 
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:57
 msgid "Book License"
 msgstr "Urheberrecht"
 
-#: lib/booktype/apps/edit/views.py:522
+#: lib/booktype/apps/edit/views.py:542
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "Version {0} gespeichert"
 
-#: lib/booktype/apps/edit/views.py:600
+#: lib/booktype/apps/edit/views.py:620
 msgid "Chapter diff"
 msgstr "Kapitel DIff"
 
-#: lib/booktype/apps/edit/views.py:638
+#: lib/booktype/apps/edit/views.py:658
 msgid "Book History | Chapter Revision"
 msgstr "Buch Versionen / Kapitel Version"
 
-#: lib/booktype/apps/edit/views.py:661
+#: lib/booktype/apps/edit/views.py:681
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Version %s wiederhergestellt"
 
-#: lib/booktype/apps/edit/views.py:680
+#: lib/booktype/apps/edit/views.py:700
 msgid "Chapter revision successfully reverted."
 msgstr "Kapitel Version erfolgreich wiederhergestellt."
 
-#: lib/booktype/apps/edit/views.py:682
+#: lib/booktype/apps/edit/views.py:702
 msgid "Chapter revision could not be reverted."
 msgstr "Kapitel Version konnte nicht wiederhergestellt werden"
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:773
 msgid "Successfully saved settings."
 msgstr "Einstellungen erfolgreich gespeichert."
 
-#: lib/booktype/apps/edit/views.py:755
+#: lib/booktype/apps/edit/views.py:775
 msgid "You have no permissions to execute this action."
 msgstr "Du hast keine Berechtigung die Aktion auszuführen"
 
-#: lib/booktype/apps/edit/views.py:758
+#: lib/booktype/apps/edit/views.py:778
 msgid "Unknown error while saving changes."
 msgstr "Unbekannter Fehler beim Speichern der Änderungen."
 
-#: lib/booktype/apps/edit/views.py:821
+#: lib/booktype/apps/edit/views.py:841
 msgid "default one ({})"
 msgstr "Standard ({})"
 
-#: lib/booktype/apps/edit/views.py:835
+#: lib/booktype/apps/edit/views.py:855
 msgid "Available revisions: {}"
 msgstr "Verfügbare Revisionen: {}"
 
-#: lib/booktype/apps/edit/views.py:837
+#: lib/booktype/apps/edit/views.py:857
 msgid "There are no revisions available"
 msgstr "Keine Revisionen verfügbar"
 
-#: lib/booktype/apps/edit/views.py:844
+#: lib/booktype/apps/edit/views.py:864
 msgid "USING REVISION"
 msgstr "VERWENDE REVISION"
 
@@ -4272,8 +4277,8 @@ msgid "No content yet"
 msgstr "Kein Inhalt"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:83
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:77
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:88
 msgid "Edit this chapter"
 msgstr "Kapitel bearbeiten"
 
@@ -4281,27 +4286,27 @@ msgstr "Kapitel bearbeiten"
 msgid "No content yet."
 msgstr "Kein Inhalt"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:38
 msgid "Toggle table of contents"
 msgstr "Inhaltsverzeichnis ein/ausblenden"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show table of contents"
 msgstr "Inhaltsverzeichnis anzeigen"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show contents"
 msgstr "Inhalte anzeigen"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide table of contents"
 msgstr "Inhaltsverzeichnis ausblenden"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide contents"
 msgstr "Inhalte ausblenden"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:45
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:50
 msgid "Table of contents"
 msgstr "Inhaltsverzeichnis"
 
@@ -4621,16 +4626,8 @@ msgstr "abgeschlossen"
 msgid "to be proofed"
 msgstr "Korrektorat"
 
-#: lib/booktype/convert/mpdf/converter.py:99
-msgid "PDF print"
-msgstr ""
-
 #: lib/booktype/convert/pdf/converter.py:45
 msgid "PDF Legacy (deprecated)"
-msgstr ""
-
-#: lib/booktype/convert/screenpdf/converter.py:32
-msgid "PDF screen"
 msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:95
