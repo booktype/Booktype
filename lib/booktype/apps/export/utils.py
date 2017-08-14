@@ -115,10 +115,14 @@ def set_booktype_metada(epub_book, book):
     """
 
     # set identifiers
+    isbn = 'booktype:%s' % book.url_title
     try:
         isbn = book.metadata.get(name='BKTERMS.print_isbn').value
     except:
-        isbn = 'booktype:%s' % book.url_title
+        pass
+    finally:
+        if not isbn:
+            isbn = 'booktype:%s' % book.url_title
     epub_book.set_identifier(isbn)
 
     # set epub isbn
