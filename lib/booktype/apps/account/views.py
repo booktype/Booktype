@@ -19,20 +19,20 @@ import re
 import os
 import json
 import string
+import logging
 from random import choice
 
 from django.core import signing
 from django.db.models import Q
-from django.contrib import auth
 from django.conf import settings
-from django.contrib import messages
 from django.db import IntegrityError
+from django.contrib import auth, messages
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, View
+from django.core.exceptions import PermissionDenied
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -45,18 +45,22 @@ from booktype.utils import config
 from booktype.apps.core import views
 from booktype.utils import misc, security
 from booktype.apps.edit.models import InviteCode
+from booktype.apps.edit.forms import MetadataForm
 from booktype.apps.core.models import Role, BookRole
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
+from booktype.apps.importer.utils import import_based_on_book
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
-from booki.editor.models import Book, License, BookHistory, BookiGroup
+from booki.editor.models import Book, License, BookHistory, BookiGroup, Language
 
-from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm
+from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm, BookCreationForm
 from . import tasks
 from . import utils
 
 import booktype.apps.account.signals
+
+logger = logging.getLogger('booktype.apps.account.views')
 
 
 class DashboardPageView(SecurityMixin, BasePageView, DetailView):
@@ -87,6 +91,7 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             context['roles_permissions'] = []
 
         context['licenses'] = License.objects.all().order_by('name')
+        context['languages'] = Language.objects.all()
 
         if self.is_current_user_dashboard:
             context['books'] = Book.objects.select_related('version').filter(
@@ -116,8 +121,17 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
         context['can_create_book'] = True
-        context['book_license'] = config.get_configuration('CREATE_BOOK_LICENSE')
-        context['book_visible'] = config.get_configuration('CREATE_BOOK_VISIBLE')
+
+        # NOTE: base_books will be user's books for now, let's define with the rest of team
+        # what should be a good logic to define existent books as skeletons
+        form_kwargs = {'base_book_qs': context['books']}
+
+        context['book_creation_form'] = BookCreationForm(
+            initial={
+                'language': config.get_configuration('CREATE_BOOK_LANGUAGE'),
+                'license': config.get_configuration('CREATE_BOOK_LICENSE'),
+                'visible_to_everyone': config.get_configuration('CREATE_BOOK_VISIBLE')
+            }, **form_kwargs)
 
         # if only admin import then deny user permission to upload books
         if config.get_configuration('ADMIN_IMPORT_BOOKS'):
@@ -185,13 +199,43 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
             return HttpResponse(json.dumps(data), 'application/json')
 
     def post(self, request, *args, **kwargs):
-        book = create_book(request.user, request.POST.get('title'))
-        lic = License.objects.get(abbrevation=request.POST.get('license'))
+        # TODO: use the form class to achieve this process and simplify this view and add validations
+        # TODO: we should print warnings so user's knows what's going on
 
-        book.license = lic
-        book.description = request.POST.get('description', '')
-        book.hidden = (request.POST.get('hidden', None) == 'on')
+        data = request.POST
+        book = create_book(request.user, data.get('title'))
 
+        license = License.objects.get(abbrevation=data.get('license'))
+        language = Language.objects.get(abbrevation=data.get('language'))
+
+        # STEP 1: Details
+        book.author = data.get('author')
+        book.license = license
+        book.language = language
+        book.hidden = (data.get('visible_to_everyone', None) == 'off')
+        book.description = data.get('description', '')
+
+        # STEP 2: Metadata
+        metaform = MetadataForm(book=book, data=data)
+        if metaform.is_valid():
+            metaform.save_settings(book, request)
+        else:
+            pass
+
+        # STEP 3: Creation mode
+        creation_mode = data.get('creation_mode', 'scratch')
+        if creation_mode == 'based_on_book':
+            try:
+                base_book = Book.objects.get(id=request.POST.get('base_book'))
+                version = base_book.get_version(None)
+                result = import_based_on_book(base_book_version=version, book_dest=book)
+            except Book.DoesNotExist:
+                logger.warn("Provided base book was not found")
+        else:
+            # nothing happens
+            pass
+
+        # STEP 4: Thumbnail and Covers
         if 'cover' in request.FILES:
             try:
                 fh, fname = misc.save_uploaded_as_file(request.FILES['cover'])

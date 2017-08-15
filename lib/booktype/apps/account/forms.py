@@ -1,15 +1,20 @@
-from django.core.validators import validate_email
+import logging
+
 from django import forms
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.core.validators import validate_email
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import PasswordChangeForm
 
-from booki.editor.models import BookHistory
+from booktype.utils import config
+from booki.editor.models import BookHistory, Language, License, METADATA_FIELDS
 from booktype.apps.core.models import Book, Role
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.apps.portal.widgets import RemovableImageWidget
 
+
+logger = logging.getLogger('booktype.apps.account.forms')
 
 class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     email = forms.EmailField(label=_('Email'))
@@ -94,3 +99,96 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
             validate_email(email)
 
         return email_list
+
+def _make_choices(queryset):
+    """
+    Language and License share field names: abbreviation and name.
+    Taking advantage ot this to create one single dummy method
+    """
+    choices = []
+    for obj in queryset:
+        choices.append((obj.abbrevation, obj.name))
+    return choices
+
+
+class BookCreationForm(BaseBooktypeForm, forms.Form):
+    # STEP 1: Book information
+    title = forms.CharField(
+        label=_("Title of book"),
+        max_length=200, required=True)
+
+    author = forms.CharField(
+        label=_("Author"), max_length=200)
+
+    language = forms.ChoiceField(
+        label=_("Language"),
+        choices=_make_choices(queryset=Language.objects.all()))
+
+    license = forms.ChoiceField(
+        label=_("License"),
+        choices=_make_choices(queryset=License.objects.all().order_by('name')))
+
+    visible_to_everyone = forms.BooleanField(
+        label=_("Visible to everyone"))
+
+    description = forms.CharField(
+        label=_("Description"),
+        widget=forms.Textarea(attrs={'cols': 20, 'rows': 3}))
+
+    # -------- END STEP 1 -------------
+
+    # STEP 2: Metadata
+    # NOTE: fields created on the fly, see __init__ method
+
+    # STEP 3: Creation mode
+    # NOTE: creation_mode field created in template since we need tooltips. Will be this way until
+    # we create our custom label renderer with tooltip icon
+
+    base_book = forms.ModelChoiceField(
+        label=_("Select the base book"),
+        queryset=Book.objects.none())
+    # -------- END STEP 3 -------------
+
+    def __init__(self, base_book_qs=None, *args, **kwargs):
+        super(BookCreationForm, self).__init__(*args, **kwargs)
+
+        # time to build metadata fields
+        self.metadata_fields = config.get_configuration('CREATE_BOOK_METADATA', [])
+
+        # TODO: extract this to a separate method to use it also in booktype.apps.edit.forms.MetadataForm
+        for field, label, standard in METADATA_FIELDS:
+            field_name = '%s.%s' % (standard, field)
+            if field_name not in self.metadata_fields:
+                continue
+
+            self.fields[field_name] = forms.CharField(
+                label=label, required=False)
+
+            c_field = self.fields[field_name]
+            BaseBooktypeForm.apply_class(c_field, 'form-control')
+
+            # apply widgets if needed
+            if field in self.Meta.widgets:
+                c_field.widget = self.Meta.widgets[field]
+
+        if base_book_qs is not None:
+            self.fields['base_book'].queryset = base_book_qs
+        else:
+            logger.warn("base_book_qs queryset parameter was not provided. Using empty queryset")
+
+
+
+    class Meta:
+        text_area = forms.Textarea(attrs={'class': 'form-control', 'cols': 20, 'rows': 3})
+        widgets = {
+            'short_description': text_area,
+            'long_description': text_area
+        }
+
+    def get_metadata_fields(self):
+        """
+        Retrieve the fields related to metadata information
+        """
+        for mfield in self.metadata_fields:
+            field = self.fields[mfield]
+            yield field.get_bound_field(self, mfield)

@@ -285,6 +285,15 @@ class Book(models.Model):
         except Info.DoesNotExist:
             return self.owner.get_full_name()
 
+    @author.setter
+    def author(self, name):
+        key, book, _string_type = 'DC.creator', self, 0
+
+        meta, _ = Info.objects.get_or_create(
+            book=book, name=key, kind=_string_type)
+        meta.value_string = name
+        meta.save()
+
     # DEPRECATED API NAMES
     getVersion = get_version
     getVersions = get_versions

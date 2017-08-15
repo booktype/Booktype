@@ -37,7 +37,7 @@ from django.utils.translation import ugettext as _
 
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
-from booktype.utils.misc import booktype_slugify
+from booktype.utils.misc import booktype_slugify, get_default_book_status
 
 from ..notifier import Notifier
 from ..delegate import Delegate
@@ -61,6 +61,7 @@ class EpubImporter(object):
 
         # Attachment objects indexed by image file name
         self._attachments = {}
+
         # Chapter objects indexed by document file name
         self._chapters = {}
 
@@ -85,6 +86,8 @@ class EpubImporter(object):
         # trigger signal
         book_imported.send(sender=self, book=book)
 
+        return epub_book
+
     def _import_book(self, epub_book, book):
         titles = {}
         toc = []
@@ -95,10 +98,9 @@ class EpubImporter(object):
                 unique_id = uuid.uuid4().hex
 
                 if isinstance(_elem, tuple):
-                    toc.append((1, _elem[0].title, unique_id, parent))
-                    _parse_toc(_elem[1])
-                elif isinstance(_elem, ebooklib.epub.Section):
-                    pass
+                    toc.append(
+                        (1, _elem[0].title, unique_id, parent))
+                    _parse_toc(_elem[1], unique_id)
                 elif isinstance(_elem, ebooklib.epub.Link):
                     _urlp = urlparse.urlparse(_elem.href)
                     _name = os.path.normpath(urllib.unquote(_urlp.path))
@@ -116,8 +118,8 @@ class EpubImporter(object):
             "TOC structure: \n{}".format(pprint.pformat(toc, indent=4)))
 
         now = datetime.datetime.utcnow().replace(tzinfo=utc)
-
-        stat = models.BookStatus.objects.filter(book=book, name="new")[0]
+        default_status = get_default_book_status()
+        stat = models.BookStatus.objects.filter(book=book, name=default_status)[0]
 
         # assign cover image if there is one
         cover_image = get_cover_image(epub_book)
@@ -133,10 +135,7 @@ class EpubImporter(object):
                 continue
 
             name = os.path.normpath(image.file_name)
-
-            att = models.Attachment(book=book,
-                                    version=book.version,
-                                    status=stat)
+            att = models.Attachment(book=book, version=book.version, status=stat)
 
             with ContentFile(image.get_content()) as content_file:
                 attName, attExt = os.path.splitext(os.path.basename(name))
