@@ -19,6 +19,7 @@
             {% check_perm 'edit.create_chapter' %}
             <li><a class="action split-chapter" href="#"><i class="fa fa-exchange"></i> &nbsp;&nbsp;{% trans "Split chapter" %}</a></li>
             {% endcheck_perm %}
+            <li><a class="action docximport" href="#"><i class="fa fa-upload"></i> &nbsp;&nbsp;{% trans "Import DOCX File" %}</a></li>
           </ul>
         </div>
         <div class="btn-group">
@@ -43,7 +44,6 @@
           <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Tools" %}</button>
           <ul class="dropdown-menu">
             <li><a class="action wcount" href="#"><i class="fa fa-stethoscope"></i> &nbsp;&nbsp;{% trans "Word count" %}</a></li>
-            <li><a class="action docximport" href="#"><i class="fa fa-upload"></i> &nbsp;&nbsp;{% trans "Import DOCX File" %}</a></li>
           </ul>
         </div>
   </div>
