@@ -1,7 +1,10 @@
+import fnmatch
+import tempfile
+
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 
-import fnmatch
+from booktype.apps.export.utils import get_exporter_class
 
 
 def split_domain_port(host):
@@ -66,3 +69,4 @@ class RestrictExport(object):
             raise PermissionDenied()
 
         return super(RestrictExport, self).dispatch(request, *args, **kwargs)
+

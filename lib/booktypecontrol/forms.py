@@ -21,7 +21,7 @@ from booktype.apps.core.models import Role, Permission
 from booktype.apps.core.widgets import GroupedCheckboxSelectMultiple
 from booktype.apps.portal.forms import GroupCreateForm
 from booktype.apps.portal.widgets import RemovableImageWidget
-from booki.editor.models import License, Book, BookiGroup
+from booki.editor.models import License, Book, BookiGroup, Language, METADATA_FIELDS
 from booktype.utils.book import (
     create_book, rename_book, check_book_availability
 )
@@ -304,70 +304,115 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
 
 class BookSettingsForm(BaseControlForm, forms.Form):
-    hlp_visible = _('Default visibility: If this box is checked, '
-                    'create/import wizard will suggest to mark book as hidden by default.')
-    hlp_track = _('If it is turned on then track changes will be '
-                  'enabled for all the users.')
-    visible = forms.BooleanField(
-        label=_('Default visibility'),
+    hlp_visible = _(
+        "Default: visible. If this box is unchecked, create/import wizard will suggest to mark book as hidden by "
+        "default.")
+
+    hlp_track = _(
+        "If it is turned on then track changes will be enabled for all the users.")
+
+    create_book_visible = forms.BooleanField(
+        label=_('Visible by default'),
         required=False,
-        help_text=_(hlp_visible)
-    )
+        help_text=_(hlp_visible))
+
     track_changes = forms.BooleanField(
         label=_('Track changes'),
         required=False,
-        help_text=_(hlp_track)
-    )
-    license = forms.ModelChoiceField(
+        help_text=_(hlp_track))
+
+    create_book_license = forms.ModelChoiceField(
         label=_('Default License'),
         queryset=License.objects.all().order_by("name"),
         required=False,
-        help_text=_("Default license for newly created books.")
+        help_text=_("Default license for newly created books."))
+
+    create_book_language = forms.ModelChoiceField(
+        label=_('Default Language'),
+        queryset=Language.objects.all(),
+        required=False,
+        help_text=_("Default language for newly created books."))
+
+    create_book_metadata = forms.MultipleChoiceField(
+        label=_('Metadata to be filled'),
+        choices=[],
+        required=False,
+        widget=forms.CheckboxSelectMultiple(),
+        help_text=_("Select the metadata fields to be filled in book creation wizard (selected fields will be optional)")
     )
+
+    def __init__(self, *args, **kwargs):
+        super(BookSettingsForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            if name == 'create_book_metadata':
+                metadata_choices = []
+
+                for meta_field, label, standard in METADATA_FIELDS:
+                    metadata_choices.append((
+                        "%s.%s" % (standard, meta_field), label))
+
+                field.choices = metadata_choices
 
     @classmethod
     def initial_data(cls):
-        _l = config.get_configuration('CREATE_BOOK_LICENSE')
-        if _l and _l != '':
+        lic = config.get_configuration('CREATE_BOOK_LICENSE')
+        if lic and lic != '':
             try:
-                license = License.objects.get(abbrevation=_l)
+                license = License.objects.get(abbrevation=lic)
             except License.DoesNotExist:
                 license = None
         else:
             license = None
 
+        lang = config.get_configuration('CREATE_BOOK_LANGUAGE')
+        if lang and lang != '':
+            try:
+                language = Language.objects.get(abbrevation=lang)
+            except License.DoesNotExist:
+                language = None
+        else:
+            language = None
+
+        create_book_metadata = config.get_configuration('CREATE_BOOK_METADATA', [])
+
         return {
-            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
-            'license': license,
+            'create_book_visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
+            'create_book_license': license,
+            'create_book_language': language,
+            'create_book_metadata': create_book_metadata,
             'track_changes': config.get_configuration('BOOK_TRACK_CHANGES')
         }
 
     def save_settings(self, request):
         config.set_configuration(
-            'CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+            'CREATE_BOOK_VISIBLE', self.cleaned_data['create_book_visible'])
 
         config.set_configuration(
             'BOOK_TRACK_CHANGES', self.cleaned_data['track_changes'])
 
-        if 'license' in self.cleaned_data:
-            if self.cleaned_data['license'] is not None:
-                config.set_configuration(
-                    'CREATE_BOOK_LICENSE',
-                    self.cleaned_data['license'].abbrevation
-                )
-            else:
-                config.set_configuration('CREATE_BOOK_LICENSE', '')
+        license = self.cleaned_data.get('create_book_license')
+        if license is not None:
+            config.set_configuration(
+                'CREATE_BOOK_LICENSE', license.abbrevation)
         else:
             config.set_configuration('CREATE_BOOK_LICENSE', '')
+
+        lang = self.cleaned_data.get('create_book_language')
+        if lang is not None:
+            config.set_configuration(
+                'CREATE_BOOK_LANGUAGE', lang.abbrevation)
+        else:
+            config.set_configuration('CREATE_BOOK_LANGUAGE', '')
+
+        # let's save metadata fields to be used
+        create_book_metadata = self.cleaned_data.get('create_book_metadata', [])
+        config.set_configuration('CREATE_BOOK_METADATA', create_book_metadata)
 
         try:
             config.save_configuration()
         except config.ConfigurationError as err:
             raise err
-
-# TODO: to be removed at same time of
-# old control center code
-BookCreateForm = BookSettingsForm
 
 
 class PrivacyForm(BaseControlForm, forms.Form):
