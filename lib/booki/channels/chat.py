@@ -16,6 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import sputnik
+
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+
+from booki.editor.models import Book
+from booktype.utils import security
+from booktype.apps.edit.models import ChatMessage, ChatThread
+
 
 def remote_message_send(request, message, bookid):
     """
@@ -29,7 +37,27 @@ def remote_message_send(request, message, bookid):
     @param bookid: Unique Book id
     """
 
-    import sputnik
+    try:
+        book = Book.objects.get(id=int(bookid))
+    except Book.DoesNotExist:
+        raise ObjectDoesNotExist
+    except Book.MultipleObjectsReturned:
+        raise ObjectDoesNotExist
+
+    book_security = security.get_security_for_book(request.user, book)
+    has_permission = book_security.can_edit()
+
+    if not has_permission:
+        raise PermissionDenied
+
+    # get chat thread
+    chat_thread, _ = ChatThread.objects.get_or_create(book=book)
+    # create message
+    chat_message = ChatMessage()
+    chat_message.thread = chat_thread
+    chat_message.sender = request.user
+    chat_message.text = message["message"]
+    chat_message.save()
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                 {"command": "message_received",
