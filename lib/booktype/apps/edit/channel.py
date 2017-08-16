@@ -40,6 +40,7 @@ from booktype.apps.core.models import Role, BookRole
 from booktype.apps.themes.models import BookTheme
 
 from .utils import send_notification, clean_chapter_html
+from .models import ChatThread
 
 try:
     from PIL import Image
@@ -277,6 +278,7 @@ def remote_init_editor(request, message, bookid, version):
      - statuses - list of tuples (status_id, status_name)
      - attachments - result of getAttachments function
      - onlineUsers - list of online users
+     - chatMessages - list of chat messages
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -397,6 +399,22 @@ def remote_init_editor(request, message, bookid, version):
         theme = BookTheme(book=book, active=theme_active)
         theme.save()
 
+    # get chat messages
+    chat_thread, _ = ChatThread.objects.get_or_create(book=book)
+
+    chat_messages = [
+        {
+            'datetime': str(msg['datetime'].strftime("%d/%m/%Y, %I:%M:%S %p")),
+            'text': msg['text'],
+            'sender_id': msg['sender'],
+            'sender_username': msg['sender__username'],
+            'email': msg['sender__email'],
+        } for msg in chat_thread.messages.values(
+            'datetime', 'text', 'sender', 'sender__email', 'sender__username'
+        ).order_by('datetime')
+    ]
+
+
     # provide information about current user
     current_user = {
         'username': book_security.user.username,
@@ -423,7 +441,8 @@ def remote_init_editor(request, message, bookid, version):
             # Check for errors in the future
             "theme_custom": json.loads(theme.custom),
             "onlineUsers": list(online_users),
-            "current_user": current_user
+            "current_user": current_user,
+            "chatMessages": chat_messages
         }
 
 

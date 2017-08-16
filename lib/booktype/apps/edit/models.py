@@ -94,3 +94,28 @@ class InviteCode(models.Model):
     def expired(self):
         now = date.today()
         return now > self.expire_on
+
+
+class ChatThread(models.Model):
+    """
+    Chat thread. All messages go here.
+    In future book can have more than 1 thread,
+    that is why we have this proxy model.
+    """
+    book = models.ForeignKey(Book)
+
+    def __str__(self):
+        return '"{}" thread.'.format(self.book.title)
+
+
+class ChatMessage(models.Model):
+    """
+    Chat message.
+    """
+    thread = models.ForeignKey(ChatThread, related_name='messages')
+    sender = models.ForeignKey(User)
+    text = models.TextField()
+    datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __str__(self):
+        return '{} Message from {} at {}.'.format(self.thread, self.sender, self.datetime)
