@@ -207,7 +207,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_DIR##')
+WSGI_APPLICATION = '{}.wsgi_dev.application'.format('##BOOKTYPE_SITE_DIR##')
 
 TEMPLATES = [
     {
