@@ -25,7 +25,7 @@ logger = logging.getLogger('booktype.utils.tidy')
 def tidy_cleanup(content, **extra):
     """
     Function that wraps tidy html command. It also uses our custom
-    booktype.utils.misc.remove_unknown_tags function to avoid issue when
+    booktype.utils.misc.remove_unknown_tags function to avoid issues when
     sending the content to the external command
 
     Args:
