@@ -485,6 +485,22 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # )
 
 _ADDITIONAL_METADATA = [
+    ('meta_subject', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Subject'
+            },
+        'WIDGET': 'TextInput'
+    }),
+    ('meta_keywords', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Keywords'
+            },
+        'WIDGET': 'TextInput'
+    }),
     ('edited_by', {
         'TYPE': 'CharField',
         'ATTRS': {
