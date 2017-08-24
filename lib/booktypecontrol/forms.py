@@ -151,20 +151,10 @@ class AppearanceForm(BaseControlForm, forms.Form):
 
 
 class FrontpageForm(BaseControlForm, forms.Form):
-    description = forms.CharField(
-        label=_('Welcome message'),
-        required=False,
-        widget=forms.Textarea(attrs={'rows': 20, 'cols': 40})
-    )
-    show_changes = forms.BooleanField(
-        label=_('Show activity'),
-        required=False
-    )
     use_anonymous_page = forms.BooleanField(
         label=_('Use anonymous page'),
         required=False,
-        help_text=_('Use separate page for anonymous users without books, '
-                    'people, groups and recent activity blocks.')
+        help_text=_('Show a message, contact email or image to anonymous visitors.')
     )
     anonymous_message = forms.CharField(
         label=_('Anonymous page message'),
