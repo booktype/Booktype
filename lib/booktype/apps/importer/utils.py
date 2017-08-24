@@ -17,6 +17,7 @@ from booktype.apps.convert.plugin import SectionsSettingsPlugin
 
 logger = logging.getLogger('booktype.apps.importer.utils')
 
+
 @contextmanager
 def temporary_directory():
     """
@@ -49,43 +50,56 @@ def import_based_on_book(base_book_version, book_dest):
         # we should be able to write it as a separate thing
         get_exporter_class()(temporale_epub, base_book_version).run()
 
-        notifier = CollectNotifier()
-        delegate = Delegate()
+        return import_based_on_epub(temporale_epub, book_dest)
 
-        epub_importer = EpubImporter()
-        epub_importer.notifier = notifier
-        epub_importer.delegate = delegate
 
-        result = {}
+def import_based_on_epub(epub_file, book_dest):
+    """
+    It will import an epub file into a existent book on the system.
+    This will also try to import sections settings and stuff
 
-        try:
-            epub_book = epub_importer.import_file(temporale_epub, book_dest)
-        except Exception as e:
-            epub_book = None
-            logger.error('ImporterView::Some kind of error while importing book.')
-            logger.exception(e)
-            notifier.errors.append(str(e))
+    Keyword arguments:
+        epub_file -- EPUB file to be imported into book_dest
+        book_dest -- Destiny book
+    """
 
-        # let's try to save sections settings
-        if epub_book is not None:
-            settings_dict = get_sections_settings(epub_book)
-            book_dest_version = book_dest.get_version(None)
-            sec_count = 1
+    notifier = CollectNotifier()
+    delegate = Delegate()
 
-            for toc_item in book_dest_version.get_toc():
-                if toc_item.is_section():
-                    url_title = booktype_slugify(toc_item.name)
-                    section_key = SectionsSettingsPlugin.build_section_key(url_title, sec_count)
-                    section_settings = settings_dict.get(section_key, None)
+    epub_importer = EpubImporter()
+    epub_importer.notifier = notifier
+    epub_importer.delegate = delegate
 
-                    if section_settings is not None:
-                        toc_item.settings = section_settings
-                        toc_item.save()
+    result = {}
 
-                        sec_count += 1
+    try:
+        epub_book = epub_importer.import_file(epub_file, book_dest)
+    except Exception as e:
+        epub_book = None
+        logger.error('ImporterView::Some kind of error while importing book.')
+        logger.exception(e)
+        notifier.errors.append(str(e))
 
-        result['infos'] = notifier.infos
-        result['warnings'] = notifier.warnings
-        result['errors'] = notifier.errors
+    # let's try to save sections settings
+    if epub_book is not None:
+        settings_dict = get_sections_settings(epub_book)
+        book_dest_version = book_dest.get_version(None)
+        sec_count = 1
 
-        return result
+        for toc_item in book_dest_version.get_toc():
+            if toc_item.is_section():
+                url_title = booktype_slugify(toc_item.name)
+                section_key = SectionsSettingsPlugin.build_section_key(url_title, sec_count)
+                section_settings = settings_dict.get(section_key, None)
+
+                if section_settings is not None:
+                    toc_item.settings = section_settings
+                    toc_item.save()
+
+                    sec_count += 1
+
+    result['infos'] = notifier.infos
+    result['warnings'] = notifier.warnings
+    result['errors'] = notifier.errors
+
+    return result

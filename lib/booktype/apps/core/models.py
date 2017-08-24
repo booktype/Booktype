@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from booki.editor.models import Book
+from booki.editor.models import Book, Language
 
 
 class Permission(models.Model):
@@ -95,3 +95,44 @@ class BookRole(models.Model):
     class Meta:
         verbose_name = _('Book Role')
         verbose_name_plural = _('Book Roles')
+
+
+# we're just using to EPUB skeletons for now
+# but in near future we're going to implement another
+# ways like CSV perhaps
+SKELETON_TYPES = (
+    (1, _("EPUB")),
+)
+
+SKELETON_UPLOAD_DIR = 'book_skeletons/'
+
+
+class BookSkeleton(models.Model):
+    """
+    Simple django model to store book skeletons information
+    """
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_('Name'))
+
+    description = models.CharField(
+        _('description'), max_length=255, blank=True)
+
+    language = models.ForeignKey(
+        Language, verbose_name=_('Language'))
+
+    skeleton_type = models.IntegerField(
+        choices=SKELETON_TYPES,
+        verbose_name=_('Skeleton Type'))
+
+    skeleton_file = models.FileField(
+        upload_to=SKELETON_UPLOAD_DIR,
+        verbose_name=_('File'))
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.name, self.language)
+
+    class Meta:
+        verbose_name = _('Book Skeleton')
+        verbose_name_plural = _('Book Skeletons')

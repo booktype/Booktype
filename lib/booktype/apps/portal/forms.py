@@ -19,8 +19,8 @@ class SpanErrorList(ErrorList):
 
     def as_spans(self):
         return "<span style='color: red'>%s</span>" % (
-            ",".join([e for e in self])
-        )
+            ",".join([e for e in self]))
+
 
 class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
     name = forms.CharField()
@@ -69,7 +69,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
             if len(filename) == 0:
                 raise ValidationError(_('Only JPEG file is allowed for group image.'))
             else:
-                misc.set_group_image( "{}_small".format(group_id), group_image, 18, 18)
+                misc.set_group_image("{}_small".format(group_id), group_image, 18, 18)
         except Exception as err:
             # TODO: we should do something here
             print err
@@ -77,6 +77,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
 
 class GroupCreateForm(BaseGroupForm):
     pass
+
 
 class GroupUpdateForm(BaseGroupForm):
 

@@ -46,17 +46,16 @@ from booktype.apps.core import views
 from booktype.utils import misc, security
 from booktype.apps.edit.models import InviteCode
 from booktype.apps.edit.forms import MetadataForm
-from booktype.apps.core.models import Role, BookRole
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
-from booktype.apps.importer.utils import import_based_on_book
+from booktype.apps.core.models import Role, BookRole, BookSkeleton
+from booktype.apps.importer.utils import import_based_on_book, import_based_on_epub
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
 from booki.editor.models import Book, License, BookHistory, BookiGroup, Language
 
+from . import tasks, utils
 from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm, BookCreationForm
-from . import tasks
-from . import utils
 
 import booktype.apps.account.signals
 
@@ -80,10 +79,11 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardPageView, self).get_context_data(**kwargs)
+        current_user = self.request.user
 
-        context['is_admin'] = self.request.user.is_superuser
+        context['is_admin'] = current_user.is_superuser
         # get all user permissions
-        role_key = security.get_default_role_key(self.request.user)
+        role_key = security.get_default_role_key(current_user)
         default_role = security.get_default_role(role_key)
         if default_role:
             context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
@@ -119,7 +119,7 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
         context['recent_activity'] = BookHistory.objects.filter(
             user=self.object).order_by('-modified')[:3]
 
-        context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
+        context['can_upload_book'] = security.get_security(current_user).has_perm('account.can_upload_book')
         context['can_create_book'] = True
 
         # NOTE: base_books will be user's books for now, let's define with the rest of team
@@ -135,39 +135,40 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         # if only admin import then deny user permission to upload books
         if config.get_configuration('ADMIN_IMPORT_BOOKS'):
-            if not self.request.user.is_superuser:
+            if not current_user.is_superuser:
                 context['can_upload_book'] = False
 
         # if only admin create then deny user permission to create new books
         if config.get_configuration('ADMIN_CREATE_BOOKS'):
-            if not self.request.user.is_superuser:
+            if not current_user.is_superuser:
                 context['can_create_book'] = False
 
         # check if user can create/import more books
-        if self.request.user.is_authenticated():
-            context['is_book_limit'] = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
+        if current_user.is_authenticated():
+            book_p_user = config.get_configuration('BOOKTYPE_BOOKS_PER_USER')
+            context['is_book_limit'] = Book.objects.filter(owner=current_user).count() >= book_p_user != -1
         else:
             context['is_book_limit'] = True
 
         if context['is_book_limit']:
-            if not self.request.user.is_superuser:
+            if not current_user.is_superuser:
                 context['can_create_book'] = False
                 context['can_upload_book'] = False
             else:
                 context['is_book_limit'] = False
 
         # change title in case of not authenticated user
-        if not self.request.user.is_authenticated() or \
-           self.object != self.request.user:
+        if not current_user.is_authenticated() or \
+           self.object != current_user:
             context['title'] = _('User profile')
             context['page_title'] = _('User profile')
 
         # Getting context variables for the form to invite users
-        if self.request.user.is_authenticated():
+        if current_user.is_authenticated():
             initial = {
                 'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
             }
-            context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
+            context['invite_form'] = UserInviteForm(user=current_user, initial=initial)
 
         return context
 
@@ -187,7 +188,8 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
             raise PermissionDenied
 
         # check if user can create more books
-        if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
+        book_p_user = config.get_configuration('BOOKTYPE_BOOKS_PER_USER')
+        if Book.objects.filter(owner=self.request.user).count() >= book_p_user != -1:
             raise PermissionDenied
 
     def get(self, request, *args, **kwargs):
@@ -200,7 +202,7 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
 
     def post(self, request, *args, **kwargs):
         # TODO: use the form class to achieve this process and simplify this view and add validations
-        # TODO: we should print warnings so user's knows what's going on
+        # TODO: we should print warnings so user knows what's going on
 
         data = request.POST
         book = create_book(request.user, data.get('title'))
@@ -227,13 +229,16 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
         if creation_mode == 'based_on_book':
             try:
                 base_book = Book.objects.get(id=request.POST.get('base_book'))
-                version = base_book.get_version(None)
-                result = import_based_on_book(base_book_version=version, book_dest=book)
+                base_book_version = base_book.get_version(None)
+                result = import_based_on_book(base_book_version, book)
             except Book.DoesNotExist:
                 logger.warn("Provided base book was not found")
-        else:
-            # nothing happens
-            pass
+        elif creation_mode == 'based_on_skeleton':
+            try:
+                base_skeleton = BookSkeleton.objects.get(id=request.POST.get('base_skeleton'))
+                result = import_based_on_epub(base_skeleton.skeleton_file, book)
+            except BookSkeleton.DoesNotExist:
+                logger.warn("Provided base skeleton was not found")
 
         # STEP 4: Thumbnail and Covers
         if 'cover' in request.FILES:
@@ -247,10 +252,8 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
         book.save()
 
         return render(
-            request,
-            'account/create_book_redirect.html',
-            {"request": request, "book": book}
-        )
+            request, 'account/create_book_redirect.html',
+            {"request": request, "book": book})
 
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):

@@ -1,0 +1,11 @@
+{% extends "booktypecontrol/control_center_settings.html" %}
+{% load i18n %}
+
+{% block extra_cc_content %}
+    <button class="btn btn-primary cc-item-delete"  data-remote="{% url 'control_center:delete_book_skeleton' skeleton.pk %}" data-toggle="modal" data-target="#bookEditModal">
+        {% trans "Remove" %}
+    </button>
+
+    <div id="bookEditModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
+{% endblock %}
