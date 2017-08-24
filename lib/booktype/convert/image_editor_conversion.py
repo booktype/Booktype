@@ -181,11 +181,12 @@ class ImageEditorConversion(object):
         if div_image.get('style'):
             del div_image.attrib['style']
 
+        transform_data = json.loads(elem.get('transform-data'))
+        del elem.attrib['transform-data']
+
         ###########################
         # resize && update styles #
         ###########################
-        transform_data = json.loads(elem.get('transform-data'))
-        del elem.attrib['transform-data']
 
         # proportionally resize according to self._output_document_width
         quotient = float(EDITOR_WIDTH) / float(self._output_document_width)
@@ -197,17 +198,27 @@ class ImageEditorConversion(object):
         transform_data['imageTranslateX'] = float(transform_data['imageTranslateX']) / quotient
         transform_data['imageTranslateY'] = float(transform_data['imageTranslateY']) / quotient
 
-        # TODO handle full page images
-        # set style for image
-        image_style = 'display: inline-block;'
+        # full page image
+        if transform_data.get('frameFPI'):
+            # proportionally resize, fpi width must be equal document width
+            quotient = transform_data['frameWidth'] / float(self._output_document_width)
+
+            transform_data['imageWidth'] = float(transform_data['imageWidth']) / quotient
+            transform_data['frameWidth'] = float(transform_data['frameWidth']) / quotient
+            transform_data['imageHeight'] = float(transform_data['imageHeight']) / quotient
+            transform_data['frameHeight'] = float(transform_data['frameHeight']) / quotient
+            transform_data['imageTranslateX'] = float(transform_data['imageTranslateX']) / quotient
+            transform_data['imageTranslateY'] = float(transform_data['imageTranslateY']) / quotient
+
+            # mark element with fpi class
+            elem.set('class', 'fpi')
 
         # this solution work with kindle
         width_percent = 100 - (100 - 100 * float(transform_data['frameWidth']) / self._output_document_width)
         width_percent = round(width_percent, 1)
-        image_style += ' width: {0}%;'.format(width_percent)
 
-        # TODO only for epub and xhtml
-        elem.set('style', image_style)
+        # makes sense only for epub and xhtml
+        elem.set('style', 'display: inline-block; width: {0}%;'.format(width_percent))
 
         # find old captions using p.caption_small
         for p_caption in div_group_img.xpath('p[contains(@class,"caption_small")]'):

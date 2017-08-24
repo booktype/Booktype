@@ -4,10 +4,16 @@ import os
 import json
 import uuid
 import hashlib
+import logging
+import zipfile
 import difflib
+import StringIO
 import datetime
+import operator
 import mimetypes
 import unidecode
+
+from lxml.html.diff import htmldiff
 
 from django.utils import formats
 from django.conf import settings
@@ -21,7 +27,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, DetailView, FormView
+from django.views.generic import TemplateView, DetailView, FormView, View
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from braces.views import (LoginRequiredMixin, JSONResponseMixin)
@@ -32,12 +38,18 @@ from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
+from booktype.apps.convert.plugin import TocSettings
 from booktype.apps.reader.views import BaseReaderView
+from booktype.convert import loader as convert_loader
+from booktype.apps.convert import utils as convert_utils
+from booktype.apps.importer.forms import UploadDocxFileForm
 from booktype.utils.security import BookSecurity, get_user_permissions
 
-from .utils import color_me, send_notification
+from .utils import color_me, send_notification, clean_chapter_html
 from .channel import get_toc_for_book
 from . import forms as book_forms
+
+logger = logging.getLogger('booktype.apps.edit.views')
 
 
 VALID_SETTINGS = {
@@ -200,6 +212,112 @@ def upload_cover(request, bookid, version=None):
         return HttpResponse(json.dumps(response_data), content_type="text/html")
 
 
+def unified_diff(content1, content2):
+    try:
+        content1 = clean_chapter_html(content1, clean_comments_trail=True)
+        content2 = clean_chapter_html(content2, clean_comments_trail=True)
+    except Exception as e:
+        logger.error('ERROR while cleaning content %s. Rev 1: %s Chapter: %s' % (
+            e, content1, content2))
+        return {"result": False}
+
+    diff = htmldiff(content1, content2)
+    return diff
+
+
+def split_diff(content1, content2):
+    """
+    Method that receives to html strings as parameters and a diff is
+    returned as HTML string and is used for parallel comparison.
+    """
+
+    output = []
+    output_left = '<td valign="top">'
+    output_right = '<td valign="top">'
+
+    def _fix_content(cnt):
+        list_of_tags = ['p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+
+        for _t in list_of_tags:
+            cnt = cnt.replace('<{}>'.format(_t), '\n<{}>'.format(_t))
+            if _t != 'p':
+                cnt = cnt.replace('</{}>'.format(_t), '</{}>\n'.format(_t))
+
+        cnt = cnt.replace('\n\n', '\n')
+        cnt = cnt.replace('. ', '. \n')
+
+        return cnt
+
+    content1 = re.sub('<[^<]+?>', '', _fix_content(content1)).splitlines()
+    content1 = [x.lstrip() for x in content1]
+
+    content2 = re.sub('<[^<]+?>', '', _fix_content(content2)).splitlines()
+    content2 = [x.lstrip() for x in content2]
+
+    lns = [line for line in difflib.ndiff(content1, content2)]
+
+    n = 0
+    minus_pos = None
+    plus_pos = None
+
+    def my_find(s, wh, x=0):
+        n = x
+        for ch in s[n:]:
+            if ch in wh:
+                return n
+            n += 1
+        return -1
+
+    while True:
+        if n >= len(lns):
+            break
+
+        line = lns[n]
+
+        if line[:2] == '+ ':
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
+                plus_pos = (x, y)
+            else:
+                plus_pos = None
+
+            output_right += '<div class="diff changed">%s</div>' % \
+                color_me(line[2:], 'diff added', plus_pos)
+            output.append(
+                '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+            output_left = output_right = '<td valign="top">'
+
+        elif line[:2] == '- ':
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
+                minus_pos = (x, y)
+            else:
+                minus_pos = None
+
+            output.append(
+                '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+
+            output_left = output_right = '<td valign="top">'
+            output_left += '<div class="diff changed">%s</div>' % color_me(
+                line[2:], 'diff deleted', minus_pos)
+
+        elif line[:2] == '  ':
+            if line[2:].strip() != '':
+                output_left += line[2:] + '<br/><br/>'
+                output_right += line[2:] + '<br/><br/>'
+
+        n += 1
+
+    output.append('<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+    output = '<table border="0" width="100%" class="row compare_table">' + "".join(output) + '</table>'
+
+    return mark_safe(output)
+
+
 def cover(request, bookid, cid, fname=None, version=None):
 
     try:
@@ -346,11 +464,41 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
         context['track_changes'] = json.dumps(
             book_version.track_changes or should_track_changes)
-        context['base_url'] = settings.BOOKTYPE_URL
-        context['static_url'] = settings.STATIC_URL
         context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
-        context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
+        context['icc_profiles_choices'] = config.get_configuration('ICC_PROFILES_CHOICES', None)
+
+        # publish options are used in panel_publish.html to render available converters
+        publish_options = config.get_configuration('PUBLISH_OPTIONS')
+        context['publish_options'] = publish_options
+
+        outputs_map = {}
+        converters = convert_loader.find_all(
+            module_names=convert_utils.get_converter_module_names())
+
+        for output_key in publish_options:
+            # if saved option is not in converters, let's just ignore it
+            if output_key not in converters:
+                continue
+
+            converter_class = converters[output_key]
+            support_section_settings = getattr(converter_class, 'support_section_settings', False)
+            if not support_section_settings:
+                continue
+
+            safe_key = output_key.replace('-', '_')
+            outputs_map[safe_key] = getattr(converter_class, 'verbose_name', output_key)
+
+        context['publish_options_ordered_tuple'] = sorted(outputs_map.items(), key=operator.itemgetter(1))
+        context['TocSettings'] = TocSettings
+
+        context['autosave'] = json.dumps({
+            'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
+            'delay': config.get_configuration('EDITOR_AUTOSAVE_DELAY')
+        })
+        context['settings_roles_show_permissions'] = config.get_configuration('EDITOR_SETTINGS_ROLES_SHOW_PERMISSIONS')
+
+        context['upload_docx_form'] = UploadDocxFileForm()
 
         return context
 
@@ -469,95 +617,8 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
         except:
             return context
 
-        output = []
-
-        output_left = '<td valign="top">'
-        output_right = '<td valign="top">'
-
-        def _fix_content(cnt):
-            list_of_tags = [
-                'p', 'div', 'li', 'h1', 'h2', 'h3', 'h4',
-                'h5', 'h6']
-
-            for _t in list_of_tags:
-                cnt = cnt.replace('<{}>'.format(_t), '\n<{}>'.format(_t))
-                if _t != 'p':
-                    cnt = cnt.replace('</{}>'.format(_t), '</{}>\n'.format(_t))
-
-            cnt = cnt.replace('\n\n', '\n')
-
-            return cnt.replace('. ', '. \n')
-
-        content1 = re.sub(
-            '<[^<]+?>', '', _fix_content(revision1.content)
-        ).splitlines(1)
-
-        content2 = re.sub(
-            '<[^<]+?>', '', _fix_content(revision2.content)
-        ).splitlines(1)
-
-        lns = [line for line in difflib.ndiff(content1, content2)]
-
-        n = 0
-        minus_pos = None
-        plus_pos = None
-
-        def my_find(s, wh, x=0):
-            n = x
-            for ch in s[n:]:
-                if ch in wh:
-                    return n
-                n += 1
-            return -1
-
-        while True:
-            if n >= len(lns):
-                break
-
-            line = lns[n]
-
-            if line[:2] == '+ ':
-                if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                    lns[n + 1] += lns[n + 1] + ' '
-                    x = my_find(lns[n + 1][2:], '+?^-')
-                    y = lns[n + 1][2:].find(' ', x) - 2
-                    plus_pos = (x, y)
-                else:
-                    plus_pos = None
-
-                output_right += '<div class="diff changed">%s</div>' % \
-                    color_me(line[2:], 'diff added', plus_pos)
-                output.append(
-                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-                output_left = output_right = '<td valign="top">'
-
-            elif line[:2] == '- ':
-                if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                    lns[n + 1] += lns[n + 1] + ' '
-                    x = my_find(lns[n + 1][2:], '+?^-')
-                    y = lns[n + 1][2:].find(' ', x) - 2
-                    minus_pos = (x, y)
-                else:
-                    minus_pos = None
-
-                output.append(
-                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-
-                output_left = output_right = '<td valign="top">'
-                output_left += '<div class="diff changed">%s</div>' % color_me(
-                    line[2:], 'diff deleted', minus_pos)
-
-            elif line[:2] == '  ':
-                if line[2:].strip() != '':
-                    output_left += line[2:] + '<br/><br/>'
-                    output_right += line[2:] + '<br/><br/>'
-
-            n += 1
-
-        output.append('<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-        output = [mark_safe(o) for o in output]
-
-        context['output'] = output
+        context['unified_output'] = unified_diff(revision1.content, revision2.content)
+        context['split_output'] = split_diff(revision1.content, revision2.content)
         context['chapter'] = self.chapter
         context['page_title'] = _('Chapter diff')
         context['book'] = book
@@ -661,11 +722,13 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
 
     def dispatch(self, request, *args, **kwargs):
         # check if book exist
-        bookid = request.REQUEST.get('bookid', None)
+        _request_data = getattr(request, request.method)
+
+        bookid = _request_data.get('bookid', None)
         self.book = get_object_or_404(models.Book, id=bookid)
 
         # a settings option is needed
-        option = request.REQUEST.get('setting', None)
+        option = _request_data.get('setting', None)
         if option and option in VALID_SETTINGS:
             self.submodule = option
         else:
@@ -737,3 +800,209 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
                 self.template_name
             ]
         return super(BookSettingsView, self).get_template_names()
+
+
+class DownloadBookHistory(LoginRequiredMixin, DetailView):
+    """
+    This class is meant to be used for chapterwise history download
+    and book history download as well
+    """
+
+    # TODO: document how this thing works via url and what parameters might take
+    # in order to accomplish different things
+
+    model = models.Book
+    slug_field = 'url_title'
+    slug_url_kwarg = 'bookid'
+    context_object_name = 'book'
+    template_name = 'edit/download_history.html'
+
+    DEFAULT_REV = '10'
+
+    def _get_history(self, history_mode):
+        book = self.object
+        items = self.item_list
+        base_revision = self.base_revision
+
+        output = []
+
+        for itm in items:
+            revision1 = None
+
+            try:
+                revision1 = models.ChapterHistory.objects.filter(
+                        chapter__book=book, chapter=itm.chapter
+                    ).exclude(revision=itm.chapter.revision).order_by('-modified').first()
+                using_revision = revision1.revision
+            except models.ChapterHistory.DoesNotExist:
+                # if not found and revision was not the default one, just try to pull
+                # the default revision we've been using.
+                if base_revision not in [self.DEFAULT_REV, '2']:
+                    try:
+                        revision1 = models.ChapterHistory.objects.get(
+                            chapter__book=book, chapter=itm.chapter, revision=self.DEFAULT_REV)
+                        using_revision = _("default one ({})").format(self.DEFAULT_REV)
+                    except:
+                        continue
+
+                if revision1 is None:
+                    continue
+
+            except Exception:
+                continue
+
+            # do not include latest one because is the current chapter content
+            available_revisions = itm.chapter.chapterhistory_set.values_list('revision', flat=True)[1:]
+            if len(available_revisions) > 0:
+                _revs = ", ".join(map(str, set(available_revisions)))
+                available_revisions = _("Available revisions: {}").format(_revs)
+            else:
+                available_revisions = _("There are no revisions available")
+
+            title = u'{} <small>({} - {}) | <b data-toggle="tooltip" title="{}">{}: {}</b></small>'.format(
+                itm.name,
+                revision1.modified.strftime('%d.%m.%y %H:%M'),
+                itm.chapter.modified.strftime('%d.%m.%y %H:%M'),
+                available_revisions,
+                _("USING REVISION"),
+                using_revision
+            )
+
+            if history_mode == 'split':
+                content = split_diff(revision1.content, itm.chapter.content)
+                if 'class="diff' not in content:
+                    content = None
+            else:
+                content = unified_diff(revision1.content, itm.chapter.content)
+                if '<ins>' in content or '<del>' in content:
+                    content = "<tr><td valign='top'>%s</td></tr>" % content
+                else:
+                    content = None
+
+            if content:
+                content = self._clean_tags(content)
+
+            output.append({'title': title, 'content': content})
+
+        return output
+
+    def _clean_tags(self, s):
+        """
+        Remove ins, del and p tags with no content
+        we need a more elegant way to achieve this
+        """
+
+        s = s.replace('<p></p>', '')
+        s = s.replace('<p><br></p>', '')
+
+        s = s.replace('<br><br><br>', '<br>')
+        s = s.replace('<br><br>', '<br>')
+
+        s = s.replace('<ins></ins>', '')
+        s = s.replace('<del></del>', '')
+        s = s.replace('<ins><br></ins>', '')
+        s = s.replace('<del><br></del>', '')
+
+        return s
+
+    def get_context_data(self, **kwargs):
+        context = super(DownloadBookHistory, self).get_context_data(**kwargs)
+        chapterid = self.kwargs.get('chapter', None)
+        book_mode = True
+
+        book = context.get('book')
+        book_version = book.get_version()
+        history_title = book.title
+
+        if chapterid:
+            try:
+                toc_item = models.BookToc.objects.get(chapter__id=chapterid, book=book)
+                history_title = toc_item.chapter.title
+                book_mode = False
+            except Exception:
+                raise Http404
+
+        # both attributes below will be used later to zip both history_modes
+        self.item_list = [toc_item] if chapterid else book_version.get_toc()
+        self.base_revision = self.request.GET.get('base_rev', self.DEFAULT_REV)
+
+        # pull the diff function based on parameter
+        self.history_mode = self.request.GET.get('mode', 'unified')
+        context['output'] = self._get_history(self.history_mode)
+        context['history_title'] = history_title
+        context['book_mode'] = book_mode
+
+        return context
+
+    def render_to_response(self, context, **kwargs):
+        response = super(DownloadBookHistory, self).render_to_response(context, **kwargs)
+
+        # allows an html response mode
+        if self.request.GET.get('html', False):
+            return response
+
+        def _get_name(mode):
+            return '{}_history.html'.format(mode)
+
+        content = response.render().content
+        zip_name = '{}_history'.format(self.object.url_title)
+        history_file_name = _get_name(self.history_mode)
+
+        zfile_content = StringIO.StringIO()
+        zfile = zipfile.ZipFile(zfile_content, 'w', zipfile.ZIP_STORED)
+        zfile.writestr('{}/{}'.format(zip_name, history_file_name), content)
+
+        # include both history modes within zip file
+        if self.request.GET.get('zip_both'):
+            pending_mode = 'unified' if self.history_mode == 'split' else 'split'
+            context['output'] = self._get_history(pending_mode)
+
+            resp = super(DownloadBookHistory, self).render_to_response(context, **kwargs)
+            content2 = resp.render().content
+
+            # now it's time to add it to the zip file
+            zfile.writestr('{}/{}'.format(zip_name, _get_name(pending_mode)), content2)
+
+        zfile.close()
+
+        resp = HttpResponse(zfile_content.getvalue(), content_type="application/x-zip-compressed")
+        resp['Content-Disposition'] = 'attachment; filename={}.zip'.format(zip_name)
+
+        return resp
+
+
+class InviteCodes(LoginRequiredMixin, views.SecurityMixin, JSONResponseMixin, DetailView, FormView):
+
+    model = models.Book
+    slug_field = 'url_title'
+    slug_url_kwarg = 'bookid'
+    context_object_name = 'book'
+    template_name = 'edit/invite_code.html'
+    form_class = book_forms.InviteCodeForm
+
+    def get_context_data(self, **kwargs):
+        book = self.get_object()
+        context = super(InviteCodes, self).get_context_data(**kwargs)
+        context['existent_codes'] = book.invite_codes.all()
+        return context
+
+    def response(self, data):
+        return self.render_json_response(data)
+
+    def form_invalid(self, form):
+
+        return self.response({
+            'result': False,
+            'errors': form.errors
+        })
+
+    def form_valid(self, form):
+        instance = form.instance
+        instance.book = self.get_object()
+        instance.code = str(uuid.uuid4())[:8]
+        form.save()
+
+        return self.response({
+            'result': True,
+            'code': instance.code.upper()
+        })

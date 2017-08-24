@@ -50,8 +50,8 @@
                         {% trans "Books" %}
                         <div class="btn-toolbar float-right">
                             <div class="btn-group float-right">
-                                <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a grid" %}"><i class="icon-th"></i></button>
-                                <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a list" %}"><i class="icon-list-ul"></i></button>
+                                <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a grid" %}"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a list" %}"><i class="fa fa-list-ul"></i></button>
                             </div>
                         </div>
                     </h2>
@@ -69,13 +69,13 @@
                                     <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book Info" %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="fa fa-pencil"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book Info" %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank"><i class="fa fa-eye"></i></a>
                                                 {% if request.user == book.owner and is_group_member or user.is_superuser or is_group_admin %}
                                                     <a href={% url 'portal:remove_book' user_group.url_name book.url_title %} class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Remove Book from this group" %}"
                                                        data-target="#bookRemoveModal"
                                                        data-toggle="modal">
-                                                        <i class="icon-trash"></i></a>
+                                                        <i class="fa fa-trash-o"></i></a>
                                                 {% endif %}
                                             </div>
                                         {% endif %}

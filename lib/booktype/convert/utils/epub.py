@@ -15,11 +15,13 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-
+import json
 import ebooklib
 import ebooklib.epub
 import ebooklib.utils
 from lxml import etree
+
+from booktype.apps.convert.templatetags.convert_tags import _get_property
 
 
 def parse_toc_nav(book):
@@ -44,12 +46,11 @@ def _parse_nav_content(content, base_name):
         for item_node in list_node.findall("li"):
 
             sublist_node = item_node.find("ol")
-            link_node    = item_node.find("a")
+            link_node = item_node.find("a")
 
             if sublist_node is not None:
                 section_name = item_node[0].text
-                chapters     = parse_list(sublist_node)
-
+                chapters = parse_list(sublist_node)
                 items.append((section_name, chapters))
 
             elif link_node is not None:
@@ -83,3 +84,19 @@ def reformat_endnotes(chapter_content):
             a.text = sup.text
             sup.text = ''
             sup.insert(0, a)
+            del sup.attrib['data-id']
+
+
+def get_sections_settings(epub_book):
+    """
+    Reads a from the bookmetadata and returns it as dict object
+    """
+
+    # TODO: put bkterms:sections_settings meta key into safest place, like constants module
+    settings = _get_property(epub_book.metadata, 'bkterms:sections_settings')
+    try:
+        settings = json.loads(settings)
+    except:
+        settings = {}
+
+    return settings

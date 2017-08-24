@@ -7,16 +7,27 @@
       window.booktype.currentBook    = "{{ book.title|escapejs }}";
       window.booktype.currentBookURL = "{{ book.url_title|escapejs }}";
       window.booktype.currentActiveTab = null;
-      window.booktype.staticURL = "{{ static_url|escapejs }}";
-      window.booktype.baseURL = "{{ base_url|escapejs }}";
+      window.booktype.staticURL = "{{ STATIC_URL|escapejs }}";
+      window.booktype.baseURL = "{{ BOOKTYPE_URL|escapejs }}";
+      window.booktype.apiVersion = "{{ REST_FRAMEWORK_DEFAULT_VERSION|escapejs }}";
+
+      {% if EXTERNAL_STATIC_CACHE %}
+        window.booktype.externalStaticCache = true;
+      {% else %}
+        window.booktype.externalStaticCache = false;
+      {% endif %}
+
+      window.booktype.externalStaticCacheKey = "{{ EXTERNAL_STATIC_CACHE_KEY|escapejs }}";
       window.booktype.bookDir = "{{ book_dir|escapejs }}";
       window.booktype.bookLang = "{{ book_language|escapejs }}";
       window.booktype.trackChanges = {{ track_changes }};
 
       window.booktype.currentVersion = "{{ book_version|escapejs }}";
-      window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";
+      window.booktype.sputnikDispatcherURL = "{% url 'sputnik_dispatcher' %}";
       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
+      window.booktype.editor.autosave = {{ autosave|safe }}
+      window.booktype.editor.settingsRolesShowPermissions = {{ settings_roles_show_permissions }}
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
 
       var settings = {
@@ -30,6 +41,9 @@
           'settings': 'win.booktype.editor.settings'
         },
         'config': {
+          'themes': {
+            'has_custom': false
+          }
           //'global': {'tabs': ['chat']}
         }
       };
@@ -44,7 +58,7 @@
       }
 
       Aloha.ready( function() {
-          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktypei, underscore, understring) {
+          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktype, underscore, understring) {
             underscore.mixin(understring.exports());
 
             booktype.editor.initEditor(settings);

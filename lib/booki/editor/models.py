@@ -69,6 +69,7 @@ class BookStatus(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=30, blank=False)
     weight = models.SmallIntegerField(_('weight'))
+    color = models.CharField(_('color'), max_length=30, default='', blank=True)
 
     def __unicode__(self):
         return self.name
@@ -114,36 +115,31 @@ class BookiGroup(models.Model):
         GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
 
     def get_big_group_image(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if (os.path.isfile(('%s/%s.jpg') % (group_image_path, self.pk)) is False):
-            group_image = '%score/img/groups-big.png' % settings.STATIC_URL
-        else:
-            group_image = '%s%s%s.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
-        return group_image
+        if not os.path.isfile('{}.jpg'.format(os.path.join(group_image_path, str(self.pk)))):
+            return os.path.join(settings.STATIC_URL, 'core/img/groups-big.png')
+        return '{}.jpg'.format(os.path.join(settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, str(self.pk)))
 
     def get_group_image(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if (os.path.isfile(('%s/%s_small.jpg') % (group_image_path, self.pk)) is False):
-            group_image = '%score/img/groups.png' % settings.STATIC_URL
-        else:
-            group_image = '%s%s%s_small.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
-        return group_image
+        if not os.path.isfile("{}_small.jpg".format(os.path.join(group_image_path, str(self.pk)))):
+            return os.path.join(settings.STATIC_URL, 'core/img/groups.png')
+        return '{}_small.jpg'.format(os.path.join(settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, str(self.pk)))
 
     def remove_group_images(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
         group_images = []
-        group_images.append('{0}/{1}_small.jpg'.format(group_image_path, self.pk))
-        group_images.append('{0}/{1}.jpg'.format(group_image_path, self.pk))
+        group_images.append('{}_small.jpg'.format(os.path.join(group_image_path, str(self.pk))))
+        group_images.append('{}.jpg'.format(os.path.join(group_image_path, str(self.pk))))
 
         for image_path in group_images:
             try:
                 os.remove(image_path)
-            except Exception as err:
-                # TODO: should log this error
-                print err
+            except Exception as e:
+                logger.exception(e)
 
     def __unicode__(self):
         return self.name
@@ -173,7 +169,8 @@ METADATA_FIELDS = [
     ('rightsHolder', _('Copyright holder'), DCTERMS),
 
     # here below all the custom fields from booktype
-    ('publisher_city', _('Publisher city'), BKTERMS),
+    ('publisher_city', _('City of publication'), BKTERMS),
+    ('publisher_country', _('Country of publication'), BKTERMS),
     ('short_description', _('Short description'), BKTERMS),
     ('long_description', _('Long description'), BKTERMS),
 
@@ -245,7 +242,8 @@ class Book(models.Model):
                     return None
             else:
                 v = version.split('.')
-                if len(v) != 2: return None # noqa
+                if len(v) != 2:
+                    return None
 
                 try:
                     book_ver = emodels.BookVersion.objects.get(book=self, major=int(v[0]), minor=int(v[1]))
@@ -286,6 +284,15 @@ class Book(models.Model):
             return self.info_set.get(name='DC.creator').value
         except Info.DoesNotExist:
             return self.owner.get_full_name()
+
+    @author.setter
+    def author(self, name):
+        key, book, _string_type = 'DC.creator', self, 0
+
+        meta, _ = Info.objects.get_or_create(
+            book=book, name=key, kind=_string_type)
+        meta.value_string = name
+        meta.save()
 
     # DEPRECATED API NAMES
     getVersion = get_version
@@ -458,20 +465,15 @@ class Chapter(models.Model):
     EDIT_PING_SECONDS_MAX_DELTA = 15
 
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
-    # don't need book
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
-
     url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))    # this will probably change
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
-    #
     revision = models.IntegerField(_('revision'), default=1)
-    # comment = models.CharField(_('comment'), max_length=2500, blank=True)
-
-    # missing licence here
     content = models.TextField(_('content'))
+    content_json = models.TextField(_('content json'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Chapter')
@@ -495,7 +497,8 @@ class Chapter(models.Model):
           Int. Return lock.type value
         """
         try:
-            if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
+            # if ChapterLock was deleted in db but still have value in python object
+            if self.lock.id:
                 return self.lock.type
             return 0
         except ChapterLock.DoesNotExist:
@@ -513,7 +516,8 @@ class Chapter(models.Model):
           username (:class:`str`) or None
         """
         try:
-            if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
+            # if ChapterLock was deleted in db but still have value in python object
+            if self.lock.id:
                 return self.lock.user.username
             return None
         except ChapterLock.DoesNotExist:
@@ -567,8 +571,19 @@ class Chapter(models.Model):
 
         return None
 
+    @property
+    def has_comments(self):
+        # excluding delete/resolved comments
+        return self.comment_set.exclude(state=1).exists()
 
-# ChapterHistory
+    @property
+    def has_marker(self):
+        if '[[' in self.content and ']]' in self.content:
+            return True
+
+        return False
+
+
 class ChapterHistory(models.Model):
     chapter = models.ForeignKey(Chapter, null=False, verbose_name=_("chapter"))
     content = models.TextField()
@@ -578,8 +593,8 @@ class ChapterHistory(models.Model):
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
     def __unicode__(self):
-        return u'{0} | {1} - {2}. Comment: {3}'.format(self.chapter.book, self.chapter, self.modified,
-                                                       self.comment)
+        return u'{0} | {1} - {2}. Comment: {3}'.format(
+            self.chapter.book, self.chapter, self.modified, self.comment)
 
     class Meta:
         verbose_name = _('Chapter history')
@@ -587,29 +602,30 @@ class ChapterHistory(models.Model):
 
     def previous(self):
         lower = ChapterHistory.objects.filter(
-            chapter=self.chapter,
-            revision__lt=self.revision
-        ).order_by('-revision')
+                chapter=self.chapter, revision__lt=self.revision
+            ).order_by('-revision')
 
         if lower.count() > 0:
-            return lower[0].revision
+            return lower.first().revision
         return None
 
     def next(self):
         higher = ChapterHistory.objects.filter(
-            chapter=self.chapter, revision__gt=self.revision)
+                chapter=self.chapter, revision__gt=self.revision
+            ).order_by('revision')
 
         if higher.count() > 0:
-            return higher[0].revision
+            return higher.first().revision
         return None
 
 
-# Chapter Lock
 class ChapterLock(models.Model):
     LOCK_EVERYONE = 1
     LOCK_SIMPLE = 2
-    LOCK_CHOICES = ((LOCK_EVERYONE, 'Lock everyone'),
-                    (LOCK_SIMPLE, 'Lock to people without permissions'))
+    LOCK_CHOICES = (
+            (LOCK_EVERYONE, 'Lock everyone'),
+            (LOCK_SIMPLE, 'Lock to people without permissions')
+        )
 
     chapter = models.OneToOneField(Chapter, related_name='lock')
     user = models.ForeignKey(auth_models.User, verbose_name=_('user'))
@@ -649,11 +665,8 @@ class AttachmentFile(models.FileField):
 
 class Attachment(models.Model):
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
-    # don't really need book anymore
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
-
     attachment = models.FileField(_('filename'), upload_to=upload_attachment_to, max_length=2500)
-
     status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
 
@@ -712,15 +725,18 @@ class Attachment(models.Model):
     getName = get_name
 
 
-# Book Toc
-TYPEOF_CHOICES = (
-    (0, _('section name')),
-    (1, _('chapter name')),
-    (2, _('line'))
-)
-
-
 class BookToc(models.Model):
+    # Book Toc
+    SECTION_TYPE = 0
+    CHAPTER_TYPE = 1
+    LINE_TYPE = 2
+
+    TYPEOF_CHOICES = (
+        (SECTION_TYPE, _('section name')),
+        (CHAPTER_TYPE, _('chapter name')),
+        (LINE_TYPE, _('line'))
+    )
+
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # book should be removed
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
@@ -740,6 +756,9 @@ class BookToc(models.Model):
 
     def has_children(self):
         return (self.booktoc_set.count() > 0)
+
+    def children(self):
+        return BookToc.objects.filter(parent=self)
 
     def url_title(self):
         if self.is_chapter():

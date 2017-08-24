@@ -17,6 +17,8 @@
 import logging
 from lxml import etree
 
+from django.utils.translation import ugettext_lazy as _
+
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..mpdf.converter import MPDFConverter
@@ -26,13 +28,15 @@ logger = logging.getLogger("booktype.convert.screenpdf")
 
 
 class ScreenPDFConverter(MPDFConverter):
-    name = "screenpdf"
+    name = 'screenpdf'
+    verbose_name = _("Screen PDF")
+    support_section_settings = True
 
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)
 
-    def pre_convert(self, book):
-        super(ScreenPDFConverter, self).pre_convert(book)
+    def pre_convert(self, epub_book):
+        super(ScreenPDFConverter, self).pre_convert(epub_book)
 
         # create image edtor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
@@ -42,10 +46,9 @@ class ScreenPDFConverter(MPDFConverter):
         mm -= float(self.config['settings'].get('side_margin', 0)) + float(self.config['settings'].get('gutter', 0))
         inches = mm / 10 / 2.54
 
-        if self.name == 'screenpdf':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            epub_book, inches * 300, self
+        )
 
     def get_extra_configuration(self):
         data = {'mirror_margins': False}

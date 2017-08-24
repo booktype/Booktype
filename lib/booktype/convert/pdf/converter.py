@@ -30,6 +30,8 @@ import ebooklib
 import ebooklib.epub
 import ebooklib.utils
 
+from django.utils.translation import ugettext_lazy as _
+
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from . import bookjs
@@ -39,7 +41,8 @@ logger = logging.getLogger("booktype.convert.pdf")
 
 
 class PdfConverter(BaseConverter):
-    name = "pdf"
+    name = 'pdf'
+    verbose_name = _('PDF Legacy (deprecated)')
 
     _images_dir = "images/"
     _body_pdf_name = "body.pdf"

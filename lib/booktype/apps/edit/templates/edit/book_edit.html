@@ -100,7 +100,7 @@
        <div class="notification-write-box">
          <textarea class="notification-writer" placeholder="{% trans "Post a notification" %}"></textarea>
          <div class="notification-important">
-           <i class="icon-info-sign"></i>
+           <i class="fa fa-info-circle"></i>
         </div>
         <div class="button-area clearfix">
            <a class="btn btn-primary pull-right send-notif">{% trans "Send" %}</a>
@@ -225,8 +225,11 @@
     </section>
     -->
 
-    <section class="tab-content" source_id="history-tab">
+    <section class="tab-content history-tab" source_id="history-tab">
         <h3>{% trans "Chapter History" %}</h3>
+        <p class="borderBottom pb10">
+          {% trans "Click on any of the revisions below to compare it against the latest chapter's content" %}
+        </p>
 
         <script type="text/html" id="templateChapterRevision">
           <li <% if (active) { %> class="active" <% } %> >
@@ -250,7 +253,6 @@
             </div>
           </li>
         </script>
-
         <div class="scrollable">
           <ul class="list border-top history" id="history-tab-list">
           </ul>

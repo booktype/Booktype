@@ -50,6 +50,26 @@
               Aloha.execCommand('FormatBlock', false, 'p');
               $(range.startContainer).parent().addClass('bk-cite');
             }
+          },
+          'AUTHORNAME': {
+            'type': 'custom',
+            'check': function ($elems) {
+              return $elems.filter('.authorname').length > 0;
+            },
+            'create': function (range) {
+              Aloha.execCommand('FormatBlock', false, 'p');
+              $(range.startContainer).parent().addClass('authorname');
+            }
+          },
+          'REFERENCE': {
+            'type': 'custom',
+            'check': function ($elems) {
+              return $elems.filter('.reference').length > 0;
+            },
+            'create': function (range) {
+              Aloha.execCommand('FormatBlock', false, 'p');
+              $(range.startContainer).parent().addClass('reference');
+            }
           }
         }
       },
@@ -89,7 +109,7 @@
         marginLeft: '48px'
       },
       icejs: {
-        enabled: true,
+        enabled: true
       },
       endnotes: {
         enabled: true,
@@ -185,7 +205,7 @@
       },
       babel: {
         sourceMaps: 'inline', // One of [false, 'inline', 'both']. See https://babeljs.io/docs/usage/options/
-        fileExtension: '.jsx', // Can be set to anything, like .es6 or .js. Defaults to .jsx
+        fileExtension: '.jsx' // Can be set to anything, like .es6 or .js. Defaults to .jsx
       },
       packages: [
         { name: 'react_components', location: '../../react/components'},
@@ -193,6 +213,11 @@
       ]
     }
   };
+
+  // settings to control static cache versioning
+  {% if EXTERNAL_STATIC_CACHE %}
+    Aloha.settings.requireConfig.urlArgs = 'v=' + '{{ EXTERNAL_STATIC_CACHE_KEY|escapejs }}';
+  {% endif %}
 
   // define sanitize settings
   Aloha.settings.contentHandler.sanitize = Aloha.settings.contentHandler.allows;
@@ -237,6 +262,7 @@
                             booktype/splitchapter,
                             booktype/comments,
                             booktype/infobox,
-                            booktype/shortcuts"></script>
+                            booktype/shortcuts,
+                            booktype/import"></script>
 
 <script src="//code.jquery.com/jquery-migrate-1.0.0.js"></script>

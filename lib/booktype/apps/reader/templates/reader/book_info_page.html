@@ -32,9 +32,9 @@
                   <p>
                     {% trans "Status:" %} <span class="status">{{ book.status|title }}</span>
                     {% if book.hidden %}
-                        {% trans "(this book is hidden from others)" %}
+                        {% trans "(this book is hidden from other people)" %}
                     {% else %}
-                        {% trans "(this book is visible to everyone)" %}
+                        {% trans "(this book is not hidden from other people)" %}
                     {% endif %}
                   </p>
                   <p>{% trans "Current version:" %} <a href="{% url 'reader:draft_chapter_page' bookid=book.url_title version=book.version.get_version %}">{{ book.get_version }}</a></p>
@@ -49,34 +49,78 @@
                 </div>
 
                 <div class="box-bottom-white btn-space btn-box-uppercase">
-                   {% check_perm 'edit.edit_book' %}
+                    {% check_perm 'edit.edit_book' %}
                     <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to open the editor at the Table of Contents' %}">
                         {% trans "Edit this Book" %}
                     </button>
                     {% endcheck_perm %}
-                    {% check_perm 'reader.can_view_draft' %}
-                    <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book by chapter' %}">
-                        {% trans "View draft" %}
-                    </button>
-                    {% endcheck_perm %}
-                    {% if is_book_admin %}
-                    <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to edit the metadata for this book' %}">
-                        {% trans "Edit book info" %}
-                    </button>
-                    <button data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to delete the entire book permanently' %}">
-                        {% trans "Delete Book" %}
-                    </button>
-                    {% endif %}
+
                     {% check_perm 'reader.can_view_full_page' %}
                     <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book as a single page' %}">
-                        {% trans "View full book" %}
+                        {% trans "Read Book" %}
                     </button>
                     {% endcheck_perm %}
+
+                    {% check_perm 'reader.can_view_draft' %}
+                    <!--button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book by chapter' %}">
+                        {% trans "View draft" %}
+                    </button-->
+                    {% endcheck_perm %}
+
+                    {% check_perm 'edit.generate_invite_code' %}
+                    <button class="btn btn-default float-left" href="#bookInfo" data-remote="{% url 'edit:invite_codes' book.url_title %}" data-toggle="modal" data-target="#bookModal">
+                      {% trans "Invite Codes" %}
+                    </button>
+                    {% endcheck_perm %}
+
+                    <div class="btn-group more-options-group pull-right">
+                      <button class="btn btn-default pull-right dropdown-toggle" data-toggle="dropdown" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'More options' %}">
+                        <i class="fa fa-bars fsize18"></i>
+                      </button>
+            	        <ul class="dropdown-menu">
+                        <li>
+                          <a href="{% url 'edit:download_history' book.url_title %}?zip_both=1">{% trans "Download history" %}</a>
+                        </li>
+                        <li class="divider"></li>
+
+                        {% if is_book_admin %}
+                        <li>
+                          <a href="#bookInfo" data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookModal">
+                            {% trans "Edit book info" %}
+                          </a>
+                        </li>
+                        {% endif %}
+
+                        {% check_perm 'edit.manage_metadata' %}
+                        <li>
+                          <a  href="{% url 'edit:editor' book.url_title %}#settings/metadata">
+                            {% trans "Book Metadata" %}
+                          </a>
+                        </li>
+                        {% endcheck_perm %}
+
+                        {% check_perm 'core.manage_roles' %}
+                        <li>
+                          <a  href="{% url 'edit:editor' book.url_title %}#settings/roles">
+                            {% trans "Manage Roles" %}
+                          </a>
+                        </li>
+                        {% endcheck_perm %}
+
+                        {% if is_book_admin %}
+                        <li>
+                          <a  href="#bookInfo" data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookModal">
+                            {% trans "Delete Book" %}
+                          </a>
+                        </li>
+                        {% endif %}
+            	        </ul>
+                    </div>
                 </div>
             </div>
 
-            {# modal window for edit book info #}
-            <div id="bookInfoModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+            {# modal window for edit book info and others #}
+            <div id="bookModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
             </div>
 
             {% if book_group %}
@@ -86,7 +130,7 @@
                     <li>
                         <figure><img src="{% static 'core/img/groups.png' %}"></figure>
                         <div class="list-info">
-                            <h4><a href="{% url "portal:group" book_group.url_name %}">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
+                            <h4><a href="{% url 'portal:group' book_group.url_name %}">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
                             <span>{% trans "Members" %}: {{ book_group.members.count }}  {% trans "Books" %}: {{ book_group.book_set.all.count }}</span>
                         </div>
                     </li>

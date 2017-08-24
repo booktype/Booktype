@@ -39,7 +39,7 @@ def get_page_size(conf):
     page_size = conf.get('size', 'default')
 
     if page_size == 'custom':
-        return conf['custom_width'], conf['custom_height']
+        return int(round(float(conf['custom_width']))), int(round(float(conf['custom_height'])))
 
     PAGE_SIZE_DATA = config.get_configuration('PAGE_SIZE_DATA')
 

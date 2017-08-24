@@ -100,8 +100,9 @@ input[type="radio"].form-control:focus{
     margin-right: 135px;
 }
 
+/* old css for old fullview and draft */
 #bookcontent img,
-#bookcontent table{
+#bookcontent table {
     max-width: 100%;
     height: auto;
 }
@@ -111,6 +112,22 @@ input[type="radio"].form-control:focus{
 }
 
 #bookcontent div.bk-image-editor img {
+    max-width: none;
+    max-height: none;
+}
+
+/* css for reader */
+#contenteditor div.chapter-inner img,
+#contenteditor div.chapter-inner table {
+    max-width: 100%;
+    height: auto;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor {
+    overflow: hidden;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor img {
     max-width: none;
     max-height: none;
 }
@@ -148,9 +165,12 @@ input[type="radio"].form-control:focus{
 .compare_screen .row .changed {
     background-color: #ffeda8
 }
+.compare_screen ins,
 .compare_screen .row .added {
     background-color: #b9f0a2
 }
+
+.compare_screen del,
 .compare_screen .row .deleted {
     background-color: #fa897a
 }
@@ -198,6 +218,10 @@ sup a {
     color: #6D6161;
 }
 
+.templateAlertModal .modal-header .close{
+    font-size: 22px;
+}
+
 .templateAlertModal .modal-dialog p{
     font-size: 15px;
     margin-top: 4px;
@@ -221,4 +245,18 @@ sup a {
 
 textarea[name="table-caption"] {
     padding: 5px;
+}
+
+.more-options-group .btn:first-child {
+  padding-left: 9px;
+  padding-right: 9px;
+  text-align: center;
+}
+
+.more-options-group .btn:first-child i {
+  margin-right: 0px;
+}
+
+.more-options-group .btn:first-child {
+  padding-bottom: 4px;
 }

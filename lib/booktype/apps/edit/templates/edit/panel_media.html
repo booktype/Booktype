@@ -5,13 +5,13 @@
 
     <div class="btn-toolbar" style="float: right;">
       <span class="btn btn-default cancel-upload">
-          <i class="icon-remove"></i>
+          <i class="fa fa-times"></i>
           <span>{% trans "Cancel upload" %}</span>
       </span>
 
       {% check_perm 'edit.upload_attachment' %}
       <span class="btn btn-success fileinput-button">
-          <i class="icon-plus icon-white"></i>
+          <i class="fa fa-plus fa-white"></i>
           <span>{% trans "Add files..." %}</span>
           <input id="media_fileupload" type="file" name="files[]" multiple data-url="../_upload/">
       </span>

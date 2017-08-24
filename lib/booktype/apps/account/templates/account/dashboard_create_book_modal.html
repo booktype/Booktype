@@ -11,35 +11,93 @@
         <section id="basic">
           <form method="post" action="{% url 'accounts:create_book' current_user.username %}" target="hidden_frame" enctype="multipart/form-data">
             {% csrf_token %}
-
+            {% with book_creation_form as form %}
             <div id="wizard-1">
 
-              <h3>{% trans "Title" %}</h3>
+              <h3>{% trans "Book Information" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "What is the title of your book?" %}</p>
-                <label for="title">{% trans "Title of Book" %}</label>
-                <input class="form-control" maxlength="200" name="title" type="text">
-                <div class="bookexists alert alert-danger" style="display: none;">
-                  {% trans "There is already a book with this name." %}
+                <p class="wizard_desc">{% trans "Please fill in the details of your book" %}</p>
+                <div class="form-group mb10">
+                  {{ form.title.label_tag }}
+                  {{ form.title }}
+                  <div class="bookexists alert alert-danger" style="display: none;">
+                    {% trans "There is already a book with this name." %}
+                  </div>
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.author.label_tag }}
+                  {{ form.author }}
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.language.label_tag }}
+                  {{ form.language }}
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.license.label_tag }}
+                  {{ form.license }}
+                </div>
+
+                <div class="form-group mb10">
+                  <label for="visible_to_everyone">
+                    {% trans "Visible to everyone" %} <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Book will be visible to other users. This setting can be changed later from the Book Info page." %}"></i>:
+                  </label>
+                  {{ form.visible_to_everyone }}
+                </div>
+
+                <div class="form-group mb0">
+                  {{ form.description.label_tag }}
+                  {{ form.description }}
                 </div>
               </section>
 
-              <h3>{% trans "Description" %}</h3>
+              <h3>{% trans "Metadata" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Give some information so others can find it to help you (this can be added or changed later)." %}</p>
-                <label for="description">{% trans "Description" %}</label>
-                <textarea class="form-control" name="description" cols="40" rows="7"></textarea>
+                <p class="wizard_desc">{% trans "Enter some metadata of your book" %}</p>
+                {% for mfield in form.get_metadata_fields %}
+                  <div class="form-group {% if forloop.last %}mb0{% else %}mb10{% endif %}">
+                    {{ mfield.label_tag }}
+                    {{ mfield }}
+                  </div>
+                {% endfor %}
               </section>
 
-              <h3>{% trans "Choose license" %}</h3>
+              <h3>{% trans "Creation mode" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Choose from the following licenses" %}</p>
-                <label for="license">{% trans "License" %}</label>
-                <select id="id_license" name="license">
-                  {% for license in licenses %}
-                    <option value="{{ license.abbrevation }}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{ license.name }}</option>
-                  {% endfor %}
-                </select>
+                <p class="wizard_desc">{% trans "Choose the way you want to create your book" %}</p>
+                <div class="form-group mb20 row">
+                  <label class="col-xs-3" for="creation_mode">
+                    {% trans "Creation mode" %}:
+                  </label>
+                  <div class="col-xs-9">
+                    <input id="creation_mode_scratch" type="radio" name="creation_mode" value="scratch" class="mr5" checked>
+                    <label for="creation_mode_scratch" class="f-normal">
+                      {% trans "From scratch" %}
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Will create an empty book with no sections or chapters" %}"></i>
+                    </label>
+                    <br>
+
+                    <input id="creation_mode_based_on_book" type="radio" name="creation_mode" value="based_on_book" class="mr5">
+                    <label for="creation_mode_based_on_book" class="f-normal">
+                      {% trans "Based on another book" %}
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Pick this option if you want to create your book based on another book existent on the system" %}"></i>
+                    </label>
+                    <br>
+
+                    {# <input type="radio" name="creation_mode" value="epub_skeleton"> {% trans "Using epub skeleton" %} #}
+                  </div>
+                </div>
+
+                <div id="book_base_row" class="form-group mb10 row" style="display: none;">
+                  <div class="col-xs-3">
+                    {{ form.base_book.label_tag }}
+                  </div>
+                  <div class="col-xs-7 pl0">
+                    {{ form.base_book }}
+                  </div>
+                </div>
               </section>
 
               <h3>{% trans "Image" %}</h3>
@@ -49,16 +107,8 @@
                 <input type="file" name="cover" size="40">
               </section>
 
-              <h3>{% trans "Make Public?" %}</h3>
-              <section>
-                <p class="wizard_desc">{% trans "Would you like to keep your book private or make it public? If the book is public others can find the book to help you." %}
-                  <b>{% trans "Note" %}:</b> {% trans "this setting can be changed later from your dashboard." %}
-                </p>
-
-                <label for="hidden">{% trans "Initially hide from others" %}</label>
-                <input {% if book_visible %}checked="checked"{% endif %} name="hidden" type="checkbox">
-              </section>
             </div>
+            {% endwith %}
           </form>
 
           <iframe name="hidden_frame" style="display:none;"></iframe>

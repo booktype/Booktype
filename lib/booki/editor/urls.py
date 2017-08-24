@@ -14,19 +14,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url
+from booki.editor.views import (
+    thumbnail_attachment, view_cover, upload_attachment,
+    upload_cover, edit_book, view_books_autocomplete
+)
+from booktype.apps.core.views import staticattachment
 
 
-urlpatterns = patterns('',
-                        # utility views                      
-                        url(r'^_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),                                                url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booki.editor.views.view_cover', name='view_cover'),
+urlpatterns = [
+    # utility views
+    url(r'^_utils/thumbnail/(?P<attachment>.*)$', thumbnail_attachment, name='thumbnail_attachment'),
+    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$', view_cover, name='view_cover'),
 
-                        # upload
-                        url(r'^_upload/$',  'booki.editor.views.upload_attachment', name='upload_attachment'),
-                        url(r'^_upload_cover/$',  'booki.editor.views.upload_cover', name='upload_cover'),
+    # upload
+    url(r'^_upload/$',  upload_attachment, name='upload_attachment'),
+    url(r'^_upload_cover/$',  upload_cover, name='upload_cover'),
 
-                        # book editing
-                        url(r'^_edit/$', 'booki.editor.views.edit_book', name='edit_book'),
-                        url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
-                        url(r'^_edit/book-list.json$', 'booki.editor.views.view_books_autocomplete'),
-                      )       
+    # book editing
+    url(r'^_edit/$', edit_book, name='edit_book'),
+    url(r'^_edit/static/(?P<attachment>.*)$', staticattachment),
+    url(r'^_edit/book-list.json$', view_books_autocomplete),
+]

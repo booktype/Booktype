@@ -1,18 +1,13 @@
-from django.template.loader import BaseLoader
+from django.template.loaders.base import Loader
 
 import os
-import sys
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
-from django.template.base import TemplateDoesNotExist
-from django.template.loader import BaseLoader
+from django.template import TemplateDoesNotExist
 from django.utils._os import safe_join
-from django.utils.importlib import import_module
-from django.utils import six
 
 
-class Loader(BaseLoader):
+class Loader(Loader):
     """Load for templates connected with themes.
 
     Themes are located in $INSTANCE/themes directory. Inside that directory users can create
@@ -23,7 +18,7 @@ class Loader(BaseLoader):
 
     is_usable = True
 
-    def get_template_sources(self, template_name, template_dirs=None):        
+    def get_template_sources(self, template_name, template_dirs=None):
         if not template_dirs:
             template_dirs = []
 

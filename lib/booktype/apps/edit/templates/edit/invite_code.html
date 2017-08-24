@@ -1,0 +1,132 @@
+{% load i18n static compress %}
+
+{% compress js %}
+<script src="{% static 'vendor/clipboardjs-1.6.1/js/clipboard.min.js' %}"></script>
+<script src="{% static 'edit/js/invite_codes.js' %}"></script>
+{% endcompress %}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form method="post" action="{% url 'edit:invite_codes' book.url_title %}" enctype="multipart/form-data" style="margin-bottom: 0px">
+            <div class="modal-header">
+              <h4 class="modal-title">{% trans "Invite codes" %} {{ book.title }}</h4>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                <p class="mb5 fsize14">{% trans "Generate a code to invite people to contribute to your book" %}</p>
+                <div class="box pa10">
+
+                  <div class="form-errors alert alert-danger pt10 pb10 hide">
+                    <ul class="list-style pl10">
+                    </ul>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-xs-6">
+                      <label class="mb0" for="{{ form.roles.id_for_label }}">
+                        {{ form.roles.label }}
+                      </label>
+                      {% for pk, choice in form.roles.field.choices %}
+                      <div class="checkbox">
+                        <label><input type="checkbox" name="{{ form.roles.name }}" value="{{ pk }}">
+                          {{ choice }}
+                        </label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="col-xs-6 hide">
+                      <label>{% trans "Your new invite code is" %}:</label>
+                      <br />
+                      <span class="fsize15 label label-default pa10 d-inline-block" id="newCode" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Share this code with the people that you want to invite to contribute to your book' %}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-xs-12" for="{{ form.expire_on.id_for_label}}">
+                      {{ form.expire_on.label }}
+                    </label>
+                    <div class="col-xs-5">
+                      <div class="input-group date bs-datepicker">
+                        {{ form.expire_on }}
+                        <span class="input-group-addon"><i class="fa icon fa-calendar"></i></span>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div>
+                    <button type="button" class="btn btn-default pull-right ml5 hide btn-done" data-dismiss="modal">
+                      {% trans "Done" %}
+                    </button>
+                    <button type="button" class="btn btn-primary btn-copy pull-right ml5 hide btn-done"
+                      data-toggle="tooltip"
+                      data-trigger="focus"
+                      data-title="{% trans 'Copied!' %}"
+                      data-success-title="{% trans 'Copied!' %}"
+                      data-error-title="{% trans 'Press Ctrl+C to copy!' %}"
+                      data-clipboard-action="copy"
+                      data-clipboard-target="#newCode"
+                    >
+                      {% trans "Copy code" %}
+                    </button>
+                    <button type="button" id="submitInviteForm" data-loading-text="{% trans 'Loading' %}..." class="btn btn-primary pull-right">
+                      {% trans "Generate" %}
+                    </button>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+
+                <hr />
+                <p class="mb5 fsize14">{% trans "Existent Codes" %}</p>
+                <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>{% trans "Code" %}</th>
+                    <th>{% trans "Roles" %}</th>
+                    <th>{% trans "Valid" %}</th>
+                    <th>{% trans "Actions" %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for obj in existent_codes %}
+                  <tr>
+                    <td id="id_{{ obj.code|upper }}">
+                      {{ obj.code|upper }}
+                    </td>
+                    <td>{{ obj.roles_as_string }}</td>
+                    <td>
+                      <span data-toggle="tooltip" title="{% trans 'Expire on' %}: {{ obj.expire_on }}">
+                      {% if obj.expired %}
+                        <span class="label label-default mt5 d-inline-block">{% trans "No" %}</span>
+                      {% else %}
+                        <span class="label label-success mt5 d-inline-block">{% trans "Yes" %}</span>
+                      {% endif %}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-default btn-copy"
+                        type="button"
+                        data-toggle="tooltip"
+                        data-trigger="focus"
+                        data-title="{% trans 'Copied!' %}"
+                        data-success-title="{% trans 'Copied!' %}"
+                        data-error-title="{% trans 'Press Ctrl+C to copy!' %}"
+                        data-clipboard-action="copy"
+                        data-clipboard-target="#id_{{ obj.code|upper }}"
+                        >
+                          <img class="clippy" src="{% static 'core/img/clippy.svg' %}" width="13" alt="Copy to clipboard">
+                      </button>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr><td colspan="4">{% trans "No invite codes yet" %}</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </form>
+    </div>
+</div>

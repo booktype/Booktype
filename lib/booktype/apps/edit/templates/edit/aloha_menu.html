@@ -5,44 +5,45 @@
           <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Insert" %}</button>
           <ul class="dropdown-menu">
             {% check_perm 'edit.add_comment' %}
-            <li class="disabled"><a class="action comment-insert" href="#"><i class="icon-comment"></i> &nbsp;&nbsp;{% trans "Insert comment" %}</a></li>
+            <li class="disabled"><a class="action comment-insert" href="#"><i class="fa fa-comment"></i> &nbsp;&nbsp;{% trans "Insert comment" %}</a></li>
             {% endcheck_perm %}
-            <li><a class="action horizontalline" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert horizontal line" %}</a></li>
-            <li><a class="action pbreak" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert page break" %}</a></li>
-            <li><a class="action endnote-insert" href="#"><i class="icon-asterisk"></i> &nbsp;&nbsp;{% trans "Insert endnote" %}</a></li>
-            <li><a class="action ltr-text-insert" href="#"><i class="icon-angle-right"></i> &nbsp;&nbsp;{% trans "Insert LTR text" %}</a></li>
-            <li><a class="action rtl-text-insert" href="#"><i class="icon-angle-left"></i> &nbsp;&nbsp;{% trans "Insert RTL text" %}</a></li>
+            <li><a class="action horizontalline" href="#"><i class="fa fa-ellipsis-h"></i> &nbsp;&nbsp;{% trans "Insert horizontal line" %}</a></li>
+            <li><a class="action pbreak" href="#"><i class="fa fa-ellipsis-h"></i> &nbsp;&nbsp;{% trans "Insert page break" %}</a></li>
+            <li><a class="action endnote-insert" href="#"><i class="fa fa-asterisk"></i> &nbsp;&nbsp;{% trans "Insert endnote" %}</a></li>
+            <li><a class="action ltr-text-insert" href="#"><i class="fa fa-angle-right"></i> &nbsp;&nbsp;{% trans "Insert LTR text" %}</a></li>
+            <li><a class="action rtl-text-insert" href="#"><i class="fa fa-angle-left"></i> &nbsp;&nbsp;{% trans "Insert RTL text" %}</a></li>
             <li class="divider"></li>
-            <li><a class="action columns-insert" href="#"><i class="icon-th-large"></i> &nbsp;&nbsp;{% trans "Insert columns" %}</a></li>
-            <li><a class="action infobox-insert" href="#"><i class="icon-list-alt"></i> &nbsp;&nbsp;{% trans "Insert infobox" %}</a></li>
-            <li><a class="action column-break-insert" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert column break" %}</a></li>
+            <li><a class="action columns-insert" href="#"><i class="fa fa-th-large"></i> &nbsp;&nbsp;{% trans "Insert columns" %}</a></li>
+            <li><a class="action infobox-insert" href="#"><i class="fa fa-list-alt"></i> &nbsp;&nbsp;{% trans "Insert infobox" %}</a></li>
+            <li><a class="action column-break-insert" href="#"><i class="fa fa-ellipsis-h"></i> &nbsp;&nbsp;{% trans "Insert column break" %}</a></li>
             {% check_perm 'edit.create_chapter' %}
-            <li><a class="action split-chapter" href="#"><i class="icon-exchange"></i> &nbsp;&nbsp;{% trans "Split chapter" %}</a></li>
+            <li><a class="action split-chapter" href="#"><i class="fa fa-exchange"></i> &nbsp;&nbsp;{% trans "Split chapter" %}</a></li>
             {% endcheck_perm %}
+            <li><a class="action docximport" href="#"><i class="fa fa-upload"></i> &nbsp;&nbsp;{% trans "Import DOCX File" %}</a></li>
           </ul>
         </div>
         <div class="btn-group">
           <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Edit" %}</button>
           <ul class="dropdown-menu">
-            <li><a class="action bookundo" href="#"><i class="icon-undo"></i> &nbsp;&nbsp;{% trans "Undo" %}</a></li>
-            <li><a class="action bookredo" href="#"><i class="icon-repeat"></i> &nbsp;&nbsp;{% trans "Redo" %}</a></li>
+            <li><a class="action bookundo" href="#"><i class="fa fa-undo"></i> &nbsp;&nbsp;{% trans "Undo" %}</a></li>
+            <li><a class="action bookredo" href="#"><i class="fa fa-repeat"></i> &nbsp;&nbsp;{% trans "Redo" %}</a></li>
             <li class="divider"></li>
-            <li><a class="action findandreplace" href="#"><i class="icon-search"></i> &nbsp;&nbsp;{% trans "Find & Replace" %}</a></li>
+            <li><a class="action findandreplace" href="#"><i class="fa fa-search"></i> &nbsp;&nbsp;{% trans "Find & Replace" %}</a></li>
             <li class="divider"></li>
-            <li><a class="action styling" href="#"><i class="icon-eraser"></i> &nbsp;&nbsp;{% trans "Remove styling" %}</a></li>
-            <li><a class="action removeFormat" href="#"><i class="icon-eraser"></i> &nbsp;&nbsp;{% trans "Remove formatting" %}</a></li>
-            <li><a class="action indent-left" href="#"><i class="icon-indent-left"></i> &nbsp;&nbsp;{% trans "Decrease indent" %}</a></li>
-            <li><a class="action indent-right" href="#"><i class="icon-indent-right"></i> &nbsp;&nbsp;{% trans "Increase indent" %}</a></li>
-            <li><a class="action apply-direction-ltr" href="#"><i class="icon-angle-right"></i> &nbsp;&nbsp;{% trans "Direction to LTR" %}</a></li>
-            <li><a class="action apply-direction-rtl" href="#"><i class="icon-angle-left"></i> &nbsp;&nbsp;{% trans "Direction to RTL" %}</a></li>
+            <li><a class="action styling" href="#"><i class="fa fa-eraser"></i> &nbsp;&nbsp;{% trans "Remove styling" %}</a></li>
+            <li><a class="action removeFormat" href="#"><i class="fa fa-eraser"></i> &nbsp;&nbsp;{% trans "Remove formatting" %}</a></li>
+            <li><a class="action indent-left" href="#"><i class="fa fa-outdent"></i> &nbsp;&nbsp;{% trans "Decrease indent" %}</a></li>
+            <li><a class="action indent-right" href="#"><i class="fa fa-indent"></i> &nbsp;&nbsp;{% trans "Increase indent" %}</a></li>
+            <li><a class="action apply-direction-ltr" href="#"><i class="fa fa-angle-right"></i> &nbsp;&nbsp;{% trans "Direction to LTR" %}</a></li>
+            <li><a class="action apply-direction-rtl" href="#"><i class="fa fa-angle-left"></i> &nbsp;&nbsp;{% trans "Direction to RTL" %}</a></li>
             <li class="divider"></li>
-            <li><a class="action htmledit" href="#"><i class="icon-html5"></i> &nbsp;&nbsp;{% trans "Edit raw HTML" %}</a></li>
+            <li><a class="action htmledit" href="#"><i class="fa fa-html5"></i> &nbsp;&nbsp;{% trans "Edit raw HTML" %}</a></li>
           </ul>
         </div>
         <div class="btn-group">
           <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Tools" %}</button>
           <ul class="dropdown-menu">
-            <li><a class="action wcount" href="#"><i class="icon-stethoscope"></i> &nbsp;&nbsp;{% trans "Word count" %}</a></li>
+            <li><a class="action wcount" href="#"><i class="fa fa-stethoscope"></i> &nbsp;&nbsp;{% trans "Word count" %}</a></li>
           </ul>
         </div>
   </div>

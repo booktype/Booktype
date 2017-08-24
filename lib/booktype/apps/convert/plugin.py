@@ -22,9 +22,7 @@ from lxml import etree
 
 from booktype.utils import config
 from booktype.utils.misc import booktype_slugify
-from booktype.convert.utils.epub import parse_toc_nav
-
-from .templatetags.convert_tags import _get_property
+from booktype.convert.utils.epub import parse_toc_nav, get_sections_settings
 
 logger = logging.getLogger("booktype.convert")
 
@@ -176,6 +174,18 @@ class ConversionPlugin(BasePlugin):
         raise NotImplementedError
 
 
+class TocSettings(object):
+    """
+    Just a dummy object with all possible valid values for section
+    settings in Table of Contents
+    """
+
+    SHOW_SECTION_SHOW_CHAPTERS = 'show_section_show_chapters'
+    SHOW_SECTION_HIDE_CHAPTERS = 'show_section_hide_chapters'
+
+    HIDE_SECTION_SHOW_CHAPTERS = 'hide_section_show_chapters'
+    HIDE_SECTION_HIDE_CHAPTERS = 'hide_section_hide_chapters'
+
 class SectionsSettingsPlugin(BasePlugin):
     """
     Plugin to handle sections settings stuff which would be common for all
@@ -185,10 +195,19 @@ class SectionsSettingsPlugin(BasePlugin):
     def __init__(self, *args, **kwargs):
         super(SectionsSettingsPlugin, self).__init__(*args, **kwargs)
 
+        self.original_book = None
         self.sections_to_remove = []
         self.chapters_to_remove = []
 
-    def _get_section_key(self, title, count):
+    @staticmethod
+    def build_section_key(title, count):
+        """
+        Generates a key to get/set the section settings
+
+        :Args:
+          - `str` title
+          - `int` count to make it unique
+        """
         return 'section_%s_%s' % (booktype_slugify(title), count)
 
     def _clean_book_items(self):
@@ -198,30 +217,28 @@ class SectionsSettingsPlugin(BasePlugin):
         """
 
         output_name = self.convert.name
-        settings = _get_property(self.original_book.metadata, 'bkterms:sections_settings')
-        try:
-            settings = json.loads(settings)
-        except:
-            settings = {}
+        settings = get_sections_settings(self.original_book)
 
         count = 1
 
+        # mark chapters and sections to be removed (if any)
         for toc_item in parse_toc_nav(self.original_book):
             if isinstance(toc_item[1], list):
                 section_title, chapters = toc_item
 
-                key = self._get_section_key(section_title, count)
+                key = self.build_section_key(section_title, count)
                 section_settings = json.loads(settings.get(key, '{}'))
-                hide_in_outputs = section_settings.get('hide_in_outputs', {})
+                show_in_outputs = section_settings.get('show_in_outputs', {})
 
                 # means to remove the chapters that belongs to this section
-                if hide_in_outputs.get(output_name, False):
+                if not show_in_outputs.get(output_name, True):
                     self.chapters_to_remove += [x[1] for x in chapters]
                     self.sections_to_remove.append(key)
 
-                # increment if a section if found
+                # increment if a section is found
                 count += 1
 
+        # now let's loop over all the book items and exclude the ones are marked to be removed
         new_items = []
         for i, item in enumerate(list(self.original_book.items)):
             if item.get_name() not in self.chapters_to_remove:
@@ -229,16 +246,31 @@ class SectionsSettingsPlugin(BasePlugin):
 
         self.original_book.items = new_items
 
+    def _mark_chapter_content(self, content, mark_as):
+        if not mark_as:
+            return content
+
+        content = ebooklib.utils.parse_html_string(content)
+        content = content.find('body')
+
+        content.tag = 'div'
+        content.set('class', mark_as)
+
+        return etree.tostring(content, method='html', encoding='utf-8', pretty_print=True)
+
     def _fix_nav_content(self):
         """Just fixes the nav content according to the sections to be removed"""
 
+        output_name = self.convert.name
+        settings = get_sections_settings(self.original_book)
         nav_item = next((item for item in self.original_book.items if isinstance(item, ebooklib.epub.EpubNav)), None)
+
         if nav_item:
             html_node = ebooklib.utils.parse_html_string(nav_item.content)
             nav_node = html_node.xpath('//nav[@*="toc"]')[0]
             list_node = nav_node.find('ol')
 
-            # loop over sections element, they might be in the same order as
+            # loop over sections element, they should be in the same order as
             # they were in parse_toc_nav(original_book)
             count = 1
             for item_node in list_node.findall('li'):
@@ -246,10 +278,65 @@ class SectionsSettingsPlugin(BasePlugin):
 
                 if sublist_node is not None:
                     section_name = item_node[0].text
-                    key = self._get_section_key(section_name, count)
 
-                    if key in self.sections_to_remove:
+                    section_key = self.build_section_key(section_name, count)
+                    section_settings = json.loads(settings.get(section_key, '{}'))
+                    toc_setting = section_settings.get('toc', {}).get(output_name, '')
+                    mark_section_as = section_settings.get('mark_section_as', None)
+
+                    # check if custom mark was given
+                    if mark_section_as == 'custom':
+                        mark_section_as = section_settings.get('custom_mark', None)
+
+                    if mark_section_as and section_key not in self.sections_to_remove:
+                        for item in sublist_node.iterchildren('li'):
+                            chapter_href = item[0].get('href')
+                            item = self.original_book.get_item_with_href(chapter_href)
+                            item.content = self._mark_chapter_content(item.content, mark_section_as)
+
+                    # if whole section is hidden, we should also remove
+                    # the whole entry in the TOC in the EpubNav file
+                    # cause why to show the toc entry if section content is hidden? :)
+                    if section_key in self.sections_to_remove:
                         item_node.drop_tree()
+                    else:
+                        if toc_setting == TocSettings.SHOW_SECTION_SHOW_CHAPTERS:
+                            pass  # nothing to do here :)
+
+                        elif toc_setting == TocSettings.HIDE_SECTION_SHOW_CHAPTERS:
+                            # removing section label/title
+                            section_label = item_node[0]
+                            item_node.remove(section_label)
+
+                            parent = item_node.getparent()
+                            index = parent.index(item_node)
+
+                            for child in sublist_node.iterchildren('li'):
+                                parent.insert(index, child)
+                                index += 1
+
+                            # now removing the empty sublist_node
+                            sublist_node.getparent().remove(sublist_node)
+
+                        elif toc_setting == TocSettings.SHOW_SECTION_HIDE_CHAPTERS:
+                            # section name should point to first chapter under it
+                            # otherwise it doesn't make sense to show just the label
+                            # AND because we have a filter to remove empty sections :)
+                            parent = item_node.getparent()
+                            index = parent.index(item_node)
+
+                            if len(sublist_node) > 0:
+                                section_label = item_node[0]
+                                item_node.remove(section_label)
+
+                                child = sublist_node[0]
+                                child[0].text = section_label.text
+                                parent.insert(index, child)
+
+                                sublist_node.getparent().remove(sublist_node)
+
+                        elif toc_setting == TocSettings.HIDE_SECTION_HIDE_CHAPTERS:
+                            item_node.drop_tree()
 
                     # increment if a section is found
                     count += 1

@@ -116,7 +116,7 @@ def logWarning(msg, *args):
     logging.getLogger("booktype").warning(msg, *args)
 
 
-def printStack(*extra):
+def print_stack(*extra):
     """
     Prints entire stack as error message.
     """
@@ -124,3 +124,7 @@ def printStack(*extra):
     logError(traceback.format_exc())
     for e in extra:
         logError(e)
+
+# legacy support
+# we should define a depration warning or something
+printStack = print_stack

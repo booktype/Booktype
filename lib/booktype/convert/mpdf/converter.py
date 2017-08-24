@@ -16,6 +16,7 @@
 
 import os
 import json
+import uuid
 import codecs
 import urllib2
 import logging
@@ -27,7 +28,9 @@ import ebooklib.utils
 from copy import deepcopy
 
 from django.conf import settings
-from django.template.loader import render_to_string, Context, Template
+from django.template.loader import render_to_string
+from django.template.base import Context, Template
+from django.utils.translation import ugettext_lazy as _
 
 from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
@@ -36,10 +39,12 @@ from booktype.apps.themes.utils import (
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
 from booktype.utils.misc import booktype_slugify
+from booktype.apps.convert.plugin import SectionsSettingsPlugin
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
+from .toc import TocItem
 from ..base import BaseConverter
-from ..utils.epub import parse_toc_nav
+from ..utils.epub import parse_toc_nav, get_sections_settings
 from .. import utils
 from .styles import create_default_style, get_page_size, CROP_MARGIN
 
@@ -92,7 +97,9 @@ class MPDFConverter(BaseConverter):
     - get_metadata
     """
 
-    name = "mpdf"
+    name = 'mpdf'
+    verbose_name = _("Printers' PDF")
+    support_section_settings = True
 
     _images_dir = "images/"
     _body_pdf_name = "body.pdf"
@@ -108,38 +115,46 @@ class MPDFConverter(BaseConverter):
         self.theme_name = ''
         self.theme_plugin = None
         self._bk_image_editor_conversion = None
+        self._full_page_images_css = 'div.fpi-page-end { page: normalpage; }\n'
 
-    def pre_convert(self, book):
+    def pre_convert(self, epub_book):
         """Called before entire process of conversion is called.
 
         :Args:
           - book: EPUB book object
         """
 
-        super(MPDFConverter, self).pre_convert(book)
+        # we parse the toc nav before pre_convert to get original content
+        # take into account that if you call this after calling super pre_convert
+        # you will have unexpected results regarding the section settings logic
+        self.original_toc_nav = parse_toc_nav(epub_book)
+
+        # now we call parent pre_convert to run section settings plugin
+        super(MPDFConverter, self).pre_convert(epub_book)
 
         # Not that much needed at the moment
         self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
 
-        try:
-            if 'crop_marks' in self.config['settings'] and self.config['settings']['crop_marks'] == 'on':
-                crop_margin = CROP_MARGIN
-            else:
-                crop_margin = 0
+        # if crop marks is enabled
+        if 'crop_marks' in self.config['settings'] and self.config['settings']['crop_marks'] == 'on':
+            crop_margin = CROP_MARGIN
 
-            self.config['page_width_bleed'] = int(round(self.config['page_width'] + crop_margin))
-            self.config['page_height_bleed'] = int(round(self.config['page_height'] + crop_margin))
-        except:
+            if 'crop_margin' in self.config['settings']:
+                crop_margin = int(self.config['settings']['crop_margin'])
+
+            self.config['page_width_bleed'] = self.config['page_width'] + crop_margin
+            self.config['page_height_bleed'] = self.config['page_height'] + crop_margin
+        else:
             self.config['page_width_bleed'] = self.config['page_width']
             self.config['page_height_bleed'] = self.config['page_height']
 
         if self.theme_plugin:
             try:
-                self.theme_plugin.pre_convert(book)
+                self.theme_plugin.pre_convert(epub_book)
             except NotImplementedError:
                 pass
 
-        # create image edtor conversion instance
+        # create image editor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
 
         # calculate pdf document width
@@ -148,10 +163,9 @@ class MPDFConverter(BaseConverter):
             self.config['settings'].get('gutter', 0))
         inches = mm / 10 / 2.54
 
-        if self.name == 'mpdf':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            epub_book, inches * 300, self
+        )
 
     def post_convert(self, book, output_path):
         """Called after entire process of conversion is done.
@@ -364,6 +378,8 @@ class MPDFConverter(BaseConverter):
                     except:
                         logger.exception("mpdf ImageEditorConversion failed")
 
+                self._fix_full_page_image(cnt)
+
                 return etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)[6:-9]
         except etree.XMLSyntaxError:
             pass
@@ -386,20 +402,41 @@ class MPDFConverter(BaseConverter):
           - book: EPUB Book object
         """
 
-        def _toc(depth, toc_items):
+        settings_dict = get_sections_settings(book)
+
+        def _toc(depth, toc_items, parent=None, toc_setting=None):
             items = []
+            sec_count = 1
 
             for toc_item in toc_items:
+                # SECTIONS
                 if isinstance(toc_item[1], list):
                     section_title, chapters = toc_item
+                    url_title = booktype_slugify(section_title)
 
-                    items += [{
+                    # let's build a section key and try to get settings for current section
+                    section_key = SectionsSettingsPlugin.build_section_key(url_title, sec_count)
+                    section_settings = json.loads(settings_dict.get(section_key, '{}'))
+                    toc_setting = section_settings.get('toc', {}).get(self.name, '')
+
+                    # jump to next item (continue) if the whole section should be hidden
+                    show_in_outputs = section_settings.get('show_in_outputs', {})
+                    show_section_in_current_converter = show_in_outputs.get(self.name, True)
+                    if not show_section_in_current_converter:
+                        continue
+
+                    toc_item = TocItem({
                         'type': 'section',
                         'level': depth,
                         'title': section_title,
-                        'url_title': booktype_slugify(section_title),
-                    }]
-                    items += _toc(depth + 1, chapters)
+                        'url_title': url_title,
+                        'show_in_toc': 'hide_section' not in toc_setting
+                    })
+                    items.append(toc_item)
+                    items += _toc(depth + 1, chapters, section_title, toc_setting)
+                    sec_count += 1
+
+                # CHAPTERS
                 else:
                     chapter_title, chapter_href = toc_item
                     chapter_item = book.get_item_with_href(chapter_href)
@@ -407,18 +444,25 @@ class MPDFConverter(BaseConverter):
                     content = self._fix_horrible_mpdf(content)
 
                     href_filename, file_extension = os.path.splitext(chapter_href)
-                    items.append({
+
+                    if not parent:
+                        toc_setting = ''
+
+                    toc_item = TocItem({
                         'type': 'chapter',
                         'level': depth,
                         'title': chapter_title,
                         'url_title': booktype_slugify(chapter_title),
                         'href': chapter_href,
                         'href_filename': href_filename,
-                        'content': content})
+                        'content': content,
+                        'show_in_toc': 'hide_chapters' not in toc_setting
+                    })
+                    items.append(toc_item)
 
             return items
 
-        book_toc = _toc(0, parse_toc_nav(book))
+        book_toc = _toc(0, self.original_toc_nav)
 
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
@@ -426,13 +470,8 @@ class MPDFConverter(BaseConverter):
             'book_items': book_toc
         })
 
-#        if self.theme_name != '':
         body_name = get_body(self.theme_name, self.name)
         html = render_to_string(body_name, data)
-        # else:
-        #     body_name = 'body_{}.html'.format(self.name)
-        #     html = render_to_string('themes/{}'.format(body_name), data)
-
         html_path = os.path.join(self.sandbox_path, self._body_html_name)
         f = codecs.open(html_path, 'wt', 'utf8')
         f.write(html)
@@ -474,6 +513,9 @@ class MPDFConverter(BaseConverter):
                 logger.exception("Writing styles failed for `%s` theme." % self.theme_name)
 
         custom_style = self.config.get('settings', {}).get('styling', u'')
+
+        # add css for fpi
+        css_style += self._full_page_images_css
 
         f = codecs.open('{}/style.css'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(css_style)
@@ -633,6 +675,46 @@ class MPDFConverter(BaseConverter):
                 )
                 continue
 
+    def _fix_full_page_image(self, content):
+
+        # find fpi (full page image) frame
+        for img in content.xpath('.//img[contains(@class, "fpi")]'):
+            div_image = img.getparent()
+            div_group_img = div_image.getparent()
+
+            # remove cpation
+            caption = div_group_img.xpath('.//div[@class="caption_small"]')
+            if caption:
+                div_group_img.remove(caption[0])
+
+            # set id
+            fpi_frame_id = "fpi-{}".format(str(uuid.uuid4()))
+            div_image.attrib['id'] = fpi_frame_id
+
+            # add fpi end
+            div_group_img.insert(div_group_img.index(div_image) + 1,
+                                 etree.XML('<div class="fpi-page-end"></div>'))
+
+            # image src
+            img = div_image.xpath('.//img')[0]
+            fpi_src = img.attrib['src']
+
+            # remove <img/>
+            div_image.remove(img)
+
+            # add css for current fpi
+            self._full_page_images_css += render_to_string(
+                'convert/full_page_image_mpdf.css', {
+                    'fpi_id': fpi_frame_id,
+                    'fpi_src': fpi_src
+                }
+            )
+
+            # remove group_img block
+            div_group_img.drop_tag()
+
+        return content
+
     def _get_data(self, book):
         """Returns default data for the front and end matter templates.
 
@@ -677,12 +759,8 @@ class MPDFConverter(BaseConverter):
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
 
-#        if self.theme_name != '':
         frontmatter_name = get_single_frontmatter(self.theme_name, self.name)
         html = render_to_string(frontmatter_name, data)
-        # else:
-        #     frontmatter_name = 'frontmatter_{}.html'.format(self.name)
-        #     html = render_to_string('themes/{}'.format(frontmatter_name), data)
 
         f = codecs.open('{}/frontmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
@@ -701,12 +779,8 @@ class MPDFConverter(BaseConverter):
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
 
-#        if self.theme_name != '':
         endmatter_name = get_single_endmatter(self.theme_name, self.name)
         html = render_to_string(endmatter_name, data)
-        # else:
-        #     endmatter_name = 'endmatter_{}.html'.format(self.name)
-        #     html = render_to_string('themes/{}'.format(endmatter_name), data)
 
         f = codecs.open('{}/endmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
@@ -772,6 +846,9 @@ class MPDFConverter(BaseConverter):
 
         try:
             (_, out, err) = utils.run_command(cmd)
+
+            logger.info('MPDF Converter::Stdout: output: "{}", error: "{}"'.format(out, err))
+
             data = json.loads(out)
 
             return data

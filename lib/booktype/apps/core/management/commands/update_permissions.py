@@ -11,6 +11,7 @@ from booktype.utils.permissions import (
 BOLD_ON = '\033[1m'
 BOLD_OFF = '\033[0m'
 
+
 class Command(BaseCommand):
     help = 'Reloads permissions for specified apps, or all apps if \
         no args are specified'

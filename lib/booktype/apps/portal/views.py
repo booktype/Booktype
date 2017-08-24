@@ -71,9 +71,9 @@ class FrontPageView(views.SecurityMixin, PageView):
             else:
                 b_query = b_query.filter(hidden=False)
 
-        context['books_list'] = b_query.order_by('-created')[:4]
-        context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:2]
-        booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
+        context['books_list'] = b_query.order_by('-created')[:10]
+        context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:12]
+        booki_group5 = BookiGroup.objects.all().order_by('-created')[:6]
 
         context['group_list'] = [{
             'url_name': g.url_name,
@@ -338,9 +338,7 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             # remove books from group
-            for book in group.book_set.all():
-                book.group = None
-                book.save()
+            group.book_set.update(group=None)
 
             # delete group images if needed
             try:

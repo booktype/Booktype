@@ -28,21 +28,72 @@ BOOK_TRACK_CHANGES = False
 
 # CHAPTER STATUS RELATED
 CHAPTER_STATUS_LIST = [
-    ugettext_noop('new'),
-    ugettext_noop('needs content'),
-    ugettext_noop('completed'),
-    ugettext_noop('to be proofed')
+    {'name': ugettext_noop('new'), 'color': '#3a87ad'},
+    {'name': ugettext_noop('needs content'), 'color': '#ff0000'},
+    {'name': ugettext_noop('completed'), 'color': '#5cb85c'},
+    {'name': ugettext_noop('to be proofed'), 'color': '#f0ad4e'}
 ]
 
-CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]
+CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]['name']
+
+# IMPORTERS RELATED STUFF
+BOOKTYPE_IMPORTERS = {
+    'epub': ('booktype.importer.epub', 'import_epub'),
+    'docx': ('booktype.importer.docx', 'import_docx')
+}
+
+
+# Default styles matched so far. We'll add more in future
+# these constants are used on docimporter.py to correctly
+# assign classes to imported elements
+DOCX_PARAGRAPH_STYLES_MAP = {
+    'AuthorName': 'authorname',
+    'Reference': 'reference',
+    'Citation': 'bk-cite'
+}
+
+# Which elements are considered <h1> style
+H1_STYLES = ['title', 'heading1']
+
+# Which elements are considered <h2> style
+H2_STYLES = ['heading2']
+
+# Which elements are considered <h3> style
+H3_STYLES = ['heading3']
+
+# Which elements are considered <h4> style
+H4_STYLES = ['heading4']
+
+# Which elements are considered <h5> style
+H5_STYLES = ['heading5']
+
+# Which elements are considered <h6> style
+H6_STYLES = ['heading6']
+
+# All of our Heading styles
+DOCX_HEADING_STYLES = H1_STYLES + H2_STYLES + H3_STYLES + H4_STYLES + H5_STYLES + H6_STYLES
+
+DOCX_HEADING_STYLES_TUPLE = (
+    ('h1', H1_STYLES),
+    ('h2', H2_STYLES),
+    ('h3', H3_STYLES),
+    ('h4', H4_STYLES),
+    ('h5', H5_STYLES),
+    ('h6', H6_STYLES)
+)
+
+# This will allow settings custom class on clients
+DOCX_IMPORTER_CLASS = 'booktype.importer.WordImporter'
+
+# END IMPORTERS STUFF
 
 # SERVER RELATED
-THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',
-                                   'booktype-demo.sourcefabric.org')
+THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
 # ADMINISTRATIVE RELATED
 CREATE_BOOK_VISIBLE = True
 CREATE_BOOK_LICENSE = ""
+CREATE_BOOK_LANGUAGE = "en"
 
 FREE_REGISTRATION = True
 ADMIN_CREATE_BOOKS = False
@@ -74,7 +125,7 @@ EPUB_COVER_MAX_SIZE = 2800
 EPUB_COVER_MAX_PIXELS = 3200000
 
 # PUBLISHING RELATED
-PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
+PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub3', 'epub2', 'icml', 'docx', 'mobi', 'xhtml']
 
 # mobi conversion
 # Options are "kindlegen" or "calibre"
@@ -100,8 +151,49 @@ EXPORT_WAIT_FOR = 90
 # convert constants
 CONVERT_EDITOR_WIDTH = 898
 XHTML_DOCUMENT_WIDTH = 2480
-MOBI_DOCUMENT_WIDTH = 2480
-EPUB_DOCUMENT_WIDTH = 2480
+MOBI_DOCUMENT_WIDTH = 1500
+EPUB_DOCUMENT_WIDTH = 1500
+
+# editor stuff here
+EDITOR_AUTOSAVE_ENABLED = False  # disabled by default
+EDITOR_AUTOSAVE_DELAY = 60  # time in seconds
+EDITOR_SETTINGS_ROLES_SHOW_PERMISSIONS = 0
+
+# end editor stuff
+
+EPUB_NOT_ALLOWED_TAGS = (
+    # 'strip' - drop tag, leave content
+    # 'drop' - drop tag, drop content
+    # 'replace' - replace tag with 'replacement'
+    # EXAMPLES:
+    # {'tag': 'i', 'action': 'strip'},
+    # {'tag': 'b', 'action': 'drop'},
+    # {
+    #     'tag': 'u',
+    #     'action': 'replace',
+    #     'replacement': {
+    #         'tag': 'span',
+    #         'attrs': (
+    #             ('style', 'text-decoration: underline;'),
+    #             ('class', 'happy'),
+    #         )
+    #     }
+    # },
+)
+
+# According to epubcheck, after(inside) body tag,
+# on the 1st level of deepness, must be only the next list of tags.
+# If tag doesn't fit requierements, it will be replaced with "<p>"
+EPUB_AVAILABLE_INBODY_ROOT_TAGS = (
+    'address', 'blockquote', 'del', 'div', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'hr', 'ins', 'noscript', 'ns:svg', 'ol', 'p', 'pre', 'script', 'table', 'ul'
+)
+
+# mapping tag and allowed attributes in it
+# required by epubcheck
+EPUB_ALLOWED_TAG_ATTRS = (
+    ('ol', ('class', 'dir', 'id', 'lang', 'style', 'title', 'xml:lang')),
+)
 
 EXPORT_SETTINGS = {
     'mpdf': [
@@ -111,7 +203,8 @@ EXPORT_SETTINGS = {
         {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},
         {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
         {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'bleed_size', u'value': u''},
-        {u'name': u'styling', u'value': u''}, {u'name': u'crop_marks', u'value': u'off'}],
+        {u'name': u'styling', u'value': u''},
+        {u'name': u'crop_marks', u'value': u'off'}, {u'name': u'crop_margin', u'value': u'18'}],
     'screenpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
         {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
@@ -120,7 +213,10 @@ EXPORT_SETTINGS = {
         {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
         {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'cover_image', u'value': u' '},
         {u'name': u'styling', u'value': u''}],
-    'epub': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'epub2': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'epub3': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'icml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'docx': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'xhtml': [{u'name': u'styling', u'value': u''}]
 }

@@ -16,32 +16,35 @@
 
 import os
 
+from django.utils.translation import ugettext_lazy as _
+
 from booktype.utils import config
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..utils import run_command
 from .. import ConversionError
-from ..epub.converter import EpubConverter
+from ..epub.converter import Epub3Converter
 
 
 MOBI_DOCUMENT_WIDTH = config.get_configuration('MOBI_DOCUMENT_WIDTH')
 
 
-class MobiConverter(EpubConverter):
-    name = "mobi"
+class MobiConverter(Epub3Converter):
+    name = 'mobi'
+    verbose_name = _('MOBI')
+    support_section_settings = True
 
     def pre_convert(self, original_book, book):
         super(MobiConverter, self).pre_convert(original_book, book)
 
-        # create image edtor conversion instance
+        # create image editor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
-        if self.name == 'mobi':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                original_book, MOBI_DOCUMENT_WIDTH, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            original_book, MOBI_DOCUMENT_WIDTH, self
+        )
 
     def convert(self, book, output_path):
-        ret = super(MobiConverter, self).convert(book, output_path + '.epub')
+        super(MobiConverter, self).convert(book, output_path + '.epub')
 
         mobi_convert = config.get_configuration('MOBI_CONVERT')
 

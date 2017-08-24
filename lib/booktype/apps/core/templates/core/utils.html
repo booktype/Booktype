@@ -3,13 +3,16 @@
 <div class="modal template templateAlertModal" tabindex="-1" role="dialog" data-backdrop="static">
  <div class="modal-dialog">
   <div class="modal-content">
-    <div class="modal-header alertType"></div>
+    <div class="modal-header">
+      <button type="button" class="close hide" data-dismiss="modal" aria-hidden="true">×</button>
+      <span class="alertType"></span>
+    </div>
     <div class="modal-body">
       <p class="message"></p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-default cancel hide" data-dismiss="modal" data-value=false>{% trans "Cancel" %}</button>
-      <button class="btn btn-primary" data-dismiss="modal" data-value=true>{% trans "Accept" %}</button>
+      <button class="btn btn-default cancel hide cancelText" data-dismiss="modal" data-value=false></button>
+      <button class="btn btn-primary acceptText" data-dismiss="modal" data-value=true></button>
     </div>
   </div>
  </div>

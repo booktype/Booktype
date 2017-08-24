@@ -1,0 +1,84 @@
+span.hide {
+    display: none;
+}
+
+a {
+    outline: 0 !important; /* remove dotted outline on firefox */
+}
+
+/* wrapper around the book content */
+#contenteditor div.box {
+    padding: 50px !important;
+}
+
+#contenteditor h1.section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 25px;
+}
+
+/* slider with table of contents */
+.sidenav {
+    max-height: 70%;
+    min-height: 300px;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 150px;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.2s;
+    -webkit-box-shadow: 10px 2px 18px 0 rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 10px 2px 18px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 2px 18px 0 rgba(0, 0, 0, 0.5);
+}
+
+.sidenav h4 {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #444444;
+    text-transform: uppercase;
+    display: block;
+    transition: 0.3s
+}
+
+.bookbar h1 {
+    width: 80% !important;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover,
+.offcanvas a:focus {
+    /*color: #f1f1f1;*/
+}
+
+.sidenav .closebtn {
+    top: 20px;
+    font-size: 20px;
+}
+
+#contenteditor button {
+    font: caption !important;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 60px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 769px) { }

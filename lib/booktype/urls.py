@@ -14,11 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.views import static
 from django.conf import settings
+from django.conf.urls import url, include
 from django.views.generic.base import TemplateView
+from booktype.apps.account.views import profilethumbnail
 
 # This is dispatcher for Sputnik connections.
+from sputnik.views import dispatcher as sputnik_dispatcher
 
 SPUTNIK_DISPATCHER = (
     (r'^/booktype/$', 'booktype.apps.core.channel'),
@@ -26,13 +29,16 @@ SPUTNIK_DISPATCHER = (
     (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
 )
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
+    # django log tailer
+    url(r'^_logs/', include('logtailer.urls')),
+
     # internationalization
     url(r'^_i18n/', include('django.conf.urls.i18n')),
 
     # front page
     url(r'', include('booktype.apps.portal.urls', namespace="portal")),
+
     # accounts
     url(r'^accounts/', include('booktype.apps.account.urls', namespace="accounts")),
 
@@ -43,26 +49,28 @@ urlpatterns = patterns(
     # TODO: Add namespace
     url(r'^_convert/', include('booktype.apps.convert.urls')),
 
-    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
+    url(r'^data/(?P<path>.*)$', static.serve, {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
 
     # misc
     # TODO: replace with new apps
-    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.account.views.profilethumbnail', name='view_profilethumbnail'),
+    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$',
+        profilethumbnail, name='view_profilethumbnail'),
 
     # sputnik dispatcher
-    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
+    url(r'^_sputnik/$', sputnik_dispatcher, {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
     # messaging application
     # TODO: remove this application
     url(r'^messaging/', include('booki.messaging.urls')),
 
     # importer application
-    # TODO: Add namespace
-    url(r'^_importer/', include('booktype.apps.importer.urls'))
-)
+    url(r'^_importer/', include('booktype.apps.importer.urls', namespace='importer')),
 
-urlpatterns += patterns('',
+    # API urls
+    url(r'^_api/', include('booktype.api.urls')),
+]
+
+urlpatterns += [
     # export
     # TODO; Add namespace
     url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
@@ -73,9 +81,9 @@ urlpatterns += patterns('',
     # old editor app
     url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
-    #robots.txt
-    (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    # robots.txt
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
     # new booktype reader app
     url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
-)
+]

@@ -5,14 +5,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .btn {
 	font-size: 13px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius: 2px;
+	-moz-border-radius:0px;
+	-webkit-border-radius:0px;
+	border-radius: 0px;
 }
 .btn-xs {
 	font-size: 9px;
 	line-height: 1.5;
-	border-radius: 2px;
+	border-radius: 0px;
 	padding: 3px 5px;
 	font-weight: 600;
 }
@@ -111,9 +111,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	z-index:1001 !important;
-	-webkit-border-radius: 1px;
-	-moz-border-radius: 1px;
-	border-radius: 1px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 	padding: 5px 8px;
 }
 .edit-menu .btn:hover {
@@ -188,20 +188,20 @@ input[type="checkbox"].form-control {
 
 /* Booktype Flat Colors Fixes */
 .btn-primary {
-	background-color: #7656b2;
-	border-color: #50397d;
+	background-color: #FF6600;
+	border-color: #FF6600;
 }
 .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
 	background-color: #64459f !important;
 	border-color:#47336f !important;
 }
 .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
-	background-color: #70b854 !important;
+	background-color: #40D9CA !important;
 	border-color:#4a8433 !important;
 	background-image:none;
 }
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
-	background-color: #7656b2;
+	background-color: #FF6600;
 	color:#FFF;
 }
 .btn-success + .dropdown-menu li a:hover, 
@@ -213,7 +213,7 @@ input[type="checkbox"].form-control {
 /* Modal styles */
 
 .modal-content {
-	border-radius: 3px;
+	border-radius: 0px;
 }
 
 .modal-backdrop.in {

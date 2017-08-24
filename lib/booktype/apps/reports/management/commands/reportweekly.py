@@ -21,6 +21,7 @@ from optparse import make_option
 
 from django import template
 from django.conf import settings
+from django.template.context import Context
 from django.core.management.base import BaseCommand
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
@@ -136,7 +137,7 @@ class Command(BaseCommand):
                             Count('user')).order_by("-user__count")[:10]]
 
         t = template.loader.get_template('reports/booktype_weekly_report.html')
-        con = t.render(template.Context({"users": users,
+        con = t.render(Context({"users": users,
                                          "books": books,
                                          "groups": groups,
                                          "history": history,

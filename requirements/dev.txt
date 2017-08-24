@@ -1,12 +1,16 @@
 -r _base.txt
 
-sqlparse==0.1.9
-django-debug-toolbar==1.4
+requests==2.9.1
+sqlparse==0.2.2
+django-debug-toolbar==1.6
 django-discover-runner
 mock
 selenium
 factory_boy
 sphinx
 pep8
-
--e git://github.com/dcramer/django-devserver.git@35f9abf601e6cc2ed3cdbb78fb60018d7bd5a48d#egg=django-devserver
+pytest==3.0.7
+pytest-cov==2.4.0
+pytest-django==3.1.2
+pytest-pythonpath==0.7.1
+Faker==0.7.10

@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url
 
 from .views import SaveView
 
-urlpatterns = patterns('',
-                      url(r'^_export/$', SaveView.as_view(), name='save_book'),
-                      )
+urlpatterns = [
+    url(r'^_export/$', SaveView.as_view(), name='save_book'),
+]

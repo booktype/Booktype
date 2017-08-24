@@ -16,6 +16,7 @@
 
 import os
 import logging
+import json
 
 from django.core.exceptions import PermissionDenied
 from django.views import static
@@ -31,8 +32,10 @@ from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from booktype.apps.core import views
 from booktype.utils import misc, security
+from booktype.utils.misc import get_available_themes
 from booktype.utils.book import remove_book
 from booktype.apps.core.views import BasePageView, NeverCacheMixin
+from booktype.apps.themes.models import BookTheme
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
@@ -103,7 +106,12 @@ class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView
     title = _("Book Details")
 
     def check_permissions(self, request, *args, **kwargs):
-        if not self.security.has_perm("reader.can_view_book_info"):
+        can_view_book_info = self.security.has_perm("reader.can_view_book_info")
+        can_view_hidden_book_info = self.security.has_perm("reader.can_view_hidden_book_info")
+
+        if self.security.book.hidden and not can_view_hidden_book_info:
+            raise PermissionDenied
+        elif not can_view_book_info and not can_view_hidden_book_info:
             raise PermissionDenied
 
     def get_context_data(self, **kwargs):
@@ -150,7 +158,8 @@ class SingleNextMixin(object):
     """
 
     def dispatch(self, request, *args, **kwargs):
-        self.next = request.REQUEST.get('next', None)
+        _request_data = getattr(request, request.method)
+        self.next = _request_data.get('next', None)
         return super(SingleNextMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -162,10 +171,9 @@ class SingleNextMixin(object):
 class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
                        BaseReaderView, UpdateView):
     template_name = "reader/book_info_edit.html"
-    form_class = EditBookInfoForm
     context_object_name = 'book'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=EditBookInfoForm):
         return form_class(user=self.request.user, **self.get_form_kwargs())
 
     def form_valid(self, form):
@@ -212,35 +220,26 @@ class DeleteBookView(SingleNextMixin, LoginRequiredMixin,
         return self.render_to_response(context=self.get_context_data())
 
 
-class DraftChapterView(BaseReaderView, BasePageView, DetailView):
+class DraftChapterView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
+    SECURITY_BRIDGE = security.BookSecurity
     template_name = "reader/book_draft_page.html"
     page_title = _("Chapter Draft")
     title = ""
 
-    def render_to_response(self, context, **response_kwargs):
-        if context.get('has_permission', True) is False:
-            return views.ErrorPage(
-                self.request,
-                "errors/nopermissions.html"
-            )
+    def check_permissions(self, request, *args, **kwargs):
+        can_view_draft = self.security.has_perm("reader.can_view_draft")
+        can_view_hidden_draft = self.security.has_perm("reader.can_view_hidden_draft")
 
-        return super(DraftChapterView, self).render_to_response(
-            context, **response_kwargs)
+        if self.security.book.hidden and not can_view_hidden_draft:
+            raise PermissionDenied
+        elif not can_view_draft and not can_view_hidden_draft:
+            raise PermissionDenied
 
     def get_context_data(self, **kwargs):
         book = self.object
         content = None
         book_version = book.get_version(self.kwargs.get('version', None))
         context = super(DraftChapterView, self).get_context_data(**kwargs)
-
-        # check permissions
-        book_security = security.get_security_for_book(self.request.user, book)
-        can_edit = book_security.can_edit()
-        can_view_draft = book_security.has_perm('reader.can_view_draft')
-
-        if (book.hidden and not can_edit) or not can_view_draft:
-            context['has_permission'] = False
-            return context
 
         if 'chapter' in self.kwargs:
             try:
@@ -265,46 +264,53 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
         context['content'] = content
         context['toc_items'] = toc_items
         context['book_version'] = book_version.get_version()
-        context['can_edit'] = (
-            self.request.user.is_authenticated() and
-            book.version == book_version
-        )
 
         return context
 
 
-class FullView(BaseReaderView, BasePageView, DetailView):
+class FullView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
+    SECURITY_BRIDGE = security.BookSecurity
     template_name = "reader/book_full_view.html"
     page_title = _("Book full view")
     title = ""
 
-    def render_to_response(self, context, **response_kwargs):
-        if context.get('has_permission', True) is False:
-            return views.ErrorPage(
-                self.request,
-                "errors/nopermissions.html"
-            )
+    def check_permissions(self, request, *args, **kwargs):
+        can_view_full_page = self.security.has_perm("reader.can_view_full_page")
+        can_view_hidden_full_page = self.security.has_perm("reader.can_view_hidden_full_page")
 
-        return super(FullView, self).render_to_response(
-            context, **response_kwargs)
+        if self.security.book.hidden and not can_view_hidden_full_page:
+            raise PermissionDenied
+        elif not can_view_full_page and not can_view_hidden_full_page:
+            raise PermissionDenied
 
     def get_context_data(self, **kwargs):
         book = self.object
         context = super(FullView, self).get_context_data(**kwargs)
 
-        has_permission = security.get_security_for_book(self.request.user, book).has_perm(
-            'reader.can_view_full_page')
-
-        if not has_permission:
-            context['has_permission'] = has_permission
-            return context
-
         book_version = book.get_version(self.kwargs.get('version', None))
         toc_items = BookToc.objects.filter(
             version=book_version).order_by("-weight")
 
+
+        available_themes = get_available_themes()
+        theme_active = available_themes[0]
+
+        try:
+            theme = BookTheme.objects.get(book=book)
+            # override default one if it's available
+            if theme.active in available_themes:
+                theme_active = theme.active
+            else:
+                theme.active = theme_active
+                theme.save()
+
+        except BookTheme.DoesNotExist:
+            theme = BookTheme(book=book, active=theme_active)
+            theme.save()
+
         context['book_version'] = book_version.get_version()
         context['toc_items'] = toc_items
+        context['theme'] = book.booktheme
 
         return context
 

@@ -4,7 +4,23 @@
  <h2>{% trans "Publish" %}</h2>
 </script>
 
+<script id="templateMarkedWarning" type="text/template">
+  <div class="alert alert-danger" role="alert">{% trans "There are some issues with this document. Please resolve them." %}</div>
+</script>
+
+<script id="templateMarkedChapters" type="text/template">
+  <div>
+    <p style="font-weight: bold">{% trans " These chapters still have markers. Please resolve them before publishing" %}:</p>
+    <ul>
+      <% _.each(chapters, function (chapter) { %>
+        <li><a style="text-decoration: underline;" href="#edit/<%= chapter.id %>"><%= chapter.title %></a></li>
+      <% }); %>
+    </ul>
+  </div>
+</script>
+
 <script type="text/html" id="templatePublishContent">
+
   <div class="row">
     <div class="col-sm-8" id="publish-filter">
       <div class="box gray">
@@ -20,19 +36,20 @@
               <div class="publish_history">
               </div>
             {% endcheck_perm %}
-            </div>
           </div>
         </div>
       </div>
-
-      <div class="col-sm-4 publish-info-box">
-        <h4 class="border-bottom">{% trans "Important! Before you export..." %}</h4>
-        <ol>
+    </div>
+    <div class="col-sm-4 publish-info-box">
+      <div class="book-info">
+        <div class="alert alert-info" role="alert">{% trans "Checking book info." %}</div>
+      </div>
+      <h4 class="border-bottom">{% trans "Important! Before you export..." %}</h4>
+      <ol>
         <li>{% trans "Please check the settings for your chosen formats before exporting." %}</li>
         <li>{% blocktrans %}Front matter is generated automatically. Please ensure all <a href="#settings/metadata">metadata</a> and <a href="#settings/additional-metadata">additional metadata</a> has been entered.{% endblocktrans %}</li>
         <li>{% blocktrans %}If exporting screen PDF, EPUB or MOBI, please check the <a href="#covers">cover manager</a> first.{% endblocktrans %}</li>
-        </ol>
-      </div>
+      </ol>
     </div>
   </div>
 
@@ -40,12 +57,16 @@
     {% include 'pdfreactor/publish_settings.html' %}
   {% endif %}
 
+  {% if "pdfreactor-screenpdf" in publish_options %}
+    {% include 'pdfreactor/publish_settings-screenpdf.html' %}
+  {% endif %}
+
   <div class="modal fade settings-dialog" id="settings-mpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="modal-title" id="myModalLabel">{% trans "Book Settings" %}</h2>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Print PDF Settings" %}</h2>
         </div>
         <div class="modal-body">
           <section id="basic">
@@ -90,10 +111,10 @@
                   </select>
                   <br/>
                   <label for="custom_width">Width:</label>
-                  <input type="text"/ name="custom_width" size="4"> <span>{% trans "mm" %}</span>
+                  <input type="text" name="custom_width" size="4"> <span>{% trans "mm" %}</span>
                   <br/>
                   <label for="custom_height">Height:</label>
-                  <input type="text"/ name="custom_height" size="4"> <span>{% trans "mm" %}</span>
+                  <input type="text" name="custom_height" size="4"> <span>{% trans "mm" %}</span>
 
                 </section>
                 <h3>{% trans "Margins" %}</h3>
@@ -211,10 +232,10 @@
                   </select>
                   <br/>
                   <label for="custom_width">Width:</label>
-                  <input type="text"/ name="custom_width" size="4"> <span>{% trans "mm" %}</span>
+                  <input type="text" name="custom_width" size="4"> <span>{% trans "mm" %}</span>
                   <br/>
                   <label for="custom_height">Height:</label>
-                  <input type="text"/ name="custom_height" size="4"> <span>{% trans "mm" %}</span>
+                  <input type="text" name="custom_height" size="4"> <span>{% trans "mm" %}</span>
 
                 </section>
                 <h3>{% trans "Margins" %}</h3>
@@ -277,12 +298,114 @@
     </div><!-- /.modal-dialog -->
   </div>
 
-  <div class="modal fade settings-dialog" id="settings-epub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade settings-dialog" id="settings-epub3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB Settings" %}</h2>
+          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB3 Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Select a cover from the Cover Manager" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-epub2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB2 Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Select a cover from the Cover Manager" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-icml" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Adobe InDesign Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Select a cover from the Cover Manager" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-docx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Adobe InDesign Settings" %}</h2>
         </div>
         <div class="modal-body">
           <section id="basic">
@@ -410,6 +533,10 @@
           {% include "pdfreactor/publish_option.html" %}
         {% endif %}
 
+        {% if "pdfreactor-screenpdf" in publish_options %}
+          {% include "pdfreactor/publish_option-screenpdf.html" %}
+        {% endif %}
+
         {% if "mpdf" in publish_options %}
           <div class="checkbox">
             <label>
@@ -432,16 +559,46 @@
           </div>
         {% endif %}
 
-        {% if "epub" in publish_options %}
+        {% if "epub3" in publish_options %}
           <div class="checkbox">
             <label>
-              <input name="epub" type="checkbox"> {% trans "EPUB" %}
+              <input name="epub3" type="checkbox"> {% trans "EPUB3" %}
             </label>
             {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>
             {% endcheck_perm %}
           </div>
         {% endif %}
+
+
+        {% if "epub2" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="epub2" type="checkbox"> {% trans "EPUB2" %}
+            </label>
+            {% check_perm 'export.export_settings' %}
+              <a href="" class="modal-open">{% trans "settings" %}</a>
+            {% endcheck_perm %}
+          </div>
+        {% endif %}
+
+
+        {% if "icml" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="icml" type="checkbox"> {% trans "Adobe InDesign (ICML)" %}
+            </label>
+          </div>
+        {% endif %}
+
+        {% if "docx" in publish_options %}
+            <div class="checkbox">
+              <label>
+                <input name="docx" type="checkbox"> {% trans "Word (DOCX)" %}
+              </label>
+            </div>
+        {% endif %}
+
       </div>
 
       <div class="col-sm-4">
@@ -479,8 +636,8 @@
 <script type="text/html" id="templatePublishLine">
     <div class="published-label"></div>
     <div class="export-expand">
-      <i class="icon-chevron-right"></i>
-      <i class="icon-chevron-down"></i>
+      <i class="fa fa-chevron-right"></i>
+      <i class="fa fa-chevron-down"></i>
     </div>
 
     <div class="export-name" contenteditable="true"><%= name %></div>
@@ -570,7 +727,7 @@
 <script type="text/html" id="templatePublishComments">
   <% _.each(comments, function (dta, idx) { %>
     <li>
-      <figure class="notification-avatar"><img src="<%= getAvatar(dta['username']) %>"></figure>
+      <figure class="notification-avatar"><img src="<%= window.booktype.utils.getAvatar(dta['username']) %>"></figure>
       <div class="notification-content">
         <p class="notification-text"><span class="notification-author"><%= dta['username'] %></span> <%= dta['content'] %></p>
         <span class="notification-info"><%= dta['created'] %></span>

@@ -1,0 +1,95 @@
+{% load i18n %}
+
+<div class="modal fade settings-dialog" id="section-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog new_book">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title" id="myModalLabel">{% trans "Section Settings" %}</h2>
+      </div>
+      <div class="modal-body">
+        <section id="basic">
+          <input type="hidden" name="section_id" value=""/>
+          <form method="post" enctype="multipart/form-data" class="form-inline">
+            <div class="wizard-section-settings">
+              <h3>{% trans "Display Settings" %}</h3>
+              <section>
+                <p class="wizard_desc">{% trans "Choose the outputs where you want to show this section" %}</p>
+                <div class="section-settings-table">
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <th>{% trans "Output Name" %}</th>
+                            <th>{% trans "Show" %}</th>
+                            <th>{% trans "In Table of Contents" %}</th>
+                        </thead>
+                        <tbody>
+                        {% for opt, label in publish_options_ordered_tuple %}
+                            <tr>
+                                <td>{{label}}</td>
+                                <td>
+                                    <input type="checkbox" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_checkbox" checked disabled />
+                                </td>
+                                <td>
+                                    <select class="toc form-control" name="toc[{{opt}}]" id="id_{{opt}}_toc">
+                                        <option value="{{ TocSettings.SHOW_SECTION_SHOW_CHAPTERS }}">{% trans "Show section and chapters" %}</option>
+                                        <option value="{{ TocSettings.SHOW_SECTION_HIDE_CHAPTERS }}">{% trans "Show section but hide chapters" %}</option>
+                                        <option value="{{ TocSettings.HIDE_SECTION_SHOW_CHAPTERS }}">{% trans "Hide section but show chapters" %}</option>
+                                        <option value="{{ TocSettings.HIDE_SECTION_HIDE_CHAPTERS }}">{% trans "Hide section and chapters" %}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+              </section>
+
+              <h3>{% trans "Extra" %}</h3>
+              <section class="extra">
+                <p class="wizard_desc">{% trans "Set extra options" %}</p>
+
+                <div class="row">
+                  <label class="output_name">{% trans "Mark section as" %}: </label>
+                  <label for="id_frontmatter">
+                    <input type="radio" name="mark_section_as" id="id_frontmatter" value="frontmatter" />
+                    {% trans "Frontmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_mainmatter">
+                    <input type="radio" name="mark_section_as" id="id_mainmatter" value="mainmatter" />
+                    {% trans "Mainmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_backmatter">
+                    <input type="radio" name="mark_section_as" id="id_backmatter" value="backmatter" />
+                    {% trans "Backmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_custom">
+                    <input type="radio" name="mark_section_as" id="id_custom" value="custom" />
+                    {% trans "Custom" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">{% trans "Custom" %}</label>
+                  <input class="form-control" type="text" name="custom_mark" placeholder="{% trans 'e.g. Authors' %}" />
+                </div>
+
+              </section>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

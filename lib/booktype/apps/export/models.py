@@ -49,7 +49,7 @@ class ExportFile(models.Model):
     pages = models.IntegerField(_('Number of pages'), default=0, null=True)
     status = models.SmallIntegerField(_('Status'), default=0, null=False)
     description = models.TextField(_('Description'))
-    filename = models.CharField(_('File name'), max_length=200, blank=True, null=True)
+    filename = models.CharField(_('File name'), max_length=300, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Export File')

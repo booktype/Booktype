@@ -3,23 +3,25 @@ import shutil
 import logging
 
 from django import forms
+from django import template
 from django.conf import settings
 from django.utils import timezone
+from django.template.base import Context
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
-from booktype.utils import config
+from booktype.utils import config, misc
+from booktype.convert import loader as convert_loader
+from booktype.apps.convert import utils as convert_utils
 from booktype.apps.account.models import UserProfile
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.apps.core.models import Role, Permission
 from booktype.apps.core.widgets import GroupedCheckboxSelectMultiple
 from booktype.apps.portal.forms import GroupCreateForm
 from booktype.apps.portal.widgets import RemovableImageWidget
-
-from booktype.utils import misc
-from booki.editor.models import License, Book, BookiGroup
+from booki.editor.models import License, Book, BookiGroup, Language, METADATA_FIELDS
 from booktype.utils.book import (
     create_book, rename_book, check_book_availability
 )
@@ -61,6 +63,12 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         required=False,
         max_length=200
     )
+    frontpage_url = forms.CharField(
+        label=_("Frontpage URL"),
+        required=False,
+        max_length=2048,
+        help_text=_('Can be a full absolute or relative url')
+    )
     favicon = forms.FileField(
         label=_("Favicon"),
         required=False,
@@ -71,7 +79,8 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
     def initial_data(cls):
         return {
             'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
-            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')
+            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE'),
+            'frontpage_url': config.get_configuration('BOOKTYPE_FRONTPAGE_URL')
         }
 
     def save_settings(self, request):
@@ -81,6 +90,8 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
             'BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
         config.set_configuration(
             'BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
+        config.set_configuration(
+            'BOOKTYPE_FRONTPAGE_URL', self.cleaned_data['frontpage_url'])
 
         if 'favicon' in self.files:
             # just check for any kind of silly error
@@ -283,70 +294,115 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
 
 class BookSettingsForm(BaseControlForm, forms.Form):
-    hlp_visible = _('Default visibility: If this box is checked, '
-                    'create/import wizard will suggest to mark book as hidden by default.')
-    hlp_track = _('If it is turned on then track changes will be '
-                  'enabled for all the users.')
-    visible = forms.BooleanField(
-        label=_('Default visibility'),
+    hlp_visible = _(
+        "Default: visible. If this box is unchecked, create/import wizard will suggest to mark book as hidden by "
+        "default.")
+
+    hlp_track = _(
+        "If it is turned on then track changes will be enabled for all the users.")
+
+    create_book_visible = forms.BooleanField(
+        label=_('Visible by default'),
         required=False,
-        help_text=_(hlp_visible)
-    )
+        help_text=_(hlp_visible))
+
     track_changes = forms.BooleanField(
         label=_('Track changes'),
         required=False,
-        help_text=_(hlp_track)
-    )
-    license = forms.ModelChoiceField(
+        help_text=_(hlp_track))
+
+    create_book_license = forms.ModelChoiceField(
         label=_('Default License'),
         queryset=License.objects.all().order_by("name"),
         required=False,
-        help_text=_("Default license for newly created books.")
+        help_text=_("Default license for newly created books."))
+
+    create_book_language = forms.ModelChoiceField(
+        label=_('Default Language'),
+        queryset=Language.objects.all(),
+        required=False,
+        help_text=_("Default language for newly created books."))
+
+    create_book_metadata = forms.MultipleChoiceField(
+        label=_('Metadata to be filled'),
+        choices=[],
+        required=False,
+        widget=forms.CheckboxSelectMultiple(),
+        help_text=_("Select the metadata fields to be filled in book creation wizard (selected fields will be optional)")
     )
+
+    def __init__(self, *args, **kwargs):
+        super(BookSettingsForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            if name == 'create_book_metadata':
+                metadata_choices = []
+
+                for meta_field, label, standard in METADATA_FIELDS:
+                    metadata_choices.append((
+                        "%s.%s" % (standard, meta_field), label))
+
+                field.choices = metadata_choices
 
     @classmethod
     def initial_data(cls):
-        _l = config.get_configuration('CREATE_BOOK_LICENSE')
-        if _l and _l != '':
+        lic = config.get_configuration('CREATE_BOOK_LICENSE')
+        if lic and lic != '':
             try:
-                license = License.objects.get(abbrevation=_l)
+                license = License.objects.get(abbrevation=lic)
             except License.DoesNotExist:
                 license = None
         else:
             license = None
 
+        lang = config.get_configuration('CREATE_BOOK_LANGUAGE')
+        if lang and lang != '':
+            try:
+                language = Language.objects.get(abbrevation=lang)
+            except License.DoesNotExist:
+                language = None
+        else:
+            language = None
+
+        create_book_metadata = config.get_configuration('CREATE_BOOK_METADATA', [])
+
         return {
-            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
-            'license': license,
+            'create_book_visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
+            'create_book_license': license,
+            'create_book_language': language,
+            'create_book_metadata': create_book_metadata,
             'track_changes': config.get_configuration('BOOK_TRACK_CHANGES')
         }
 
     def save_settings(self, request):
         config.set_configuration(
-            'CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+            'CREATE_BOOK_VISIBLE', self.cleaned_data['create_book_visible'])
 
         config.set_configuration(
             'BOOK_TRACK_CHANGES', self.cleaned_data['track_changes'])
 
-        if 'license' in self.cleaned_data:
-            if self.cleaned_data['license'] is not None:
-                config.set_configuration(
-                    'CREATE_BOOK_LICENSE',
-                    self.cleaned_data['license'].abbrevation
-                )
-            else:
-                config.set_configuration('CREATE_BOOK_LICENSE', '')
+        license = self.cleaned_data.get('create_book_license')
+        if license is not None:
+            config.set_configuration(
+                'CREATE_BOOK_LICENSE', license.abbrevation)
         else:
             config.set_configuration('CREATE_BOOK_LICENSE', '')
+
+        lang = self.cleaned_data.get('create_book_language')
+        if lang is not None:
+            config.set_configuration(
+                'CREATE_BOOK_LANGUAGE', lang.abbrevation)
+        else:
+            config.set_configuration('CREATE_BOOK_LANGUAGE', '')
+
+        # let's save metadata fields to be used
+        create_book_metadata = self.cleaned_data.get('create_book_metadata', [])
+        config.set_configuration('CREATE_BOOK_METADATA', create_book_metadata)
 
         try:
             config.save_configuration()
         except config.ConfigurationError as err:
             raise err
-
-# TODO: to be removed at same time of
-# old control center code
-BookCreateForm = BookSettingsForm
 
 
 class PrivacyForm(BaseControlForm, forms.Form):
@@ -500,11 +556,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         profile.save()
 
         if self.cleaned_data.get('send_email', False):
-            from django import template
-
             t = template.loader.get_template(
                 'booktypecontrol/new_person_email.html')
-            content = t.render(template.Context({
+            content = t.render(Context({
                 "username": self.cleaned_data['username'],
                 "password": self.cleaned_data['password2'],
                 "server": settings.BOOKTYPE_URL
@@ -699,7 +753,7 @@ class AddBookForm(BaseControlForm, forms.Form):
         required=True
     )
     is_hidden = forms.BooleanField(
-        label=_('Initially hide from others'),
+        label=_('Hide this book from other people'),
         required=False
     )
     cover = forms.ImageField(
@@ -796,44 +850,53 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml')
+    """Dinamically added fields based on converters modules"""
 
-    publish_mpdf = forms.BooleanField(
-        label=_('Book PDF'),
-        required=False
-    )
-    publish_screenpdf = forms.BooleanField(
-        label=_('Screen PDF'),
-        required=False
-    )
-    publish_epub = forms.BooleanField(
-        label=_('EPUB'),
-        required=False
-    )
-    publish_mobi = forms.BooleanField(
-        label=_('MOBI'),
-        required=False
-    )
-    publish_xhtml = forms.BooleanField(
-        label=_('XHTML'),
-        required=False
-    )
+    def __init__(self, *args, **kwargs):
+        super(PublishingForm, self).__init__(*args, **kwargs)
+
+        # if we don't have external (additional) converters enabled,
+        # we must hide this options from form
+        converters = self.get_converters()
+        labels_map = {}
+
+        # first we need to order converters alphabetically
+        for key, conv_klass in converters.items():
+            verbose_name = getattr(conv_klass, 'verbose_name', None)
+            if not verbose_name:
+                logger.warn(
+                    "`{0}` module doesn't have verbose_name attribute specified.".format(
+                        conv_klass.__name__))
+                verbose_name = key
+
+            # using interpolation to avoid getting the __proxy__ object from ugettext_lazy
+            labels_map["%s" % verbose_name] = key
+
+        sorted_labels = sorted(labels_map.keys())
+        for verbose_key in sorted_labels:
+            conv_name = labels_map[verbose_key]
+            conv_klass = converters[conv_name]
+
+            self.fields['publish_{0}'.format(conv_name)] = forms.BooleanField(
+                label=verbose_key, required=False)
+
+    @staticmethod
+    def get_converters():
+        return convert_loader.find_all(module_names=convert_utils.get_converter_module_names())
 
     @classmethod
     def initial_data(cls):
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
+        values_map = {}
 
-        return {
-            'publish_mpdf': 'mpdf' in publish_options,
-            'publish_screenpdf': 'screenpdf' in publish_options,
-            'publish_epub': 'epub' in publish_options,
-            'publish_mobi': 'mobi' in publish_options,
-            'publish_xhtml': 'xhtml' in publish_options
-        }
+        for key in cls.get_converters().keys():
+            values_map['publish_{0}'.format(key)] = key in publish_options
+
+        return values_map
 
     def save_settings(self, request):
         opts = []
-        for _opt in self.OPTIONS:
+        for _opt in self.get_converters().keys():
             if self.cleaned_data.get('publish_{0}'.format(_opt)):
                 opts.append(_opt)
 
@@ -965,18 +1028,24 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
     success_message = _('Successfully created new role.')
     success_url = '#list-of-roles'
 
+    def __init__(self, *args, **kwargs):
+        super(AddRoleForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            if name == 'permissions':
+                field.widget = GroupedCheckboxSelectMultiple(
+                    choices=Permission.objects.all(),
+                    attrs={
+                        'group_by': 'app_name',
+                        'css_class': 'grouped_perms'
+                    }
+                )
+
     class Meta:
         model = Role
         exclude = ['members']
         widgets = {
-            'description': forms.Textarea,
-            'permissions': GroupedCheckboxSelectMultiple(
-                choices=Permission.objects.all(),
-                attrs={
-                    'group_by': 'app_name',
-                    'css_class': 'grouped_perms'
-                }
-            ),
+            'description': forms.Textarea
         }
 
     def get_cancel_url(self):

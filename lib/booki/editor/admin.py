@@ -14,12 +14,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import models
 from django.contrib import admin
-
-from booktype.apps.account.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
+
+from booktype.apps.account.models import UserProfile
+
+import models
 
 
 class UserProfileInline(admin.StackedInline):

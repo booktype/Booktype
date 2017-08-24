@@ -4,7 +4,7 @@
 {% block extra_header %}
     {% compress js %}
     <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/js/utils.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
     <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
     <script type="text/javascript" src="{% static 'account/js/register.js' %}"></script>
@@ -29,7 +29,7 @@
                         {% if anonymous_email %}
                         <hr>
                         <p>
-                            <span class="icon-envelope"></span>&nbsp;
+                            <span class="fa-envelope"></span>&nbsp;
                             {% trans "Mail us if you have any questions or proposals" %}: <a href="mailto:{{ anonymous_email }}">{{ anonymous_email }}</a></p>
                         {% endif %}
 

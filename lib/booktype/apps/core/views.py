@@ -1,13 +1,14 @@
-from django.views.generic import TemplateView
+from rest_framework import status
+
 from django.views import static
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django.shortcuts import RequestContext
 from django.conf import settings
 from django.template import loader
+from django.views.generic import TemplateView
 from django.http import HttpResponse, Http404
+from django.template.context import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
+from django.shortcuts import render, get_object_or_404
 
 from booki.editor.models import Book, BookiGroup
 from booktype.utils.security import Security, BookSecurity, GroupSecurity
@@ -143,16 +144,16 @@ def ErrorPage(request, template_file, args={}, status=200, content_type='text/ht
 
 
 def error404(request):
-    return render(request, 'errors/404.html')
+    return render(request, 'errors/404.html', status=status.HTTP_404_NOT_FOUND)
 
 
 def error500(request):
-    return render(request, 'errors/500.html')
+    return render(request, 'errors/500.html', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 def error403(request):
-    return render(request, 'errors/403.html')
+    return render(request, 'errors/403.html', status=status.HTTP_403_FORBIDDEN)
 
 
 def error400(request):
-    return render(request, 'errors/400.html')
+    return render(request, 'errors/400.html', status=status.HTTP_400_BAD_REQUEST)

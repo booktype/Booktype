@@ -17,6 +17,7 @@
 import os
 import urllib
 import config
+import logging
 import urlparse
 import tempfile
 import ebooklib
@@ -37,11 +38,14 @@ from ebooklib.plugins.base import BasePlugin
 from ebooklib.utils import parse_html_string
 
 from booki.editor import models
+from .tidy import tidy_cleanup
 
 try:
     from PIL import Image
 except ImportError:
     import Image
+
+logger = logging.getLogger("booktype.utils.misc")
 
 
 class TidyPlugin(BasePlugin):
@@ -62,20 +66,15 @@ class TidyPlugin(BasePlugin):
         if not chapter.content:
             return None
 
-        from .tidy import tidy_cleanup
-        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
-
-        return chapter.content
+        _, content = tidy_cleanup(chapter.get_content(), **self.options)
+        return content
 
     def html_before_write(self, book, chapter):
         if not chapter.content:
             return None
 
-        from .tidy import tidy_cleanup
-
-        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
-
-        return chapter.content
+        _, content = tidy_cleanup(chapter.get_content(), **self.options)
+        return content
 
 
 class ImportPlugin(BasePlugin):
@@ -149,9 +148,6 @@ class LoadPlugin(BasePlugin):
         if not chapter.is_chapter():
             return
 
-        from lxml import etree
-        from ebooklib.utils import parse_html_string
-
         try:
             tree = parse_html_string(chapter.content)
         except:
@@ -167,6 +163,37 @@ class LoadPlugin(BasePlugin):
                 chapter.title = title.text
 
         chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+
+def remove_unknown_tags(html_content):
+    """
+    Remove unknown tags from a given html content string.
+    This method is based on a method of Cleaner class on lxml.html module
+    """
+
+    from lxml.html import defs
+
+    try:
+        tree = parse_html_string(html_content)
+    except Exception as err:
+        logger.error("RemoveUnknownTags: Problem while trying to parse content %s" % err)
+
+    allow_tags = set(defs.tags)
+
+    if allow_tags:
+        bad = []
+        for el in tree.iter():
+            if el.tag not in allow_tags:
+                bad.append(el)
+        if bad:
+            if bad[0] is tree:
+                el = bad.pop(0)
+                el.tag = 'div'
+                el.attrib.clear()
+            for el in bad:
+                el.drop_tag()
+
+    return etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
 
 def _convert_file_name(file_name):
@@ -400,12 +427,12 @@ def set_group_image(groupid, file_object, x_size, y_size):
     try:
         im = Image.open(fname)
         im.thumbnail((x_size, y_size), Image.ANTIALIAS)
+        new_path = os.path.join(settings.MEDIA_ROOT, GROUP_IMAGE_UPLOAD_DIR)
 
-        new_path = '%s/%s' % (settings.MEDIA_ROOT, GROUP_IMAGE_UPLOAD_DIR)
         if not os.path.exists(new_path):
             os.mkdir(new_path)
 
-        file_name = '%s/%s.jpg' % (new_path, groupid)
+        file_name = '{}.jpg'.format(os.path.join(new_path, str(groupid)))
         im.save(file_name, "JPEG")
     except:
         file_name = ''
@@ -510,7 +537,14 @@ def set_profile_image(user, file_object):
 
     try:
         im = create_thumbnail(fname, size=(100, 100))
-        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+
+        dir_path = os.path.join(settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR)
+        file_path = os.path.join(dir_path, '{}.jpg'.format(user.username))
+
+        if not os.path.isdir(dir_path):
+            os.mkdir(dir_path)
+
+        im.save(file_path, 'JPEG')
 
         # If we would use just profile.image.save method then out files would just end up with _1, _2, ... postfixes
 
@@ -606,3 +640,27 @@ def is_valid_email(email):
         return False
 
     return False
+
+
+def get_default_book_status():
+    """Returns the default book status"""
+
+    status_list = config.get_configuration('CHAPTER_STATUS_LIST')
+    default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0]['name'])
+    return default_status
+
+
+def get_available_themes():
+    """
+    get sorted themes name from the themes fodler
+    :return: list of themes names sorted by name
+    """
+    try:
+        available_themes = os.listdir(os.path.join(settings.BOOKTYPE_ROOT, 'themes'))
+        available_themes.sort()
+    except OSError as e:
+        logger.error('Error during checking theme availability: {0}'.format(e))
+        raise e
+
+    return available_themes
+

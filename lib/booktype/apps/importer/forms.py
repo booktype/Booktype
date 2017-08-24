@@ -5,7 +5,22 @@ from functools import partial
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+EPUB_CTYPE = 'application/epub+zip'
+DOCX_CTYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
+ALLOWED_TYPES = [
+    EPUB_CTYPE, DOCX_CTYPE
+]
+
+ALLOWED_EXTENSIONS = ['.docx', '.epub']
+ALLOWED_MSWORD_EXTENSIONS = ['.docx']
+
+
+def _check_extension(file_name, extension):
+    return file_name.endswith(extension)
+
+
+# TODO: it seems this class is not used anymore. Check if can be deleted
 class UploadForm(forms.Form):
     title = forms.CharField(
         required=False,
@@ -18,17 +33,6 @@ class UploadForm(forms.Form):
         required=True,
         label='Your EPUB file'
     )
-
-
-ALLOWED_TYPES = [
-    'application/epub+zip',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-]
-
-ALLOWED_EXTENSIONS = ['.docx', '.epub']
-
-def _check_extension(file_name, extension):
-    return file_name.endswith(extension)
 
 
 class UploadBookForm(forms.Form):
@@ -46,6 +50,32 @@ class UploadBookForm(forms.Form):
             if not any(map(partial(_check_extension, book_file.name), ALLOWED_EXTENSIONS)):
                 raise forms.ValidationError(_('Filetype not supported.'))
         elif content_type not in ALLOWED_TYPES:
+            raise forms.ValidationError(_('Filetype not supported.'))
+
+        return data
+
+
+class UploadDocxFileForm(forms.Form):
+    # no need to translate this below, it will be hidden form
+    IMPORT_CHOICES = (
+        ("append", "Append"),
+        ("overwrite", "Overwrite"),
+    )
+
+    chapter_file = forms.FileField(required=True)
+    import_mode = forms.ChoiceField(
+        required=True, choices=IMPORT_CHOICES, widget=forms.TextInput())
+
+    def clean(self, *args, **kwargs):
+        data = super(UploadDocxFileForm, self).clean(*args, **kwargs)
+
+        chapter_file = data.get('chapter_file')
+        content_type = chapter_file.content_type
+
+        if content_type == 'application/octet-stream':
+            if not any(map(partial(_check_extension, chapter_file.name), ALLOWED_MSWORD_EXTENSIONS)):
+                raise forms.ValidationError(_('Filetype not supported.'))
+        elif content_type != DOCX_CTYPE:
             raise forms.ValidationError(_('Filetype not supported.'))
 
         return data

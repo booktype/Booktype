@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
-# Hiroyuki Anraku <anrakuh@gmail.com>, 2016
+# Hiroyuki Anraku <anrakuh@gmail.com>, 2016-2017
 # Hiroyuki Anraku <anrakuh@gmail.com>, 2015-2016
+# Raoul Breugelmans <rpb@tokyo-med.ac.jp>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 15:21+0100\n"
-"PO-Revision-Date: 2016-06-19 11:46+0000\n"
-"Last-Translator: Hiroyuki Anraku <anrakuh@gmail.com>\n"
+"POT-Creation-Date: 2017-08-15 10:47-0600\n"
+"PO-Revision-Date: 2017-08-18 21:17+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,793 +22,836 @@ msgstr ""
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
-#: forms.py:55
+#: lib/booktypecontrol/forms.py:56
 msgid "Site title"
 msgstr "サイトタイトル"
 
-#: forms.py:57
+#: lib/booktypecontrol/forms.py:58
 msgid "Site title is required."
 msgstr "サイトタイトルは必須です。"
 
-#: forms.py:61
+#: lib/booktypecontrol/forms.py:62
 msgid "Tagline"
+msgstr "タグライン"
+
+#: lib/booktypecontrol/forms.py:67
+msgid "Frontpage URL"
 msgstr ""
 
-#: forms.py:66
+#: lib/booktypecontrol/forms.py:70
+msgid "Can be a full absolute or relative url"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:73
 msgid "Favicon"
 msgstr "Favicon"
 
-#: forms.py:68
+#: lib/booktypecontrol/forms.py:75
 msgid "Upload .ico file"
 msgstr "アイコンファイル（.ico）のアップロード"
 
-#: forms.py:105
+#: lib/booktypecontrol/forms.py:127
 msgid "CSS"
 msgstr "CSS"
 
-#: forms.py:133
+#: lib/booktypecontrol/forms.py:155
 msgid "Welcome message"
 msgstr "ウェルカムメッセージ"
 
-#: forms.py:138
+#: lib/booktypecontrol/forms.py:160
 msgid "Show activity"
 msgstr "アクティビティの閲覧"
 
-#: forms.py:142
+#: lib/booktypecontrol/forms.py:164
 msgid "Use anonymous page"
 msgstr "匿名ページ（anonymous page）の利用"
 
-#: forms.py:144
+#: lib/booktypecontrol/forms.py:166
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
 msgstr "匿名ユーザ（anonymous user）のページ分割をする。（書籍、利用者、グループ、および最近のアクティビティブロック以外）"
 
-#: forms.py:148
+#: lib/booktypecontrol/forms.py:170
 msgid "Anonymous page message"
 msgstr "匿名ページ（anonymous page）メッセージ"
 
-#: forms.py:151
+#: lib/booktypecontrol/forms.py:173
 msgid "Message for displaying on anonymous page."
 msgstr "匿名ページ（anonymous page）に表示するメッセージ"
 
-#: forms.py:154
+#: lib/booktypecontrol/forms.py:176
 msgid "Anonymous page email"
 msgstr "匿名ページ（anonymous page）のEメールアドレス"
 
-#: forms.py:156
+#: lib/booktypecontrol/forms.py:178
 msgid "Email for displaying on anonymous page."
 msgstr "匿名ページ（anonymous page）へのEメールアドレス表示。"
 
-#: forms.py:159
+#: lib/booktypecontrol/forms.py:181
 msgid "Anonymous page image"
 msgstr "匿名ページ（anonymous page）イメージ"
 
-#: forms.py:161
+#: lib/booktypecontrol/forms.py:183
 msgid "Use image/png files."
 msgstr "イメージ/pngファイルの利用"
 
-#: forms.py:248
+#: lib/booktypecontrol/forms.py:270
 msgid "Abbreviation"
 msgstr "省略"
 
-#: forms.py:250
+#: lib/booktypecontrol/forms.py:272
 msgid "Abbreviation is required."
 msgstr "省略は必須です。"
 
-#: forms.py:254
+#: lib/booktypecontrol/forms.py:276
 msgid "Name"
 msgstr "名前"
 
-#: forms.py:256 forms.py:262
+#: lib/booktypecontrol/forms.py:278 lib/booktypecontrol/forms.py:284
 msgid "License name is required."
 msgstr "ライセンス名は必須です。"
 
-#: forms.py:260
+#: lib/booktypecontrol/forms.py:282
 msgid "License URL"
 msgstr "ライセンスURL"
 
-#: forms.py:266
+#: lib/booktypecontrol/forms.py:288
 msgid "Successfully created new license."
 msgstr "新しいライセンスの作成に成功しました。"
 
-#: forms.py:285
+#: lib/booktypecontrol/forms.py:308
 msgid ""
-"Default visibility: If this box is checked, all newly created books will be "
-"visible to the public initially."
-msgstr "デフォルトビジビリティ：チェックすると、すべての新しく作られた書籍が最初から公開されるようになります。"
+"Default: visible. If this box is unchecked, create/import wizard will "
+"suggest to mark book as hidden by default."
+msgstr ""
 
-#: forms.py:287
+#: lib/booktypecontrol/forms.py:312
 msgid ""
-"If it is turned on then track changes will be        enabled for all the "
-"users."
-msgstr "有効にすると、すべての利用者にトラックの変更が可能になります。"
+"If it is turned on then track changes will be enabled for all the users."
+msgstr ""
 
-#: forms.py:290
-msgid "Default visibility"
-msgstr "デフォルトビジビリティ"
+#: lib/booktypecontrol/forms.py:315
+msgid "Visible by default"
+msgstr ""
 
-#: forms.py:295
+#: lib/booktypecontrol/forms.py:320
 msgid "Track changes"
 msgstr "トラックの変更"
 
-#: forms.py:300
+#: lib/booktypecontrol/forms.py:325
 msgid "Default License"
 msgstr "デフォルトライセンス"
 
-#: forms.py:303
+#: lib/booktypecontrol/forms.py:328
 msgid "Default license for newly created books."
 msgstr "新しく作成された書籍のデフォルトのライセンス"
 
-#: forms.py:350
+#: lib/booktypecontrol/forms.py:331
+msgid "Default Language"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:334
+msgid "Default language for newly created books."
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:337
+msgid "Metadata to be filled"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:341
+msgid ""
+"Select the metadata fields to be filled in book creation wizard (selected "
+"fields will be optional)"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:420
 msgid "Anyone can register"
 msgstr "誰でも登録可能"
 
-#: forms.py:352
+#: lib/booktypecontrol/forms.py:422
 msgid "Anyone can register on the site and create an account"
 msgstr "だれでもサイトから登録、およびアカウントの作成が可能"
 
-#: forms.py:355
+#: lib/booktypecontrol/forms.py:425
 msgid "Only the superuser can create books"
 msgstr "スーパーユーザーだけが書籍を作成可能"
 
-#: forms.py:359
+#: lib/booktypecontrol/forms.py:429
 msgid "Only the superuser can import books"
 msgstr "スーパーユーザーだけが書籍のインポートが可能"
 
-#: forms.py:387 forms.py:550
+#: lib/booktypecontrol/forms.py:457 lib/booktypecontrol/forms.py:619
 msgid "Username"
 msgstr "ユーザ名"
 
-#: forms.py:390 forms.py:554
+#: lib/booktypecontrol/forms.py:460 lib/booktypecontrol/forms.py:623
 msgid "Username is required."
 msgstr "ユーザ名は必須です。"
 
-#: forms.py:391 forms.py:397 forms.py:555 forms.py:560
+#: lib/booktypecontrol/forms.py:461 lib/booktypecontrol/forms.py:467
+#: lib/booktypecontrol/forms.py:624 lib/booktypecontrol/forms.py:629
 msgid "Illegal characters in username."
 msgstr "ユーザ名に誤った文字が使われています。"
 
-#: forms.py:403 forms.py:566
+#: lib/booktypecontrol/forms.py:473 lib/booktypecontrol/forms.py:635
 msgid "Full name"
 msgstr "フルネーム"
 
-#: forms.py:405 forms.py:568
+#: lib/booktypecontrol/forms.py:475 lib/booktypecontrol/forms.py:637
 msgid "Full name is required."
 msgstr "フルネームは必須です。"
 
-#: forms.py:409 forms.py:572
+#: lib/booktypecontrol/forms.py:479 lib/booktypecontrol/forms.py:641
 msgid "Email"
 msgstr "電子メール"
 
-#: forms.py:411 forms.py:574
+#: lib/booktypecontrol/forms.py:481 lib/booktypecontrol/forms.py:643
 msgid "Email is required."
 msgstr "電子メールは必須です。"
 
-#: forms.py:415 forms.py:586
+#: lib/booktypecontrol/forms.py:485 lib/booktypecontrol/forms.py:655
 msgid "User description"
 msgstr "ユーザの説明"
 
-#: forms.py:420 forms.py:624
+#: lib/booktypecontrol/forms.py:490 lib/booktypecontrol/forms.py:693
 msgid "Password"
 msgstr "パスワード"
 
-#: forms.py:422 forms.py:429 forms.py:626 forms.py:634
+#: lib/booktypecontrol/forms.py:492 lib/booktypecontrol/forms.py:499
+#: lib/booktypecontrol/forms.py:695 lib/booktypecontrol/forms.py:703
 msgid "Password is required."
 msgstr "パスワードは必須です。"
 
-#: forms.py:427 forms.py:631
+#: lib/booktypecontrol/forms.py:497 lib/booktypecontrol/forms.py:700
 msgid "Password confirmation"
 msgstr "パスワードの確認"
 
-#: forms.py:432 forms.py:636
+#: lib/booktypecontrol/forms.py:502 lib/booktypecontrol/forms.py:705
 msgid "Enter the same password as above, for verification."
 msgstr "確認のため、上と同じパスワードを入れてください。"
 
-#: forms.py:435
+#: lib/booktypecontrol/forms.py:505
 msgid "Notify person by email"
 msgstr "Eメールによる人の確認"
 
-#: forms.py:440 forms.py:592
+#: lib/booktypecontrol/forms.py:510 lib/booktypecontrol/forms.py:661
 msgid "This person is a superuser"
 msgstr "この人はスーパーユーザーです"
 
-#: forms.py:444
+#: lib/booktypecontrol/forms.py:514
 msgid "Successfully created new account."
 msgstr "新しいアカウントの作成に成功しました。"
 
-#: forms.py:470
+#: lib/booktypecontrol/forms.py:540
 msgid "That username is already taken."
 msgstr "このユーザ名は既に存在します。"
 
-#: forms.py:476
+#: lib/booktypecontrol/forms.py:546
 msgid "Passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: forms.py:578
+#: lib/booktypecontrol/forms.py:582
+#, python-format
+msgid "You have a new %s account"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:647
 msgid "Profile picture"
 msgstr "プロフィール写真"
 
-#: forms.py:596
+#: lib/booktypecontrol/forms.py:665
 msgid "Active account"
 msgstr "アカウント有効"
 
-#: forms.py:598
+#: lib/booktypecontrol/forms.py:667
 msgid "Indicate whether user's account is archived or active."
 msgstr "ユーザーのアカウントが保存されるか、あるいはアクティブであるかどうかを示してください。"
 
-#: forms.py:620
+#: lib/booktypecontrol/forms.py:689
 msgid "The two password fields didn't match."
 msgstr "2つのパスワードが一致しません。"
 
-#: forms.py:639
+#: lib/booktypecontrol/forms.py:708
 msgid "Send login data"
 msgstr "ログインデータの送信"
 
-#: forms.py:641
+#: lib/booktypecontrol/forms.py:710
 msgid "Send new login data to the user via email."
 msgstr "新しいログインデータを利用者にEメールで送信する。"
 
-#: forms.py:645
+#: lib/booktypecontrol/forms.py:714
 msgid "Short message"
 msgstr "ショートメッセージ"
 
-#: forms.py:647
+#: lib/booktypecontrol/forms.py:716
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
-msgstr ""
+msgstr "新しいログイン情報に続いて、Eメールの最後に追加されます。"
 
-#: forms.py:649
+#: lib/booktypecontrol/forms.py:718
 msgid "You can change password in your profile settings page."
 msgstr "プロファイルの設定ページでパスワード変更が可能です。"
 
-#: forms.py:674 forms.py:747
+#: lib/booktypecontrol/forms.py:743 lib/booktypecontrol/forms.py:816
 msgid "Title"
 msgstr "タイトル"
 
-#: forms.py:675 forms.py:749 tests.py:49
+#: lib/booktypecontrol/forms.py:744 lib/booktypecontrol/forms.py:818
+#: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "タイトルは必須です。"
 
-#: forms.py:680
+#: lib/booktypecontrol/forms.py:749
 msgid "Description"
 msgstr "説明"
 
-#: forms.py:685
+#: lib/booktypecontrol/forms.py:754
 msgid "Owner"
 msgstr "所有者"
 
-#: forms.py:686
+#: lib/booktypecontrol/forms.py:755
 msgid "Book owner is required."
 msgstr "書籍の所有者は必須です。"
 
-#: forms.py:691
+#: lib/booktypecontrol/forms.py:760
 msgid "License"
 msgstr "ライセンス"
 
-#: forms.py:693
+#: lib/booktypecontrol/forms.py:762
 msgid "License is required."
 msgstr "ライセンスは必須です。"
 
-#: forms.py:697
-msgid "Initially hide from others"
-msgstr "デフォルトでは隠します"
+#: lib/booktypecontrol/forms.py:766
+msgid "Hide this book from other people"
+msgstr ""
 
-#: forms.py:701
+#: lib/booktypecontrol/forms.py:770
 msgid "Book image"
 msgstr "書籍のイメージ"
 
-#: forms.py:705
+#: lib/booktypecontrol/forms.py:774
 msgid "Successfully created new book."
 msgstr "新しい書籍の作成に成功"
 
-#: forms.py:709
+#: lib/booktypecontrol/forms.py:778
 msgid "That book already exists."
 msgstr "書籍は既に存在します。"
 
-#: forms.py:753
+#: lib/booktypecontrol/forms.py:822
 msgid "URL title"
 msgstr "URLタイトル"
 
-#: forms.py:756
+#: lib/booktypecontrol/forms.py:825
 msgid "Illegal characters in URL title."
 msgstr "URLタイトルに誤った文字が使われています。"
 
-#: forms.py:757
+#: lib/booktypecontrol/forms.py:826
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr "このフィールドを空白のままにした場合、URLタイトルは自動的に設定されます。"
 
-#: forms.py:797
-msgid "Book PDF"
-msgstr "書籍PDF"
-
-#: forms.py:801
-msgid "Screen PDF"
-msgstr "画面PDF"
-
-#: forms.py:805
-msgid "EPUB"
-msgstr "EPUB"
-
-#: forms.py:809
-msgid "MOBI"
-msgstr "MOBI"
-
-#: forms.py:813
-msgid "XHTML"
-msgstr "XHTML"
-
-#: forms.py:845
+#: lib/booktypecontrol/forms.py:923
 msgid "Book CSS"
 msgstr "書籍 CSS"
 
-#: forms.py:853
+#: lib/booktypecontrol/forms.py:931
 msgid "E-Book CSS"
 msgstr "E-Book CSS"
 
-#: forms.py:861
+#: lib/booktypecontrol/forms.py:939
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: forms.py:869
+#: lib/booktypecontrol/forms.py:947
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: forms.py:923
+#: lib/booktypecontrol/forms.py:1001
 msgid "Successfully created new group."
 msgstr "新しいグループの作成に成功しました。"
 
-#: forms.py:960
+#: lib/booktypecontrol/forms.py:1038
 msgid "Successfully created new role."
 msgstr "新しいロールの作成に成功しました。"
 
-#: forms.py:993
+#: lib/booktypecontrol/forms.py:1077
 msgid "Role for anonymous users"
 msgstr "匿名ユーザー（anonymous user）のロール"
 
-#: forms.py:997
+#: lib/booktypecontrol/forms.py:1081
 msgid "Role for registered users"
 msgstr "登録されたユーザーのロール"
 
-#: forms.py:1002
+#: lib/booktypecontrol/forms.py:1086
 msgid "None"
 msgstr "なし"
 
-#: views.py:50 templates/booktypecontrol/control_center_settings.html:27
-msgid "Site Description"
-msgstr "サイトの説明"
-
-#: views.py:51 templates/booktypecontrol/control_center_settings.html:28
-msgid "Site Appearance"
-msgstr "サイトの外観"
-
-#: views.py:52 templates/booktypecontrol/control_center_settings.html:29
-msgid "Site Front Page"
-msgstr "サイトのフロントページ"
-
-#: views.py:53 templates/booktypecontrol/control_center_settings.html:30
-msgid "Book Licenses"
-msgstr "書籍のライセンス"
-
-#: views.py:54 templates/booktypecontrol/control_center_settings.html:31
-msgid "Book Creation Defaults"
-msgstr "デフォルト書籍作成"
-
-#: views.py:55 templates/booktypecontrol/control_center_settings.html:33
-msgid "Privacy"
-msgstr "プライバシー"
-
-#: views.py:56 templates/booktypecontrol/control_center_settings.html:38
-msgid "Add a New Person"
-msgstr "利用者の追加"
-
-#: views.py:57 templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:39
-msgid "List of People"
-msgstr "利用者一覧"
-
-#: views.py:58 templates/booktypecontrol/_control_center_archived_users.html:5
-#: templates/booktypecontrol/control_center_settings.html:40
-msgid "Archived Users"
-msgstr "保存された利用者"
-
-#: views.py:59 templates/booktypecontrol/control_center_settings.html:43
-msgid "Add a New Book"
-msgstr "新しい書籍の追加"
-
-#: views.py:60 templates/booktypecontrol/control_center_settings.html:44
-msgid "List of Books"
-msgstr "書籍一覧"
-
-#: views.py:61 templates/booktypecontrol/control_center_settings.html:34
-msgid "Publishing Options"
-msgstr "出版オプション"
-
-#: views.py:62 templates/booktypecontrol/control_center_settings.html:35
-msgid "Publishing Defaults"
-msgstr "出版デフォルト"
-
-#: views.py:63 templates/booktypecontrol/control_center_settings.html:47
-msgid "Add a New Group"
-msgstr "新しいグループの追加"
-
-#: views.py:64 templates/booktypecontrol/control_center_settings.html:48
-msgid "List of Groups"
-msgstr "グループ一覧"
-
-#: views.py:65 templates/booktypecontrol/control_center_settings.html:51
-msgid "Add a New Role"
-msgstr "新しいロールの追加"
-
-#: views.py:66 templates/booktypecontrol/control_center_settings.html:52
-msgid "List of Roles"
-msgstr "ロール一覧"
-
-#: views.py:67 templates/booktypecontrol/control_center_settings.html:32
-msgid "Default Roles"
-msgstr "デフォルトのロール"
-
-#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
-#: views.py:451
-msgid "Admin Control Center"
-msgstr ""
-
-#: views.py:195
-msgid "Successfully saved settings."
-msgstr "設定の保存に成功しました"
-
-#: views.py:200
-msgid "Unknown error while saving changes."
-msgstr "変更を保存中に何らかのエラー発生"
-
-#: views.py:284
-msgid "Edit Person Info"
-msgstr "利用者情報の編集"
-
-#: views.py:304 views.py:356
-msgid "Successfully saved changes."
-msgstr "変更の保存に成功"
-
-#: views.py:326
-msgid "Rename Book"
-msgstr "書籍の名前変更"
-
-#: views.py:330
-msgid "Book name successfully changed."
-msgstr "書籍の名前変更に成功"
-
-#: views.py:367
-msgid "Your password was changed"
-msgstr "パスワードは変更されました"
-
-#: views.py:386
-#, python-format
-msgid "Change Password: %s"
-msgstr "パスワード変更：%s"
-
-#: views.py:401
-msgid "Group successfully deleted."
-msgstr "グループの削除に成功"
-
-#: views.py:417
-msgid "Edit licence"
-msgstr "ライセンス編集"
-
-#: views.py:423
-msgid "License successfully updated."
-msgstr "ライセンスの更新に成功"
-
-#: views.py:435
-msgid ""
-"There are books remaining with this license.                     Unable to "
-"remove"
-msgstr ""
-
-#: views.py:440
-msgid "License successfully deleted."
-msgstr "ライセンスの削除に成功"
-
-#: views.py:459
-msgid "Edit role"
-msgstr "ロールの編集"
-
-#: views.py:463
-msgid "Role successfully updated."
-msgstr "ロールの更新に成功"
-
-#: views.py:473
-msgid "Role successfully deleted."
-msgstr "ロールの削除に成功"
-
-#: templates/control_base.html:10
-msgid "Home"
-msgstr "ホーム"
-
-#: templates/control_base.html:13
-#: templates/booktypecontrol/control_center_settings.html:26
-msgid "Settings"
-msgstr "設定"
-
-#: templates/control_base.html:16
-#: templates/booktypecontrol/control_center_settings.html:37
-msgid "People"
-msgstr "利用者"
-
-#: templates/control_base.html:19
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:42
-msgid "Books"
-msgstr "本"
-
-#: templates/control_base.html:22
-#: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:46
-msgid "Groups"
-msgstr "グループ"
-
-#: templates/control_base.html:25
-#: templates/booktypecontrol/control_center_settings.html:50
-msgid "Roles"
-msgstr "ロール"
-
-#: templates/booktypecontrol/_control_center_add_person.html:4
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
 msgid "Add new person"
 msgstr "利用者の追加"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:17
-#: templates/booktypecontrol/_control_center_list_of_people.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
+#: lib/booktypecontrol/views.py:59
+msgid "Archived Users"
+msgstr "保存された利用者"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:17
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:22
 msgid "Edit Info"
 msgstr "情報の編集"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:21
-#: templates/booktypecontrol/_control_center_list_of_people.html:26
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:26
 msgid "superuser"
 msgstr "スーパーユーザー"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:24
-#: templates/booktypecontrol/_control_center_list_of_people.html:29
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:29
 msgid "archived"
 msgstr "保存"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:35
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:35
 msgid "There are no archived users at the moment."
-msgstr ""
+msgstr "現在、アーカイブユーザーはいません。"
 
-#: templates/booktypecontrol/_control_center_license.html:4
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:4
 msgid "Add new license"
 msgstr "新しいライセンスの追加"
 
-#: templates/booktypecontrol/_control_center_license.html:8
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:8
 msgid "Licenses"
 msgstr "ライセンス"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:6
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:6
 msgid "Remove"
 msgstr "削除"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:9
 msgid "Books licensed with"
 msgstr "書籍のライセンス"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:20
 msgid "No books for this license."
-msgstr ""
+msgstr "このライセンスと紐づいている書籍はありません。"
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:11
 msgid "Add new book"
 msgstr "書籍の追加"
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:14
 msgid "Show in a grid"
 msgstr "グリッドの表示"
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:15
 msgid "Show in a list"
 msgstr "リストに表示する"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:9
 msgid "Add new group"
 msgstr "新しいグループの追加"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
 msgid "Members"
 msgstr "メンバー"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:24
-#: templates/booktypecontrol/_control_center_list_of_roles.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+#: lib/booktypecontrol/templates/control_base.html:19
+msgid "Books"
+msgstr "本"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:21
 msgid "Edit"
 msgstr "編集"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:25
-#: templates/booktypecontrol/_control_center_list_of_roles.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:22
 msgid "Delete"
 msgstr "削除"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
+#: lib/booktypecontrol/views.py:58
+msgid "List of People"
+msgstr "利用者一覧"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
 msgid "Add Person"
 msgstr "利用者の追加"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
 msgid "ADD PERSON"
 msgstr "利用者の追加"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:19
 msgid "Change password"
 msgstr "パスワード変更"
 
-#: templates/booktypecontrol/_control_center_list_of_roles.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:9
 msgid "Add new role"
 msgstr "新しいロールの追加"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:16
 msgid "Delete Group"
 msgstr "グループの削除"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:11
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
 msgstr "本当にグループを削除しますか?この操作は取り消しできません!"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
-#: templates/booktypecontrol/_control_center_settings.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:15
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:20
 msgid "Delete License"
 msgstr "ライセンスの削除"
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:12
 msgid ""
 "There are licensed books with this license. You should change the license "
 "for these books before deleting it."
-msgstr ""
+msgstr "このライセンスが適用された書籍があるので、このライセンスを削除する前に書籍のライセンスを変更するべきです。"
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:14
 msgid ""
 "Are you sure you would like to delete this license? You will not be able to "
 "undo this operation!"
 msgstr "本当にこのライセンスを削除しますか？この操作は取り消しできません！"
 
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:16
 msgid "Delete Role"
 msgstr "ロール削除"
 
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:11
 msgid ""
 "Are you sure you would like to delete this role? You will not be able to "
 "undo this operation!"
 msgstr "本当にこのロールスを削除しますか？この操作は取り消しできません！"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: templates/booktypecontrol/control_center_dashboard.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
 msgid "Recent Activity"
 msgstr "最近のアクティビティ"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: templates/booktypecontrol/control_center_dashboard.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:52
+#: lib/booktypecontrol/templates/control_base.html:22
+msgid "Groups"
+msgstr "グループ"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
 msgid "ago"
 msgstr "以前"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:41
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:41
 msgid "There is no activity yet"
-msgstr ""
+msgstr "まだアクティビティがありません"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:56
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:56
 msgid "Current version"
 msgstr "現在のバージョン"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:62
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:62
 msgid "This user has no books"
 msgstr "このユーザは書籍を持ちません"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:82
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:82
 msgid "This user has no groups"
 msgstr "このユーザはグループを持ちません"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:87
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
 msgid "Close"
 msgstr "クローズ"
 
-#: templates/booktypecontrol/_control_center_settings.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:13
 msgid "Save changes"
 msgstr "変更の保存"
 
-#: templates/booktypecontrol/control_center_dashboard.html:10
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:10
 msgid "Info"
 msgstr "情報"
 
-#: templates/booktypecontrol/control_center_dashboard.html:12
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:12
 msgid "version"
 msgstr "バージョン"
 
-#: templates/booktypecontrol/control_center_dashboard.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+msgid "users"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:14
 msgid "books"
 msgstr "書籍"
 
-#: templates/booktypecontrol/control_center_dashboard.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:15
 msgid "groups"
 msgstr "グループ"
 
-#: templates/booktypecontrol/control_center_dashboard.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:16
 msgid "database size"
 msgstr "データベースサイズ"
 
-#: templates/booktypecontrol/control_center_dashboard.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:17
 msgid "files size"
 msgstr "ファイルサイズ"
 
-#: templates/booktypecontrol/control_center_dashboard.html:50
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:51
 msgid "Online Users"
 msgstr "オンライン利用者"
 
-#: templates/booktypecontrol/control_center_dashboard.html:62
-#: templates/booktypecontrol/control_center_dashboard.html:93
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:94
 msgid "Working on:"
-msgstr ""
+msgstr "作業中："
 
-#: templates/booktypecontrol/control_center_dashboard.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:77
 msgid "No online users"
 msgstr "オンラインユーザなし"
 
-#: templates/booktypecontrol/control_center_dashboard.html:83
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
 msgid "Most Active Users"
 msgstr "最もアクティブなユーザ"
 
-#: templates/booktypecontrol/control_center_dashboard.html:83
-#: templates/booktypecontrol/control_center_dashboard.html:107
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
 msgid "view all"
 msgstr "すべて見る"
 
-#: templates/booktypecontrol/control_center_dashboard.html:100
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:102
 msgid "No most active users"
-msgstr ""
+msgstr "最もアクティブなユーザはいません"
 
-#: templates/booktypecontrol/control_center_dashboard.html:107
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
 msgid "Latest Books"
 msgstr "最新の書籍"
 
-#: templates/booktypecontrol/control_center_dashboard.html:120
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:122
 msgid "No books here"
 msgstr "書籍がありません"
 
-#: templates/booktypecontrol/control_center_dashboard.html:127
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:129
 msgid "Most Active Books"
 msgstr "最もよく読まれた書籍"
 
-#: templates/booktypecontrol/control_center_dashboard.html:140
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:142
 msgid "No active books here"
+msgstr "アクティブな書籍はありません。"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:33
+#: lib/booktypecontrol/templates/control_base.html:13
+msgid "Settings"
+msgstr "設定"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
+#: lib/booktypecontrol/views.py:51
+msgid "Site Description"
+msgstr "サイトの説明"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
+#: lib/booktypecontrol/views.py:52
+msgid "Site Appearance"
+msgstr "サイトの外観"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
+#: lib/booktypecontrol/views.py:53
+msgid "Site Front Page"
+msgstr "サイトのフロントページ"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
+#: lib/booktypecontrol/views.py:54
+msgid "Book Licenses"
+msgstr "書籍のライセンス"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
+#: lib/booktypecontrol/views.py:55
+msgid "Book Creation Defaults"
+msgstr "デフォルト書籍作成"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
+#: lib/booktypecontrol/views.py:68
+msgid "Default Roles"
+msgstr "デフォルトのロール"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/views.py:56
+msgid "Privacy"
+msgstr "プライバシー"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
+#: lib/booktypecontrol/views.py:62
+msgid "Publishing Options"
+msgstr "出版オプション"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/templates/control_base.html:16
+msgid "People"
+msgstr "利用者"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
+#: lib/booktypecontrol/views.py:57
+msgid "Add a New Person"
+msgstr "利用者の追加"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
+#: lib/booktypecontrol/views.py:60
+msgid "Add a New Book"
+msgstr "新しい書籍の追加"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
+#: lib/booktypecontrol/views.py:61
+msgid "List of Books"
+msgstr "書籍一覧"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/views.py:64
+msgid "Add a New Group"
+msgstr "新しいグループの追加"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
+#: lib/booktypecontrol/views.py:65
+msgid "List of Groups"
+msgstr "グループ一覧"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
+#: lib/booktypecontrol/templates/control_base.html:25
+msgid "Roles"
+msgstr "ロール"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/views.py:66
+msgid "Add a New Role"
+msgstr "新しいロールの追加"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
+#: lib/booktypecontrol/views.py:67
+msgid "List of Roles"
+msgstr "ロール一覧"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:4
+msgid "Hello"
 msgstr ""
 
-#: templates/booktypecontrol/new_person_email.html:3
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:8
 #, python-format
 msgid ""
-"You've just had a Booktype account created for you! Please head over to "
-"%(server)s to log in. Here are your login credentials:"
+"Your Booktype account has been created! Please go to %(server)s to log in."
 msgstr ""
 
-#: templates/booktypecontrol/new_person_email.html:7
-#: templates/booktypecontrol/password_changed_email.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:12
+#, python-format
+msgid ""
+"If you don't know your password, please click the password reset link on the"
+" %(server)s home page."
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:2
+msgid "Your password was changed. Here are your new login credentials:"
+msgstr "パスワードが変更されました。ここにあなたの新しいログイン資格証明があります："
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:5
 msgid "Username:"
 msgstr "ユーザ名"
 
-#: templates/booktypecontrol/new_person_email.html:8
-#: templates/booktypecontrol/password_changed_email.html:6
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:6
 msgid "Password:"
 msgstr "パスワード"
 
-#: templates/booktypecontrol/password_changed_email.html:2
-msgid "Your password was changed. Here are your new login credentials:"
-msgstr "パスワードが変更されました。ここにあなたの新しいログイン資格証明があります："
+#: lib/booktypecontrol/templates/control_base.html:10
+msgid "Home"
+msgstr "ホーム"
+
+#: lib/booktypecontrol/views.py:63
+msgid "Publishing Defaults"
+msgstr "出版デフォルト"
+
+#: lib/booktypecontrol/views.py:89 lib/booktypecontrol/views.py:185
+#: lib/booktypecontrol/views.py:284 lib/booktypecontrol/views.py:348
+#: lib/booktypecontrol/views.py:425 lib/booktypecontrol/views.py:467
+msgid "Admin Control Center"
+msgstr "管理用コントロールセンター"
+
+#: lib/booktypecontrol/views.py:196
+msgid "Successfully saved settings."
+msgstr "設定の保存に成功しました"
+
+#: lib/booktypecontrol/views.py:201
+msgid "Unknown error while saving changes."
+msgstr "変更を保存中に何らかのエラー発生"
+
+#: lib/booktypecontrol/views.py:287
+msgid "Edit Person Info"
+msgstr "利用者情報の編集"
+
+#: lib/booktypecontrol/views.py:307 lib/booktypecontrol/views.py:358
+msgid "Successfully saved changes."
+msgstr "変更の保存に成功"
+
+#: lib/booktypecontrol/views.py:329
+msgid "Rename Book"
+msgstr "書籍の名前変更"
+
+#: lib/booktypecontrol/views.py:333
+msgid "Book name successfully changed."
+msgstr "書籍の名前変更に成功"
+
+#: lib/booktypecontrol/views.py:369
+msgid "Your password was changed"
+msgstr "パスワードは変更されました"
+
+#: lib/booktypecontrol/views.py:388
+#, python-format
+msgid "Change Password: %s"
+msgstr "パスワード変更：%s"
+
+#: lib/booktypecontrol/views.py:403
+msgid "Group successfully deleted."
+msgstr "グループの削除に成功"
+
+#: lib/booktypecontrol/views.py:433
+msgid "Edit licence"
+msgstr "ライセンス編集"
+
+#: lib/booktypecontrol/views.py:439
+msgid "License successfully updated."
+msgstr "ライセンスの更新に成功"
+
+#: lib/booktypecontrol/views.py:451
+msgid ""
+"There are books remaining with this license.                     Unable to "
+"remove"
+msgstr "このライセンスと紐づいている書籍があるので、削除できません"
+
+#: lib/booktypecontrol/views.py:456
+msgid "License successfully deleted."
+msgstr "ライセンスの削除に成功"
+
+#: lib/booktypecontrol/views.py:475
+msgid "Edit role"
+msgstr "ロールの編集"
+
+#: lib/booktypecontrol/views.py:479
+msgid "Role successfully updated."
+msgstr "ロールの更新に成功"
+
+#: lib/booktypecontrol/views.py:489
+msgid "Role successfully deleted."
+msgstr "ロールの削除に成功"

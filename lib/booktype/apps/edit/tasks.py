@@ -13,20 +13,18 @@ from booki.editor import models
 from booktype.utils import config, download
 from booktype.apps.export.models import BookExport, ExportFile
 from booktype.apps.export.utils import get_settings_as_dictionary
+from booktype.apps.themes.models import BookTheme
 from .utils import send_notification
 
 
 logger = logging.getLogger('booktype')
 
 
-def get_theme(book, username):
-    from booktype.apps.themes.models import UserTheme
-
+def get_theme(book):
     data = {}
-    owner = User.objects.get(username=username)
 
     try:
-        theme = UserTheme.objects.get(book=book, owner=owner)
+        theme = BookTheme.objects.get(book=book)
     except Exception:
         return data
 
@@ -61,12 +59,24 @@ def publish_book(*args, **kwargs):
 
     for _format in kwargs['formats']:
         _ext = "pdf"
-        if _format == "epub":
+        _suffix = "-{}".format(_format.upper())
+
+        if _format == "epub3":
+            _ext = "epub"
+        elif _format == "epub2":
             _ext = "epub"
         elif _format == "mobi":
             _ext = "mobi"
         elif _format == "xhtml":
             _ext = "zip"
+        elif _format == "icml":
+            _ext = "zip"
+        elif _format == "docx":
+            _ext = "zip"
+        elif _format == "pdfreactor":
+            _ext = "pdf"
+        elif _format == "pdfreactor-screenpdf":
+            _ext = "pdf"
 
         format_settings = get_settings_as_dictionary(book, _format)
 
@@ -75,9 +85,14 @@ def publish_book(*args, **kwargs):
             "config": {
                 "project_id": book.url_title,
                 "settings": format_settings,
-                "theme": get_theme(book, kwargs["username"])
+                "theme": get_theme(book)
             },
-            "output": "{0}_{1}.{2}".format(book.url_title, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), _ext)
+            "output": "{0}_{1}{2}.{3}".format(
+                book.url_title,
+                datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
+                _suffix,
+                _ext
+            )
         }
 
         if 'cover_image' in format_settings:

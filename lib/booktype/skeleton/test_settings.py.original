@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+from .base import *
+
+# PROFILE
+PROFILE_ACTIVE = 'test'
+
+# WEB SITE URL
+THIS_BOOKTYPE_SERVER = '127.0.0.1:8080'
+BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
+
+# STATIC & MEDIA
+STATIC_URL = '{}/static/'.format('')
+DATA_URL = '{}/data/'.format('')
+MEDIA_URL = DATA_URL
+
+# URL where is publishing engine located. By default it is on local machine.
+CONVERT_URL = BOOKTYPE_URL
+
+# PUBLISH SETTINGS
+PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub3', 'epub2', 'icml', 'docx', 'mobi', 'xhtml']
+
+# DEBUGGING
+DEBUG = TEMPLATE_DEBUG = False
+INTERNAL_IPS = ('127.0.0.1', '192.168.0.1')
+
+# COMPRESSION
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
+
+# URL ROUTER
+ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_DIR)
+
+# DATABASE
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
+    }
+}
+
+# REDIS
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 10
+REDIS_PASSWORD = None
+
+# E-MAIL
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

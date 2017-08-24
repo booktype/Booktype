@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
+# Katona Gábor <katona.gabor4@gmail.com>, 2015
 # Zsolt Magyar <picizse@gmail.com>, 2014
 # Zsolt Magyar <picizse@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 15:21+0100\n"
-"PO-Revision-Date: 2015-10-05 16:41+0000\n"
-"Last-Translator: Zsolt Magyar <picizse@gmail.com>\n"
+"POT-Creation-Date: 2017-08-15 10:47-0600\n"
+"PO-Revision-Date: 2017-08-18 21:17+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,793 +22,836 @@ msgstr ""
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
-#: forms.py:55
+#: lib/booktypecontrol/forms.py:56
 msgid "Site title"
 msgstr "Honlap cím"
 
-#: forms.py:57
+#: lib/booktypecontrol/forms.py:58
 msgid "Site title is required."
 msgstr "Oldal címet kötelező megadni."
 
-#: forms.py:61
+#: lib/booktypecontrol/forms.py:62
 msgid "Tagline"
 msgstr "Toldaléksor"
 
-#: forms.py:66
+#: lib/booktypecontrol/forms.py:67
+msgid "Frontpage URL"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:70
+msgid "Can be a full absolute or relative url"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:73
 msgid "Favicon"
 msgstr "Favikon"
 
-#: forms.py:68
+#: lib/booktypecontrol/forms.py:75
 msgid "Upload .ico file"
 msgstr ".ico fájl feltöltése"
 
-#: forms.py:105
+#: lib/booktypecontrol/forms.py:127
 msgid "CSS"
 msgstr "CSS"
 
-#: forms.py:133
+#: lib/booktypecontrol/forms.py:155
 msgid "Welcome message"
 msgstr "Üdvözlő üzenet"
 
-#: forms.py:138
+#: lib/booktypecontrol/forms.py:160
 msgid "Show activity"
 msgstr "Aktivitás megtekintése"
 
-#: forms.py:142
+#: lib/booktypecontrol/forms.py:164
 msgid "Use anonymous page"
 msgstr "Névtelen oldal használata"
 
-#: forms.py:144
+#: lib/booktypecontrol/forms.py:166
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
 msgstr "Használjon külön oldalakat a névtelen felhasználók számára."
 
-#: forms.py:148
+#: lib/booktypecontrol/forms.py:170
 msgid "Anonymous page message"
 msgstr "Névtelen oldal üzenete"
 
-#: forms.py:151
+#: lib/booktypecontrol/forms.py:173
 msgid "Message for displaying on anonymous page."
 msgstr "Megjelenő üzenet a névtelen oldalon."
 
-#: forms.py:154
+#: lib/booktypecontrol/forms.py:176
 msgid "Anonymous page email"
 msgstr "A névtelen oldal email címe"
 
-#: forms.py:156
+#: lib/booktypecontrol/forms.py:178
 msgid "Email for displaying on anonymous page."
 msgstr "Megjelenő email cím a névtelen oldalon."
 
-#: forms.py:159
+#: lib/booktypecontrol/forms.py:181
 msgid "Anonymous page image"
 msgstr "A névtelen oldal képe"
 
-#: forms.py:161
+#: lib/booktypecontrol/forms.py:183
 msgid "Use image/png files."
 msgstr "Kép/png fájlok használata."
 
-#: forms.py:248
+#: lib/booktypecontrol/forms.py:270
 msgid "Abbreviation"
 msgstr ""
 
-#: forms.py:250
+#: lib/booktypecontrol/forms.py:272
 msgid "Abbreviation is required."
 msgstr ""
 
-#: forms.py:254
+#: lib/booktypecontrol/forms.py:276
 msgid "Name"
 msgstr "Név"
 
-#: forms.py:256 forms.py:262
+#: lib/booktypecontrol/forms.py:278 lib/booktypecontrol/forms.py:284
 msgid "License name is required."
 msgstr "A Licenc nevét szükséges megadni."
 
-#: forms.py:260
+#: lib/booktypecontrol/forms.py:282
 msgid "License URL"
 msgstr "Liszensz URL"
 
-#: forms.py:266
+#: lib/booktypecontrol/forms.py:288
 msgid "Successfully created new license."
 msgstr ""
 
-#: forms.py:285
+#: lib/booktypecontrol/forms.py:308
 msgid ""
-"Default visibility: If this box is checked, all newly created books will be "
-"visible to the public initially."
+"Default: visible. If this box is unchecked, create/import wizard will "
+"suggest to mark book as hidden by default."
 msgstr ""
 
-#: forms.py:287
+#: lib/booktypecontrol/forms.py:312
 msgid ""
-"If it is turned on then track changes will be        enabled for all the "
-"users."
+"If it is turned on then track changes will be enabled for all the users."
 msgstr ""
 
-#: forms.py:290
-msgid "Default visibility"
-msgstr "Alapértelmezett láthatóság"
+#: lib/booktypecontrol/forms.py:315
+msgid "Visible by default"
+msgstr ""
 
-#: forms.py:295
+#: lib/booktypecontrol/forms.py:320
 msgid "Track changes"
 msgstr ""
 
-#: forms.py:300
+#: lib/booktypecontrol/forms.py:325
 msgid "Default License"
 msgstr "Alapértelmezett Licenc"
 
-#: forms.py:303
+#: lib/booktypecontrol/forms.py:328
 msgid "Default license for newly created books."
 msgstr "Alapértelmezett licenc az újonnan létrehozott könyvekhez."
 
-#: forms.py:350
+#: lib/booktypecontrol/forms.py:331
+msgid "Default Language"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:334
+msgid "Default language for newly created books."
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:337
+msgid "Metadata to be filled"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:341
+msgid ""
+"Select the metadata fields to be filled in book creation wizard (selected "
+"fields will be optional)"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:420
 msgid "Anyone can register"
 msgstr "Bárki regisztrálhat"
 
-#: forms.py:352
+#: lib/booktypecontrol/forms.py:422
 msgid "Anyone can register on the site and create an account"
 msgstr ""
 
-#: forms.py:355
+#: lib/booktypecontrol/forms.py:425
 msgid "Only the superuser can create books"
 msgstr ""
 
-#: forms.py:359
+#: lib/booktypecontrol/forms.py:429
 msgid "Only the superuser can import books"
 msgstr ""
 
-#: forms.py:387 forms.py:550
+#: lib/booktypecontrol/forms.py:457 lib/booktypecontrol/forms.py:619
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: forms.py:390 forms.py:554
+#: lib/booktypecontrol/forms.py:460 lib/booktypecontrol/forms.py:623
 msgid "Username is required."
 msgstr "Kötelező megadni felhasználónevet."
 
-#: forms.py:391 forms.py:397 forms.py:555 forms.py:560
+#: lib/booktypecontrol/forms.py:461 lib/booktypecontrol/forms.py:467
+#: lib/booktypecontrol/forms.py:624 lib/booktypecontrol/forms.py:629
 msgid "Illegal characters in username."
 msgstr "Érvénytelen karakterek a felhasználónévben."
 
-#: forms.py:403 forms.py:566
+#: lib/booktypecontrol/forms.py:473 lib/booktypecontrol/forms.py:635
 msgid "Full name"
 msgstr "Teljes név"
 
-#: forms.py:405 forms.py:568
+#: lib/booktypecontrol/forms.py:475 lib/booktypecontrol/forms.py:637
 msgid "Full name is required."
 msgstr "Teljes nevet kell megadni."
 
-#: forms.py:409 forms.py:572
+#: lib/booktypecontrol/forms.py:479 lib/booktypecontrol/forms.py:641
 msgid "Email"
 msgstr "E-mail"
 
-#: forms.py:411 forms.py:574
+#: lib/booktypecontrol/forms.py:481 lib/booktypecontrol/forms.py:643
 msgid "Email is required."
 msgstr "Kötelező megadni e-mail címet."
 
-#: forms.py:415 forms.py:586
+#: lib/booktypecontrol/forms.py:485 lib/booktypecontrol/forms.py:655
 msgid "User description"
 msgstr "Felhasználói leírás"
 
-#: forms.py:420 forms.py:624
+#: lib/booktypecontrol/forms.py:490 lib/booktypecontrol/forms.py:693
 msgid "Password"
 msgstr "Jelszó"
 
-#: forms.py:422 forms.py:429 forms.py:626 forms.py:634
+#: lib/booktypecontrol/forms.py:492 lib/booktypecontrol/forms.py:499
+#: lib/booktypecontrol/forms.py:695 lib/booktypecontrol/forms.py:703
 msgid "Password is required."
 msgstr "Kötelező megadni jelszót."
 
-#: forms.py:427 forms.py:631
+#: lib/booktypecontrol/forms.py:497 lib/booktypecontrol/forms.py:700
 msgid "Password confirmation"
 msgstr "Jelszó megerősítése"
 
-#: forms.py:432 forms.py:636
+#: lib/booktypecontrol/forms.py:502 lib/booktypecontrol/forms.py:705
 msgid "Enter the same password as above, for verification."
 msgstr "Adja meg ugyanazt a jelszót, mint fent, az ellenőrzés céljából."
 
-#: forms.py:435
+#: lib/booktypecontrol/forms.py:505
 msgid "Notify person by email"
 msgstr "A személy értesítése e-mailben"
 
-#: forms.py:440 forms.py:592
+#: lib/booktypecontrol/forms.py:510 lib/booktypecontrol/forms.py:661
 msgid "This person is a superuser"
 msgstr ""
 
-#: forms.py:444
+#: lib/booktypecontrol/forms.py:514
 msgid "Successfully created new account."
 msgstr "Az új fiók létrehozása sikeres volt."
 
-#: forms.py:470
+#: lib/booktypecontrol/forms.py:540
 msgid "That username is already taken."
 msgstr ""
 
-#: forms.py:476
+#: lib/booktypecontrol/forms.py:546
 msgid "Passwords do not match."
 msgstr "A jelszavak nem egyeznek."
 
-#: forms.py:578
+#: lib/booktypecontrol/forms.py:582
+#, python-format
+msgid "You have a new %s account"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:647
 msgid "Profile picture"
 msgstr "Profilkép"
 
-#: forms.py:596
+#: lib/booktypecontrol/forms.py:665
 msgid "Active account"
 msgstr ""
 
-#: forms.py:598
+#: lib/booktypecontrol/forms.py:667
 msgid "Indicate whether user's account is archived or active."
 msgstr ""
 
-#: forms.py:620
+#: lib/booktypecontrol/forms.py:689
 msgid "The two password fields didn't match."
 msgstr "A két jelszó nem egyezik."
 
-#: forms.py:639
+#: lib/booktypecontrol/forms.py:708
 msgid "Send login data"
 msgstr ""
 
-#: forms.py:641
+#: lib/booktypecontrol/forms.py:710
 msgid "Send new login data to the user via email."
 msgstr ""
 
-#: forms.py:645
+#: lib/booktypecontrol/forms.py:714
 msgid "Short message"
 msgstr ""
 
-#: forms.py:647
+#: lib/booktypecontrol/forms.py:716
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
 msgstr ""
 
-#: forms.py:649
+#: lib/booktypecontrol/forms.py:718
 msgid "You can change password in your profile settings page."
 msgstr ""
 
-#: forms.py:674 forms.py:747
+#: lib/booktypecontrol/forms.py:743 lib/booktypecontrol/forms.py:816
 msgid "Title"
 msgstr "Cím"
 
-#: forms.py:675 forms.py:749 tests.py:49
+#: lib/booktypecontrol/forms.py:744 lib/booktypecontrol/forms.py:818
+#: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "Címet szükséges megadni."
 
-#: forms.py:680
+#: lib/booktypecontrol/forms.py:749
 msgid "Description"
 msgstr "Leírás"
 
-#: forms.py:685
+#: lib/booktypecontrol/forms.py:754
 msgid "Owner"
 msgstr "Tulajdonos"
 
-#: forms.py:686
+#: lib/booktypecontrol/forms.py:755
 msgid "Book owner is required."
 msgstr "Könyvtulajdonost szükséges megadni."
 
-#: forms.py:691
+#: lib/booktypecontrol/forms.py:760
 msgid "License"
 msgstr "Licenc"
 
-#: forms.py:693
+#: lib/booktypecontrol/forms.py:762
 msgid "License is required."
 msgstr "Licenct szükséges megadni."
 
-#: forms.py:697
-msgid "Initially hide from others"
-msgstr "Az elején elrejteni mások szeme elől"
+#: lib/booktypecontrol/forms.py:766
+msgid "Hide this book from other people"
+msgstr ""
 
-#: forms.py:701
+#: lib/booktypecontrol/forms.py:770
 msgid "Book image"
 msgstr "Könyvborító-kép"
 
-#: forms.py:705
+#: lib/booktypecontrol/forms.py:774
 msgid "Successfully created new book."
 msgstr "Az új könyv létrehozása sikeresen megtörtént."
 
-#: forms.py:709
+#: lib/booktypecontrol/forms.py:778
 msgid "That book already exists."
 msgstr ""
 
-#: forms.py:753
+#: lib/booktypecontrol/forms.py:822
 msgid "URL title"
 msgstr "URL cím"
 
-#: forms.py:756
+#: lib/booktypecontrol/forms.py:825
 msgid "Illegal characters in URL title."
 msgstr "Érvénytelen karakterek az URL címben."
 
-#: forms.py:757
+#: lib/booktypecontrol/forms.py:826
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr ""
 
-#: forms.py:797
-msgid "Book PDF"
-msgstr ""
-
-#: forms.py:801
-msgid "Screen PDF"
-msgstr ""
-
-#: forms.py:805
-msgid "EPUB"
-msgstr ""
-
-#: forms.py:809
-msgid "MOBI"
-msgstr ""
-
-#: forms.py:813
-msgid "XHTML"
-msgstr ""
-
-#: forms.py:845
+#: lib/booktypecontrol/forms.py:923
 msgid "Book CSS"
 msgstr "Book CSS"
 
-#: forms.py:853
+#: lib/booktypecontrol/forms.py:931
 msgid "E-Book CSS"
 msgstr "E-Book CSS"
 
-#: forms.py:861
+#: lib/booktypecontrol/forms.py:939
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: forms.py:869
+#: lib/booktypecontrol/forms.py:947
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: forms.py:923
+#: lib/booktypecontrol/forms.py:1001
 msgid "Successfully created new group."
 msgstr "Az új csoport létrehozása sikeresen megtörtént."
 
-#: forms.py:960
+#: lib/booktypecontrol/forms.py:1038
 msgid "Successfully created new role."
 msgstr "Az új szerep létrehozása sikeresen megtörtént."
 
-#: forms.py:993
+#: lib/booktypecontrol/forms.py:1077
 msgid "Role for anonymous users"
 msgstr "Szerepek a névtelen felhasználók számára"
 
-#: forms.py:997
+#: lib/booktypecontrol/forms.py:1081
 msgid "Role for registered users"
 msgstr "Szerepek a regisztrált felhasználók számára"
 
-#: forms.py:1002
+#: lib/booktypecontrol/forms.py:1086
 msgid "None"
 msgstr "Nincs"
 
-#: views.py:50 templates/booktypecontrol/control_center_settings.html:27
-msgid "Site Description"
-msgstr "Honlap leírás"
-
-#: views.py:51 templates/booktypecontrol/control_center_settings.html:28
-msgid "Site Appearance"
-msgstr "Honlap megjelenítés"
-
-#: views.py:52 templates/booktypecontrol/control_center_settings.html:29
-msgid "Site Front Page"
-msgstr "A honlap címlapja"
-
-#: views.py:53 templates/booktypecontrol/control_center_settings.html:30
-msgid "Book Licenses"
-msgstr "Könyv liszenszek"
-
-#: views.py:54 templates/booktypecontrol/control_center_settings.html:31
-msgid "Book Creation Defaults"
-msgstr "Könyv létrehozási alapértékek"
-
-#: views.py:55 templates/booktypecontrol/control_center_settings.html:33
-msgid "Privacy"
-msgstr "Adatvédelem"
-
-#: views.py:56 templates/booktypecontrol/control_center_settings.html:38
-msgid "Add a New Person"
-msgstr "Új személy hozzáadása"
-
-#: views.py:57 templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:39
-msgid "List of People"
-msgstr "Az emberek listája"
-
-#: views.py:58 templates/booktypecontrol/_control_center_archived_users.html:5
-#: templates/booktypecontrol/control_center_settings.html:40
-msgid "Archived Users"
-msgstr "Archivált Felhasználók"
-
-#: views.py:59 templates/booktypecontrol/control_center_settings.html:43
-msgid "Add a New Book"
-msgstr "Új könyv hozzáadása"
-
-#: views.py:60 templates/booktypecontrol/control_center_settings.html:44
-msgid "List of Books"
-msgstr "A könyvek listája"
-
-#: views.py:61 templates/booktypecontrol/control_center_settings.html:34
-msgid "Publishing Options"
-msgstr "Megjelenítési opciók"
-
-#: views.py:62 templates/booktypecontrol/control_center_settings.html:35
-msgid "Publishing Defaults"
-msgstr "Megjelenítési alapértékek"
-
-#: views.py:63 templates/booktypecontrol/control_center_settings.html:47
-msgid "Add a New Group"
-msgstr "Új csoport hozzáadása"
-
-#: views.py:64 templates/booktypecontrol/control_center_settings.html:48
-msgid "List of Groups"
-msgstr "A csoportok listája"
-
-#: views.py:65 templates/booktypecontrol/control_center_settings.html:51
-msgid "Add a New Role"
-msgstr "Új szerep hozzáadása"
-
-#: views.py:66 templates/booktypecontrol/control_center_settings.html:52
-msgid "List of Roles"
-msgstr "A szerepek listája"
-
-#: views.py:67 templates/booktypecontrol/control_center_settings.html:32
-msgid "Default Roles"
-msgstr "Szerepek alapbeállítás szerint"
-
-#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
-#: views.py:451
-msgid "Admin Control Center"
-msgstr "Adminisztrátori Vezérlőközpont"
-
-#: views.py:195
-msgid "Successfully saved settings."
-msgstr "A beállítások sikeres mentése megtörtént."
-
-#: views.py:200
-msgid "Unknown error while saving changes."
-msgstr "Ismeretlen hiba a változtatások mentése közben."
-
-#: views.py:284
-msgid "Edit Person Info"
-msgstr "Adatlap szerkesztése"
-
-#: views.py:304 views.py:356
-msgid "Successfully saved changes."
-msgstr "A módosítások sikeres mentése megtörtént."
-
-#: views.py:326
-msgid "Rename Book"
-msgstr "Könyv Átnevezése"
-
-#: views.py:330
-msgid "Book name successfully changed."
-msgstr "A könyv címének felülírása sikeresen megtörtént."
-
-#: views.py:367
-msgid "Your password was changed"
-msgstr ""
-
-#: views.py:386
-#, python-format
-msgid "Change Password: %s"
-msgstr ""
-
-#: views.py:401
-msgid "Group successfully deleted."
-msgstr "A csoport törlése sikeresen megtörtént."
-
-#: views.py:417
-msgid "Edit licence"
-msgstr "Liszensz szerkesztése"
-
-#: views.py:423
-msgid "License successfully updated."
-msgstr "A liszensz frissítése sikeresen megtörtént."
-
-#: views.py:435
-msgid ""
-"There are books remaining with this license.                     Unable to "
-"remove"
-msgstr ""
-
-#: views.py:440
-msgid "License successfully deleted."
-msgstr "A liszensz törlése sikeresen megtörtént."
-
-#: views.py:459
-msgid "Edit role"
-msgstr "Szerep szerkesztése"
-
-#: views.py:463
-msgid "Role successfully updated."
-msgstr "A szerep frissítése sikeresen megtörtént."
-
-#: views.py:473
-msgid "Role successfully deleted."
-msgstr "A szerep törlése sikeresen megtörtént."
-
-#: templates/control_base.html:10
-msgid "Home"
-msgstr "Kezdőlap"
-
-#: templates/control_base.html:13
-#: templates/booktypecontrol/control_center_settings.html:26
-msgid "Settings"
-msgstr "Beállítások"
-
-#: templates/control_base.html:16
-#: templates/booktypecontrol/control_center_settings.html:37
-msgid "People"
-msgstr "Emberek"
-
-#: templates/control_base.html:19
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:42
-msgid "Books"
-msgstr "Könyvek"
-
-#: templates/control_base.html:22
-#: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:46
-msgid "Groups"
-msgstr "Csoportok"
-
-#: templates/control_base.html:25
-#: templates/booktypecontrol/control_center_settings.html:50
-msgid "Roles"
-msgstr "Feladatkörök"
-
-#: templates/booktypecontrol/_control_center_add_person.html:4
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
 msgid "Add new person"
 msgstr "Új személy hozzáadása"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:17
-#: templates/booktypecontrol/_control_center_list_of_people.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
+#: lib/booktypecontrol/views.py:59
+msgid "Archived Users"
+msgstr "Archivált Felhasználók"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:17
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:22
 msgid "Edit Info"
 msgstr "Infók szerkesztése"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:21
-#: templates/booktypecontrol/_control_center_list_of_people.html:26
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:26
 msgid "superuser"
 msgstr "szuperfelhasználó"
 
-#: templates/booktypecontrol/_control_center_archived_users.html:24
-#: templates/booktypecontrol/_control_center_list_of_people.html:29
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:29
 msgid "archived"
 msgstr ""
 
-#: templates/booktypecontrol/_control_center_archived_users.html:35
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:35
 msgid "There are no archived users at the moment."
 msgstr ""
 
-#: templates/booktypecontrol/_control_center_license.html:4
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:4
 msgid "Add new license"
 msgstr "Új licenc hozzáadása"
 
-#: templates/booktypecontrol/_control_center_license.html:8
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:8
 msgid "Licenses"
 msgstr "Licencek"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:6
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:6
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:9
 msgid "Books licensed with"
 msgstr "A könyvek alábbi licencekkel"
 
-#: templates/booktypecontrol/_control_center_license_edit.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:20
 msgid "No books for this license."
 msgstr "Nincsenek könyvek ehhez a liszenszhez."
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:11
 msgid "Add new book"
 msgstr "Új könyv hozzáadása"
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:14
 msgid "Show in a grid"
 msgstr ""
 
-#: templates/booktypecontrol/_control_center_list_of_books.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:15
 msgid "Show in a list"
 msgstr ""
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:9
 msgid "Add new group"
 msgstr "Új csoport hozzáadása"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
 msgid "Members"
 msgstr "Tagok"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:24
-#: templates/booktypecontrol/_control_center_list_of_roles.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+#: lib/booktypecontrol/templates/control_base.html:19
+msgid "Books"
+msgstr "Könyvek"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:21
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: templates/booktypecontrol/_control_center_list_of_groups.html:25
-#: templates/booktypecontrol/_control_center_list_of_roles.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:22
 msgid "Delete"
 msgstr "Törlés"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
+#: lib/booktypecontrol/views.py:58
+msgid "List of People"
+msgstr "Az emberek listája"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
 msgid "Add Person"
 msgstr "Személy Hozzáadása"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
 msgid "ADD PERSON"
 msgstr "SZEMÉLY HOZZÁADÁSA"
 
-#: templates/booktypecontrol/_control_center_list_of_people.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:19
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
-#: templates/booktypecontrol/_control_center_list_of_roles.html:9
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:9
 msgid "Add new role"
 msgstr "Új szerep hozzáadása"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:16
 msgid "Delete Group"
 msgstr "A csoport törlése"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:11
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
 msgstr "Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem visszavonható!"
 
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
-#: templates/booktypecontrol/_control_center_settings.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:15
 msgid "Cancel"
 msgstr "Mégse"
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:20
 msgid "Delete License"
 msgstr "Liszensz törlése"
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:12
 msgid ""
 "There are licensed books with this license. You should change the license "
 "for these books before deleting it."
 msgstr "Ezek a könyvek ezzel a liszensszel rendelkeznek. Cserélnie kell a liszenszeket ezeknél a könyveknél, mielőtt törölné őket."
 
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:14
 msgid ""
 "Are you sure you would like to delete this license? You will not be able to "
 "undo this operation!"
 msgstr "Biztos, hogy törölni szeretné az alábbi liszenszt? A művelet nem visszavonható!"
 
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:16
 msgid "Delete Role"
 msgstr "Szerep törlése"
 
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:11
 msgid ""
 "Are you sure you would like to delete this role? You will not be able to "
 "undo this operation!"
 msgstr "Biztos, hogy törölni szeretné az alábbi feladatkört/szerepet? A művelet nem visszavonható!"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: templates/booktypecontrol/control_center_dashboard.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
 msgid "Recent Activity"
 msgstr "Legutóbbi tevékenységek"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: templates/booktypecontrol/control_center_dashboard.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:52
+#: lib/booktypecontrol/templates/control_base.html:22
+msgid "Groups"
+msgstr "Csoportok"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
 msgid "ago"
 msgstr "ezelőtt"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:41
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:41
 msgid "There is no activity yet"
 msgstr "Még nincs aktivitás"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:56
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:56
 msgid "Current version"
 msgstr "Jelenlegi verzió"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:62
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:62
 msgid "This user has no books"
 msgstr "Ennek a felhasználónak nincs könyve"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:82
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:82
 msgid "This user has no groups"
 msgstr "Ennek a felhasználónak nincs csoportja"
 
-#: templates/booktypecontrol/_control_center_modal_person_info.html:87
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
 msgid "Close"
 msgstr "Bezárás"
 
-#: templates/booktypecontrol/_control_center_settings.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:13
 msgid "Save changes"
 msgstr "Változtatások mentése"
 
-#: templates/booktypecontrol/control_center_dashboard.html:10
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:10
 msgid "Info"
 msgstr "Információ"
 
-#: templates/booktypecontrol/control_center_dashboard.html:12
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:12
 msgid "version"
 msgstr "verzió"
 
-#: templates/booktypecontrol/control_center_dashboard.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+msgid "users"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:14
 msgid "books"
 msgstr "könyvek"
 
-#: templates/booktypecontrol/control_center_dashboard.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:15
 msgid "groups"
 msgstr "csoportok"
 
-#: templates/booktypecontrol/control_center_dashboard.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:16
 msgid "database size"
 msgstr "az adatbázis mérete"
 
-#: templates/booktypecontrol/control_center_dashboard.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:17
 msgid "files size"
 msgstr "a fájlok mérete"
 
-#: templates/booktypecontrol/control_center_dashboard.html:50
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:51
 msgid "Online Users"
 msgstr ""
 
-#: templates/booktypecontrol/control_center_dashboard.html:62
-#: templates/booktypecontrol/control_center_dashboard.html:93
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:94
 msgid "Working on:"
 msgstr "Munkavégzés:"
 
-#: templates/booktypecontrol/control_center_dashboard.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:77
 msgid "No online users"
 msgstr "Nincsenek online felhasználók"
 
-#: templates/booktypecontrol/control_center_dashboard.html:83
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
 msgid "Most Active Users"
 msgstr "A legaktívabb felhasználók"
 
-#: templates/booktypecontrol/control_center_dashboard.html:83
-#: templates/booktypecontrol/control_center_dashboard.html:107
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
 msgid "view all"
 msgstr "mutasd mind"
 
-#: templates/booktypecontrol/control_center_dashboard.html:100
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:102
 msgid "No most active users"
 msgstr "A nem legaktívabb felhasználók"
 
-#: templates/booktypecontrol/control_center_dashboard.html:107
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
 msgid "Latest Books"
 msgstr "Legújabb könyvek"
 
-#: templates/booktypecontrol/control_center_dashboard.html:120
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:122
 msgid "No books here"
 msgstr "Nincsenek könyvek itt"
 
-#: templates/booktypecontrol/control_center_dashboard.html:127
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:129
 msgid "Most Active Books"
 msgstr "A legaktívabb könyvek"
 
-#: templates/booktypecontrol/control_center_dashboard.html:140
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:142
 msgid "No active books here"
 msgstr "Nincsenek aktív könyvek itt"
 
-#: templates/booktypecontrol/new_person_email.html:3
-#, python-format
-msgid ""
-"You've just had a Booktype account created for you! Please head over to "
-"%(server)s to log in. Here are your login credentials:"
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:33
+#: lib/booktypecontrol/templates/control_base.html:13
+msgid "Settings"
+msgstr "Beállítások"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
+#: lib/booktypecontrol/views.py:51
+msgid "Site Description"
+msgstr "Honlap leírás"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
+#: lib/booktypecontrol/views.py:52
+msgid "Site Appearance"
+msgstr "Honlap megjelenítés"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
+#: lib/booktypecontrol/views.py:53
+msgid "Site Front Page"
+msgstr "A honlap címlapja"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
+#: lib/booktypecontrol/views.py:54
+msgid "Book Licenses"
+msgstr "Könyv liszenszek"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
+#: lib/booktypecontrol/views.py:55
+msgid "Book Creation Defaults"
+msgstr "Könyv létrehozási alapértékek"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
+#: lib/booktypecontrol/views.py:68
+msgid "Default Roles"
+msgstr "Szerepek alapbeállítás szerint"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/views.py:56
+msgid "Privacy"
+msgstr "Adatvédelem"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
+#: lib/booktypecontrol/views.py:62
+msgid "Publishing Options"
+msgstr "Megjelenítési opciók"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/templates/control_base.html:16
+msgid "People"
+msgstr "Emberek"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
+#: lib/booktypecontrol/views.py:57
+msgid "Add a New Person"
+msgstr "Új személy hozzáadása"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
+#: lib/booktypecontrol/views.py:60
+msgid "Add a New Book"
+msgstr "Új könyv hozzáadása"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
+#: lib/booktypecontrol/views.py:61
+msgid "List of Books"
+msgstr "A könyvek listája"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/views.py:64
+msgid "Add a New Group"
+msgstr "Új csoport hozzáadása"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
+#: lib/booktypecontrol/views.py:65
+msgid "List of Groups"
+msgstr "A csoportok listája"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
+#: lib/booktypecontrol/templates/control_base.html:25
+msgid "Roles"
+msgstr "Feladatkörök"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/views.py:66
+msgid "Add a New Role"
+msgstr "Új szerep hozzáadása"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
+#: lib/booktypecontrol/views.py:67
+msgid "List of Roles"
+msgstr "A szerepek listája"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:4
+msgid "Hello"
 msgstr ""
 
-#: templates/booktypecontrol/new_person_email.html:7
-#: templates/booktypecontrol/password_changed_email.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:8
+#, python-format
+msgid ""
+"Your Booktype account has been created! Please go to %(server)s to log in."
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:12
+#, python-format
+msgid ""
+"If you don't know your password, please click the password reset link on the"
+" %(server)s home page."
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:2
+msgid "Your password was changed. Here are your new login credentials:"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:5
 msgid "Username:"
 msgstr ""
 
-#: templates/booktypecontrol/new_person_email.html:8
-#: templates/booktypecontrol/password_changed_email.html:6
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:6
 msgid "Password:"
 msgstr ""
 
-#: templates/booktypecontrol/password_changed_email.html:2
-msgid "Your password was changed. Here are your new login credentials:"
+#: lib/booktypecontrol/templates/control_base.html:10
+msgid "Home"
+msgstr "Kezdőlap"
+
+#: lib/booktypecontrol/views.py:63
+msgid "Publishing Defaults"
+msgstr "Megjelenítési alapértékek"
+
+#: lib/booktypecontrol/views.py:89 lib/booktypecontrol/views.py:185
+#: lib/booktypecontrol/views.py:284 lib/booktypecontrol/views.py:348
+#: lib/booktypecontrol/views.py:425 lib/booktypecontrol/views.py:467
+msgid "Admin Control Center"
+msgstr "Adminisztrátori Vezérlőközpont"
+
+#: lib/booktypecontrol/views.py:196
+msgid "Successfully saved settings."
+msgstr "A beállítások sikeres mentése megtörtént."
+
+#: lib/booktypecontrol/views.py:201
+msgid "Unknown error while saving changes."
+msgstr "Ismeretlen hiba a változtatások mentése közben."
+
+#: lib/booktypecontrol/views.py:287
+msgid "Edit Person Info"
+msgstr "Adatlap szerkesztése"
+
+#: lib/booktypecontrol/views.py:307 lib/booktypecontrol/views.py:358
+msgid "Successfully saved changes."
+msgstr "A módosítások sikeres mentése megtörtént."
+
+#: lib/booktypecontrol/views.py:329
+msgid "Rename Book"
+msgstr "Könyv Átnevezése"
+
+#: lib/booktypecontrol/views.py:333
+msgid "Book name successfully changed."
+msgstr "A könyv címének felülírása sikeresen megtörtént."
+
+#: lib/booktypecontrol/views.py:369
+msgid "Your password was changed"
 msgstr ""
+
+#: lib/booktypecontrol/views.py:388
+#, python-format
+msgid "Change Password: %s"
+msgstr ""
+
+#: lib/booktypecontrol/views.py:403
+msgid "Group successfully deleted."
+msgstr "A csoport törlése sikeresen megtörtént."
+
+#: lib/booktypecontrol/views.py:433
+msgid "Edit licence"
+msgstr "Liszensz szerkesztése"
+
+#: lib/booktypecontrol/views.py:439
+msgid "License successfully updated."
+msgstr "A liszensz frissítése sikeresen megtörtént."
+
+#: lib/booktypecontrol/views.py:451
+msgid ""
+"There are books remaining with this license.                     Unable to "
+"remove"
+msgstr ""
+
+#: lib/booktypecontrol/views.py:456
+msgid "License successfully deleted."
+msgstr "A liszensz törlése sikeresen megtörtént."
+
+#: lib/booktypecontrol/views.py:475
+msgid "Edit role"
+msgstr "Szerep szerkesztése"
+
+#: lib/booktypecontrol/views.py:479
+msgid "Role successfully updated."
+msgstr "A szerep frissítése sikeresen megtörtént."
+
+#: lib/booktypecontrol/views.py:489
+msgid "Role successfully deleted."
+msgstr "A szerep törlése sikeresen megtörtént."

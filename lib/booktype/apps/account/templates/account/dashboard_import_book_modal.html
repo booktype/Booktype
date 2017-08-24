@@ -9,7 +9,7 @@
           </div>
           <div class="modal-body">
             <p>{% trans "Available file formats: epub, docx" %}</p>
-            <form action="{% url 'upload_book_file' %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'importer:upload_book_file' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="drag-area" id="drag-area">
                     <div class="drag-area-title file">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="drag-area-button">
                         <span class="btn btn-default fileinput-button">
-                            <i class="icon-upload"></i> {% trans "or Select from folder" %}
+                            <i class="fa fa-upload"></i> {% trans "or Select from folder" %}
                             <input id="book-file" type="file"
 																	 accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 																	 name="book_file">
@@ -66,7 +66,7 @@
                 <input type="text" name="book_title" placeholder="Enter new Book title" class="form-control book_title">
                 <div class="checkbox">
                     <label>
-                        <input {% if book_visible %}checked="checked"{% endif %} type="checkbox" name="hidden"> {% trans "Initially hidden from others" %}
+                        <input {% if book_visible %}checked="checked"{% endif %} type="checkbox" name="hidden"> {% trans "Hide this book from other people" %}
                     </label>
                 </div>
             </form>

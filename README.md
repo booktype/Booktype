@@ -44,7 +44,23 @@ Only 4 steps:
    [Help](https://help.github.com/articles/fork-a-repo) or [direct link](https://github.com/sourcefabric/Booktype/fork).
 2. Clone your fork
 3. Create new [local feature branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
-4. Create [pull request](https://help.github.com/articles/creating-a-pull-request) with your feature/bugfix.
+4. Run tests.
+5. Create [pull request](https://help.github.com/articles/creating-a-pull-request) with your feature/bugfix.
+
+
+Testing
+-----------------
+
+Booktype using [py.test](https://docs.pytest.org/en/latest/) testing framework with [pytest-django](https://pytest-django.readthedocs.io/en/latest/) plugin,
+it makes testing process easier and also gives ability to run already created django (unittest) tests.
+
+To run tests:
+1. Open terminal and activate virtual environment (Booktype must be installed).
+2. Go to (cd command) instance root (folder with manage.py and pytest.ini file).
+3. Run **py.test** command. 
+4. If you want pytest to print test covarage information, you should run **py.test --cov-report term-missing --cov=path/to/Booktype**. 
+You can read more about coverage here: [pytest-cov](https://pypi.python.org/pypi/pytest-cov)
+
 
 
 License

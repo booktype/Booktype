@@ -19,6 +19,8 @@ from booki.editor.models import (
 
 from booki.editor.models import METADATA_FIELDS
 
+from .models import InviteCode
+
 logger = logging.getLogger('booktype.apps.edit.forms')
 
 
@@ -132,7 +134,8 @@ class ChapterStatusForm(BaseSettingsForm, forms.Form):
                         .filter(book=book)
                         .annotate(num_chapters=Count('chapter'))
                         .order_by('-weight'))
-        all_statuses = [{'pk': status.pk, 'name': _lazy(status.name)} for status in all_statuses]
+        all_statuses = [
+            {'pk': status.pk, 'name': _lazy(status.name), 'color': status.color} for status in all_statuses]
 
         return {
             'roles_permissions': security.get_user_permissions(request.user, book),
@@ -343,18 +346,6 @@ class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
                 meta.save()
 
 
-class RolesForm(BaseSettingsForm, forms.Form):
-    required_permission = 'core.manage_roles'
-
-    @classmethod
-    def extra_context(cls, book=None, request=None):
-        return {
-            'roles': BookRole.objects.filter(book=book).order_by('role__name'),
-            'global_roles': Role.objects.order_by('name'),
-            'all_users': User.objects.filter(is_active=True).order_by('username')
-        }
-
-
 class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
     skip_select_and_checkbox = True
     required_permission = 'core.manage_permissions'
@@ -385,3 +376,15 @@ class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
                 )
                 setting.value_string = value
                 setting.save()
+
+
+class InviteCodeForm(BaseBooktypeForm, forms.ModelForm):
+    default_roles = getattr(settings, 'BOOKTYPE_DEFAULT_ROLES', {})
+
+    roles = forms.ModelMultipleChoiceField(
+        queryset=Role.objects.exclude(name__in=default_roles.keys()))
+    expire_on = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
+
+    class Meta:
+        model = InviteCode
+        fields = ['roles', 'expire_on']

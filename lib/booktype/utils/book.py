@@ -26,7 +26,7 @@ import booki.editor.signals
 from booki.editor import models
 from booki.utils.log import logBookHistory
 from booktype.utils import config
-from .misc import booktype_slugify
+from .misc import booktype_slugify, get_default_book_status
 
 try:
     from PIL import Image
@@ -34,7 +34,7 @@ except ImportError:
     import Image
 
 
-logger = logging.getLogger('booktype')
+logger = logging.getLogger('booktype.utils.book')
 
 
 def check_book_availability(book_title):
@@ -98,13 +98,13 @@ def create_book(user, book_title, status=None, book_url=None):
     status_list = config.get_configuration('CHAPTER_STATUS_LIST')
     n = len(status_list)
 
-    if status:
-        default_status = status
-    else:
-        default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0])
+    default_status = status if status else get_default_book_status()
 
-    for status_name in status_list:
-        status = models.BookStatus(book=book, name=status_name, weight=n)
+    for status_elem in status_list:
+        status = models.BookStatus(
+            book=book, name=status_elem['name'],
+            weight=n, color=status_elem['color']
+        )
         status.save()
         n -= 1
 
@@ -215,7 +215,14 @@ def set_book_cover(book, file_name):
     try:
         im = Image.open(file_name)
         im.thumbnail((240, 240), Image.ANTIALIAS)
-        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG")
+
+        dir_path = os.path.join(settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR)
+        file_path = os.path.join(dir_path, '{}.jpg'.format(book.id))
+
+        if not os.path.isdir(dir_path):
+            os.mkdir(dir_path)
+
+        im.save(file_path, "JPEG")
 
         # If we have used book.cover.save we would end up with obsolete files  on disk
         book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
@@ -236,8 +243,6 @@ def rename_book(book, new_title, new_url_title):
     @type new_url_title: C{string}
     @param: New URL title
     """
-    import logging
-    logger = logging.getLogger('booktype')
 
     try:
         os.rename(

@@ -40,4 +40,4 @@ def get_profile_image(user, size=100):
 
     filename = profile.image.name
 
-    return '%sprofile_images/%s' % (settings.DATA_URL, filename.split('/')[-1])
+    return '{}{}{}'.format(settings.DATA_URL, settings.PROFILE_IMAGE_UPLOAD_DIR,filename.split('/')[-1])

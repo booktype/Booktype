@@ -125,7 +125,7 @@ define([
             'author': {
               name: booktype.fullname,
               username: booktype.username,
-              avatar: getAvatar(booktype.username, 35)
+              avatar: booktype.utils.getAvatar(booktype.username, 35)
             }
           };
           commentStorage.addReply(this.props.cid, replyData);
@@ -418,7 +418,7 @@ define([
           return <CommentBox key={comment.cid} permissions={permissions} {...comment} />;
         });
 
-        var noCommentsYet = function () {
+        var addCommentMsg = function () {
           return (
             <div>
               {booktype._('insert_comment_text')}
@@ -426,13 +426,14 @@ define([
               <button onClick={self.noCommentsHandler} className="btn btn-sm btn-primary no-comments-yet-btn disabled">
                 {booktype._('insert_comment_btn')}
               </button>
+              <br /><br />
             </div>
           );
         };
 
         return (
           <div>
-            {(comments.length === 0) ? noCommentsYet() : null}
+            {addCommentMsg()}
             {commentItems}
           </div>
         );
@@ -485,7 +486,7 @@ define([
           'author': {
             'name': booktype.fullname,
             'username': booktype.username,
-            'avatar': getAvatar(booktype.username, 35)
+            'avatar': booktype.utils.getAvatar(booktype.username, 35)
           },
           'replies': []
         };
@@ -493,7 +494,7 @@ define([
 
         var commentBubble = jQuery([
           '<a href="javascript:;" id="comment-id-', commentData.cid,
-          '" class="comment-link"><i class="icon-comment"></i></a>'].join('')
+          '" class="comment-link"><i class="fa fa-comment"></i></a>'].join('')
         );
         commentBubble.on('click', self.handleBubbleClick);
 

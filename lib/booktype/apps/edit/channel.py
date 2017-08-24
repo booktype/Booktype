@@ -20,12 +20,12 @@ import re
 import json
 import time
 import datetime
-import difflib
 import logging
 
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime as django_datetime
 from django.utils.translation import ugettext, ugettext_lazy as _lazy
@@ -35,10 +35,11 @@ import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
 from booktype.utils import security, config
-from booktype.utils.misc import booktype_slugify
+from booktype.utils.misc import booktype_slugify, get_available_themes
 from booktype.apps.core.models import Role, BookRole
+from booktype.apps.themes.models import BookTheme
 
-from .utils import send_notification
+from .utils import send_notification, clean_chapter_html
 
 try:
     from PIL import Image
@@ -46,7 +47,7 @@ except ImportError:
     import Image
 
 
-logger = logging.getLogger('booktype.apps.edit.channel')
+logger = logging.getLogger('sputnik.edit.channel')
 
 
 # this couple of functions should go to models.BookVersion
@@ -99,6 +100,60 @@ def get_toc_for_book(version):
                 "normal",   # fake state
                 None        # fake current editor
             ))
+    return results
+
+
+def get_toc_dict_for_book(version):
+    """
+    Function returns list of TOC elements. Elements of list are dictionaries.
+
+    @rtype: C{list}
+    @return: Returns list of TOC elements
+    """
+
+    results = []
+    for chap in version.get_toc():
+        parent_id = chap.parent.id if chap.parent else "root"
+
+        # is it a section or chapter?
+        if chap.chapter:
+
+            state = "normal"
+            current_editor = chap.chapter.get_current_editor_username()
+            if current_editor:
+                state = "edit"
+
+            results.append({
+                'chapterID': chap.chapter.id,
+                'title': chap.chapter.title,
+                'urlTitle': chap.chapter.url_title,
+                'isSection': (chap.typeof != models.BookToc.CHAPTER_TYPE),
+                'status': chap.chapter.status.id,
+                'lockType': chap.chapter.lock_type,
+                'lockUsername': chap.chapter.lock_username,
+                'parentID': parent_id,
+                'tocID': chap.id,
+                'state': state,
+                'editBy': current_editor,
+                'hasComments': chap.chapter.has_comments,
+                'hasMarker': chap.chapter.has_marker
+            })
+        else:
+            results.append({
+                'chapterID': chap.id,
+                'title': chap.name,
+                'urlTitle': booktype_slugify(chap.name),
+                'isSection': True,
+                'status': None,        # fake status
+                'lockType': 0,         # fake unlocked
+                'lockUsername': None,  # fake lock username
+                'parentID': parent_id,
+                'tocID': chap.id,
+                'state': 'normal',     # fake state
+                'editBy': None,         # fake current editor,
+                'hasComments': False,
+                'hasMarker': False
+            })
     return results
 
 
@@ -238,7 +293,7 @@ def remote_init_editor(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     # get chapters
-    chapters = get_toc_for_book(book_version)
+    chapters = get_toc_dict_for_book(book_version)
     hold_chapters = get_hold_chapters(book_version)
 
     # get users
@@ -253,7 +308,8 @@ def remote_init_editor(request, message, bookid, version):
         users = []
 
     # get workflow statuses
-    statuses = [(st.id, _lazy(st.name)) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    statuses = [
+        (st.id, _lazy(st.name), st.color) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     # get attachments
     try:
@@ -265,32 +321,29 @@ def remote_init_editor(request, message, bookid, version):
     metadata = [{'name': v.name, 'value': v.get_value()} for v in models.Info.objects.filter(book=book)]
 
     # notify others
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
-                                {"command": "user_joined",
-                                 "email": request.user.email,
-                                 "user_joined": request.user.username},
-                                myself=False)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "user_joined",
+            "email": request.user.email,
+            "user_joined": request.user.username
+        }, myself=False)
 
     # get licenses
     licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     # get online users
-
     try:
-        _onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
+        _online_users = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
     except:
-        _onlineUsers = []
+        _online_users = []
 
-    if request.user.username not in _onlineUsers:
+    if request.user.username not in _online_users:
         send_notification(request, bookid, version, "notification_user_joined_the_editor", request.user.username)
         try:
             sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
-            _onlineUsers.append(request.user.username)
+            _online_users.append(request.user.username)
         except:
             pass
-
-        # get mood message for current user
-        # send mood as seperate message
 
         # set notifications to other clients
         try:
@@ -298,23 +351,22 @@ def remote_init_editor(request, message, bookid, version):
         except AttributeError:
             profile = None
 
+        moodMessage = ''
         if profile:
             moodMessage = profile.mood
-        else:
-            moodMessage = ''
 
-        sputnik.addMessageToChannel(request,
-                                    "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "user_add",
-                                     "username": request.user.username,
-                                     "first_name": request.user.first_name,
-                                     "last_name": request.user.last_name,
-                                     "email": request.user.email,
-                                     "mood": moodMessage}
-                                    )
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/{}/{}/".format(bookid, version), {
+                "command": "user_add",
+                "username": request.user.username,
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "email": request.user.email,
+                "mood": moodMessage
+            })
 
     # get online users and their mood messages
-    def _getUser(_user):
+    def _get_user(_user):
         try:
             _u = User.objects.get(username=_user)
             return {
@@ -327,20 +379,23 @@ def remote_init_editor(request, message, bookid, version):
         except:
             return None
 
-    onlineUsers = filter(bool, [x for x in [_getUser(x) for x in _onlineUsers] if x])
+    online_users = filter(bool, [x for x in [_get_user(x) for x in _online_users] if x])
 
-    # for now, this is one big temp here
-
-    # Get User Theme
-    from booktype.apps.themes.models import UserTheme
+    available_themes = get_available_themes()
+    theme_active = available_themes[0]
 
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
-        theme_active = theme.active
-    except UserTheme.DoesNotExist:
-        theme = UserTheme(book=book, owner=request.user, active='')
+        theme = BookTheme.objects.get(book=book)
+        # override default one if it's available
+        if theme.active in available_themes:
+            theme_active = theme.active
+        else:
+            theme.active = theme_active
+            theme.save()
+
+    except BookTheme.DoesNotExist:
+        theme = BookTheme(book=book, active=theme_active)
         theme.save()
-        theme_active = ''
 
     # provide information about current user
     current_user = {
@@ -356,7 +411,8 @@ def remote_init_editor(request, message, bookid, version):
         'permissions': ['{0}.{1}'.format(perm.app_name, perm.name) for perm in book_security.permissions],
     }
 
-    return {"licenses": licenses,
+    return {
+            "licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
             "hold": hold_chapters,
@@ -366,8 +422,9 @@ def remote_init_editor(request, message, bookid, version):
             "theme": theme_active,
             # Check for errors in the future
             "theme_custom": json.loads(theme.custom),
-            "onlineUsers": list(onlineUsers),
-            "current_user": current_user}
+            "onlineUsers": list(online_users),
+            "current_user": current_user
+        }
 
 
 def remote_attachments_list(request, message, bookid, version):
@@ -487,12 +544,16 @@ def remote_chapter_state(request, message, bookid, version):
         sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
                                                             request.user.username))
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_state",
-                                 "chapterID": message["chapterID"],
-                                 "state": message["state"],
-                                 "username": request.user.username},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_state",
+            "chapterID": message["chapterID"],
+            "state": message["state"],
+            "username": request.user.username,
+            "hasComments": chapter.has_comments,
+            "hasMarker": chapter.has_marker,
+            "statusID": chapter.status.id
+        }, myself=True)
 
     return {"result": True}
 
@@ -1288,6 +1349,41 @@ def remote_chapter_unlock(request, message, bookid, version):
     return dict(result=True)
 
 
+def remote_export_chapter_html(request, message, bookid, version):
+    """
+    Sputnik request handler for exporting chapter's html content.
+
+    Args:
+      reuest: Client Request object
+      message: Message object
+      bookid: Unique Book id
+      version: Book version
+
+    Returns:
+      Dict. Example {result=True}
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # get chapter
+    try:
+        chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # check access
+    if not book_security.has_perm('edit.export_chapter_content'):
+        raise PermissionDenied
+
+    try:
+        content = {'content': clean_chapter_html(chapter.content), 'error': False}
+    except:
+        content = {'content': '', 'error': True}
+
+    return content
+
+
 def remote_split_chapter(request, message, bookid, version):
     res = {"result": False, "access": False}
 
@@ -1403,6 +1499,12 @@ def remote_split_chapter(request, message, bookid, version):
         myself=True
     )
 
+    toc_id = None
+    try:
+        toc_id = toc_item.id
+    except Exception:
+        pass
+
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_create",
@@ -1414,7 +1516,7 @@ def remote_split_chapter(request, message, bookid, version):
                         new_chapter.lock_type,
                         new_chapter.lock_username,
                         "root",
-                        toc_item.id,
+                        toc_id,
                         "normal",
                         None)
         },
@@ -1426,6 +1528,7 @@ def remote_split_chapter(request, message, bookid, version):
     res['status'] = True
     res['result'] = True
     res['chapters'] = get_toc_for_book(book_version)
+    res['hold'] = get_hold_chapters(book_version)
 
     return res
 
@@ -1556,7 +1659,7 @@ def remote_create_chapter(request, message, bookid, version):
     # for now, just limit it to 100 characters max
     url_title = url_title[:100]
 
-    # here i should probably set it to default project status
+    # here I should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
     ch = models.Chapter.objects.filter(
         book=book, version=book_version, url_title=url_title)
@@ -1621,7 +1724,7 @@ def remote_create_chapter(request, message, bookid, version):
         chapter.title,
         chapter.url_title,
         1,                      # typeof (chapter)
-        s.id,                   # status
+        chapter.status.id,      # status
         chapter.lock_type,
         chapter.lock_username,
         "root",                 # parent id (first level)
@@ -2109,19 +2212,6 @@ def remote_word_count(request, message, bookid, version):
     from unidecode import unidecode
     from booktype.utils.wordcount import wordcount, charcount, charspacecount
 
-    def clean_html(text):
-        from booktype.utils.plugins.icejs import ice_cleanup
-        params = {
-            'tag': 'span',
-            'insert_class': 'ins',
-            'delete_class': 'del'
-        }
-
-        # we should clean insert tags of icejs just in case
-        tree = ice_cleanup(text, **params)
-        cleaned = ' '.join(tree.itertext())
-        return cleaned
-
     book = models.Book.objects.get(id=bookid)
     book_version = book.get_version(version)
 
@@ -2138,13 +2228,13 @@ def remote_word_count(request, message, bookid, version):
     for chap in chapters:
         if chap.is_chapter() and chap.chapter.id != int(current_chapter):
             content = unidecode(chap.chapter.content)
-            cleaned = clean_html(content)
+            cleaned = clean_chapter_html(content, text_only=True)
             all_wcount += wordcount(cleaned)
             all_charcount += charcount(cleaned)
             all_charspacecount += charspacecount(cleaned)
 
     # time to count content of the current chapter
-    chapter_content = clean_html(current_chapter_content)
+    chapter_content = clean_chapter_html(current_chapter_content, text_only=True)
     current_chapter = {
         'wcount': wordcount(chapter_content),
         'charcount': charcount(chapter_content),
@@ -2649,18 +2739,19 @@ def remote_get_chapter_history(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter_history = models.ChapterHistory.objects.filter(chapter__book=book,
-                                                           chapter__id=message["chapter"]).order_by("-modified")
+    chapter_history = models.ChapterHistory.objects.filter(
+        chapter__book=book, chapter__id=message["chapter"]).order_by("-modified")
 
     history = []
 
     for entry in chapter_history:
-        history.append({"chapter": entry.chapter.title,
-                        "chapter_url": entry.chapter.url_title,
-                        "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
-                        "user": entry.user.username,
-                        "revision": entry.revision,
-                        "comment": entry.comment})
+        history.append({
+            "chapter": entry.chapter.title,
+            "chapter_url": entry.chapter.url_title,
+            "modified": entry.modified.strftime("%b %d, %Y %H:%M:%S"),
+            "user": entry.user.username,
+            "revision": entry.revision,
+            "comment": entry.comment})
 
     return {"history": history}
 
@@ -3072,66 +3163,6 @@ def remote_create_minor_version(request, message, bookid, version):
     return {"result": True, "version": new_version.get_version()}
 
 
-def color_me(l, rgb, pos):
-    if pos:
-        t1 = l.find('>', pos[0])
-        t2 = l.find('<', pos[0])
-
-        if (t1 == t2) or (t1 > t2 and t2 != -1):
-            out = l[:pos[0]]
-
-            out += '<span class="diff changed">' + color_me(l[pos[0]:pos[1]], rgb, None) + '</span>'
-            out += l[pos[1]:]
-        else:
-            out = l
-        return out
-
-    out = '<span class="%s">' % rgb
-
-    n = 0
-    m = 0
-    while True:
-        n = l.find('<', n)
-
-        if n == -1:  # no more tags
-            out += l[m:n]
-            break
-        else:
-            if l[n + 1] == '/':  # tag ending
-                # closed tag
-                out += l[m:n]
-
-                j = l.find('>', n) + 1
-                tag = l[n:j]
-                out += '</span>' + tag
-                n = j
-            else:  # tag start
-                out += l[m:n]
-
-                j = l.find('>', n) + 1
-
-                if j == 0:
-                    out = l[n:]
-                    n = len(l)
-                else:
-                    tag = l[n:j]
-
-                    if not tag.replace(' ', '').replace('/', '').lower() in ['<br>', '<hr>']:
-                        if n != 0:
-                            out += '</span>'
-
-                        out += tag + '<span class="%s">' % rgb
-                    else:
-                        out += tag
-
-                    n = j
-        m = n
-
-    out += l[n:] + '</span>'
-
-    return out
-
-
 def remote_chapter_diff(request, message, bookid, version):
     """
     Returns diff between two revisions of the chapter. Diff is returned as HTML string.
@@ -3153,187 +3184,25 @@ def remote_chapter_diff(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
-    book, book_version, book_security = get_book(request, bookid, version)
+    from .views import unified_diff
 
-    revision1 = models.ChapterHistory.objects.get(chapter__book=book,
-                                                  chapter__id=message["chapter"],
-                                                  revision=message["revision1"])
-    revision2 = models.ChapterHistory.objects.get(chapter__book=book,
-                                                  chapter__id=message["chapter"],
-                                                  revision=message["revision2"])
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapter"]
     content = message.get("content")
 
-    output = []
+    content1 = models.ChapterHistory.objects.get(
+        chapter__book=book, chapter__id=chapter_id, revision=message["revision1"]).content
 
-#    from lxml import etree
-#    content1 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
-#    content2 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
+    content2 = models.ChapterHistory.objects.get(
+        chapter__book=book, chapter__id=chapter_id, revision=message["revision2"]).content
 
-    if revision1 != revision2 and not content:
-        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-        content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-    else:
-        # check with unsaved content
-        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-        content2 = content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+    # check with unsaved content
+    if (content1 == content2) or content:
+        content2 = content
 
-    lns = [line for line in difflib.ndiff(content1, content2)]
+    diff = unified_diff(content1, content2)
 
-    n = 0
-    minus_pos = None
-    plus_pos = None
-
-    def my_find(s, wh, x=0):
-        n = x
-
-        for ch in s[n:]:
-            if ch in wh:
-                return n
-            n += 1
-
-        return -1
-
-    while True:
-        if n >= len(lns):
-            break
-
-        line = lns[n]
-
-        if line[:2] == '+ ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-#                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                plus_pos = (x, y)
-            else:
-                plus_pos = None
-
-            output.append('<div style="background-color: yellow">' + color_me(line[2:], 'background-color: green;', plus_pos) + '</div>')
-        elif line[:2] == '- ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-#                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                minus_pos = (x, y)
-            else:
-                minus_pos = None
-
-            output.append('<div style="background-color: orange">' + color_me(line[2:], 'background-color: red;', minus_pos) + '</div>')
-        elif line[:2] == '  ':
-            output.append(line[2:])
-
-        n += 1
-
-    return {"result": True, "output": '\n'.join(output)}
-
-
-def remote_chapter_diff_parallel(request, message, bookid, version):
-    """
-    Returns diff between two revisions of the chapter. Diff is returned as HTML string and is used for parallel comparison.
-
-    Input:
-     - message
-     - revision1
-     - revision2
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns text with diff between two chapters
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
-    revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
-
-    output = []
-
-    output_left = '<td valign="top">'
-    output_right = '<td valign="top">'
-
-    content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
-    content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
-
-    lns = [line for line in difflib.ndiff(content1, content2)]
-
-    n = 0
-    minus_pos = None
-    plus_pos = None
-
-    def my_find(s, wh, x=0):
-        n = x
-
-        for ch in s[n:]:
-            if ch in wh:
-                return n
-            n += 1
-
-        return -1
-
-    while True:
-        if n >= len(lns):
-            break
-
-        line = lns[n]
-
-        if line[:2] == '+ ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                plus_pos = (x, y)
-            else:
-                plus_pos = None
-
-            output_right += '<div class="diff changed">' + \
-                color_me(line[2:], 'diff added', plus_pos) + '</div>'
-            output.append('<tr>' + output_left + '</td>' +
-                          output_right + '</td></tr>')
-            output_left = output_right = '<td valign="top">'
-        elif line[:2] == '- ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                minus_pos = (x, y)
-            else:
-                minus_pos = None
-
-            output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
-
-            output_left = output_right = '<td valign="top">'
-            output_left += '<div class="diff changed">' + \
-                           color_me(line[2:], 'diff deleted', minus_pos) + '</div>'
-        elif line[:2] == '  ':
-            if line[2:].strip() != '':
-                output_left += line[2:] + '<br/><br/>'
-                output_right += line[2:] + '<br/><br/>'
-
-        n += 1
-
-    output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
-
-    info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
-
-    return {"result": True,
-            "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: ' + message["revision1"] + '</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
+    return {"result": True, "output": diff}
 
 
 def remote_assign_to_role(request, message, bookid, version):
@@ -3398,14 +3267,23 @@ def remote_remove_user_from_role(request, message, bookid, version):
 def remote_set_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
-    from booktype.apps.themes.models import UserTheme
-
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme = BookTheme.objects.get(book=book)
         theme.active = message['theme']
         theme.save()
     except Exception:
         return {'result': False}
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "theme_changed",
+            "theme": message['theme']
+        },
+        myself=False
+    )
+
+
+    send_notification(request, bookid, version, "notification_theme_was_changed", message['theme'])
 
     return {'result': True}
 
@@ -3413,10 +3291,8 @@ def remote_set_theme(request, message, bookid, version):
 def remote_save_custom_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
-    from booktype.apps.themes.models import UserTheme
-
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme = BookTheme.objects.get(book=book)
         theme.custom = json.dumps(message['custom'])
         theme.save()
     except Exception:
@@ -3878,3 +3754,23 @@ def remote_section_settings_set(request, message, bookid, version):
         return {'result': True}
     except:
         return {'result': False}
+
+
+def remote_check_markers(request, message, bookid, version):
+    """Returns a list with the chapters that has markers in content"""
+
+    book, book_version, book_security = get_book(request, bookid, version)
+    marked_chapters = []
+
+    for idx, item in enumerate(book_version.get_toc()):
+        if item.is_chapter() and item.chapter.has_marker:
+            marked_chapters.append({
+                'title': item.chapter.title,
+                'url_title': item.chapter.url_title,
+                'id': item.chapter.pk
+            })
+
+    return {
+        'result': True,
+        'marked_chapters': marked_chapters
+    }

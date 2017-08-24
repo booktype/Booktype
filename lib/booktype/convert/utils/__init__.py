@@ -23,9 +23,9 @@ import subprocess
 logger = logging.getLogger("booktype.convert")
 
 
-def run_command(cmd):
+def run_command(cmd, shell=False):
     try:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell)
         out, err = p.communicate()
 
         if err:

@@ -52,6 +52,11 @@ def show_after(destination, name):
     logln("Check [%s] directory for created files:" % destination)
     logln("   booktype.env        -  Environment variables")
     logln("   manage.py           -  Manage file")
+    logln("   pytest.ini          -  Global py.test configuration")
+    logln("   conftest.py         -  Py.test configuration with fixtures and db pre settings")
+    logln("   epub2docx.sh        -  Pandoc convertion script from epub to docx")
+    logln("   epub2icml.sh        -  Pandoc convertion script from epub to icml")
+    logln("   booktype2mpdf.php   -  Configuration and convertion script for mpdf")
     logln("")
     logln("   conf/                 -  Configuration files")
     logln("     wsgi.apache         -  Apache config file")
@@ -73,6 +78,7 @@ def show_after(destination, name):
     logln("       base.py           -  Base configuration")
     logln("       dev.py            -  Development configuration")
     logln("       prod.py           -  Production configuration")
+    logln("       test.py           -  Testing configuration")
     logln("")
     logln("     urls/               -  URL routers")
     logln("       dev.py            -  For Development profile")
@@ -259,6 +265,78 @@ def create_mpdf(destination):
         raise InstallError()
 
 
+def create_pandoc(destination):
+    booktype_source = os.path.dirname(sys.argv[0])
+
+    # icml
+    try:
+        epub2icml_content = read_file('%s/epub2icml.sh' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read epub2icml.sh file.")
+
+    try:
+        log("+ Creating epub2icml_content file.  ")
+        open('%s/epub2icml.sh' % (destination, ), 'wt').write(epub2icml_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+    # docx
+    try:
+        epub2docx_content = read_file('%s/epub2docx.sh' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read epub2docx.sh file.")
+
+    try:
+        log("+ Creating epub2docx_content file.  ")
+        open('%s/epub2docx.sh' % (destination, ), 'wt').write(epub2docx_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
+def create_pytest(destination):
+    log("+ Creating pytest.ini file.")
+
+    import booktype
+
+    booktype_source = os.path.dirname(sys.argv[0])
+    booktype_path = os.path.abspath(os.path.dirname(booktype.__file__) + '/..')
+    project = get_project_name(destination)
+
+    try:
+        content = read_file('%s/pytest.ini.original' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read pytest.ini.original file.")
+
+    content = set_var(content, "SETTINGS", "{}_site.settings.test".format(project))
+    content = set_var(content, "DESTINATION_PATH", destination)
+    content = set_var(content, "BOOKTYPE_PATH", booktype_path)
+
+    try:
+        log("+ Creating pytest.ini file.  ")
+        f = open('%s/pytest.ini' % (destination,), 'wt')
+        f.write(content)
+        f.close()
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+    try:
+        content = read_file('%s/conftest.py' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read conftest.py file.")
+
+    try:
+        log("+ Creating conftest.py file.  ")
+        f = open('%s/conftest.py' % (destination,), 'wt')
+        f.write(content)
+        f.close()
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
 def create_urls(destination):
     import booktype
 
@@ -308,6 +386,7 @@ def create_settings(destination, database):
         content = read_file('%s/skeleton/base_settings.py.original' % booktype_source)
         dev_content = read_file('%s/skeleton/dev_settings.py.original' % booktype_source)
         prod_content = read_file('%s/skeleton/prod_settings.py.original' % booktype_source)
+        test_content = read_file('%s/skeleton/test_settings.py.original' % booktype_source)
     except IOError:
         raise MajorError("[ERROR] Can't read settings.py.original file.")
 
@@ -336,6 +415,7 @@ def create_settings(destination, database):
         content = set_var(content, k, vals[k])
         dev_content = set_var(dev_content, k, vals[k])
         prod_content = set_var(prod_content, k, vals[k])
+        test_content = set_var(test_content, k, vals[k])
 
     try:
         log("+ Creating %s_site/settings/base.py file.  " % project)
@@ -348,6 +428,10 @@ def create_settings(destination, database):
 
         log("+ Creating %s_site/settings/prod.py file.  " % project)
         open('%s/%s_site/settings/prod.py' % (destination, project), 'wt').write(prod_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/prod.py file.  " % project)
+        open('%s/%s_site/settings/test.py' % (destination, project), 'wt').write(test_content)
         logln("[OK]")
     except IOError:
         raise InstallError()
@@ -827,6 +911,12 @@ if __name__ == '__main__':
 
         # create booktype2mpdf.php file
         create_mpdf(project_destination)
+
+        # create pandoc shell script files
+        create_pandoc(project_destination)
+
+        # create py.test files
+        create_pytest(project_destination)
 
         # create urls
         create_urls(project_destination)

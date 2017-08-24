@@ -45,10 +45,9 @@ Sputnik message
 
 from __future__ import with_statement
 
-import time
 import json
 import redis
-import base64
+import logging
 
 from django.conf import settings
 
@@ -63,12 +62,11 @@ except AttributeError:
     REDIS_DB = 0
     REDIS_PASSWORD = None
 
-rcon = redis.Redis(host = REDIS_HOST,
-                   port = REDIS_PORT,
-                   db = REDIS_DB,
-                   password = REDIS_PASSWORD)
-#rcon.connect()
+rcon = redis.Redis(
+    host=REDIS_HOST, port=REDIS_PORT,
+    db=REDIS_DB, password=REDIS_PASSWORD)
 
+logger = logging.getLogger('sputnik')
 
 # Implement our own methods for redis communication. This had to be done before because previous versions of redis had problems
 # with spaces in keys and etc....
@@ -77,8 +75,10 @@ rcon = redis.Redis(host = REDIS_HOST,
 def rencode(key):
     return key
 
+
 def rdecode(key):
     return key
+
 
 def sismember(key, value):
     import sputnik
@@ -90,6 +90,7 @@ def sismember(key, value):
 
     return False
 
+
 def sadd(key, value):
     import sputnik
 
@@ -99,6 +100,7 @@ def sadd(key, value):
 
     return False
 
+
 def rset(key, value):
     import sputnik
 
@@ -107,6 +109,7 @@ def rset(key, value):
             sputnik.rcon.set(key, rencode(value))
 
     return False
+
 
 def rpop(key):
     import sputnik
@@ -118,6 +121,7 @@ def rpop(key):
 
     return None
 
+
 def lpop(key):
     import sputnik
 
@@ -127,6 +131,7 @@ def lpop(key):
         return result
 
     return None
+
 
 def srem(key, value):
     import sputnik
@@ -138,6 +143,7 @@ def srem(key, value):
         return result
 
     return None
+
 
 def incr(key):
     import sputnik
@@ -156,6 +162,7 @@ def get(key):
             result = rdecode(sputnik.rcon.get(key))
         return result
 
+
 def set(key, value):
     import sputnik
 
@@ -173,10 +180,10 @@ def smembers(key):
     if key and key.strip() != '':
         try:
             with sputnik.rcon.lock('com'):
-                result =  [rdecode(el) for el in list(sputnik.rcon.smembers(key))]
+                result = [rdecode(el) for el in list(sputnik.rcon.smembers(key))]
         except:
-            from booki.utils.log import printStack
-            printStack(None)
+            from booki.utils.log import print_stack
+            print_stack(None)
             return []
 
     return result
@@ -193,6 +200,7 @@ def rkeys(key):
 
     return []
 
+
 def push(key, value):
     import sputnik
 
@@ -203,6 +211,7 @@ def push(key, value):
         return result
 
     return None
+
 
 def rdelete(key):
     import sputnik
@@ -227,6 +236,7 @@ def hasChannel(channelName):
 
     return sismember("sputnik:channels", channelName)
 
+
 def createChannel(channelName):
     """
     Create Sputnik channel.
@@ -242,6 +252,7 @@ def createChannel(channelName):
 
     return True
 
+
 def removeChannel(channelName):
     """
     Remove Sputnik channel.
@@ -253,6 +264,7 @@ def removeChannel(channelName):
     """
 
     return srem("sputnik:channels", channelName)
+
 
 def addClientToChannel(channelName, client):
     """
@@ -266,6 +278,7 @@ def addClientToChannel(channelName, client):
 
     sadd("ses:%s:channels" % client, channelName)
     sadd("sputnik:channel:%s:channel" % channelName, client)
+
 
 def removeClientFromChannel(request, channelName, client):
     """
@@ -282,9 +295,6 @@ def removeClientFromChannel(request, channelName, client):
     import sputnik
     srem("sputnik:channel:%s:channel" % channelName, client)
 
-    # get our username
-    userName = sputnik.get("ses:%s:username" % client)
-
     # get all usernames
     users = smembers("sputnik:channel:%s:users" % channelName)
 
@@ -297,38 +307,33 @@ def removeClientFromChannel(request, channelName, client):
         for usr in users:
             if usr not in allClients:
                 sputnik.srem("sputnik:channel:%s:users" % channelName, usr)
-                addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
+                addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself=True)
     except:
-        from booki.utils.log import printStack
-        printStack(None)
+        from booki.utils.log import print_stack
+        print_stack(None)
 
 
-def addMessageToChannel(request, channelName, message, myself = False ):
+def add_message_to_channel(request, channel_name, message, myself=False):
     """
     Add message to specific channel.
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Django Request.
-    @type channelName: C{string}
-    @param channelName: Channel name.
-    @type message: C{dict}
-    @param message: Sputnik message.
-    @type myself: C{bool}
-    @keyword myself: Should client also recieve that message.
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Django Request
+      - channel_name (`string`): Channel name
+      - message (:class:`dict`): Sputnik message
+      - myself (:class:`bool`): Should client also recieve that message.
     """
 
     import sputnik
+    from booki.utils.log import print_stack
 
-    # TODO
-    # not iterable
     try:
-        clnts = sputnik.smembers("sputnik:channel:%s:channel" % channelName)
+        clnts = sputnik.smembers("sputnik:channel:%s:channel" % channel_name)
     except:
-        from booki.utils.log import printStack
-        printStack(None)
+        print_stack(None)
         return
 
-    message["channel"] = channelName
+    message["channel"] = channel_name
     message["clientID"] = request.clientID
 
     for c in clnts:
@@ -337,19 +342,20 @@ def addMessageToChannel(request, channelName, message, myself = False ):
 
         if c.strip() != '':
             try:
-                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
             except:
-                pass
+                print_stack(None)
 
-def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = False ):
+
+# TODO: unify this method with add_message_to_channel, they basically do the same
+def addMessageToChannel2(clientID, sputnikID, channelName, message, myself=False):
     import sputnik
-    import json
+    from booki.utils.log import print_stack
 
     try:
         clnts = sputnik.smembers("sputnik:channel:%s:channel" % channelName)
     except:
-        from booki.utils.log import printStack
-        printStack(None)
+        print_stack(None)
         return
 
     message["channel"] = channelName
@@ -361,7 +367,7 @@ def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = Fal
 
         if c.strip() != '':
             try:
-                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
             except:
                 logger.debug('*ERROR PUSH*')
 
@@ -389,3 +395,7 @@ def removeClient(request, clientName):
 
     # TODO
     # also, i should delete all messages
+
+
+# legacy support
+addMessageToChannel = add_message_to_channel

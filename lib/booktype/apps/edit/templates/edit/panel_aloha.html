@@ -10,7 +10,7 @@
 </div>
 
 <script type="text/html" id="templateAlohaFull">
-   <a href="#" class="zenBtn" id="zen" data-original-title="{% trans 'Zen mode' %}" rel="tooltip" data-placement="left"><i class="icon-double-angle-up"></i></a>
+   <a href="#" class="zenBtn" id="zen" data-original-title="{% trans 'Zen mode' %}" rel="tooltip" data-placement="left"><i class="fa fa-angle-double-up"></i></a>
 </script>
 
 <div id="find-replace" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -82,8 +82,8 @@
       </div>
       <div class="linktochapter">
         <div class="linktochapter-header">
-          <i class="icon-chevron-down toggle-close"></i>
-          <i class="icon-chevron-right toggle-open"></i>
+          <i class="fa fa-chevron-down toggle-close"></i>
+          <i class="fa fa-chevron-right toggle-open"></i>
           <span class="linktochapter-title">Or link to existing chapter</span>
         </div>
         <div class="linktochapter-content">
@@ -131,7 +131,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-      <button class="btn btn-default btn-primary operation-insert">{% trans "Insert footnote" %}</button>
+      <button class="btn btn-primary operation-insert">{% trans "Insert footnote" %}</button>
     </div>
   </div>
  </div>
@@ -149,14 +149,14 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-      <button class="btn btn-default btn-primary operation-set">{% trans "Set" %}</button>
+      <button class="btn btn-primary operation-set">{% trans "Set" %}</button>
     </div>
   </div>
  </div>
 </div>
 
 <!-- Insert Image Modal -->
-<div class="modal fade responsive-popup" id="imageManager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="imageManager" class="modal fade responsive-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -182,7 +182,7 @@
                   </div>
                   <div class="drag-area-button">
                    <span class="btn btn-success fileinput-button">
-                      <i class="icon-upload"></i> {% trans "or Select them from folder" %}
+                      <i class="fa fa-arrow-circle-o-up"></i> {% trans "or Select them from folder" %}
                         <input class="upload-file" type="file" name="files[]" multiple data-url="../_upload/">
                    </span>
                   </div>
@@ -222,8 +222,8 @@
                 <!--
                 <a class="btn btn-primary btn-xs save-metadata-btn" href="#">{% trans "Save Metadata" %}</a>
                 -->
-                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="icon-pencil"></i> {% trans "Edit caption" %}</a>
-                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="icon-chevron-right"></i></a>
+                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="fa fa-pencil"></i> {% trans "Edit caption" %}</a>
+                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="fa fa-chevron-right"></i></a>
               </div>
 
               <ul class="uploads-grid">
@@ -256,51 +256,60 @@
   <script type="text/html" id='templateImageThumbnail'>
      <li data-media-id="<%= media_id %>">
        <img src="<%= preview %>" data-src="static/<%= name %>" style="max-width: 150px"/>
-         <a class="image-dropdown-button" data-toggle="dropdown"><i class="icon-caret-down"></i></a>
+         <a class="image-dropdown-button" data-toggle="dropdown"><i class="fa fa-caret-down"></i></a>
          <ul class="dropdown-menu" style="">
            {% trans "Edit metadata" %}
-           <li><a href="static/<%= name %>" target="_blank"><i class="icon-download-alt"></i> {% trans "Download" %}</a></li>
-           <li><a href="#" class="delete-attachment"><i class="icon-trash"></i> {% trans "Delete" %}</a></li>
+           <li><a href="static/<%= name %>" target="_blank"><i class="fa fa-download"></i> {% trans "Download" %}</a></li>
+           <li><a href="#" class="delete-attachment"><i class="fa fa-trash"></i> {% trans "Delete" %}</a></li>
          </ul>
      </li>
   </script>
 
-  <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px; z-index: 999;">
-    <a href="#" class="remove"><i class="icon-remove-sign"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
-    <a href="#" class="bk-image-editor-start"><i class="icon-crop"></i>  {% trans "EDIT" %}</a>
-    <a href="#" class="bk-image-editor-stop"><i class="icon-off"></i>  {% trans "STOP EDIT" %}</a>
+  <div id="imagePopup" style="display: none;">
+    <a href="#" class="remove"><i class="fa fa-times-circle"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
+    <a href="#" class="bk-image-editor-start"><i class="fa fa-adjust"></i>  {% trans "EDIT" %}</a>
+    <a href="#" class="bk-image-editor-stop"><i class="fa fa-power-off"></i>  {% trans "STOP EDIT" %}</a>
     <div class="bk-image-editor-ui-controls">
       <hr>
-      <div>
-        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="icon-resize-vertical"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="icon-resize-horizontal"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="icon-rotate-left"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="icon-rotate-right"></i></button>&nbsp;&nbsp;
-        <span style="float: right;">
-          {% trans "Zoom" %}<input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="fa fa-arrows-v"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="fa fa-arrows-h"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="fa fa-rotate-left"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="fa fa-rotate-right"></i>
+        </button>&nbsp;&nbsp;
+        <input bk-image-editor-action="toggle_fpi" type="checkbox" class="bk-image-editor-action"
+               data-width="28" data-height="23" data-size="mini"
+               data-toggle="toggle"
+               data-on="<i class='fa fa-arrows-alt'></i>" data-off="<i class='fa fa-arrows-alt'></i>">
       </div>
-      <div>
-        <span style="float: left;">
-          <input id="bk-image-editor-contrast-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Contrast" %}
-        </span>
-        <span style="float: right;">
-          {% trans "Brightness" %}<input id="bk-image-editor-brightness-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <label for="bk-image-editor-zoom-slider">{% trans "Zoom" %}</label>
+        <input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
       </div>
-      <div>
-        <span style="float: left; text-align: left">
-          <input id="bk-image-editor-blur-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Blur" %}
-        </span>
-        <span style="float: right;">
-          {% trans "Saturate" %}<input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Contrast" %}</label>
+        <input id="bk-image-editor-contrast-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Brightness" %}</label>
+        <input id="bk-image-editor-brightness-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Blur" %}</label>
+        <input id="bk-image-editor-blur-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Saturate" %}</label>
+        <input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
       </div>
     </div>
   </div>
 <!-- End Insert Image Modal -->
 
-<div class="modal fade" id="saveContentWithCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="saveContentWithCommentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -316,15 +325,15 @@
         </div>
         <div class="modal-footer">
           <section class='pull-right'>
-            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}</>
-            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}</>
+            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}</button>
+            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}</button>
           </section>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="contentModifiedModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div id="contentModifiedModal" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -336,6 +345,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancel btn-default">{% trans "Discard changes" %}</button>
         <button type="button" class="btn btn-save btn-primary">{% trans "Save changes" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="themeChangedModal" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{% trans "Book theme was changed" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{% trans "Book theme was changed. Do you want to apply it right now?" %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-action="cancel" class="btn btn-cancel btn-default">{% trans "Cancel" %}</button>
+        <button type="button" data-action="apply" class="btn btn-save btn-primary">{% trans "Apply" %}</button>
       </div>
     </div>
   </div>
@@ -354,7 +380,17 @@
           <div class="control-group">
             <label class="control-label" for="columnsNumber">{% trans "Number of columns" %}</label>
             <div class="controls">
-              <input type="text" id="columnsNumber" name="columnsNumber">
+              <select id="columnsNumber" name="columnsNumber">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
             </div>
           </div>
 
@@ -371,7 +407,26 @@
           <div class="control-group">
             <label class="control-label" for="columnsGap">{% trans "Column gap (in mm)" %}</label>
             <div class="controls">
-              <input type="text" id="columnsGap" name="gap">
+              <select id="columnsGap" name="gap">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+              </select>
             </div>
           </div>
 
@@ -410,7 +465,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalPageBreak" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div id="modalPageBreak" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content bod-color">
       <div class="modal-header">

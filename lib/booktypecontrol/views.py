@@ -26,6 +26,7 @@ from django import template
 from django.conf import settings
 from django.db import connection
 from django.contrib import messages
+from django.template.base import Context
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
@@ -202,12 +203,14 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def dispatch(self, request, *args, **kwargs):
         # if redirect param is present, go to right submodule
-        redirect = request.REQUEST.get('redirect', None)
+        _request_data = getattr(request, request.method)
+
+        redirect = _request_data.get('redirect', None)
         if redirect and redirect in VALID_OPTIONS:
             return HttpResponseRedirect(
                 '{0}#{1}'.format(reverse('control_center:settings'), redirect))
 
-        option = request.REQUEST.get('option', None)
+        option = _request_data.get('option', None)
         if option and option in VALID_OPTIONS:
             self.submodule = option
         return super(ControlCenterSettings, self).dispatch(
@@ -344,10 +347,9 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     context_object_name = 'current_user'
     page_title = _('Admin Control Center')
     title = page_title
-    form_class = control_forms.PasswordForm
     template_name = "booktypecontrol/control_center_settings.html"
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=control_forms.PasswordForm):
         self.object = self.get_object()
         return form_class(user=self.object, **self.get_form_kwargs())
 
@@ -357,7 +359,7 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
 
         if form.cleaned_data['send_login_data']:
             t = template.loader.get_template('booktypecontrol/password_changed_email.html')
-            content = t.render(template.Context({
+            content = t.render(Context({
                 "username": self.object.username,
                 "password": form.cleaned_data['password2'],
                 "short_message": form.cleaned_data['short_message']
@@ -400,6 +402,20 @@ class DeleteGroupView(BaseCCView, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Group successfully deleted.'))
         return "%s#list-of-groups" % reverse('control_center:settings')
+
+    def delete(self, request, *args, **kwargs):
+        group = self.get_object()
+
+        # remove books from group
+        group.book_set.update(group=None)
+
+        # delete group images if needed
+        try:
+            group.remove_group_images()
+        except Exception as e:
+            print e
+
+        return super(DeleteGroupView, self).delete(request, *args, **kwargs)
 
 
 class LicenseEditView(BaseCCView, UpdateView):

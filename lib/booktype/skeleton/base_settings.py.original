@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import os
-
 from unipath import Path
 
 import djcelery
-
 djcelery.setup_loader()
 
 # DJANGO ADMIN
@@ -22,11 +19,11 @@ ALLOWED_HOSTS = ['*']
 # Hosts/domain names that can export books from the /<bookid>/_export/ path
 EXPORT_ALLOWED_HOSTS = ['127.0.0.1']
 
-DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
+DEFAULT_NOTIFICATION_FILTER = u"#* !* ~* \u212c*"
 
 # You can customize the default publishing options this instance can use.
-# Options are: mpdf, screenpdf, epub, mobi, xhtml
-# PUBLISH_OPTIONS = ("mpdf", "screenpdf", "epub")
+# Options are: mpdf, screenpdf, epub3, epub2, mobi, xhtml
+# PUBLISH_OPTIONS = ("mpdf", "screenpdf", "epub3", "epub2")
 
 # BOOKTYPE
 PROFILE_ACTIVE = ''
@@ -39,11 +36,11 @@ BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 # The hostname of the Booktype server (e.g. www.myserver.org, 192.168.1.10, booktype.myserver.org)
 THIS_BOOKTYPE_SERVER = ''
 
-#BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
+# BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
 
 BOOKTYPE_URL = ''
-#BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
+# BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 # E-MAIL OPTIONS
 DEFAULT_FROM_EMAIL = 'booktype@booktype.pro'
@@ -51,9 +48,9 @@ REPORT_EMAIL_USER = 'report@booktype.pro'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'booktype@' + THIS_BOOKTYPE_SERVER
-#EMAIL_HOST_PASSWORD = ''
-#EMAIL_USE_TLS = False
+# EMAIL_HOST_USER = 'booktype@' + THIS_BOOKTYPE_SERVER
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
 
 # MOBI EXPORT
 MOBI_CONVERT = "calibre"
@@ -64,6 +61,13 @@ MPDF_DIR = ''
 PHP_PATH = 'php'
 MPDF_SCRIPT = '{}/booktype2mpdf.php'.format(BOOKTYPE_ROOT)
 
+# PANDOC
+# /usr/local/bin/pandoc - OSX
+# /usr/bin/pandoc - linux
+PANDOC_PATH = '/usr/local/bin/pandoc'
+PANDOC_ICML_SCRIPT = '{}/epub2icml.sh'.format(BOOKTYPE_ROOT)
+PANDOC_DOCX_SCRIPT = '{}/epub2docx.sh'.format(BOOKTYPE_ROOT)
+
 # BOOKTYPE DIRECTORIES
 
 # site_static
@@ -71,7 +75,7 @@ import booki
 
 # static
 STATIC_ROOT = BOOKTYPE_ROOT.child('static')
-STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
+STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -86,21 +90,25 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'booktype.apps.themes.finder.ThemeFinder',    
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'booktype.apps.themes.finder.ThemeFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder'
 )
 
+# 3RD PARTY STATIC CACHE SYSTEMS LIKE CLOUDFLARE
+EXTERNAL_STATIC_CACHE = False
+EXTERNAL_STATIC_CACHE_KEY = 'v1'
+
 # data
 DATA_ROOT = BOOKTYPE_ROOT.child('data')
-DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
+DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
 
 # profile images
 PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/'
 
 # If you don't want to use default profile image you can set your own.
 # Place the image inside of /static/images/ directory in your Booktype project directory.
-#DEFAULT_PROFILE_IMAGE='anonymous.png'
+# DEFAULT_PROFILE_IMAGE='anonymous.png'
 
 # book cover images
 COVER_IMAGE_UPLOAD_DIR = 'cover_images/'
@@ -126,8 +134,7 @@ REDIS_DB = 0
 REDIS_PASSWORD = None
 
 # DJANGO STUFF
-
-AUTH_PROFILE_MODULE='account.UserProfile'
+AUTH_PROFILE_MODULE = 'account.UserProfile'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -136,27 +143,29 @@ LANGUAGE_CODE = 'en-us'
 gettext = lambda s: s
 
 LANGUAGES = (
-   ('en', gettext('American English')),
-   ('en-gb', gettext('British English')),
-   ('ca', gettext('Català')),
-   ('cs', gettext('Česky')),
-   ('de', gettext('Deutsch')),
-   ('de-at', gettext('Österreichisches Deutsch')),
-   ('el', gettext('Ελληνικά')),
-   ('es', gettext('Español')),
-   ('fr', gettext('Français')),
-   ('it', gettext('Italiano')),
-   ('ja', gettext('日本語')),
-   ('ko', gettext('한국어')),
-   ('hu', gettext('Magyar')),
-   ('nl', gettext('Nederlands')),
-   ('nb', gettext('Norsk (Bokmål)')),
-   ('pl', gettext('Polski')),
-   ('pt', gettext('Português')),
-   ('ru', gettext('Русский')),
-   ('sq', gettext('Shqipe')),
-   ('fi', gettext('Suomi')),
-   ('tr', gettext('Türkçe')),
+    ('en', gettext('American English')),
+    ('en-gb', gettext('British English')),
+    ('ca', gettext('Català')),
+    ('cs', gettext('Česky')),
+    ('de', gettext('Deutsch')),
+    ('de-at', gettext('Österreichisches Deutsch')),
+    ('el', gettext('Ελληνικά')),
+    ('es', gettext('Español')),
+    ('fr', gettext('Français')),
+    ('it', gettext('Italiano')),
+    ('ja', gettext('日本語')),
+    ('ko-kr', gettext('한국어')),
+    ('hu', gettext('Magyar')),
+    ('nl', gettext('Nederlands')),
+    ('nb', gettext('Norsk (Bokmål)')),
+    ('pl', gettext('Polski')),
+    ('pt', gettext('Português')),
+    ('pt-br', gettext('Português do Brasil')),
+    ('ru', gettext('Русский')),
+    ('sq', gettext('Shqipe')),
+    ('fi', gettext('Suomi')),
+    ('tr', gettext('Türkçe')),
+    ('uk-ua', gettext('українська мова')),
 )
 
 SITE_ID = 1
@@ -185,48 +194,64 @@ SECRET_KEY = '##SECRET_KEY##'
 # Storage for messages framework
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-# List of callables that know how to import templates from various sources.
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-    'booktype.apps.themes.loaders.Loader'    
-)
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.csrf',
-)
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.api.middleware.APILoggingMiddleware',
     'booktype.apps.core.middleware.StrictAuthentication',
     'booktype.apps.core.middleware.SecurityMiddleware',
 )
 
-
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_DIR##')
 
-TEMPLATE_DIRS = (
-    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('templates'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('templates')
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.csrf',
+                'booktype.apps.core.context_processors.settings_variables'
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader',
+                'booktype.apps.themes.loaders.Loader'
+            ],
+            'debug': False
+        },
+    },
+]
 
+
+TEMPLATE_VISIBLE_SETTINGS = (
+    'BOOKTYPE_URL',
+    'REST_FRAMEWORK_DEFAULT_VERSION',
+    'STATIC_ROOT',
+    'STATIC_URL',
+    'DATA_ROOT',
+    'DATA_URL',
+    'MEDIA_ROOT',
+    'MEDIA_URL',
+    'EXTERNAL_STATIC_CACHE',
+    'EXTERNAL_STATIC_CACHE_KEY'
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -239,6 +264,10 @@ INSTALLED_APPS = (
 
     'compressor',
     'djcelery',
+    'logtailer',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 
     # list of booki apps
     'booki.editor',
@@ -247,6 +276,7 @@ INSTALLED_APPS = (
     'booktype',
 
     # list of booktype apps
+    'booktype.api',
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
@@ -270,6 +300,32 @@ BOOKTYPE_CONVERTER_MODULES = (
     'booktype.convert.converters',
 )
 
+REST_FRAMEWORK_DEFAULT_VERSION = 'v1'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'booktype.api.security.BooktypeSecurity',
+        'booktype.api.security.WhitelistIPPermission'
+    ),
+
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    
+    'DEFAULT_VERSION': REST_FRAMEWORK_DEFAULT_VERSION,
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
+
+
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
@@ -289,6 +345,10 @@ BOOKTYPE_DEFAULT_ROLES = {
 # Configuration for the invite functionality
 BOOKTYPE_INVITE_SUBJECT = gettext('You\'ve been invited to collaborate')
 BOOKTYPE_DEFAULT_INVITE_MESSAGE = gettext('You\'ve been invited to collaborate')
+
+# Whitelist of allowed ips to access api resources
+# booktype.api.security.WhitelistIPPermission is required in rest_framework conf
+BOOKTYPE_API_ALLOWED_IPS = ['*']
 
 # DEPRECATED CONFIG
 
@@ -312,8 +372,88 @@ CACHES = {
     }
 }
 
+# LOGGING
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",  # noqa
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BOOKTYPE_ROOT + "/logs/booktype.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'sputniklogfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BOOKTYPE_ROOT + "/logs/sputnik.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'apilogfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BOOKTYPE_ROOT + "/logs/api.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'booktype': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+        'sputnik': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+        'api': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        }
+    }
+}
+
 # Setting to avoid warning message of new Django Test Runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+# This is the same setting that will be available in Django 1.10
+# Uncomment this line below if you want to redirect somewhere else after logout
+# LOGOUT_REDIRECT_URL = '/'
 
 # this is to create additional metadata fields for books
 # we can use any of the fields of Django Forms module.
@@ -335,6 +475,14 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 #         'WIDGET_ATTRS': {'class': 'css-class'}
 #     }
 # }
+
+# This constant will be loaded into publish screen and passed to
+# converter settings (pdfreactor only for now)
+# Uncomment this (and adjust) if you want to enable icc profile selection
+# ICC_PROFILES_CHOICES = (
+#     ('https://example.com/myicc-profile.icc', 'My ICC Profile'),
+#     ('https://example.com/myicc-profile-2.icc', 'Second Profile'),
+# )
 
 _ADDITIONAL_METADATA = [
     ('edited_by', {

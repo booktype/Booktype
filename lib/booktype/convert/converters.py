@@ -15,8 +15,11 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from .pdf.converter import PdfConverter
-from .epub.converter import EpubConverter
+from .epub.converter import Epub2Converter
+from .epub.converter import Epub3Converter
 from .mobi.converter import MobiConverter
 from .mpdf.converter import MPDFConverter
 from .screenpdf.converter import ScreenPDFConverter
 from .xhtml.converter import XHTMLConverter
+from .pandoc.icml import ICMLConverter
+from .pandoc.docx import DOCXConverter
