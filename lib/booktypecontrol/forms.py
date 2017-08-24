@@ -17,14 +17,14 @@ from booktype.convert import loader as convert_loader
 from booktype.apps.convert import utils as convert_utils
 from booktype.apps.account.models import UserProfile
 from booktype.apps.core.forms import BaseBooktypeForm
-from booktype.apps.core.models import Role, Permission
+from booktype.apps.core.models import Role, Permission, BookSkeleton
 from booktype.apps.core.widgets import GroupedCheckboxSelectMultiple
 from booktype.apps.portal.forms import GroupCreateForm
 from booktype.apps.portal.widgets import RemovableImageWidget
 from booki.editor.models import License, Book, BookiGroup, Language, METADATA_FIELDS
-from booktype.utils.book import (
-    create_book, rename_book, check_book_availability
-)
+from booktype.utils.book import create_book, rename_book, check_book_availability
+from . import widgets as cc_widgets
+
 
 logger = logging.getLogger('booktype.controlcenter')
 
@@ -1115,3 +1115,33 @@ class DefaultRolesForm(BaseControlForm, forms.Form):
             config.save_configuration()
         except config.ConfigurationError as err:
             raise err
+
+
+class ListOfSkeletonsForm(BaseControlForm, forms.ModelForm):
+
+    description = forms.CharField(
+        label=_('Description'),
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 5, 'cols': 10})
+    )
+
+    success_message = _("Successfully created new Book Skeleton")
+    success_url = "#list-of-skeletons"
+
+    class Meta:
+        model = BookSkeleton
+        fields = '__all__'
+
+        widgets = {
+            'skeleton_file': cc_widgets.BkFileWidget(attrs={'accept': 'application/epub+zip'})
+        }
+
+    @classmethod
+    def extra_context(cls):
+        return dict(skeletons=BookSkeleton.objects.all().order_by("name"))
+
+    def get_cancel_url(self):
+        return "{0}{1}".format(self.cancel_url, self.success_url)
+
+    def save_settings(self, request):
+        return self.save()

@@ -15,33 +15,36 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import url
+from . import views as cc_views
 
-from .views import (ControlCenterView, ControlCenterSettings, PersonInfoView,
-                    EditPersonInfo, PasswordChangeView, BookRenameView,
-                    DeleteGroupView, LicenseEditView, DeleteLicenseView,
-                    RoleEditView, DeleteRoleView)
 
 urlpatterns = [
-    url(r'^$', ControlCenterView.as_view(), name='frontpage'),
-    url(r'^settings/$', ControlCenterSettings.as_view(), name='settings'),
+    url(r'^$', cc_views.ControlCenterView.as_view(), name='frontpage'),
+    url(r'^settings/$', cc_views.ControlCenterSettings.as_view(), name='settings'),
 
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/info/$',
-        PersonInfoView.as_view(), name='person_info'),
+        cc_views.PersonInfoView.as_view(), name='person_info'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/edit/$',
-        EditPersonInfo.as_view(), name='person_edit'),
+        cc_views.EditPersonInfo.as_view(), name='person_edit'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$',
-        PasswordChangeView.as_view(), name='password_change'),
+        cc_views.PasswordChangeView.as_view(), name='password_change'),
 
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/rename/$',
-        BookRenameView.as_view(), name='rename_book'),
+        cc_views.BookRenameView.as_view(), name='rename_book'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-\d]+)/delete/$',
-        DeleteGroupView.as_view(), name='delete_group'),
+        cc_views.DeleteGroupView.as_view(), name='delete_group'),
     url(r'^licenses/(?P<pk>\d+)/edit/$',
-        LicenseEditView.as_view(), name="license_edit"),
+        cc_views.LicenseEditView.as_view(), name="license_edit"),
     url(r'^licenses/(?P<pk>\d+)/delete/$',
-        DeleteLicenseView.as_view(), name="delete_license"),
+        cc_views.DeleteLicenseView.as_view(), name="delete_license"),
+
     url(r'^roles/(?P<pk>\d+)/edit/$',
-        RoleEditView.as_view(), name="role_edit"),
+        cc_views.RoleEditView.as_view(), name="role_edit"),
     url(r'^roles/(?P<pk>\d+)/delete/$',
-        DeleteRoleView.as_view(), name="delete_role"),
+        cc_views.DeleteRoleView.as_view(), name="delete_role"),
+
+    url(r'^book-skeleton/(?P<pk>\d+)/edit/$',
+        cc_views.BookSkeletonEditView.as_view(), name="book_skeleton_edit"),
+    url(r'^book-skeleton/(?P<pk>\d+)/delete/$',
+        cc_views.DeleteBookSkeletonView.as_view(), name="delete_book_skeleton"),
 ]

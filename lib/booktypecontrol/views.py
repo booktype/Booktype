@@ -40,7 +40,7 @@ from django.views.generic import DetailView, UpdateView, DeleteView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booktype.utils import misc
-from booktype.apps.core.models import Role
+from booktype.apps.core.models import Role, BookSkeleton
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory, License
 
@@ -59,6 +59,8 @@ OPTION_NAMES = {
     'archived-users': _('Archived Users'),
     'add-book': _('Add a New Book'),
     'list-of-books': _('List of Books'),
+    'add-skeleton': _('Add Book Skeleton'),
+    'list-of-skeletons': _('Book Skeletons'),
     'publishing': _('Publishing Options'),
     'publishing-defaults': _('Publishing Defaults'),
     'add-group': _('Add a New Group'),
@@ -488,3 +490,33 @@ class DeleteRoleView(BaseCCView, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Role successfully deleted.'))
         return "%s#list-of-roles" % reverse('control_center:settings')
+
+
+class BookSkeletonEditView(BaseCCView, UpdateView):
+    model = BookSkeleton
+    context_object_name = 'skeleton'
+    form_class = control_forms.ListOfSkeletonsForm
+    page_title = _('Admin Control Center')
+    title = page_title
+    template_name = "booktypecontrol/_control_center_book_skeleton_edit.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BookSkeletonEditView, self).get_context_data(
+            *args, **kwargs)
+        context['option'] = 'book-skeleton'
+        context['option_name'] = _('Edit Book Skeleton')
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _('Book Skeleton successfully updated'))
+        return "%s#list-of-skeletons" % reverse('control_center:settings')
+
+
+class DeleteBookSkeletonView(BaseCCView, DeleteView):
+    model = BookSkeleton
+    context_object_name = 'skeleton'
+    template_name = 'booktypecontrol/_control_center_modal_delete_book_skeleton.html'
+
+    def get_success_url(self):
+        messages.success(self.request, _('Book Skeleton successfully deleted'))
+        return "%s#list-of-skeletons" % reverse('control_center:settings')

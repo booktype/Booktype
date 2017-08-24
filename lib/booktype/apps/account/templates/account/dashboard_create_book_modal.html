@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
 
 <div class="modal fade" id="createBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog new_book">
@@ -75,28 +75,52 @@
                     <input id="creation_mode_scratch" type="radio" name="creation_mode" value="scratch" class="mr5" checked>
                     <label for="creation_mode_scratch" class="f-normal">
                       {% trans "From scratch" %}
-                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Will create an empty book with no sections or chapters" %}"></i>
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'Will create an empty book with no sections or chapters' %}"></i>
                     </label>
                     <br>
 
                     <input id="creation_mode_based_on_book" type="radio" name="creation_mode" value="based_on_book" class="mr5">
                     <label for="creation_mode_based_on_book" class="f-normal">
                       {% trans "Based on another book" %}
-                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Pick this option if you want to create your book based on another book existent on the system" %}"></i>
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'Pick this option if you want to create your book based on another book existent on the system' %}"></i>
                     </label>
                     <br>
 
-                    {# <input type="radio" name="creation_mode" value="epub_skeleton"> {% trans "Using epub skeleton" %} #}
+                    <input id="creation_mode_based_on_skeleton" type="radio" name="creation_mode" value="based_on_skeleton" class="mr5">
+                    <label for="creation_mode_based_on_skeleton" class="f-normal">
+                      {% trans "Based on skeleton" %}
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'You will have the option to select a predefined skeleton to base your new book on' %}"></i>
+                    </label>
                   </div>
                 </div>
 
-                <div id="book_base_row" class="form-group mb10 row" style="display: none;">
+                <div id="base_on_book_row" class="form-group mb10 row" style="display: none;">
                   <div class="col-xs-3">
                     {{ form.base_book.label_tag }}
                   </div>
                   <div class="col-xs-7 pl0">
                     {{ form.base_book }}
                   </div>
+                </div>
+
+                <div id="base_on_skeleton_row" class="form-group mb10 row" style="display: none;">
+                  <div class="col-xs-3">
+                    {{ form.base_skeleton.label_tag }}
+                  </div>
+                  <div class="col-xs-7 pl0">
+                    {{ form.base_skeleton }}
+                  </div>
+
+                  {% if form.base_skeleton.field.queryset.count == 0 %}
+                  <div class="col-xs-7 col-xs-offset-3 pl0 mt5">
+                    <p>
+                      {% trans "No book skeletons yet." %}
+                      {% check_perm 'account.can_manage_book_skeletons' %}
+                      {% trans "You can manage them from" %} <a href="{% url 'control_center:settings' %}#list-of-skeletons">{% trans "Control Center" %}</a>
+                      {% endcheck_perm %}
+                    </p>
+                  </div>
+                  {% endif %}
                 </div>
               </section>
 

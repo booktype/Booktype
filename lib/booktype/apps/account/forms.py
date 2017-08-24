@@ -9,12 +9,13 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from booktype.utils import config
 from booki.editor.models import BookHistory, Language, License, METADATA_FIELDS
-from booktype.apps.core.models import Book, Role
+from booktype.apps.core.models import Book, Role, BookSkeleton
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.apps.portal.widgets import RemovableImageWidget
 
 
 logger = logging.getLogger('booktype.apps.account.forms')
+
 
 class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     email = forms.EmailField(label=_('Email'))
@@ -100,6 +101,7 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
 
         return email_list
 
+
 def _make_choices(queryset):
     """
     Language and License share field names: abbreviation and name.
@@ -147,6 +149,14 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
     base_book = forms.ModelChoiceField(
         label=_("Select the base book"),
         queryset=Book.objects.none())
+
+    base_skeleton = forms.ModelChoiceField(
+        label=_("Select the skeleton"),
+        queryset=BookSkeleton.objects.all(),
+        required=False)
+
+    # TODO: ask if we should implement optional "only skeleton structure"
+
     # -------- END STEP 3 -------------
 
     def __init__(self, base_book_qs=None, *args, **kwargs):
@@ -175,8 +185,6 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
             self.fields['base_book'].queryset = base_book_qs
         else:
             logger.warn("base_book_qs queryset parameter was not provided. Using empty queryset")
-
-
 
     class Meta:
         text_area = forms.Textarea(attrs={'class': 'form-control', 'cols': 20, 'rows': 3})

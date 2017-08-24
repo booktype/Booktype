@@ -1,0 +1,20 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n %}
+
+{% block extra_title %} - {% trans "Add New" %} {% endblock %}
+
+{% block save_btn %}{% trans "Save" %}{% endblock %}
+
+{% block control_content %}
+    {{ block.super }}
+    <h4 class="border-bottom">{% trans "List of existent skeletons" %}</h4>
+    <ul class="list smaller-spacing">
+        {% for obj in skeletons %}
+            <li>
+                <a href="{% url 'control_center:book_skeleton_edit' obj.pk %}" class="fsize13">{{ obj.name }} {% if obj.description %}- {{ obj.description }}{% endif %}</a>
+            </li>
+        {% empty %}
+            <li>{% trans "No registries to show" %}</div>
+        {% endfor %}
+    </ul>
+{% endblock %}

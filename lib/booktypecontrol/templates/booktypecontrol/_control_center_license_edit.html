@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block extra_cc_content %}
-    <button class="btn btn-primary license-delete" data-remote="{% url 'control_center:delete_license' license.pk %}" data-toggle="modal" data-target="#bookEditModal">
+    <button class="btn btn-primary cc-item-delete" data-remote="{% url 'control_center:delete_license' license.pk %}" data-toggle="modal" data-target="#bookEditModal">
         {% trans "Remove" %}
     </button>
 
@@ -21,7 +21,7 @@
         {% endfor %}
     </ul>
     {% endwith %}
-    
+
     <div id="bookEditModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
     </div>
 {% endblock %}
