@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-15 10:47-0600\n"
-"PO-Revision-Date: 2017-08-18 21:25+0000\n"
+"POT-Creation-Date: 2017-08-24 11:28-0600\n"
+"PO-Revision-Date: 2017-08-24 20:57+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/booktype/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -116,75 +116,84 @@ msgstr "Importer epub/docx-dokumenter"
 msgid "View user info"
 msgstr "Vis brukerinformasjon"
 
-#: lib/booktype/apps/account/forms.py:20
+#: lib/booktype/apps/account/__init__.py:9
+msgid "Manage Book Skeletons"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:21
 #: lib/booktype/apps/account/templates/account/register_form.html:13
 msgid "Email"
 msgstr "Epost"
 
-#: lib/booktype/apps/account/forms.py:22
+#: lib/booktype/apps/account/forms.py:23
 #: lib/booktype/apps/account/templates/account/register_form.html:10
 msgid "Full name"
 msgstr "Fullt navn"
 
-#: lib/booktype/apps/account/forms.py:28
+#: lib/booktype/apps/account/forms.py:29
 msgid "About yourself"
 msgstr "Om deg selv"
 
-#: lib/booktype/apps/account/forms.py:33
+#: lib/booktype/apps/account/forms.py:34
 msgid "Profile image"
 msgstr "Profilbilde"
 
-#: lib/booktype/apps/account/forms.py:41
+#: lib/booktype/apps/account/forms.py:42
 msgid "Notification filter"
 msgstr "Varslingsfilter"
 
-#: lib/booktype/apps/account/forms.py:52
+#: lib/booktype/apps/account/forms.py:53
 msgid "Password (again)"
 msgstr "Gjenta passord"
 
-#: lib/booktype/apps/account/forms.py:59
+#: lib/booktype/apps/account/forms.py:60
 msgid "Enter email addresses separated by comma"
 msgstr "Tast inn epostadresser adskilt med kommategn"
 
-#: lib/booktype/apps/account/forms.py:63
+#: lib/booktype/apps/account/forms.py:64
 msgid "Message"
 msgstr "Melding"
 
-#: lib/booktype/apps/account/forms.py:117
+#: lib/booktype/apps/account/forms.py:119
 msgid "Title of book"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:121
+#: lib/booktype/apps/account/forms.py:123
 #: lib/booktype/skeleton/themes/academic/panel.html:7
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
 msgid "Author"
 msgstr "Forfatter"
 
-#: lib/booktype/apps/account/forms.py:124 lib/booktype/apps/edit/forms.py:60
+#: lib/booktype/apps/account/forms.py:126 lib/booktype/apps/core/models.py:123
+#: lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr "Språk"
 
-#: lib/booktype/apps/account/forms.py:128 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:130 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr "Lisens"
 
-#: lib/booktype/apps/account/forms.py:132
+#: lib/booktype/apps/account/forms.py:134
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:45
 msgid "Visible to everyone"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:135
+#: lib/booktype/apps/account/forms.py:137
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: lib/booktype/apps/account/forms.py:148
+#: lib/booktype/apps/account/forms.py:150
 msgid "Select the base book"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:154
+msgid "Select the skeleton"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:35
@@ -196,7 +205,7 @@ msgid "image"
 msgstr "bilde"
 
 #: lib/booktype/apps/account/models.py:37 lib/booktype/apps/core/models.py:19
-#: lib/booktype/apps/core/models.py:58
+#: lib/booktype/apps/core/models.py:58 lib/booktype/apps/core/models.py:120
 msgid "description"
 msgstr "beskrivelse"
 
@@ -375,8 +384,8 @@ msgstr "Klikk på denne knappen for å oppdatere personlige innstillinger og pas
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:258
-#: lib/booktype/apps/account/views.py:259
+#: lib/booktype/apps/account/views.py:261
+#: lib/booktype/apps/account/views.py:262
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "Brukerinnstillinger"
@@ -519,7 +528,7 @@ msgid "View"
 msgstr "Vis"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:25
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:26
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
@@ -600,17 +609,41 @@ msgid ""
 "existent on the system"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:103
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:91
+msgid "Based on skeleton"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:92
+msgid ""
+"You will have the option to select a predefined skeleton to base your new "
+"book on"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:117
+msgid "No book skeletons yet."
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+msgid "You can manage them from"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+#: lib/booktype/apps/core/templates/core/nav_bar.html:12
+#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
+msgid "Control Center"
+msgstr "Kontrollsenter"
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:127
 msgid "Image"
 msgstr "Bilde"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:105
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:129
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
 msgstr "Hvis du har et bilde til forsiden, kan du legge det til nå (dette kan også legges til og endres senere)"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:106
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:130
 msgid "Book Image"
 msgstr "Forsidebilde"
 
@@ -746,8 +779,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Kan ikke finne brukeren \"%(username)s\"."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:368
-#: lib/booktype/apps/account/views.py:369
+#: lib/booktype/apps/account/views.py:371
+#: lib/booktype/apps/account/views.py:372
 msgid "Forgot your password"
 msgstr "Glemt ditt passord?"
 
@@ -775,8 +808,8 @@ msgid "Send request"
 msgstr "Send forespørsel"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:441
-#: lib/booktype/apps/account/views.py:442
+#: lib/booktype/apps/account/views.py:444
+#: lib/booktype/apps/account/views.py:445
 msgid "Reset your password"
 msgstr "Endre ditt passord"
 
@@ -799,7 +832,7 @@ msgid ""
 msgstr "Klikk på denne knappen for å få en oversikt over dine bøker, grupper, brukerprofil og nylig aktivitet"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:69
+#: lib/booktype/apps/account/views.py:68
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -808,8 +841,8 @@ msgstr "Mine bøker"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:491
-#: lib/booktype/apps/account/views.py:492
+#: lib/booktype/apps/account/views.py:494
+#: lib/booktype/apps/account/views.py:495
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -954,52 +987,52 @@ msgstr "Navnet er for langt!"
 msgid "CREATE ACCOUNT"
 msgstr "OPPRETT KONTO"
 
-#: lib/booktype/apps/account/views.py:68
+#: lib/booktype/apps/account/views.py:67
 msgid "Dashboard"
 msgstr "Arbeidsplass"
 
-#: lib/booktype/apps/account/views.py:162
 #: lib/booktype/apps/account/views.py:163
+#: lib/booktype/apps/account/views.py:164
 msgid "User profile"
 msgstr "Brukerprofil"
 
-#: lib/booktype/apps/account/views.py:308
+#: lib/booktype/apps/account/views.py:311
 msgid "User settings have been saved successfully!"
 msgstr "Endringer i brukerinnstillingene er lagret!"
 
-#: lib/booktype/apps/account/views.py:345
+#: lib/booktype/apps/account/views.py:348
 msgid "Password changed successfully!"
 msgstr "Passordet er endret!"
 
-#: lib/booktype/apps/account/views.py:397
+#: lib/booktype/apps/account/views.py:400
 msgid "Missing username"
 msgstr "Mangler brukernavn"
 
-#: lib/booktype/apps/account/views.py:401
+#: lib/booktype/apps/account/views.py:404
 msgid "No such user"
 msgstr "Ukjent bruker"
 
-#: lib/booktype/apps/account/views.py:421
+#: lib/booktype/apps/account/views.py:424
 msgid "Reset password"
 msgstr "Resett passord"
 
-#: lib/booktype/apps/account/views.py:434
+#: lib/booktype/apps/account/views.py:437
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
-#: lib/booktype/apps/account/views.py:456
+#: lib/booktype/apps/account/views.py:459
 msgid "Password can't be empty"
 msgstr "Passordet kan ikke være tomt"
 
-#: lib/booktype/apps/account/views.py:461
+#: lib/booktype/apps/account/views.py:464
 msgid "Passwords don't match"
 msgstr "Passordet stemmer ikke"
 
-#: lib/booktype/apps/account/views.py:477
+#: lib/booktype/apps/account/views.py:480
 msgid "Wrong secret code"
 msgstr "Feil hemmelig kode"
 
-#: lib/booktype/apps/account/views.py:749
+#: lib/booktype/apps/account/views.py:752
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -1070,6 +1103,30 @@ msgstr "bok-rolle"
 msgid "Book Roles"
 msgstr "bok-roller"
 
+#: lib/booktype/apps/core/models.py:104
+msgid "EPUB"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
+msgid "Name"
+msgstr "Navn"
+
+#: lib/booktype/apps/core/models.py:127
+msgid "Skeleton Type"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:131
+msgid "File"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:137
+msgid "Book Skeleton"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:138
+msgid "Book Skeletons"
+msgstr ""
+
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
 msgstr "Modifiseringer:"
@@ -1119,11 +1176,6 @@ msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
 msgstr "Elevforlaget er basert på den åpne CMS-en Booktype."
-
-#: lib/booktype/apps/core/templates/core/nav_bar.html:12
-#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
-msgid "Control Center"
-msgstr "Kontrollsenter"
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:10
@@ -1617,63 +1669,63 @@ msgstr "Sett inn kolonnebrudd"
 msgid "Split chapter"
 msgstr "Splitt kapittel"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
-msgid "Undo"
-msgstr "Angre"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
-msgid "Redo"
-msgstr "Utfør likevel"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:30
-msgid "Find & Replace"
-msgstr "Finn og erstatt"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:32
-msgid "Remove styling"
-msgstr "Fjern styling"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:33
-msgid "Remove formatting"
-msgstr "Fjern formatering"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
-msgid "Decrease indent"
-msgstr "Mindre innrykk"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
-msgid "Increase indent"
-msgstr "Større innrykk"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
-msgid "Direction to LTR"
-msgstr "Retning venstre-til-høyre"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
-msgid "Direction to RTL"
-msgstr "Retning høyre-mot-venstre"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:39
-msgid "Edit raw HTML"
-msgstr "Rediger rå HTML"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:43
-msgid "Tools"
-msgstr "Verktøy"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:45
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:50
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:58
-msgid "Word count"
-msgstr "Ordtelling"
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:46
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:337
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Import DOCX File"
 msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
+msgid "Undo"
+msgstr "Angre"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
+msgid "Redo"
+msgstr "Utfør likevel"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:31
+msgid "Find & Replace"
+msgstr "Finn og erstatt"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:33
+msgid "Remove styling"
+msgstr "Fjern styling"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
+msgid "Remove formatting"
+msgstr "Fjern formatering"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
+msgid "Decrease indent"
+msgstr "Mindre innrykk"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
+msgid "Increase indent"
+msgstr "Større innrykk"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
+msgid "Direction to LTR"
+msgstr "Retning venstre-til-høyre"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:38
+msgid "Direction to RTL"
+msgstr "Retning høyre-mot-venstre"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:40
+msgid "Edit raw HTML"
+msgstr "Rediger rå HTML"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:44
+msgid "Tools"
+msgstr "Verktøy"
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:46
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:50
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:58
+msgid "Word count"
+msgstr "Ordtelling"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:10
 msgid "Text Heading"
@@ -3916,10 +3968,6 @@ msgstr "Publiser eksportert bok"
 msgid "export"
 msgstr "eksporter"
 
-#: lib/booktype/apps/export/models.py:30
-msgid "Name"
-msgstr "Navn"
-
 #: lib/booktype/apps/export/models.py:31
 msgid "Task ID"
 msgstr "Oppgave-ID"
@@ -4694,24 +4742,24 @@ msgstr "Tittelside"
 msgid "Reference not found for endnote: {}"
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:266
+#: lib/booktype/importer/epub/epubimporter.py:265
 #, python-brace-format
 msgid "Broken endnotes markers in \"{0}\"."
 msgstr "Broken endnotes markers in \"{0}\"."
 
-#: lib/booktype/importer/epub/epubimporter.py:380
+#: lib/booktype/importer/epub/epubimporter.py:379
 msgid "Unknown chapter"
 msgstr "Ukjent kapittel"
 
-#: lib/booktype/importer/epub/epubimporter.py:532
+#: lib/booktype/importer/epub/epubimporter.py:531
 msgid "Not using {} as a cover image -- {}"
 msgstr "Bruker ikke {} som forsidebilde -- {}"
 
-#: lib/booktype/importer/epub/epubimporter.py:536
+#: lib/booktype/importer/epub/epubimporter.py:535
 msgid "Not using {} as a cover image"
 msgstr "Bruker ikke {} som forsidebilde"
 
-#: lib/booktype/importer/epub/epubimporter.py:573
+#: lib/booktype/importer/epub/epubimporter.py:572
 msgid "Using {} as cover image"
 msgstr "Bruker {} som forsidebilde"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-15 10:47-0600\n"
-"PO-Revision-Date: 2017-08-18 21:25+0000\n"
+"POT-Creation-Date: 2017-08-24 11:28-0600\n"
+"PO-Revision-Date: 2017-08-24 20:57+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/sourcefabric/booktype/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -114,75 +114,84 @@ msgstr ""
 msgid "View user info"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:20
+#: lib/booktype/apps/account/__init__.py:9
+msgid "Manage Book Skeletons"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:21
 #: lib/booktype/apps/account/templates/account/register_form.html:13
 msgid "Email"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:22
+#: lib/booktype/apps/account/forms.py:23
 #: lib/booktype/apps/account/templates/account/register_form.html:10
 msgid "Full name"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:28
+#: lib/booktype/apps/account/forms.py:29
 msgid "About yourself"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:33
+#: lib/booktype/apps/account/forms.py:34
 msgid "Profile image"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:41
+#: lib/booktype/apps/account/forms.py:42
 msgid "Notification filter"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:52
+#: lib/booktype/apps/account/forms.py:53
 msgid "Password (again)"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:59
+#: lib/booktype/apps/account/forms.py:60
 msgid "Enter email addresses separated by comma"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:63
+#: lib/booktype/apps/account/forms.py:64
 msgid "Message"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:117
+#: lib/booktype/apps/account/forms.py:119
 msgid "Title of book"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:121
+#: lib/booktype/apps/account/forms.py:123
 #: lib/booktype/skeleton/themes/academic/panel.html:7
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
 msgid "Author"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:124 lib/booktype/apps/edit/forms.py:60
+#: lib/booktype/apps/account/forms.py:126 lib/booktype/apps/core/models.py:123
+#: lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:128 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:130 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:132
+#: lib/booktype/apps/account/forms.py:134
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:45
 msgid "Visible to everyone"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:135
+#: lib/booktype/apps/account/forms.py:137
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:148
+#: lib/booktype/apps/account/forms.py:150
 msgid "Select the base book"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:154
+msgid "Select the skeleton"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:35
@@ -194,7 +203,7 @@ msgid "image"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:37 lib/booktype/apps/core/models.py:19
-#: lib/booktype/apps/core/models.py:58
+#: lib/booktype/apps/core/models.py:58 lib/booktype/apps/core/models.py:120
 msgid "description"
 msgstr ""
 
@@ -373,8 +382,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:258
-#: lib/booktype/apps/account/views.py:259
+#: lib/booktype/apps/account/views.py:261
+#: lib/booktype/apps/account/views.py:262
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr ""
@@ -517,7 +526,7 @@ msgid "View"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:25
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:26
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
@@ -598,17 +607,41 @@ msgid ""
 "existent on the system"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:103
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:91
+msgid "Based on skeleton"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:92
+msgid ""
+"You will have the option to select a predefined skeleton to base your new "
+"book on"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:117
+msgid "No book skeletons yet."
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+msgid "You can manage them from"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+#: lib/booktype/apps/core/templates/core/nav_bar.html:12
+#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
+msgid "Control Center"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:127
 msgid "Image"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:105
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:129
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:106
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:130
 msgid "Book Image"
 msgstr ""
 
@@ -744,8 +777,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:368
-#: lib/booktype/apps/account/views.py:369
+#: lib/booktype/apps/account/views.py:371
+#: lib/booktype/apps/account/views.py:372
 msgid "Forgot your password"
 msgstr ""
 
@@ -773,8 +806,8 @@ msgid "Send request"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:441
-#: lib/booktype/apps/account/views.py:442
+#: lib/booktype/apps/account/views.py:444
+#: lib/booktype/apps/account/views.py:445
 msgid "Reset your password"
 msgstr ""
 
@@ -797,7 +830,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:69
+#: lib/booktype/apps/account/views.py:68
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -806,8 +839,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:491
-#: lib/booktype/apps/account/views.py:492
+#: lib/booktype/apps/account/views.py:494
+#: lib/booktype/apps/account/views.py:495
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -952,52 +985,52 @@ msgstr ""
 msgid "CREATE ACCOUNT"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:68
+#: lib/booktype/apps/account/views.py:67
 msgid "Dashboard"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:162
 #: lib/booktype/apps/account/views.py:163
+#: lib/booktype/apps/account/views.py:164
 msgid "User profile"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:308
+#: lib/booktype/apps/account/views.py:311
 msgid "User settings have been saved successfully!"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:345
+#: lib/booktype/apps/account/views.py:348
 msgid "Password changed successfully!"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:397
+#: lib/booktype/apps/account/views.py:400
 msgid "Missing username"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:401
+#: lib/booktype/apps/account/views.py:404
 msgid "No such user"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:421
+#: lib/booktype/apps/account/views.py:424
 msgid "Reset password"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:434
+#: lib/booktype/apps/account/views.py:437
 msgid "Unknown error"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:456
+#: lib/booktype/apps/account/views.py:459
 msgid "Password can't be empty"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:461
+#: lib/booktype/apps/account/views.py:464
 msgid "Passwords don't match"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:477
+#: lib/booktype/apps/account/views.py:480
 msgid "Wrong secret code"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:749
+#: lib/booktype/apps/account/views.py:752
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -1068,6 +1101,30 @@ msgstr ""
 msgid "Book Roles"
 msgstr ""
 
+#: lib/booktype/apps/core/models.py:104
+msgid "EPUB"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
+msgid "Name"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:127
+msgid "Skeleton Type"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:131
+msgid "File"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:137
+msgid "Book Skeleton"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:138
+msgid "Book Skeletons"
+msgstr ""
+
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
 msgstr ""
@@ -1116,11 +1173,6 @@ msgstr ""
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
-msgstr ""
-
-#: lib/booktype/apps/core/templates/core/nav_bar.html:12
-#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
-msgid "Control Center"
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
@@ -1615,62 +1667,62 @@ msgstr ""
 msgid "Split chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
-msgid "Undo"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
-msgid "Redo"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:30
-msgid "Find & Replace"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:32
-msgid "Remove styling"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:33
-msgid "Remove formatting"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
-msgid "Decrease indent"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
-msgid "Increase indent"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
-msgid "Direction to LTR"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
-msgid "Direction to RTL"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:39
-msgid "Edit raw HTML"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:43
-msgid "Tools"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:45
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:50
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:58
-msgid "Word count"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:46
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:337
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Import DOCX File"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
+msgid "Undo"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
+msgid "Redo"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:31
+msgid "Find & Replace"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:33
+msgid "Remove styling"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
+msgid "Remove formatting"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
+msgid "Decrease indent"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
+msgid "Increase indent"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
+msgid "Direction to LTR"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:38
+msgid "Direction to RTL"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:40
+msgid "Edit raw HTML"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:44
+msgid "Tools"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:46
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:50
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:58
+msgid "Word count"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:10
@@ -3914,10 +3966,6 @@ msgstr ""
 msgid "export"
 msgstr ""
 
-#: lib/booktype/apps/export/models.py:30
-msgid "Name"
-msgstr ""
-
 #: lib/booktype/apps/export/models.py:31
 msgid "Task ID"
 msgstr ""
@@ -4692,24 +4740,24 @@ msgstr ""
 msgid "Reference not found for endnote: {}"
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:266
+#: lib/booktype/importer/epub/epubimporter.py:265
 #, python-brace-format
 msgid "Broken endnotes markers in \"{0}\"."
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:380
+#: lib/booktype/importer/epub/epubimporter.py:379
 msgid "Unknown chapter"
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:532
+#: lib/booktype/importer/epub/epubimporter.py:531
 msgid "Not using {} as a cover image -- {}"
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:536
+#: lib/booktype/importer/epub/epubimporter.py:535
 msgid "Not using {} as a cover image"
 msgstr ""
 
-#: lib/booktype/importer/epub/epubimporter.py:573
+#: lib/booktype/importer/epub/epubimporter.py:572
 msgid "Using {} as cover image"
 msgstr ""
 
