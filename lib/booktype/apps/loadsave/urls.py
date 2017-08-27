@@ -16,8 +16,9 @@
 
 from django.conf.urls import url
 
-from .views import SaveView
+from .views import SaveView, SaveAsEpubSkeleton
 
 urlpatterns = [
     url(r'^_export/$', SaveView.as_view(), name='save_book'),
+    url(r'^_save_as_skeleton/$', SaveAsEpubSkeleton.as_view(), name='save_as_skeleton'),
 ]

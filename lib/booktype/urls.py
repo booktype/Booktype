@@ -72,8 +72,7 @@ urlpatterns = [
 
 urlpatterns += [
     # export
-    # TODO; Add namespace
-    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
+    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls', namespace='loadsave')),
 
     # new editor
     url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.edit.urls', namespace='edit')),
