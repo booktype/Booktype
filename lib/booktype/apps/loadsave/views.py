@@ -10,6 +10,14 @@ from . import utils
 
 
 class SaveView(utils.RestrictExport, View):
+    """
+    Simple view that serves a given book as epub file.
+    This is our base raw epub for converter scripts
+    """
+
+    def get_filename(self, book):
+        return book.url_title
+
     def get(self, request, bookid):
 
         try:
@@ -20,7 +28,7 @@ class SaveView(utils.RestrictExport, View):
         book_version = book.get_version(None)
 
         response = HttpResponse(content_type='application/epub+zip')
-        response['Content-Disposition'] = 'attachment; filename=%s.epub' % book.url_title
+        response['Content-Disposition'] = 'attachment; filename=%s.epub' % self.get_filename(book)
 
         temp_dir = tempfile.mkdtemp()
         filename = '%s/export.epub' % temp_dir
@@ -38,3 +46,13 @@ class SaveView(utils.RestrictExport, View):
         os.rmdir(temp_dir)
 
         return response
+
+
+class SaveAsEpubSkeleton(SaveView):
+    """
+    Just to set custom filename in order to differentiate
+    this epub from on of the publish panel.
+    """
+
+    def get_filename(self, book):
+        return "{}_EPUB_SKELETON".format(book.url_title)
