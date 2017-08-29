@@ -5,10 +5,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">{% trans "Import Book / Upload EPUB" %}</h3>
+            <h3 id="myModalLabel">{% trans "Import Book from DOCX or EPUB" %}</h3>
           </div>
           <div class="modal-body">
-            <p>{% trans "Available file formats: epub, docx" %}</p>
             <form action="{% url 'importer:upload_book_file' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="drag-area" id="drag-area">
@@ -18,9 +17,7 @@
                     <div class="drag-area-button">
                         <span class="btn btn-default fileinput-button">
                             <i class="fa fa-upload"></i> {% trans "or Select from folder" %}
-                            <input id="book-file" type="file"
-																	 accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-																	 name="book_file">
+                            <input id="book-file" type="file" accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="book_file" />
                         </span>
                     </div>
                 </div>
@@ -63,10 +60,10 @@
                 </div>
 
                 <h4>{% trans "Book Title (optional)" %}</h4>
-                <input type="text" name="book_title" placeholder="Enter new Book title" class="form-control book_title">
+                <input type="text" name="book_title" placeholder="{% trans "Enter new Book title" %}" class="form-control book_title" />
                 <div class="checkbox">
                     <label>
-                        <input {% if book_visible %}checked="checked"{% endif %} type="checkbox" name="hidden"> {% trans "Hide this book from other people" %}
+                        <input {% if book_visible %}checked="checked"{% endif %} type="checkbox" name="hidden" /> {% trans "Hide this book from other people" %}
                     </label>
                 </div>
             </form>

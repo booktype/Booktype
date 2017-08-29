@@ -4,10 +4,10 @@
 
 <form id="formsignin" signin-href="{% url "accounts:signin" %}" redirect-href="{{ redirect|escapejs }}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <div class="form-group">
-    <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
+    <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}" />
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}">
+    <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}" />
   </div>  
   
   <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">

@@ -10,7 +10,7 @@ PERMISSIONS = {
         ('can_view_draft', _('View draft page')),
         ('can_view_hidden_draft', _('View hidden draft page')),
 
-        ('can_view_book_info', _('View book info')),
+        ('can_view_book_info', _('View Book Info')),
         ('can_view_hidden_book_info', _('View hidden book info')),
     ]
 }

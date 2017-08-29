@@ -92,7 +92,7 @@
                         {% if is_book_admin %}
                         <li>
                           <a href="#bookInfo" data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookModal">
-                            {% trans "Edit book info" %}
+                            {% trans "Edit Book Info" %}
                           </a>
                         </li>
                         {% endif %}
@@ -269,9 +269,9 @@
 <ul class="strings template">
   <li data-translate-id="cancel">{% trans 'Cancel' %}</li>
   <li data-translate-id="downloadEpubSkeletonMessage">
-    {% trans "Please take into account that this EPUB is not valid for distribution. Click Download button to proceed."  %}
+    {% trans "Please take into account that this EPUB is not valid for distribution. Click the Download button to proceed." %}
   </li>
-  <li data-translate-id="downloadEpubSkeletonTitle">{% trans 'Download as Epub Skeleton' %}</li>
+  <li data-translate-id="downloadEpubSkeletonTitle">{% trans 'Download as EPUB Skeleton' %}</li>
   <li data-translate-id="downloadEpubSkeletonConfirmBtn">{% trans 'Download' %}</li>
 </ul>
 {% endblock %}

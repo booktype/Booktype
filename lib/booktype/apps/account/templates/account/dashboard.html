@@ -50,11 +50,11 @@
                         {% if current_user == request.user %}
                             {% if not limit_reached %}
                                 {% if can_create_book %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create a new Book" %}">{% trans "Create Book" as create_text %} {{ create_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create New Book" %}">{% trans "Create Book" as create_text %} {{ create_text|upper }}</button>
                                 {% endif %}
 
                                 {% if can_upload_book %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Import Book from docx or EPUB" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Import Book from DOCX or EPUB" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
                                 {% endif %}
 
                                 {% if current_user.is_authenticated %}
@@ -69,7 +69,7 @@
 
                         {# I'm pretty sure nobody will miss this, let's hide it and then later remove it completely if nobody ask for it #}
 
-                        <button role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#joinBookModal" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Join books via invite code' %}">{% trans "Join Book" as join_text %} {{ join_text|upper }}</button>
+                        <button role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#joinBookModal" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Join book with invite code' %}">{% trans "Join Book" as join_text %} {{ join_text|upper }}</button>
                         <!-- <div class="btn-group float-right">
                             <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a grid' %}"><i class="fa fa-th"></i></button>
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a list' %}"><i class="fa fa-list-ul"></i></button>
@@ -227,7 +227,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h2 class="modal-title" id="myModalLabel">{% trans "Invite people" %}</h2>
+        <h2 class="modal-title" id="myModalLabel">{% trans "Invite people to edit your books" %}</h2>
       </div>
       <div class="modal-body">
         <section id="basic">
