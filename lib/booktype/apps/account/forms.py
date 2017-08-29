@@ -131,7 +131,9 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         choices=_make_choices(queryset=License.objects.all().order_by('name')))
 
     visible_to_everyone = forms.BooleanField(
-        label=_("Visible to everyone"))
+        label=_("Visible to everyone"),
+        help_text=_("This will make your book visible to other users on the system."
+                    "You can change this setting later from the Book Info page."))
 
     description = forms.CharField(
         label=_("Description"),
