@@ -91,7 +91,7 @@ DOCX_IMPORTER_CLASS = 'booktype.importer.WordImporter'
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
 # ADMINISTRATIVE RELATED
-CREATE_BOOK_VISIBLE = True
+CREATE_BOOK_VISIBLE = False
 CREATE_BOOK_LICENSE = ""
 CREATE_BOOK_LANGUAGE = "en"
 

@@ -42,7 +42,7 @@
 
                 <div class="form-group mb10">
                   <label for="visible_to_everyone">
-                    {% trans "Visible to everyone" %} <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans "Book will be visible to other users. This setting can be changed later from the Book Info page." %}"></i>:
+                    {{ form.visible_to_everyone.label }} <i class="fa fa-info-circle" data-toggle="tooltip" title="{{ form.visible_to_everyone.help_text }}"></i>:
                   </label>
                   {{ form.visible_to_everyone }}
                 </div>
