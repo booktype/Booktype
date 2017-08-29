@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-26 23:26-0600\n"
-"PO-Revision-Date: 2017-08-29 08:48+0000\n"
+"POT-Creation-Date: 2017-08-28 21:32-0600\n"
+"PO-Revision-Date: 2017-08-29 10:19+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -178,20 +178,25 @@ msgid "License"
 msgstr "Licence"
 
 #: lib/booktype/apps/account/forms.py:134
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:45
 msgid "Visible to everyone"
 msgstr "Visible to everyone"
 
-#: lib/booktype/apps/account/forms.py:137
+#: lib/booktype/apps/account/forms.py:135
+msgid ""
+"This will make your book visible to other users on the system.You can change"
+" this setting later from the Book Info page."
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:139
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr "Description"
 
-#: lib/booktype/apps/account/forms.py:150
+#: lib/booktype/apps/account/forms.py:152
 msgid "Select the base book"
 msgstr "Select the base book"
 
-#: lib/booktype/apps/account/forms.py:154
+#: lib/booktype/apps/account/forms.py:156
 msgid "Select the skeleton"
 msgstr "Select the skeleton"
 
@@ -566,12 +571,6 @@ msgstr "Please fill in the details of your book"
 msgid "There is already a book with this name."
 msgstr "There is already a book with this name."
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:45
-msgid ""
-"Book will be visible to other users. This setting can be changed later from "
-"the Book Info page."
-msgstr "Book will be visible to other users. This setting can be changed later from the Book Info page."
-
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:56
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
@@ -624,7 +623,7 @@ msgstr "No book skeletons yet."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
 msgid "You can manage them from"
-msgstr ""
+msgstr "You can manage them from"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
@@ -3634,7 +3633,7 @@ msgstr "CHANGE"
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:138
 msgid ""
 "This book doesn't contain invited people. Please invite people in your "
-msgstr ""
+msgstr "This book doesn't contain invited people. Please invite people in your "
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "dashboard"
