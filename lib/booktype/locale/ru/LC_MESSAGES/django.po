@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-24 11:28-0600\n"
-"PO-Revision-Date: 2017-08-24 20:57+0000\n"
+"POT-Creation-Date: 2017-08-26 23:26-0600\n"
+"PO-Revision-Date: 2017-08-27 10:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -258,7 +258,7 @@ msgstr "Мои книги"
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Books"
 msgstr "Книги"
 
@@ -412,7 +412,7 @@ msgstr "Последняя активность"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:149
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:155
 msgid "ago"
 msgstr "назад"
 
@@ -520,7 +520,7 @@ msgstr "Просмотреть информацию о книге"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:113
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:119
 msgid "Delete Book"
 msgstr "Удалить Книгу"
 
@@ -670,7 +670,7 @@ msgstr "Нет отслеживаемых пользователей еще"
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Members"
 msgstr "Члены"
 
@@ -1044,7 +1044,7 @@ msgid "Booktype core application"
 msgstr "ядро приложения Booktype "
 
 #: lib/booktype/apps/core/__init__.py:7
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:105
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:111
 msgid "Manage Roles"
 msgstr "Управление ролями"
 
@@ -2023,6 +2023,7 @@ msgstr "Отправить"
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:15
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:16
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:18
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:270
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -2713,6 +2714,25 @@ msgstr ""
 msgid "Remove user from the book"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:133
+msgid ""
+"Please take into account that this EPUB is not valid for distribution. Click"
+" Download button to proceed"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:135
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:274
+msgid "Download as Epub Skeleton"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:136
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
+msgid "Download"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
 msgid "Invite codes"
 msgstr ""
@@ -2936,12 +2956,6 @@ msgstr "Размеры"
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:261
 msgid "Edit metadata"
 msgstr "изменить метаданные"
-
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
-msgid "Download"
-msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:269
 msgid "REMOVE"
@@ -3594,7 +3608,7 @@ msgstr "Статус главы"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
 #: lib/booktype/apps/edit/views.py:59
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:97
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
 msgid "Book Metadata"
 msgstr "Метаданные Книги"
 
@@ -4447,37 +4461,47 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:82
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:83
 msgid "Download history"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:89
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
+msgid "Download as EPUB Skeleton"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:95
 msgid "Edit book info"
 msgstr "Редактировать информацию о книге"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:128
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
 msgid "Group that book belongs to"
 msgstr "Группа книга которой принадлежит"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:142
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:148
 msgid "Recent activity"
 msgstr "Последние действия"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:175
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:181
 msgid "Owner"
 msgstr "Владелец"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:198
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:204
 msgid "Admins"
 msgstr "Администраторы"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:222
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Contributors"
 msgstr "Со-авторы"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:247
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:253
 msgid "Book versions"
 msgstr "Версии книги"
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
+msgid ""
+"Please take into account that this EPUB is not valid for distribution. Click"
+" Download button to proceed."
+msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/errors/_does_not_exist.html:9
 #, python-format
