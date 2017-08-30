@@ -132,7 +132,7 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
 
     visible_to_everyone = forms.BooleanField(
         label=_("Visible to everyone"),
-        help_text=_("This will make your book visible to other users on the system."
+        help_text=_("This will make your book visible to other users on the system. "
                     "You can change this setting later from the Book Info page."))
 
     description = forms.CharField(
