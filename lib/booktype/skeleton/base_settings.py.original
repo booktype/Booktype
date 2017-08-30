@@ -264,7 +264,6 @@ INSTALLED_APPS = (
 
     'compressor',
     'djcelery',
-    'logtailer',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
@@ -317,7 +316,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    
+
     'DEFAULT_VERSION': REST_FRAMEWORK_DEFAULT_VERSION,
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',

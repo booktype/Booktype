@@ -28,3 +28,11 @@ if settings.DEBUG:
         ]
     except ImportError:
         pass
+
+try:
+    import logtailer
+    urlpatterns += [
+        url(r'^_logs/', include(logtailer.urls)),
+    ]
+except ImportError:
+    pass
