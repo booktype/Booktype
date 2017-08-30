@@ -30,9 +30,6 @@ SPUTNIK_DISPATCHER = (
 )
 
 urlpatterns = [
-    # django log tailer
-    url(r'^_logs/', include('logtailer.urls')),
-
     # internationalization
     url(r'^_i18n/', include('django.conf.urls.i18n')),
 
