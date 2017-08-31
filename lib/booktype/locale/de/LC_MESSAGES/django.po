@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 21:32-0600\n"
-"PO-Revision-Date: 2017-08-29 09:57+0000\n"
+"POT-Creation-Date: 2017-08-30 18:01+0100\n"
+"PO-Revision-Date: 2017-08-30 21:47+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -109,8 +109,10 @@ msgid "Booktype account application"
 msgstr "Booktype Konto Anmeldung"
 
 #: lib/booktype/apps/account/__init__.py:7
-msgid "Import EPUB/DOCX Books"
-msgstr "EPUB/DOCX Bücher Import"
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:8
+msgid "Import Book from DOCX or EPUB"
+msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:8
 msgid "View user info"
@@ -184,8 +186,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/forms.py:135
 msgid ""
-"This will make your book visible to other users on the system.You can change"
-" this setting later from the Book Info page."
+"This will make your book visible to other users on the system. You can "
+"change this setting later from the Book Info page."
 msgstr ""
 
 #: lib/booktype/apps/account/forms.py:139
@@ -267,7 +269,9 @@ msgid "Books"
 msgstr "Bücher "
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:53
-msgid "Create a new Book"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:8
+#: lib/booktype/apps/portal/templates/portal/frontpage.html:46
+msgid "Create New Book"
 msgstr "Neues Buch erstellen"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:53
@@ -275,14 +279,11 @@ msgid "Create Book"
 msgstr "Buch erstellen"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:57
-msgid "Import Book from docx or EPUB"
-msgstr "Buch aus DOCX oder EPUB importieren"
-
-#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book"
 msgstr "Buch importieren"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:61
+#: lib/booktype/apps/account/templates/account/dashboard.html:230
 msgid "Invite people to edit your books"
 msgstr "Leute zum Buch einladen."
 
@@ -303,8 +304,9 @@ msgid "No additional books can be created"
 msgstr "Keine weiteren Bücher anlegbar."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:72
-msgid "Join books via invite code"
-msgstr "Buch via Code beitreten"
+#: lib/booktype/apps/account/templates/account/dashboard.html:300
+msgid "Join book with invite code"
+msgstr "Buch mit Code beitreten"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:72
 msgid "Join Book"
@@ -435,10 +437,6 @@ msgstr "Gruppen "
 msgid "This user is not a member of any groups."
 msgstr "Dieser Nutzer ist kein Mitglied einer Gruppe."
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:230
-msgid "Invite people"
-msgstr "Leute einladen"
-
 #: lib/booktype/apps/account/templates/account/dashboard.html:237
 msgid "Enter email addresses"
 msgstr "E-Mail Adressen eingeben"
@@ -494,10 +492,6 @@ msgstr "Rollen für Einladung setzen"
 msgid "Roles"
 msgstr "Rollen"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:300
-msgid "Join book with invite code"
-msgstr "Buch mit Code beitreten"
-
 #: lib/booktype/apps/account/templates/account/dashboard.html:304
 msgid "The provided code seems to be invalid or has expired"
 msgstr "Der Code scheint ungültig oder abgelaufen"
@@ -516,8 +510,9 @@ msgid "Edit Book"
 msgstr "Buch bearbeiten"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:19
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:62
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:59
 #: lib/booktype/apps/portal/templates/portal/group.html:73
+#: lib/booktype/apps/reader/__init__.py:13
 msgid "View Book Info"
 msgstr "Buchinformation sehen. "
 
@@ -554,11 +549,6 @@ msgstr "Umbenennen"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:387
 msgid "Delete"
 msgstr "Löschen"
-
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:8
-#: lib/booktype/apps/portal/templates/portal/frontpage.html:46
-msgid "Create New Book"
-msgstr "Neues Buch erstellen"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 msgid "Book Information"
@@ -623,7 +613,7 @@ msgid "No book skeletons yet."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
-msgid "You can manage them from"
+msgid "You can manage them from the"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
@@ -679,59 +669,55 @@ msgstr "Mitglieder"
 msgid "Delete Group"
 msgstr "Gruppe löschen"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:8
-msgid "Import Book / Upload EPUB"
-msgstr "Buch importieren / EPUB hochladen"
-
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:11
-msgid "Available file formats: epub, docx"
-msgstr "Verfügbare Formate: epub, docx"
-
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:16
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:15
 msgid "Drag Your File Here"
 msgstr "Datei hier hin ziehen"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:20
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:19
 msgid "or Select from folder"
 msgstr "oder von Festplatte auswählen"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:27
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:24
 msgid "Filename:"
 msgstr "Dateiname: "
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:31
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:32
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:28
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:29
 msgid "Complete"
 msgstr "Vollständig"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:37
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:34
 msgid "Please wait, we are processing your file..."
 msgstr "Bitte warten, während wir die Datei bearbeiten..."
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:48
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:45
 msgid "Wrong file format! Please try another one."
 msgstr "Falsches Datei-Format! Bitte anderes auswählen."
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:47
 #: lib/booktype/apps/importer/views.py:138
 #: lib/booktype/apps/importer/views.py:225
 msgid "Something went wrong!"
 msgstr "Etwas ist falsch gelaufen!"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:61
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:58
 msgid "Congratulations! Your book has been imported."
 msgstr "Glückwunsch! Das Buch wurde erfolgreich importiert."
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:65
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:62
 msgid "Book Title (optional)"
 msgstr "Buch Titel (optional)"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:69
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:63
+msgid "Enter new Book title"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:66
 #: lib/booktype/apps/reader/forms.py:19
 msgid "Hide this book from other people"
 msgstr "Verberge Buch vor anderen Nutzern"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:73
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:128
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:440
@@ -747,7 +733,7 @@ msgstr "Verberge Buch vor anderen Nutzern"
 msgid "Close"
 msgstr "Schließen"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:77
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:74
 msgid "Import"
 msgstr "Import"
 
@@ -987,6 +973,7 @@ msgid "CREATE ACCOUNT"
 msgstr "ACCOUNT ERSTELLEN"
 
 #: lib/booktype/apps/account/views.py:67
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -2713,14 +2700,16 @@ msgid "Remove user from the book"
 msgstr "Nutzer aus Buch entfernen"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:133
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
 msgid ""
 "Please take into account that this EPUB is not valid for distribution. Click"
-" Download button to proceed"
+" the Download button to proceed."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:135
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:274
-msgid "Download as Epub Skeleton"
+msgid "Download as EPUB Skeleton"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:136
@@ -3636,10 +3625,6 @@ msgid ""
 "This book doesn't contain invited people. Please invite people in your "
 msgstr "Bisher niemand zum eingeladen. Lade zum Buch ein."
 
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
-msgid "dashboard"
-msgstr "Dashboard"
-
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:148
 msgid "Change roles for "
 msgstr "Ändere Rolle für"
@@ -4327,10 +4312,6 @@ msgstr "Entwurfsseite sehen"
 msgid "View hidden draft page"
 msgstr "Verborgene Entwurfsansicht"
 
-#: lib/booktype/apps/reader/__init__.py:13
-msgid "View book info"
-msgstr "Buch Info ansehen"
-
 #: lib/booktype/apps/reader/__init__.py:14
 msgid "View hidden book info"
 msgstr "Verborgene Buchinformation sehen"
@@ -4396,6 +4377,7 @@ msgid "Table of contents"
 msgstr "Inhaltsverzeichnis"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:7
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:95
 msgid "Edit Book Info"
 msgstr "Buchinformation bearbeiten"
 
@@ -4463,14 +4445,6 @@ msgstr "Zusätzliche Optionen"
 msgid "Download history"
 msgstr "Downloads"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
-msgid "Download as EPUB Skeleton"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:95
-msgid "Edit book info"
-msgstr "Buchinformation bearbeiten"
-
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
 msgid "Group that book belongs to"
 msgstr "Gruppe, der das Buch zugewiesen ist"
@@ -4494,12 +4468,6 @@ msgstr "Mitwirkende"
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:253
 msgid "Book versions"
 msgstr "Buch Versionen"
-
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
-msgid ""
-"Please take into account that this EPUB is not valid for distribution. Click"
-" Download button to proceed."
-msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/errors/_does_not_exist.html:9
 #, python-format
