@@ -51,5 +51,5 @@ class BookInfoTest(TestCase):
         self.assertEquals(response.context['is_book_admin'], True)
 
         # check admin actions available in response
-        self.assertContains(response, 'Edit book info')
+        self.assertContains(response, 'Edit Book Info')
         self.assertContains(response, 'Delete Book')

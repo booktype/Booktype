@@ -60,9 +60,7 @@ class DashboardTest(TestCase):
             'books_collaborating',
             'licenses',
             'groups',
-            'recent_activity',
-            'book_license',
-            'book_visible'
+            'recent_activity'
         ]
 
         for var in context_vars:
