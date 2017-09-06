@@ -25,7 +25,6 @@ import logging
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime as django_datetime
 from django.utils.translation import ugettext, ugettext_lazy as _lazy
@@ -40,7 +39,7 @@ from booktype.apps.core.models import Role, BookRole
 from booktype.apps.themes.models import BookTheme
 
 from .utils import send_notification, clean_chapter_html
-from .models import ChatThread
+from .models import ChatMessage
 
 try:
     from PIL import Image
@@ -399,21 +398,17 @@ def remote_init_editor(request, message, bookid, version):
         theme = BookTheme(book=book, active=theme_active)
         theme.save()
 
-    # get chat messages
-    chat_thread, _ = ChatThread.objects.get_or_create(book=book)
+    chat_messages = []
 
-    chat_messages = [
-        {
-            'datetime': str(msg['datetime'].strftime("%d/%m/%Y, %I:%M:%S %p")),
-            'text': msg['text'],
-            'sender_id': msg['sender'],
-            'sender_username': msg['sender__username'],
-            'email': msg['sender__email'],
-        } for msg in chat_thread.messages.values(
-            'datetime', 'text', 'sender', 'sender__email', 'sender__username'
-        ).order_by('datetime')
-    ]
-
+    for msg in ChatMessage.objects.filter(thread__book=book):
+        sender = msg.sender
+        chat_messages.append({
+            'datetime': str(msg.datetime.strftime("%d/%m/%Y, %I:%M:%S %p")),
+            'text': msg.text,
+            'sender_id': sender.id,
+            'sender_username': sender.username,
+            'email': sender.email,
+        })
 
     # provide information about current user
     current_user = {
