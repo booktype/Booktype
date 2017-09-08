@@ -157,9 +157,24 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         queryset=BookSkeleton.objects.all(),
         required=False)
 
-    # TODO: ask if we should implement optional "only skeleton structure"
-
     # -------- END STEP 3 -------------
+
+    # STEP 4: Cover image
+    cover_image = forms.ImageField(
+        label=_("Cover Image"),
+        required=True)
+
+    cover_title = forms.CharField(
+        label=_("Title"), required=True)
+
+    cover_creator = forms.CharField(
+        label=_("Creator"), required=False)
+
+    cover_license = forms.ChoiceField(
+        label=_("License"),
+        choices=_make_choices(queryset=License.objects.all().order_by('name')))
+
+    # -------- END STEP 4 -------------
 
     def __init__(self, base_book_qs=None, *args, **kwargs):
         super(BookCreationForm, self).__init__(*args, **kwargs)

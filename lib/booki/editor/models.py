@@ -297,7 +297,6 @@ class Book(models.Model):
     # DEPRECATED API NAMES
     getVersion = get_version
     getVersions = get_versions
-    setCover = set_cover
 
 
 # BookHistory
@@ -835,10 +834,10 @@ class BookCover(models.Model):
     filename = models.CharField('file name', max_length=250, unique=False, default='')
     title = models.CharField(_('Cover title'), max_length=250, blank=False, unique=False)
 
-    width = models.IntegerField(_('Width'), blank=True)
-    height = models.IntegerField(_('Height'), blank=True)
-    unit = models.CharField(_('Unit'), max_length=20, blank=True)
-    booksize = models.CharField(_('Booksize'), max_length=30, blank=True)
+    width = models.IntegerField(_('Width'), blank=True, default=0)
+    height = models.IntegerField(_('Height'), blank=True, default=0)
+    unit = models.CharField(_('Unit'), max_length=20, blank=True, default='px')
+    booksize = models.CharField(_('Booksize'), max_length=30, blank=True, default='')
 
     is_book = models.BooleanField(_('Book cover'), default=False)
     is_ebook = models.BooleanField(_('E-book cover'), default=False)
@@ -853,7 +852,7 @@ class BookCover(models.Model):
 
     approved = models.BooleanField(_('Approved'), blank=False, default=False)
 
-    created = models.DateTimeField(_('created'), auto_now=False, null=False)
+    created = models.DateTimeField(_('created'), auto_now_add=True)
 
     def delete(self):
         self.attachment.delete(save=False)
