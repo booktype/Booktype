@@ -124,11 +124,28 @@
                 </div>
               </section>
 
-              <h3>{% trans "Image" %}</h3>
+              <h3>{% trans "Cover" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "If you have an image for the book then add it now (this can be added or changed later)" %}</p>
-                <label for="cover">{% trans "Book Image" %}</label>
-                <input type="file" name="cover" size="40">
+                <p class="wizard_desc">{% trans "If you have a cover for the book, you can add it now (this can be added or changed later)" %}</p>
+                <div class="form-group mb10">
+                  {{ form.cover_image.label_tag }}
+                  {{ form.cover_image }}
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.cover_title.label_tag }}
+                  {{ form.cover_title }}
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.cover_creator.label_tag }}
+                  {{ form.cover_creator }}
+                </div>
+
+                <div class="form-group mb10">
+                  {{ form.cover_license.label_tag }}
+                  {{ form.cover_license }}
+                </div>
               </section>
 
             </div>

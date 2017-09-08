@@ -17,6 +17,7 @@
 
 import re
 import os
+import uuid
 import json
 import string
 import logging
@@ -52,7 +53,7 @@ from booktype.apps.core.models import Role, BookRole, BookSkeleton
 from booktype.apps.importer.utils import import_based_on_book, import_based_on_epub
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
-from booki.editor.models import Book, License, BookHistory, BookiGroup, Language
+from booki.editor.models import Book, BookHistory, BookiGroup, BookCover, Language, License
 
 from . import tasks, utils
 from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm, BookCreationForm
@@ -240,11 +241,33 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
             except BookSkeleton.DoesNotExist:
                 logger.warn("Provided base skeleton was not found")
 
-        # STEP 4: Thumbnail and Covers
-        if 'cover' in request.FILES:
+        # STEP 4: Book Cover
+        if 'cover_image' in request.FILES:
+            # first we create a cover registry and upload the file
+            file_data = request.FILES['cover_image']
+            filename = file_data.name
+
+            cover_license = License.objects.get(abbrevation=data.get('cover_license'))
+
+            cover = BookCover(
+                book=book,
+                user=request.user,
+                cid=uuid.uuid4().hex,
+                title=data.get('cover_title'),
+                filename=filename[:250],
+                creator=data.get('cover_creator', '')[:40],
+                license=cover_license,
+                approved=False)
+            cover.save()
+
+            # now save the cover attachment
+            cover.attachment.save(filename, file_data, save=False)
+            cover.save()
+
+            # and then finally, we set the book thumbnail
             try:
-                fh, fname = misc.save_uploaded_as_file(request.FILES['cover'])
-                book.setCover(fname)
+                fh, fname = misc.save_uploaded_as_file(file_data)
+                book.set_cover(fname)
                 os.unlink(fname)
             except:
                 pass

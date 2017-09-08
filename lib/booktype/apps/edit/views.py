@@ -27,7 +27,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, DetailView, FormView, View
+from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from braces.views import (LoginRequiredMixin, JSONResponseMixin)
