@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-30 18:01+0100\n"
-"PO-Revision-Date: 2017-08-30 21:47+0000\n"
+"POT-Creation-Date: 2017-09-07 22:27-0600\n"
+"PO-Revision-Date: 2017-09-12 10:05+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,8 @@ msgstr ""
 msgid "Language"
 msgstr "Язык"
 
-#: lib/booktype/apps/account/forms.py:130 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:130
+#: lib/booktype/apps/account/forms.py:174 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
@@ -203,6 +204,31 @@ msgstr ""
 #: lib/booktype/apps/account/forms.py:156
 msgid "Select the skeleton"
 msgstr ""
+
+#: lib/booktype/apps/account/forms.py:164
+msgid "Cover Image"
+msgstr ""
+
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
+#: lib/booktype/apps/account/forms.py:168
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
+#: lib/booktype/importer/docx/docximporter.py:246
+#: lib/booktype/importer/docx/docximporter.py:515
+msgid "Title"
+msgstr "Заголовок"
+
+#: lib/booktype/apps/account/forms.py:171
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
+msgid "Creator"
+msgstr "Создатель"
 
 #: lib/booktype/apps/account/models.py:35
 msgid "mood"
@@ -392,8 +418,8 @@ msgstr "Нажмите эту кнопку, чтобы обновить свои
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:261
-#: lib/booktype/apps/account/views.py:262
+#: lib/booktype/apps/account/views.py:284
+#: lib/booktype/apps/account/views.py:285
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "Настройки"
@@ -624,18 +650,20 @@ msgid "Control Center"
 msgstr "Центр управления"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:127
-msgid "Image"
-msgstr "Изображение"
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:380
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
+msgid "Cover"
+msgstr "Обложка"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:129
 msgid ""
-"If you have an image for the book then add it now (this can be added or "
+"If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
-msgstr "Если у вас есть изображение для книги, добавьте его сейчас (можно внести или изменить позже)"
-
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:130
-msgid "Book Image"
-msgstr "Изображение для книги"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
@@ -765,8 +793,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Пользователь \"%(username)s\" не найден."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:371
-#: lib/booktype/apps/account/views.py:372
+#: lib/booktype/apps/account/views.py:394
+#: lib/booktype/apps/account/views.py:395
 msgid "Forgot your password"
 msgstr "Забыли свой пароль"
 
@@ -794,8 +822,8 @@ msgid "Send request"
 msgstr "Пошлите запрос"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:444
-#: lib/booktype/apps/account/views.py:445
+#: lib/booktype/apps/account/views.py:467
+#: lib/booktype/apps/account/views.py:468
 msgid "Reset your password"
 msgstr "Смените свой пароль"
 
@@ -818,7 +846,7 @@ msgid ""
 msgstr "Нажмите эту кнопку, для обзора ваших книг, групп, профиля пользователя и недавней активности"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:68
+#: lib/booktype/apps/account/views.py:69
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -827,8 +855,8 @@ msgstr "Панель пользователя"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:494
-#: lib/booktype/apps/account/views.py:495
+#: lib/booktype/apps/account/views.py:517
+#: lib/booktype/apps/account/views.py:518
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -973,53 +1001,53 @@ msgstr "Полное имя слишком длинное!"
 msgid "CREATE ACCOUNT"
 msgstr "СОЗДАТЬ АККАУНТ"
 
-#: lib/booktype/apps/account/views.py:67
+#: lib/booktype/apps/account/views.py:68
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr "Панель пользователя"
 
-#: lib/booktype/apps/account/views.py:163
 #: lib/booktype/apps/account/views.py:164
+#: lib/booktype/apps/account/views.py:165
 msgid "User profile"
 msgstr "Пользовательский профайл"
 
-#: lib/booktype/apps/account/views.py:311
+#: lib/booktype/apps/account/views.py:334
 msgid "User settings have been saved successfully!"
 msgstr "Настройки пользователя были успешно сохранены!"
 
-#: lib/booktype/apps/account/views.py:348
+#: lib/booktype/apps/account/views.py:371
 msgid "Password changed successfully!"
 msgstr "Пароль успешно изменен!"
 
-#: lib/booktype/apps/account/views.py:400
+#: lib/booktype/apps/account/views.py:423
 msgid "Missing username"
 msgstr "Пропущено имя пользователя"
 
-#: lib/booktype/apps/account/views.py:404
+#: lib/booktype/apps/account/views.py:427
 msgid "No such user"
 msgstr "Нет такого пользователя"
 
-#: lib/booktype/apps/account/views.py:424
+#: lib/booktype/apps/account/views.py:447
 msgid "Reset password"
 msgstr "Сбросить пароль"
 
-#: lib/booktype/apps/account/views.py:437
+#: lib/booktype/apps/account/views.py:460
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: lib/booktype/apps/account/views.py:459
+#: lib/booktype/apps/account/views.py:482
 msgid "Password can't be empty"
 msgstr "Пароль не может быть пустым"
 
-#: lib/booktype/apps/account/views.py:464
+#: lib/booktype/apps/account/views.py:487
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: lib/booktype/apps/account/views.py:480
+#: lib/booktype/apps/account/views.py:503
 msgid "Wrong secret code"
 msgstr "Неверный секретный код"
 
-#: lib/booktype/apps/account/views.py:752
+#: lib/booktype/apps/account/views.py:775
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -1417,46 +1445,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1395
-#: lib/booktype/apps/edit/channel.py:1400
+#: lib/booktype/apps/edit/channel.py:1409
+#: lib/booktype/apps/edit/channel.py:1414
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1406
+#: lib/booktype/apps/edit/channel.py:1420
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1413
-#: lib/booktype/apps/edit/channel.py:1417
+#: lib/booktype/apps/edit/channel.py:1427
+#: lib/booktype/apps/edit/channel.py:1431
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1426
+#: lib/booktype/apps/edit/channel.py:1440
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1430
+#: lib/booktype/apps/edit/channel.py:1444
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Глава с таким названием уже существует."
 
-#: lib/booktype/apps/edit/channel.py:1576
+#: lib/booktype/apps/edit/channel.py:1590
 msgid "You have no permissions for editing this chapter."
 msgstr "У вас нет прав доступа для редактирования этой главы."
 
-#: lib/booktype/apps/edit/channel.py:1584
+#: lib/booktype/apps/edit/channel.py:1598
 msgid "Chapter currently being edited."
 msgstr "В данный момент глава редактируется."
 
-#: lib/booktype/apps/edit/channel.py:1589
+#: lib/booktype/apps/edit/channel.py:1603
 msgid "You have no permissions for editing chapters under lock."
 msgstr "У вас нет прав доступа для редактирования заблокированных глав."
 
-#: lib/booktype/apps/edit/channel.py:1593
+#: lib/booktype/apps/edit/channel.py:1607
 msgid "Chapter currently is locked from everyone."
 msgstr "В данный момент глава заблокирована для всех."
 
-#: lib/booktype/apps/edit/channel.py:2198
+#: lib/booktype/apps/edit/channel.py:2212
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "Один из выбранных форматов в был отключен. Попробуйте обновить страницу."
 
@@ -3050,18 +3078,6 @@ msgstr ""
 msgid "Infobox"
 msgstr ""
 
-#. Translators: Default chapter title when importing DOCX
-#. files. In case title does not exists.
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:515
-msgid "Title"
-msgstr "Заголовок"
-
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:495
 msgid "Write your infobox title here"
 msgstr ""
@@ -3106,13 +3122,6 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
 msgid "Enter Meta-data"
 msgstr "Укажите мета-данные"
-
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
-msgid "Creator"
-msgstr "Создатель"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:169
 #: lib/booktype/apps/export/models.py:52
@@ -3428,15 +3437,6 @@ msgstr "Редактировать CSS стиль вручную"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:190
 msgid "Screen PDF Settings"
 msgstr "Настройки экранного PDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:380
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
-msgid "Cover"
-msgstr "Обложка"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:280
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:314
