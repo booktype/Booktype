@@ -7,13 +7,13 @@ from booktype.apps.core.forms import BaseBooktypeForm
 class EditBookInfoForm(BaseBooktypeForm, forms.ModelForm):
 
     description = forms.CharField(
-            label=_("Book description"), 
-            required=False, 
+            label=_("Book description"),
+            required=False,
             widget=forms.Textarea(attrs={'style': "width: 100%; height: 210px;"})
         )
     book_cover = forms.ImageField(
             label=_("Book image"),
-            required=False            
+            required=False
         )
     hidden = forms.BooleanField(
             label=_('Hide this book from other people'),
@@ -40,3 +40,6 @@ class EditBookInfoForm(BaseBooktypeForm, forms.ModelForm):
 
         if not user.is_superuser:
             del self.fields['owner']
+        else:
+            self.fields['owner'].queryset = self.fields['owner'].queryset.order_by('username')
+
