@@ -157,6 +157,8 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         queryset=BookSkeleton.objects.all(),
         required=False)
 
+    # based_on_file created in template since it needs drag area
+
     # -------- END STEP 3 -------------
 
     # STEP 4: Cover image

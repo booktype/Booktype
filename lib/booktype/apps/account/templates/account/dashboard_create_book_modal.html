@@ -12,8 +12,8 @@
           <form method="post" action="{% url 'accounts:create_book' current_user.username %}" target="hidden_frame" enctype="multipart/form-data">
             {% csrf_token %}
             {% with book_creation_form as form %}
-            <div id="wizard-1">
 
+            <div id="bookCreationWizard">
               <h3>{% trans "Book Information" %}</h3>
               <section>
                 <p class="wizard_desc">{% trans "Please fill in the details of your book" %}</p>
@@ -91,6 +91,12 @@
                       {% trans "Based on skeleton" %}
                       <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'You will have the option to select a predefined skeleton to base your new book on' %}"></i>
                     </label>
+                    <br>
+
+                    <input id="creation_mode_import_file" type="radio" name="creation_mode" value="based_on_file" class="mr5">
+                    <label for="creation_mode_import_file" class="f-normal">
+                      {% trans "Import from DOCX or EPUB" %}
+                    </label>
                   </div>
                 </div>
 
@@ -121,6 +127,23 @@
                     </p>
                   </div>
                   {% endif %}
+                </div>
+
+                <div id="base_on_file_import_row" class="form-group mb10 row" style="display: none;">
+                  <div class="col-xs-10 col-xs-offset-1 importBook">
+                    <div class="drag-area" id="drag-area">
+                        <div class="drag-area-title file">
+                            {% trans "Drag Your File Here" %}
+                        </div>
+                        <div class="drag-area-button">
+                            <span class="btn btn-default fileinput-button">
+                                <i class="fa fa-upload"></i> {% trans "or Select from folder" %}
+                                <input id="book-file" type="file" accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="book_file" />
+                            </span>
+                        </div>
+                    </div>
+                    <p class="book_filename hidden">{% trans "Filename:" %} <b></b></p>
+                  </div>
                 </div>
               </section>
 

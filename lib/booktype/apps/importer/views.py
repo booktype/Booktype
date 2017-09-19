@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 import json
 import datetime
 import logging
@@ -28,7 +27,7 @@ from booktype.importer.docx.utils import get_importer_class
 
 from booktype.utils import config
 from booktype.utils.book import check_book_availability, create_book
-from booktype.utils.misc import booktype_slugify
+from booktype.utils.misc import booktype_slugify, get_file_extension
 from booktype.utils.security import BookSecurity
 
 from .forms import UploadBookForm, UploadDocxFileForm
@@ -58,10 +57,6 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
            'BOOKTYPE_BOOKS_PER_USER') != -1:
             raise PermissionDenied
 
-    def file_extension(self, filename):
-        _, ext = os.path.splitext(os.path.basename(filename.lower()))
-        return ext[1:]
-
     def get_default_title(self, temp_file, ext):
         book_title = _('Imported Book %(date)s') % dict(date=datetime.date.today())
 
@@ -79,7 +74,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
         logger.debug('ImporterView::form_valid')
 
         book_file = form.cleaned_data.get('book_file')
-        ext = self.file_extension(book_file.name)
+        ext = get_file_extension(book_file.name)
 
         logger.debug('ImporterView::Importing file extension is "{}".'.format(ext.encode('utf8')))
 
