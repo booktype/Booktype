@@ -1831,17 +1831,27 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 .tabbed-popup .modal-dialog .modal-content .modal-footer {
 	margin:0
 }
-.importBook .modal-dialog .modal-content .modal-body .drag-area {
+.importBook .drag-area {
 	position:relative;
-	margin-bottom:20px
+	margin-bottom:10px
 }
-.importBook .modal-dialog .modal-content .modal-body .drag-area .drag-area-title {
+.importBook .drag-area .drag-area-title {
 	margin-top:25px
 }
-.importBook .modal-dialog .modal-content .modal-body .drag-area .drag-area-title.file {
+
+.importBook .drag-area.dragover{
+	border: 3px dashed #ff6601;
+	opacity: .4;
+}
+
+.importBook .drag-area.dragover .drag-area-title.file {
+	color: #ff6601;
+}
+
+.importBook .drag-area .drag-area-title.file {
 	background:url("../img/dragfiles2.png") no-repeat 50% 0
 }
-.importBook .modal-dialog .modal-content .modal-body .drag-area .drag-area-button {
+.importBook .drag-area .drag-area-button {
 	margin-bottom:30px
 }
 .importBook .modal-dialog .modal-content .modal-body .progress {
@@ -3297,6 +3307,11 @@ textarea.form-control {
 	padding:0;
 	border:none
 }
+
+.wizard>.content.importMode {
+	min-height: 485px;
+}
+
 .wizard.vertical>.content {
 	display:inline;
 	float:left;

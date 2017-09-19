@@ -50,10 +50,12 @@ from booktype.apps.edit.forms import MetadataForm
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
 from booktype.apps.core.models import Role, BookRole, BookSkeleton
-from booktype.apps.importer.utils import import_based_on_book, import_based_on_epub
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
-from booki.editor.models import Book, BookHistory, BookiGroup, BookCover, Language, License
+from booki.editor.models import (
+    Book, BookHistory, BookiGroup, BookCover, Language, License)
+from booktype.apps.importer.utils import (
+    import_based_on_book, import_based_on_epub, import_based_on_file)
 
 from . import tasks, utils
 from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm, BookCreationForm
@@ -202,6 +204,7 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
             return HttpResponse(json.dumps(data), 'application/json')
 
     def post(self, request, *args, **kwargs):
+        # TODO: convert this into an atomic view
         # TODO: use the form class to achieve this process and simplify this view and add validations
         # TODO: we should print warnings so user knows what's going on
 
@@ -234,12 +237,21 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
                 result = import_based_on_book(base_book_version, book)
             except Book.DoesNotExist:
                 logger.warn("Provided base book was not found")
+
         elif creation_mode == 'based_on_skeleton':
             try:
                 base_skeleton = BookSkeleton.objects.get(id=request.POST.get('base_skeleton'))
                 result = import_based_on_epub(base_skeleton.skeleton_file, book)
             except BookSkeleton.DoesNotExist:
                 logger.warn("Provided base skeleton was not found")
+
+        elif creation_mode == 'based_on_file':
+            import_file = request.FILES.get('import_file')
+            if import_file is not None:
+                try:
+                    result = import_based_on_file(import_file, book)  # noqa
+                except Exception as err:
+                    logger.error("ImportError: Something went wrong importing file. Msg %s" % err)
 
         # STEP 4: Book Cover
         if 'cover_image' in request.FILES:
@@ -274,9 +286,8 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
 
         book.save()
 
-        return render(
-            request, 'account/create_book_redirect.html',
-            {"request": request, "book": book})
+        redirect_url = reverse('reader:infopage', args=[book.url_title])
+        return HttpResponse(json.dumps({'redirect': redirect_url}), 'application/json')
 
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):

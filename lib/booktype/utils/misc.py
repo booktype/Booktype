@@ -664,3 +664,17 @@ def get_available_themes():
 
     return available_themes
 
+
+def get_file_extension(filename):
+    """
+    Extract extension for a given filename
+
+    Keyword arguments:
+        filename -- String with the name of the file
+
+    Returns:
+        Extension name string of the file
+    """
+
+    _, ext = os.path.splitext(os.path.basename(filename.lower()))
+    return ext[1:]

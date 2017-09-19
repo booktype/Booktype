@@ -1,4 +1,3 @@
-import json
 import shutil
 import logging
 import tempfile
@@ -7,12 +6,13 @@ from contextlib import contextmanager
 
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
+from booktype.importer import utils as importer_utils
 from booktype.importer.epub.epubimporter import EpubImporter
 from booktype.apps.export.utils import get_exporter_class
 
-from booktype.utils.misc import booktype_slugify
 from booktype.convert.utils.epub import get_sections_settings
 from booktype.apps.convert.plugin import SectionsSettingsPlugin
+from booktype.utils.misc import booktype_slugify, get_file_extension
 
 
 logger = logging.getLogger('booktype.apps.importer.utils')
@@ -61,6 +61,8 @@ def import_based_on_epub(epub_file, book_dest):
     Keyword arguments:
         epub_file -- EPUB file to be imported into book_dest
         book_dest -- Destiny book
+
+    TODO: add docstrings of return info
     """
 
     notifier = CollectNotifier()
@@ -97,6 +99,43 @@ def import_based_on_epub(epub_file, book_dest):
                     toc_item.save()
 
                     sec_count += 1
+
+    result['infos'] = notifier.infos
+    result['warnings'] = notifier.warnings
+    result['errors'] = notifier.errors
+
+    return result
+
+
+def import_based_on_file(import_file, book_dest):
+    """
+    It will import the content from a given file (docx or epub for now) into a existent
+    book on the system. Note that this is not going to import section settings
+
+    Keyword arguments:
+        import_file -- EPUB/DOCX file to be imported into book_dest
+        book_dest -- Destiny book
+    """
+
+    ext = get_file_extension(import_file.name)
+
+    notifier = CollectNotifier()
+    delegate = Delegate()
+    result = {}
+
+    try:
+        book_importer = importer_utils.get_importer_module(ext)
+    except KeyError:
+        logger.error('ImporterView::No importer for this extension')
+        raise NotImplementedError('Extension not supported!')
+
+    try:
+        book_importer(import_file, book_dest, notifier=notifier, delegate=delegate)
+        logger.debug('ImporterView::Book imported.')
+    except Exception as e:
+        logger.error('ImporterView::Some kind of error while importing book.')
+        logger.exception(e)
+        notifier.errors.append(str(e))
 
     result['infos'] = notifier.infos
     result['warnings'] = notifier.warnings
