@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 22:27-0600\n"
-"PO-Revision-Date: 2017-09-12 10:05+0000\n"
+"POT-Creation-Date: 2017-09-18 21:38-0600\n"
+"PO-Revision-Date: 2017-09-19 09:43+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgid "Language"
 msgstr "Язык"
 
 #: lib/booktype/apps/account/forms.py:130
-#: lib/booktype/apps/account/forms.py:174 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:176 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
@@ -205,13 +205,13 @@ msgstr ""
 msgid "Select the skeleton"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:164
+#: lib/booktype/apps/account/forms.py:166
 msgid "Cover Image"
 msgstr ""
 
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
-#: lib/booktype/apps/account/forms.py:168
+#: lib/booktype/apps/account/forms.py:170
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Title"
 msgstr "Заголовок"
 
-#: lib/booktype/apps/account/forms.py:171
+#: lib/booktype/apps/account/forms.py:173
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
@@ -418,8 +418,8 @@ msgstr "Нажмите эту кнопку, чтобы обновить свои
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:284
-#: lib/booktype/apps/account/views.py:285
+#: lib/booktype/apps/account/views.py:295
+#: lib/booktype/apps/account/views.py:296
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "Настройки"
@@ -531,6 +531,10 @@ msgstr ""
 msgid "Join now"
 msgstr ""
 
+#: lib/booktype/apps/account/templates/account/dashboard.html:324
+msgid "Unexpected error while creating the book"
+msgstr ""
+
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
 msgid "Edit Book"
@@ -635,21 +639,40 @@ msgid ""
 "book on"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:117
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:98
+msgid "Import from DOCX or EPUB"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:123
 msgid "No book skeletons yet."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
 msgid "You can manage them from the"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:119
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
 msgstr "Центр управления"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:127
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:136
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:15
+msgid "Drag Your File Here"
+msgstr "Перетащите Ваш файл сюда"
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:140
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:19
+msgid "or Select from folder"
+msgstr "или Выберите из папки"
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:145
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:24
+msgid "Filename:"
+msgstr "Имя файла:"
+
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:150
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
@@ -659,7 +682,7 @@ msgstr "Центр управления"
 msgid "Cover"
 msgstr "Обложка"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:129
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:152
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
@@ -698,18 +721,6 @@ msgstr "Члены"
 msgid "Delete Group"
 msgstr "Удалить группу"
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:15
-msgid "Drag Your File Here"
-msgstr "Перетащите Ваш файл сюда"
-
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:19
-msgid "or Select from folder"
-msgstr "или Выберите из папки"
-
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:24
-msgid "Filename:"
-msgstr "Имя файла:"
-
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:28
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:29
 msgid "Complete"
@@ -724,8 +735,8 @@ msgid "Wrong file format! Please try another one."
 msgstr "Неправильный формат файла! Пожалуйста, попробуйте другой."
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:47
-#: lib/booktype/apps/importer/views.py:138
-#: lib/booktype/apps/importer/views.py:225
+#: lib/booktype/apps/importer/views.py:133
+#: lib/booktype/apps/importer/views.py:220
 msgid "Something went wrong!"
 msgstr "Что-то пошло не так!"
 
@@ -793,8 +804,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Пользователь \"%(username)s\" не найден."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:394
-#: lib/booktype/apps/account/views.py:395
+#: lib/booktype/apps/account/views.py:405
+#: lib/booktype/apps/account/views.py:406
 msgid "Forgot your password"
 msgstr "Забыли свой пароль"
 
@@ -822,8 +833,8 @@ msgid "Send request"
 msgstr "Пошлите запрос"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:467
-#: lib/booktype/apps/account/views.py:468
+#: lib/booktype/apps/account/views.py:478
+#: lib/booktype/apps/account/views.py:479
 msgid "Reset your password"
 msgstr "Смените свой пароль"
 
@@ -846,7 +857,7 @@ msgid ""
 msgstr "Нажмите эту кнопку, для обзора ваших книг, групп, профиля пользователя и недавней активности"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:69
+#: lib/booktype/apps/account/views.py:71
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -855,8 +866,8 @@ msgstr "Панель пользователя"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:517
-#: lib/booktype/apps/account/views.py:518
+#: lib/booktype/apps/account/views.py:528
+#: lib/booktype/apps/account/views.py:529
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -1001,53 +1012,53 @@ msgstr "Полное имя слишком длинное!"
 msgid "CREATE ACCOUNT"
 msgstr "СОЗДАТЬ АККАУНТ"
 
-#: lib/booktype/apps/account/views.py:68
+#: lib/booktype/apps/account/views.py:70
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr "Панель пользователя"
 
-#: lib/booktype/apps/account/views.py:164
-#: lib/booktype/apps/account/views.py:165
+#: lib/booktype/apps/account/views.py:166
+#: lib/booktype/apps/account/views.py:167
 msgid "User profile"
 msgstr "Пользовательский профайл"
 
-#: lib/booktype/apps/account/views.py:334
+#: lib/booktype/apps/account/views.py:345
 msgid "User settings have been saved successfully!"
 msgstr "Настройки пользователя были успешно сохранены!"
 
-#: lib/booktype/apps/account/views.py:371
+#: lib/booktype/apps/account/views.py:382
 msgid "Password changed successfully!"
 msgstr "Пароль успешно изменен!"
 
-#: lib/booktype/apps/account/views.py:423
+#: lib/booktype/apps/account/views.py:434
 msgid "Missing username"
 msgstr "Пропущено имя пользователя"
 
-#: lib/booktype/apps/account/views.py:427
+#: lib/booktype/apps/account/views.py:438
 msgid "No such user"
 msgstr "Нет такого пользователя"
 
-#: lib/booktype/apps/account/views.py:447
+#: lib/booktype/apps/account/views.py:458
 msgid "Reset password"
 msgstr "Сбросить пароль"
 
-#: lib/booktype/apps/account/views.py:460
+#: lib/booktype/apps/account/views.py:471
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: lib/booktype/apps/account/views.py:482
+#: lib/booktype/apps/account/views.py:493
 msgid "Password can't be empty"
 msgstr "Пароль не может быть пустым"
 
-#: lib/booktype/apps/account/views.py:487
+#: lib/booktype/apps/account/views.py:498
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: lib/booktype/apps/account/views.py:503
+#: lib/booktype/apps/account/views.py:514
 msgid "Wrong secret code"
 msgstr "Неверный секретный код"
 
-#: lib/booktype/apps/account/views.py:775
+#: lib/booktype/apps/account/views.py:786
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -4042,12 +4053,12 @@ msgstr "Настройки экспорта"
 msgid "Filetype not supported."
 msgstr "Тип файла не поддерживается."
 
-#: lib/booktype/apps/importer/views.py:66
+#: lib/booktype/apps/importer/views.py:61
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr "Импортированная Книга %(date)s"
 
-#: lib/booktype/apps/importer/views.py:117
+#: lib/booktype/apps/importer/views.py:112
 msgid "Extension not supported!"
 msgstr "Расширение не поддерживается!"
 
