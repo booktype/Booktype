@@ -466,13 +466,14 @@ class ExportBook(object):
           - self (:class:`ExportBook`): current class instance
         """
 
-        from booktype.utils.misc import booktype_slugify
+        from booktype.apps.convert.plugin import SectionsSettingsPlugin
 
         settings = {}
         count = 1
         for item in self.book_version.get_toc():
-            if item.is_section() and item.settings:
-                settings['section_%s_%s' % (booktype_slugify(item.name), count)] = item.settings
+            if item.is_section() and item.has_children() and item.settings:
+                key = SectionsSettingsPlugin.build_section_key(item.name, count)
+                settings[key] = item.settings
                 count += 1
 
         self.epub_book.add_metadata(

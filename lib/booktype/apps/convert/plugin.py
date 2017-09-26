@@ -186,6 +186,7 @@ class TocSettings(object):
     HIDE_SECTION_SHOW_CHAPTERS = 'hide_section_show_chapters'
     HIDE_SECTION_HIDE_CHAPTERS = 'hide_section_hide_chapters'
 
+
 class SectionsSettingsPlugin(BasePlugin):
     """
     Plugin to handle sections settings stuff which would be common for all
