@@ -34,6 +34,14 @@ class ImageEditorConversion(object):
             os.path.join(settings.MEDIA_ROOT, 'bk_image_editor', self._converter.config.get("project_id"))
         )
 
+        # we are using this internal image state in _edit_image method
+        self._image_state = {
+            'layout': None,
+            'layout_count_images': 0,
+            'image_width_%': 0,
+            'caption_width': 0
+        }
+
     def convert(self, html):
         """
         Parse html, search for image and edit it
@@ -55,7 +63,12 @@ class ImageEditorConversion(object):
         ebooklib_item_image = None
         src = elem.get('src')
         div_image = elem.getparent()
+        div_wrap = None
         div_group_img = div_image.getparent()
+
+        if div_group_img.get('class') and 'wrap' in div_group_img.get('class'):
+            div_wrap = div_group_img
+            div_group_img = div_wrap.getparent()
 
         ##############################
         # image structure inside <a> #
@@ -215,44 +228,98 @@ class ImageEditorConversion(object):
 
         # this solution work with kindle
         width_percent = 100 - (100 - 100 * float(transform_data['frameWidth']) / self._output_document_width)
-        width_percent = round(width_percent, 1)
+        self._image_state['image_width_%'] = round(width_percent, 1)
 
-        # makes sense only for epub and xhtml
-        elem.set('style', 'display: inline-block; width: {0}%;'.format(width_percent))
+        # detect image layout
+        if div_group_img.get('class') and 'image-layout-' in div_group_img.get('class'):
+            _layout = div_group_img.get('class').rsplit('image-layout-', 1)[-1]
 
-        # find old captions using p.caption_small
-        for p_caption in div_group_img.xpath('p[contains(@class,"caption_small")]'):
-            if p_caption.get('style'):
-                del p_caption.attrib['style']
-
-            if p_caption.get('class'):
-                del p_caption.attrib['class']
-
-            # set new class and change tag
-            p_caption.set('class', 'caption_small')
-            p_caption.tag = 'div'
-
-        # set width for caption div
-        for div_caption in div_group_img.xpath('div[contains(@class,"caption_small")]'):
-            new_style = 'width: {0}%; display: inline-block;'.format(width_percent)
-
-            # # text-align: left -> margin-right: auto
-            # # text-align: right -> margin-left: auto
-            # # text-align: center -> margin: auto
-            # # text-align: justify -> margin-right: auto
-
-            try:
-                text_align = div_group_img.get('style').split('text-align: ', 1)[1].split(';', 1)[0]
-                if text_align == 'center':
-                    new_style += ' margin: auto;'
-                elif text_align == 'right':
-                    new_style += ' margin-left: auto;'
+            if _layout == self._image_state['layout']:
+                self._image_state['layout'] = _layout
+                # it means that we switched to a new layout, for now only 2 images can be in a container
+                if self._image_state['layout_count_images'] >= 2:
+                    self._image_state['layout_count_images'] = 1
                 else:
-                    new_style += ' margin-right: auto;'
-            except (KeyError, Exception):
-                pass
+                    self._image_state['layout_count_images'] += 1
+            else:
+                # switched to a new layout, it means that current image is 1st in this container
+                self._image_state['layout'] = _layout
+                self._image_state['layout_count_images'] = 1
 
-            div_caption.set('style', new_style)
+        # set img or div.wrap width
+        if self._image_state['layout'] in ('2images', '2images_1caption_bottom'):
+            elem.set('style', ' width: {0}%;'.format(self._image_state['image_width_%'] - 0.6))
+        elif self._image_state['layout'] == '2images_2captions_bottom':
+            div_wrap.set('style', ' width: {0}%;'.format(self._image_state['image_width_%'] - 0.6))
+        else:
+            elem.set('style', ' width: {0}%;'.format(self._image_state['image_width_%']))
+
+        if not transform_data.get('frameFPI'):
+            # we don't need this wrapper
+            div_image.drop_tag()
+
+            # find old captions using p.caption_small
+            for p_caption in div_group_img.xpath('p[contains(@class,"caption_small")]'):
+                if p_caption.get('style'):
+                    del p_caption.attrib['style']
+
+                if p_caption.get('class'):
+                    del p_caption.attrib['class']
+
+                # set new class and change tag
+                p_caption.set('class', 'caption_small')
+                p_caption.tag = 'div'
+
+            # calculate width for caption for different layouts
+            if self._image_state['layout'] in ('1image_1caption_left', '1image_1caption_right'):
+                self._image_state['caption_width'] = round(100 - self._image_state['image_width_%'], 1)
+            elif self._image_state['layout'] == '2images_1caption_bottom':
+                if self._image_state['layout_count_images'] == 1:
+                    self._image_state['caption_width'] = self._image_state['image_width_%']
+                else:
+                    self._image_state['caption_width'] += self._image_state['image_width_%']
+            else:
+                self._image_state['caption_width'] = self._image_state['image_width_%']
+
+            new_style = 'width: {0}%;'.format(self._image_state['caption_width'])
+
+            # set width for caption div
+            if (self._image_state['layout'] != '2images_1caption_bottom' or self._image_state['layout_count_images'] == 2):
+                caption_container = div_group_img
+
+                if self._image_state['layout'] == '2images_2captions_bottom':
+                    caption_container = div_wrap
+                    new_style = 'width: 100%;'
+
+                for div_caption in caption_container.xpath('div[contains(@class,"caption_small")]'):
+                    try:
+                        text_align = div_group_img.get('style').split('text-align: ', 1)[1].split(';', 1)[0]
+                        if text_align == 'center':
+                            new_style += ' text-align: center;'
+                        elif text_align == 'right':
+                            new_style += ' text-align: right;'
+                        else:
+                            new_style += ' text-align: left;'
+                    except (KeyError, Exception):
+                        pass
+
+                    if self._image_state['layout'] in ('1image_1caption_bottom', '2images_1caption_bottom'):
+                        # text-align: left -> margin-right: auto
+                        # text-align: right -> margin-left: auto
+                        # text-align: center -> margin: auto
+                        # text-align: justify -> margin-right: auto
+                        try:
+                            text_align = div_group_img.get('style').split('text-align: ', 1)[1].split(';', 1)[0]
+                            if text_align == 'center':
+                                new_style += ' margin-left: auto; margin-right: auto;'
+                            elif text_align == 'right':
+                                new_style += ' margin-left: auto;'
+                            else:
+                                new_style += ' margin-right: auto;'
+                        except (KeyError, Exception):
+                            pass
+
+                    div_caption.set('style', new_style)
 
         #################
         # start editing #

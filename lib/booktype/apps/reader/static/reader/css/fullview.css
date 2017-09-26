@@ -17,6 +17,54 @@ a {
     margin-left: 25px;
 }
 
+#contenteditor div.group_img {
+    overflow: auto;
+}
+
+#contenteditor div.group_img::-webkit-scrollbar {
+    display: none;
+}
+
+#contenteditor div.image {
+    border: 1px solid whitesmoke;
+    display: inline-block;
+}
+
+.image-layout-1image_1caption_left div.image {
+    float: right;
+}
+
+.image-layout-1image_1caption_right div.image {
+    float: left;
+}
+
+.image-layout-2images div.image,
+.image-layout-2images_1caption_bottom div.image,
+.image-layout-2images_2captions_bottom div.image {
+    vertical-align: top;
+}
+
+.image-layout-2images div.image:first-child,
+.image-layout-2images_1caption_bottom div.image:first-child,
+.image-layout-2images_2captions_bottom div.wrap:first-child {
+  margin-right: 6px !important;
+}
+
+.image-layout-1image_1caption_left div.caption_small {
+    margin-top: 0 !important;
+    padding-right: 0.5em;
+}
+
+.image-layout-1image_1caption_right div.caption_small {
+    margin-top: 0 !important;
+    padding-left: 0.5em;
+}
+
+.image-layout-2images_2captions_bottom div.wrap {
+    vertical-align: top;
+    display: inline-block;
+}
+
 /* slider with table of contents */
 .sidenav {
     max-height: 70%;

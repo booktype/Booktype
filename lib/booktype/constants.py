@@ -195,6 +195,64 @@ EPUB_ALLOWED_TAG_ATTRS = (
     ('ol', ('class', 'dir', 'id', 'lang', 'style', 'title', 'xml:lang')),
 )
 
+XHTML_DEFAULT_STYLING = u'''
+.group_img {
+    page-break-inside: avoid;
+    padding-top: 14.7pt;
+    margin-bottom: 14.7pt;
+    overflow: auto;
+}
+img {
+  vertical-align: top;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+.image-layout-1image_1caption_left img {
+    float: right;
+}
+.image-layout-1image_1caption_right img {
+    float: left;
+}
+.image-layout-2images_2captions_bottom div.wrap {
+  display: inline-block;
+  vertical-align: top;
+}
+caption,
+.caption,
+.caption_small,
+.caption_table,
+.caption_img,
+.caption_fig,
+.caption_image,
+.caption_figure {
+    font-family: "roboto";
+    font-size: 9.45pt;
+    /*line-height: 14.7pt; /**/
+    text-align: left;
+    font-style: italic;
+    font-weight: normal;
+    color: #000000;
+}
+div.caption_small {
+  padding-top: 0;
+  margin-top: 10px;
+  display: block;
+  box-sizing: border-box;
+}
+.image-layout-1image_1caption_right div.caption_small {
+  display: inline-block;
+  margin-top: 0;
+  padding-left: 0.5em;
+}
+.image-layout-1image_1caption_left div.caption_small {
+  display: inline-block;
+  margin-top: 0;
+  padding-right: 0.5em;
+}
+'''
+
 EXPORT_SETTINGS = {
     'mpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
@@ -218,7 +276,7 @@ EXPORT_SETTINGS = {
     'icml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'docx': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
-    'xhtml': [{u'name': u'styling', u'value': u''}]
+    'xhtml': [{u'name': u'styling', u'value': XHTML_DEFAULT_STYLING}]
 }
 
 INCH_TO_MM = 25.4
