@@ -57,12 +57,18 @@
         }
       }
 
-      Aloha.ready( function() {
-          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktype, underscore, understring) {
-            underscore.mixin(understring.exports());
+{#      Aloha.ready( function() {#}
+{#          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktype, underscore, understring) {#}
+{#            underscore.mixin(understring.exports());#}
+{##}
+{#            booktype.editor.initEditor(settings);#}
+{#            booktype.connect();#}
+{#          });#}
+{#      });#}
 
-            booktype.editor.initEditor(settings);
-            booktype.connect();
-          });
+      jQuery(document).ready(function () {
+        booktype.editor.initEditor(settings);
+        booktype.connect();
       });
+
 </script>

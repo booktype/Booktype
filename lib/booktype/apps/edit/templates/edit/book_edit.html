@@ -9,7 +9,6 @@
     </style>
 
     {% include "edit/edit_header.html" %}
-    {% include "edit/aloha_header.html" %}
     {% include "edit/edit_custom_header.html" %}
     {% include "edit/edit_config.html" %}
 
@@ -276,7 +275,7 @@
 {% block misc %}
 <!-- Modal windows -->
 {% include "edit/panel_toc.html" %}
-{% include "edit/panel_aloha.html" %}
+{#{% include "edit/panel_aloha.html" %}#}
 {% include "edit/panel_media.html" %}
 {% include "edit/panel_covers.html" %}
 {% include "edit/panel_publish.html" %}
@@ -301,7 +300,7 @@
     </figure>
     <div class="notification-content">
       {% blocktrans %}<p class="notification-text"><%= username %> joined </p><span class="notification-info"><%= info %></span>{% endblocktrans %}
-    </li>
+  </li>
 </script>
 
 
