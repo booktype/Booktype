@@ -1,7 +1,8 @@
 import json
 import logging
 import pprint
-
+import datetime
+import os
 from rest_framework import generics, mixins, viewsets, views, status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
@@ -10,11 +11,14 @@ from rest_framework.exceptions import NotFound, PermissionDenied, ValidationErro
 import sputnik
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db import transaction
 
-from booki.editor.models import Book, Language, Chapter, Info
+from booki.editor.models import Book, Language, Chapter, Info, Attachment, BookStatus
 from booktype.apps.core.models import BookRole, Role
 from booki.utils.log import logBookHistory
 from booktype.utils.security import BookSecurity
+from booktype.utils.misc import booktype_slugify
+from booktype.apps.edit.utils import send_notification
 
 from . import serializers
 from .filters import ChapterFilter, BookUserListFilter
@@ -646,3 +650,102 @@ class BookUserDetailPermissions(views.APIView):
         permissions.sort()
 
         return Response(permissions)
+
+
+class BookAttachmentList(generics.ListAPIView):
+    """
+    get:
+    Return a list of attachment of a specific book.
+    """
+
+    model = Attachment
+    serializer_class = serializers.BookAttachmentListSerializer
+
+    def __init__(self):
+        super(BookAttachmentList, self).__init__()
+        self._book = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('pk', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def get_queryset(self):
+        try:
+            return self._book.version.get_attachments().order_by("attachment")
+        except:
+            pass
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        # TODO think about permissions
+        if book_security.has_perm('edit.edit_book'):
+            return super(BookAttachmentList, self).get(request, *args, **kwargs)
+
+        raise PermissionDenied
+    def post(self, request, *args, **kwargs):
+        # TODO test it and cover with tests
+        book_security = BookSecurity(request.user, self._get_book())
+        user = request.user
+        can_upload_attachment = book_security.has_perm('edit.upload_attachment')
+
+        if not user.is_superuser and not can_upload_attachment and self._book.owner != user:
+            raise PermissionDenied
+
+        stat = BookStatus.objects.filter(book=self._book)[0]
+
+        if 'file' not in request.FILES:
+            raise ValidationError({'file': ['"file" is required.']})
+
+        file_data = request.FILES['file']
+        attname, attext = os.path.splitext(file_data.name)
+        available_extensions = ('jpg', 'png', 'jpeg', 'gif')
+        if attext.rsplit('.', 1)[-1].lower() not in available_extensions:
+            raise ValidationError({'file': [
+                'Not supported extension. Available extensions: {}'.format(
+                    ' '.join(available_extensions))
+            ]})
+
+        with transaction.atomic():
+            att = Attachment(
+                version=self._book.version,
+                # must remove this reference
+                created=datetime.datetime.now(),
+                book=self._book,
+                status=stat
+            )
+            att.save()
+
+            att.attachment.save(
+                '{}{}'.format(booktype_slugify(attname), attext),
+                file_data,
+                save=False
+            )
+            att.save()
+
+        # notificatoin message
+        channel_name = "/booktype/book/{}/{}/".format(self._book.id,
+                                                      self._book.version.get_version())
+        clnts = sputnik.smembers(
+            "sputnik:channel:{}:channel".format(channel_name))
+
+        message = {
+            'channel': channel_name,
+            'command': 'notification',
+            'message': 'notification_new_attachment_uploaded',
+            'username': self.request.user.username,
+            'message_args': (att.get_name(),)
+        }
+
+        for c in clnts:
+            if c.strip() != '':
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+
+        # response
+        serializer_instance = self.serializer_class(att)
+
+        return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
