@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import json
 import requests
 import logging
@@ -20,7 +21,9 @@ from booktype.apps.edit.forms import AdditionalMetadataForm
 from booktype.utils.book import create_book
 from booktype.utils.misc import booktype_slugify
 from booki.utils.log import logBookHistory, logChapterHistory
-from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus, Info, METADATA_FIELDS
+from booki.editor.models import (Book, BookToc, Language, Chapter, BookStatus,
+                                 Info, METADATA_FIELDS, Attachment,
+                                 get_attachment_url)
 
 from ..core.serializers import SimpleBookRoleSerializer
 
@@ -28,6 +31,11 @@ try:
     from django.urls import reverse
 except ImportError:
     from django.core.urlresolvers import reverse
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
 
 logger = logging.getLogger('api.editor.serializers')
@@ -472,3 +480,36 @@ class BookUserListSerializer(serializers.ModelSerializer):
 
     def get_profile_url(self, obj):
         return reverse('accounts:view_profile', args=[obj.username])
+
+
+class BookAttachmentListSerializer(serializers.ModelSerializer):
+    attachment = serializers.SerializerMethodField()
+    thumbnail = serializers.SerializerMethodField()
+    size = serializers.SerializerMethodField()
+    dimension = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Attachment
+        fields = (
+            'id', 'attachment', 'created', 'version', 'status', 'size',
+            'dimension', 'thumbnail'
+        )
+
+    def get_attachment(self, obj):
+        im_url = get_attachment_url(obj, os.path.split(obj.attachment.name)[1])
+        return im_url
+
+    def get_thumbnail(self, obj):
+        return obj.thumbnail()
+
+    def get_size(self, obj):
+        return obj.attachment.size
+
+    def get_dimension(self, obj):
+        try:
+            im = Image.open(obj.attachment.name)
+            return im.size
+        except:
+            pass
+
+        return None
