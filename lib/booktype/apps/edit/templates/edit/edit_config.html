@@ -57,16 +57,19 @@
         }
       }
 
-{#      Aloha.ready( function() {#}
-{#          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktype, underscore, understring) {#}
-{#            underscore.mixin(understring.exports());#}
-{##}
-{#            booktype.editor.initEditor(settings);#}
-{#            booktype.connect();#}
-{#          });#}
-{#      });#}
+
+      {# TDOD fix this hell and add proper require js#}
+      {#      Aloha.ready( function() {#}
+      {#          Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktype, underscore, understring) {#}
+      {#            underscore.mixin(understring.exports());#}
+      {##}
+      {#            booktype.editor.initEditor(settings);#}
+      {#            booktype.connect();#}
+      {#          });#}
+      {#      });#}
 
       jQuery(document).ready(function () {
+        //_.mixin(understring.exports());
         booktype.editor.initEditor(settings);
         booktype.connect();
       });
