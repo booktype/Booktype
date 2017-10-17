@@ -113,6 +113,14 @@ def _make_choices(queryset):
     return choices
 
 
+def _languages_choices():
+    return _make_choices(queryset=Language.objects.all())
+
+
+def _licenses_choices():
+    return _make_choices(queryset=License.objects.all().order_by('name'))
+
+
 class BookCreationForm(BaseBooktypeForm, forms.Form):
     # STEP 1: Book information
     title = forms.CharField(
@@ -123,12 +131,10 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         label=_("Author"), max_length=200)
 
     language = forms.ChoiceField(
-        label=_("Language"),
-        choices=_make_choices(queryset=Language.objects.all()))
+        label=_("Language"), choices=_languages_choices)
 
     license = forms.ChoiceField(
-        label=_("License"),
-        choices=_make_choices(queryset=License.objects.all().order_by('name')))
+        label=_("License"), choices=_licenses_choices)
 
     visible_to_everyone = forms.BooleanField(
         label=_("Visible to everyone"),
@@ -173,8 +179,7 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         label=_("Creator"), required=False)
 
     cover_license = forms.ChoiceField(
-        label=_("License"),
-        choices=_make_choices(queryset=License.objects.all().order_by('name')))
+        label=_("License"), choices=_licenses_choices)
 
     # -------- END STEP 4 -------------
 
