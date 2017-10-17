@@ -17,6 +17,7 @@
 <link href='{% static "edit/css/slider.css" %}' rel='stylesheet' type='text/css'>
 <link href='{% static "edit/css/select2.css" %}' rel='stylesheet' type='text/css'>
 <link href='{% static "edit/css/animate.css" %}' rel='stylesheet' type='text/css'>
+<link href='{% static "edit/js/bobbob/build.css" %}' rel='stylesheet' type='text/css'>
 {% list_theme_preloads %}
 {% endcompress %}
 
@@ -68,7 +69,8 @@
 <script type="text/javascript" src="{% static "edit/js/booktype/history.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/booktype/settings.js" %}"></script>
 <script type="text/javascript" src="{% static "themes/js/themes.js" %}"></script>
-<script type="text/javascript" src="http://localhost:3000/static/js/bundle.js"></script>
+<script type="text/javascript" src="{% static "edit/js/bobbob/build.js" %}"></script>
+{#<script type="text/javascript" src="http://localhost:3000/static/js/bundle.js"></script>#}
 {% endcompress %}
 
 {% if debug %}
