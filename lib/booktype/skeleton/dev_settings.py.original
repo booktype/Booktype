@@ -1,7 +1,6 @@
 from .base import *
 
 # WEB SITE URL
-
 THIS_BOOKTYPE_SERVER = ''
 BOOKTYPE_URL = ''
 # BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
@@ -31,6 +30,9 @@ COMPRESS_OFFLINE = False
 
 # PROFILE
 PROFILE_ACTIVE = 'dev'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = '{}.wsgi_dev.application'.format('##BOOKTYPE_SITE_DIR##')
 
 # URL ROUTER
 ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_DIR)

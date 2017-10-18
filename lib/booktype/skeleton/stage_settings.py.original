@@ -23,13 +23,13 @@ CONVERT_URL = BOOKTYPE_URL
 DEBUG = TEMPLATES[0]['OPTIONS']['debug'] = False
 
 # PROFILE
-PROFILE_ACTIVE = 'prod'
+PROFILE_ACTIVE = 'stage'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '{}.wsgi_prod.application'.format('##BOOKTYPE_SITE_DIR##')
+WSGI_APPLICATION = '{}.wsgi_stage.application'.format('##BOOKTYPE_SITE_DIR##')
 
 # URL ROUTER
-ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_DIR)
+ROOT_URLCONF = '{}.urls.stage'.format(BOOKTYPE_SITE_DIR)
 
 # REDIS
 REDIS_HOST = 'localhost'
