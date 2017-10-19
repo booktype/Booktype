@@ -14,20 +14,15 @@
             {% with book_creation_form as form %}
 
             <div id="bookCreationWizard">
-              <h3>{% trans "Book Information" %}</h3>
+              <h3>{% trans "Project Information" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Please fill in the details of your book" %}</p>
+                <p class="wizard_desc">{% trans "Please fill in some details of the new project/book on this platform" %}</p>
                 <div class="form-group mb10">
                   {{ form.title.label_tag }}
                   {{ form.title }}
                   <div class="bookexists alert alert-danger" style="display: none;">
                     {% trans "There is already a book with this name." %}
                   </div>
-                </div>
-
-                <div class="form-group mb10">
-                  {{ form.author.label_tag }}
-                  {{ form.author }}
                 </div>
 
                 <div class="form-group mb10">
@@ -48,14 +43,16 @@
                 </div>
 
                 <div class="form-group mb0">
-                  {{ form.description.label_tag }}
+                  <label for="description">
+                    {{ form.description.label }} <i class="fa fa-info-circle" data-toggle="tooltip" title="{{ form.description.help_text }}"></i>:
+                  </label>
                   {{ form.description }}
                 </div>
               </section>
 
               <h3>{% trans "Metadata" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Enter some metadata of your book" %}</p>
+                <p class="wizard_desc">{% trans "Please enter metadata of the book. Metadata is necessary for later publishing" %}</p>
                 {% for mfield in form.get_metadata_fields %}
                   <div class="form-group {% if forloop.last %}mb0{% else %}mb10{% endif %}">
                     {{ mfield.label_tag }}
@@ -66,7 +63,7 @@
 
               <h3>{% trans "Creation mode" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Choose the way you want to create your book" %}</p>
+                <p class="wizard_desc">{% trans "Choose the way you want to create the book" %}</p>
                 <div class="form-group mb20 row">
                   <label class="col-xs-3" for="creation_mode">
                     {% trans "Creation mode" %}:
@@ -82,7 +79,7 @@
                     <input id="creation_mode_based_on_book" type="radio" name="creation_mode" value="based_on_book" class="mr5">
                     <label for="creation_mode_based_on_book" class="f-normal">
                       {% trans "Based on another book" %}
-                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'Pick this option if you want to create your book based on another book existent on the system' %}"></i>
+                      <i class="fa fa-info-circle" data-toggle="tooltip" title="{% trans 'Pick this option if you want to create the book based on another book existent on the system' %}"></i>
                     </label>
                     <br>
 

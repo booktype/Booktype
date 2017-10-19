@@ -124,26 +124,28 @@ def _licenses_choices():
 class BookCreationForm(BaseBooktypeForm, forms.Form):
     # STEP 1: Book information
     title = forms.CharField(
-        label=_("Title of book"),
+        label=_("Working title"),
         max_length=200, required=True)
 
-    author = forms.CharField(
-        label=_("Author"), max_length=200)
+    # author = forms.CharField(
+    #     label=_("Author"), max_length=200)
 
     language = forms.ChoiceField(
-        label=_("Language"), choices=_languages_choices)
+        label=_("Language of the book"), choices=_languages_choices)
 
     license = forms.ChoiceField(
         label=_("License"), choices=_licenses_choices)
 
     visible_to_everyone = forms.BooleanField(
         label=_("Visible to everyone"),
-        help_text=_("This will make your book visible to other users on the system. "
-                    "You can change this setting later from the Book Info page."))
+        help_text=_("BE AWARE: If you tick this box ALL users on the system can see or read the book. "
+                    "(It is not necessary to tick the box to invite people to read or collaborate into the book. "
+                    "To invite people, please use the function on your dashboard or the info page of this book)."))
 
     description = forms.CharField(
         label=_("Description"),
-        widget=forms.Textarea(attrs={'cols': 20, 'rows': 3}))
+        widget=forms.Textarea(attrs={'cols': 20, 'rows': 3}),
+        help_text=_("Optional: describe the book to other users on this platform"))
 
     # -------- END STEP 1 -------------
 
@@ -173,10 +175,10 @@ class BookCreationForm(BaseBooktypeForm, forms.Form):
         required=True)
 
     cover_title = forms.CharField(
-        label=_("Title"), required=True)
+        label=_("Title of cover"), required=True)
 
     cover_creator = forms.CharField(
-        label=_("Creator"), required=False)
+        label=_("Creator of cover"), required=False)
 
     cover_license = forms.ChoiceField(
         label=_("License"), choices=_licenses_choices)
