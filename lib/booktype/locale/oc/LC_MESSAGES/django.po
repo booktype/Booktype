@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-18 21:38-0600\n"
-"PO-Revision-Date: 2017-09-19 09:43+0000\n"
+"POT-Creation-Date: 2017-10-18 23:35-0600\n"
+"PO-Revision-Date: 2017-10-19 07:41+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/sourcefabric/booktype/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -91,13 +91,13 @@ msgstr ""
 msgid "Delete Roles"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:89
+#: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
 #: lib/booktype/apps/edit/views.py:576 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:99
+#: lib/booktype/api/editor/serializers.py:107
 msgid "Section"
 msgstr ""
 
@@ -153,77 +153,61 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:119
-msgid "Title of book"
+#: lib/booktype/apps/account/forms.py:127
+msgid "Working title"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:123
-#: lib/booktype/skeleton/themes/academic/panel.html:7
-#: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
-#: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
-msgid "Author"
+#: lib/booktype/apps/account/forms.py:134
+msgid "Language of the book"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:126 lib/booktype/apps/core/models.py:123
-#: lib/booktype/apps/edit/forms.py:60
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
-msgid "Language"
-msgstr ""
-
-#: lib/booktype/apps/account/forms.py:130
-#: lib/booktype/apps/account/forms.py:176 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:137
+#: lib/booktype/apps/account/forms.py:184 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:134
+#: lib/booktype/apps/account/forms.py:140
 msgid "Visible to everyone"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:135
+#: lib/booktype/apps/account/forms.py:141
 msgid ""
-"This will make your book visible to other users on the system. You can "
-"change this setting later from the Book Info page."
+"BE AWARE: If you tick this box ALL users on the system can see or read the "
+"book. (It is not necessary to tick the box to invite people to read or "
+"collaborate into the book. To invite people, please use the function on your"
+" dashboard or the info page of this book)."
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:139
+#: lib/booktype/apps/account/forms.py:146
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:152
+#: lib/booktype/apps/account/forms.py:148
+msgid "Optional: describe the book to other users on this platform"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:160
 msgid "Select the base book"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:156
+#: lib/booktype/apps/account/forms.py:164
 msgid "Select the skeleton"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:166
+#: lib/booktype/apps/account/forms.py:174
 msgid "Cover Image"
 msgstr ""
 
-#. Translators: Default chapter title when importing DOCX
-#. files. In case title does not exists.
-#: lib/booktype/apps/account/forms.py:170
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:515
-msgid "Title"
+#: lib/booktype/apps/account/forms.py:178
+msgid "Title of cover"
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:173
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
-msgid "Creator"
+#: lib/booktype/apps/account/forms.py:181
+msgid "Creator of cover"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:35
@@ -578,97 +562,99 @@ msgid "Delete"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
-msgid "Book Information"
+msgid "Project Information"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:19
-msgid "Please fill in the details of your book"
+msgid "Please fill in some details of the new project/book on this platform"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:24
 msgid "There is already a book with this name."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:56
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:53
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:58
-msgid "Enter some metadata of your book"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
+msgid ""
+"Please enter metadata of the book. Metadata is necessary for later "
+"publishing"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:67
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:72
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:64
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
 msgid "Creation mode"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
-msgid "Choose the way you want to create your book"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:66
+msgid "Choose the way you want to create the book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:77
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:74
 msgid "From scratch"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:78
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:75
 msgid "Will create an empty book with no sections or chapters"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:84
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:81
 msgid "Based on another book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:85
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:82
 msgid ""
-"Pick this option if you want to create your book based on another book "
+"Pick this option if you want to create the book based on another book "
 "existent on the system"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:91
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:88
 msgid "Based on skeleton"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:92
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:89
 msgid ""
 "You will have the option to select a predefined skeleton to base your new "
 "book on"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:98
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
 msgid "Import from DOCX or EPUB"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:123
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:120
 msgid "No book skeletons yet."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 msgid "You can manage them from the"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:136
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:15
 msgid "Drag Your File Here"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:140
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:19
 msgid "or Select from folder"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:145
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:142
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:24
 msgid "Filename:"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:150
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
@@ -678,7 +664,7 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:152
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
@@ -1131,6 +1117,11 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
 msgid "Name"
+msgstr ""
+
+#: lib/booktype/apps/core/models.py:123 lib/booktype/apps/edit/forms.py:60
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
+msgid "Language"
 msgstr ""
 
 #: lib/booktype/apps/core/models.py:127
@@ -2738,8 +2729,9 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:133
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
 msgid ""
-"Please take into account that this EPUB is not valid for distribution. Click"
-" the Download button to proceed."
+"Please notice this EPUB is NOT valid for distribution, but only to generate "
+"book templates (\"skeletons\") on Booktype. Click Download button to "
+"proceed."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:135
@@ -3085,6 +3077,18 @@ msgstr ""
 msgid "Infobox"
 msgstr ""
 
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
+#: lib/booktype/importer/docx/docximporter.py:246
+#: lib/booktype/importer/docx/docximporter.py:515
+msgid "Title"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:495
 msgid "Write your infobox title here"
 msgstr ""
@@ -3128,6 +3132,13 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
 msgid "Enter Meta-data"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
+msgid "Creator"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:169
@@ -4766,6 +4777,12 @@ msgstr ""
 msgid ""
 "A theme for science and reporting, built on the Roboto font family. The "
 "compact theme uses line indentation and no paragraph spacing."
+msgstr ""
+
+#: lib/booktype/skeleton/themes/academic/panel.html:7
+#: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
+#: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
+msgid "Author"
 msgstr ""
 
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:6

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 14:46-0600\n"
-"PO-Revision-Date: 2017-10-09 16:26+0000\n"
-"Last-Translator: Jujhar Singh <jujhar.pannu@gmail.com>\n"
+"POT-Creation-Date: 2017-10-18 23:35-0600\n"
+"PO-Revision-Date: 2017-10-19 07:41+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/sourcefabric/booktype/language/pa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,13 +92,13 @@ msgstr "ਰੋਲ ਨੂੰ ਸੁੱਧਾਰ"
 msgid "Delete Roles"
 msgstr "ਰੋਲ ਨੂੰ ਮਿਟਾ"
 
-#: lib/booktype/api/editor/serializers.py:89
+#: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
 #: lib/booktype/apps/edit/views.py:576 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr "ਅਧਿਆਇ"
 
-#: lib/booktype/api/editor/serializers.py:99
+#: lib/booktype/api/editor/serializers.py:107
 msgid "Section"
 msgstr "ਭੋਮਕਾ"
 
@@ -154,78 +154,62 @@ msgstr "ਈਮੇਲ ਫਿਰ ਲਿਖੋ comma ਨਾਲ ਅਲੱਗ ਈਮ�
 msgid "Message"
 msgstr "ਸੁਨੇਹਾ"
 
-#: lib/booktype/apps/account/forms.py:119
-msgid "Title of book"
-msgstr "ਕਿਤਾਬ ਦਾ ਨਾਮ"
+#: lib/booktype/apps/account/forms.py:127
+msgid "Working title"
+msgstr ""
 
-#: lib/booktype/apps/account/forms.py:123
-#: lib/booktype/skeleton/themes/academic/panel.html:7
-#: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
-#: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
-msgid "Author"
-msgstr "ਲੇਖਕ"
+#: lib/booktype/apps/account/forms.py:134
+msgid "Language of the book"
+msgstr ""
 
-#: lib/booktype/apps/account/forms.py:126 lib/booktype/apps/core/models.py:123
-#: lib/booktype/apps/edit/forms.py:60
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
-msgid "Language"
-msgstr "ਭਾਸ਼ਾ"
-
-#: lib/booktype/apps/account/forms.py:130
-#: lib/booktype/apps/account/forms.py:176 lib/booktype/apps/edit/forms.py:148
+#: lib/booktype/apps/account/forms.py:137
+#: lib/booktype/apps/account/forms.py:184 lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr "ਲਾਇਸੰਸ"
 
-#: lib/booktype/apps/account/forms.py:134
+#: lib/booktype/apps/account/forms.py:140
 msgid "Visible to everyone"
 msgstr "ਸਾਰੇ ਵੇਖ ਸਕਦੈ?"
 
-#: lib/booktype/apps/account/forms.py:135
+#: lib/booktype/apps/account/forms.py:141
 msgid ""
-"This will make your book visible to other users on the system. You can "
-"change this setting later from the Book Info page."
-msgstr "ਇਹਦੈ ਨਾਲ ਸਾਰਾ ਲੋਕ ਇਹ ਕਿਤਾਬ ਨੂੰ ਵੈਖ ਸਕਦੈ। ਤੋਸੀ ਬਾਚ ਕਿਤਾਬ ਜਨਕਾਰੀ ਪੈਂਜ ਤੋ ਇਹ ਬਦਲ ਸਕਦੈ।"
+"BE AWARE: If you tick this box ALL users on the system can see or read the "
+"book. (It is not necessary to tick the box to invite people to read or "
+"collaborate into the book. To invite people, please use the function on your"
+" dashboard or the info page of this book)."
+msgstr ""
 
-#: lib/booktype/apps/account/forms.py:139
+#: lib/booktype/apps/account/forms.py:146
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr "ਕੁੱਝ ਸੰਖੇਪ ਬਿਆਨ"
 
-#: lib/booktype/apps/account/forms.py:152
+#: lib/booktype/apps/account/forms.py:148
+msgid "Optional: describe the book to other users on this platform"
+msgstr ""
+
+#: lib/booktype/apps/account/forms.py:160
 msgid "Select the base book"
 msgstr "ਮੁਡ ਕਿਤਾਬ ਚੋਣੋ"
 
-#: lib/booktype/apps/account/forms.py:156
+#: lib/booktype/apps/account/forms.py:164
 msgid "Select the skeleton"
 msgstr "ਕਿਤਾਬ ਦੀ ਮੁਢਲੀ ਚੋਣੋ"
 
-#: lib/booktype/apps/account/forms.py:166
+#: lib/booktype/apps/account/forms.py:174
 msgid "Cover Image"
 msgstr "ਮੁਖਬੰਦ ਦਾ ਫੋਟੋ"
 
-#. Translators: Default chapter title when importing DOCX
-#. files. In case title does not exists.
-#: lib/booktype/apps/account/forms.py:170
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:515
-msgid "Title"
-msgstr "ਨਾਮ"
+#: lib/booktype/apps/account/forms.py:178
+msgid "Title of cover"
+msgstr ""
 
-#: lib/booktype/apps/account/forms.py:173
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
-msgid "Creator"
-msgstr "ਬਣਾਉਣਵਾਲਾ"
+#: lib/booktype/apps/account/forms.py:181
+msgid "Creator of cover"
+msgstr ""
 
 #: lib/booktype/apps/account/models.py:35
 msgid "mood"
@@ -579,97 +563,99 @@ msgid "Delete"
 msgstr "ਉਜਾੜੋ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
-msgid "Book Information"
-msgstr "ਕਿਤਾਬ ਦੀ ਜਾਨਕਾਰੀ"
+msgid "Project Information"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:19
-msgid "Please fill in the details of your book"
-msgstr "ਕਿਤਾਬ ਦੀ ਕੁਝ ਜਾਨਕਾਰੀ ਲਿਖੋ"
+msgid "Please fill in some details of the new project/book on this platform"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:24
 msgid "There is already a book with this name."
 msgstr "ਇਸ ਨਾਮ ਤੈ ਹੋਰ ਕਿਤਾਬ ਤਾ ਪਿਹਲਾ ਹੈਗਾਈ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:56
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:53
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
 msgstr "ਮਿਟਾ-ਡਾਟਾ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:58
-msgid "Enter some metadata of your book"
-msgstr "ਕੁਝ ਕਿਤਾਬ ਦਿ ਮਿਟਾ-ਡਾਟਾ ਲਿਖੋ"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
+msgid ""
+"Please enter metadata of the book. Metadata is necessary for later "
+"publishing"
+msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:67
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:72
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:64
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
 msgid "Creation mode"
 msgstr "ਸਿਰਜਨਾ ਮੋਡ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
-msgid "Choose the way you want to create your book"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:66
+msgid "Choose the way you want to create the book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:77
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:74
 msgid "From scratch"
-msgstr ""
+msgstr "ਸ਼ੁਰੂ ਤੋ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:78
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:75
 msgid "Will create an empty book with no sections or chapters"
-msgstr ""
+msgstr "ਖ਼ਾਲੀ ਕਿਤਾਬ ਤੇ ਕੋਈ ਅਧਿਆਇ ਨਹੀ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:84
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:81
 msgid "Based on another book"
-msgstr ""
+msgstr "ਹੋਰ ਕਿਤਾਬ ਤੋ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:85
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:82
 msgid ""
-"Pick this option if you want to create your book based on another book "
+"Pick this option if you want to create the book based on another book "
 "existent on the system"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:91
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:88
 msgid "Based on skeleton"
-msgstr ""
+msgstr "ਬਣੀ ਬਣਾਈ ਮੁਢਲੀ ਤੋ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:92
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:89
 msgid ""
 "You will have the option to select a predefined skeleton to base your new "
 "book on"
 msgstr "ਤੋਸੀ ਬਣੀ ਬਣਾਈ ਮਡਲੀ ਤੋ ਕਿਤਾਬ ਸ਼ੁਰੂ ਕਰ ਸਕਦੇ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:98
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
 msgid "Import from DOCX or EPUB"
-msgstr ""
+msgstr "DOCX ਜਾ EPUB ਤੋ ਦਰਾਮਦ ਕਾਰ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:123
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:120
 msgid "No book skeletons yet."
-msgstr ""
+msgstr "ਕੋਈ ਕਿਤਾਬ ਦੇ ਮੁਢਲੀਆਂ ਅਜੈ ਤੱਖ ਬਣੀਆਂ ਨਹੀ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 msgid "You can manage them from the"
-msgstr ""
+msgstr "ਤੋਸੀ ਇਥੈ ਇਹ ਚੀਜ਼ਾ ਨੂੰ ਬਾਦਲ ਸਾਕਦਾ:"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:125
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
-msgstr ""
+msgstr "ਕੰਟਰੋਲ ਸੈਂਟਰ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:136
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:15
 msgid "Drag Your File Here"
-msgstr ""
+msgstr "ਇਥੈ ਫਿਾਇਲ ਫੜ ਕੈ ਸੁੱਟੋ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:140
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:19
 msgid "or Select from folder"
-msgstr ""
+msgstr "ਜਾਂ ਫੋਲਦਰ ਤੋਂ ਚਣੋ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:145
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:142
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:24
 msgid "Filename:"
-msgstr ""
+msgstr "ਫਿਾਇਲਨੈਮ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:150
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
@@ -677,29 +663,29 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
 msgid "Cover"
-msgstr ""
+msgstr "ਮੁਖਬੰਦ"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:152
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
-msgstr ""
+msgstr "ਜੇ ਤੋਹਾਡੈ ਕੋਲ ਮੰਖਬੰਦ ਹੈਗੈਯਾ ਹੰਨ ਪਾ ਸਾਕਦੇ (ਇਹ ਬਾਚ ਵੀ ਪਾ ਸਾਕਦੇ)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
-msgstr ""
+msgstr "ਚੇਲੈ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:5
 msgid "No followers."
-msgstr ""
+msgstr "ਕੋਈ ਚੇਲਾ ਨੀ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:3
 msgid "Following:"
-msgstr ""
+msgstr "ਮਗਰਤਾ "
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:5
 msgid "Not following yet."
-msgstr ""
+msgstr "ਅਜੈ ਮਗਰਤਾ ਨਹੀ ਕਾਰਦੇ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:11
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -709,50 +695,50 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:117
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Members"
-msgstr ""
+msgstr "ਕੁਮਿਟੀ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:31
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:7
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:16
 msgid "Delete Group"
-msgstr ""
+msgstr "ਕੁਮਿਟੀ ਮਿਟਾ ਦੇ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:28
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:29
 msgid "Complete"
-msgstr ""
+msgstr "ਖਤਮ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:34
 msgid "Please wait, we are processing your file..."
-msgstr ""
+msgstr "ਕੁਝ ਦਿਰ ਲਾਗੂ..."
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:45
 msgid "Wrong file format! Please try another one."
-msgstr ""
+msgstr "ਗ਼ਲਤ ਫਾਇਲ ਫੋਰਮਾਟ! ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਾਰੋ।"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:47
 #: lib/booktype/apps/importer/views.py:133
 #: lib/booktype/apps/importer/views.py:220
 msgid "Something went wrong!"
-msgstr ""
+msgstr "ਕੁਝ ਗ਼ਲਤ ਹੋਗਿਯਾ!"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:58
 msgid "Congratulations! Your book has been imported."
-msgstr ""
+msgstr "ਹੋਗੈਯਾ! ਕਿਤਾਬ ਦਰਾਮਡ ਹੋਗੀ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:62
 msgid "Book Title (optional)"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਦਾ ਨਾਮ (ਜੂਰੋਰੀ ਨਹੀ)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:63
 msgid "Enter new Book title"
-msgstr ""
+msgstr "ਨਿਵਾਂ ਨਾਮ ਕਿਤਾਬ ਵਾਸਤੇ ਲਿਖੋ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:66
 #: lib/booktype/apps/reader/forms.py:19
 msgid "Hide this book from other people"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਲੋਕਾਂ ਤੋ ਗੁਪਤ ਕਰੋ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:73
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
@@ -768,15 +754,15 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
-msgstr ""
+msgstr "ਬੰਦ ਕਰਦੋ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:74
 msgid "Import"
-msgstr ""
+msgstr "ਦਰਾਮਦ ਕਰੋ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:9
 msgid "User settings"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਸਿਟੰਗ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:43
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:347
@@ -784,39 +770,39 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:16
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
-msgstr ""
+msgstr "ਸੇਵ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:52
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:79
 msgid "Change password"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/account/templates/account/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਹੇਗੈਯਾ ਨਹੀ"
 
 #: lib/booktype/apps/account/templates/account/errors/user_does_not_exist.html:5
 #, python-format
 msgid "Can't find user \"%(username)s\"."
-msgstr ""
+msgstr "ਯੂਜ਼ਰ  \"%(username)s\" ਨਾਹੀ ਲੱਭਦਾ।"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
 #: lib/booktype/apps/account/views.py:405
 #: lib/booktype/apps/account/views.py:406
 msgid "Forgot your password"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਭੁੱਲ ਗਯਾ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
-msgstr ""
+msgstr "ਇਮੈਲ ਵੇਖੋ!"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਬਦਲਿਣ ਦੀ ਇੰਤਕਾਰਾਂ ਈਮੇਲ ਨੂੰ ਭੈਜੇਲੋ।"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ ਕਿ ਈਮੇਲ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:26
 msgid ""
@@ -827,31 +813,31 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/forgot_password.html:30
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:42
 msgid "Send request"
-msgstr ""
+msgstr "ਅਰਜ਼ ਭੇਜੋ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
 #: lib/booktype/apps/account/views.py:478
 #: lib/booktype/apps/account/views.py:479
 msgid "Reset your password"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
-msgstr ""
+msgstr "ਗੁੱਝੀ ਗੁਪਤ ਕੋਡ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:26
 msgid "New password"
-msgstr ""
+msgstr "ਨਵਾਂ ਪਾਸਵਰੋਡ"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:34
 msgid "New password again"
-msgstr ""
+msgstr "ਨਵਾਂ ਪਾਸਵੋਰਡ ਦੁਬਾਰਾ ਲਿਖੋ"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:15
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
-msgstr ""
+msgstr "ਮੇਰੇ ਕਿਤਾਬਾਂ, ਮੇਰੇ ਵਿਰਨਾ, ਮੇਰੀ ਜਾਨਕਾਰੀ, ਤੇ ਮੇਰੇ ਪਿੱਛਲਾ ਹਿਸਾਬ ਕਿਤਾਬ"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
 #: lib/booktype/apps/account/views.py:71
@@ -859,7 +845,7 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
 msgid "My Dashboard"
-msgstr ""
+msgstr "ਮਿਰਾ ਡੈਸ਼-ਬੋਰਡ "
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
@@ -868,19 +854,19 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
-msgstr ""
+msgstr "ਸਾਹਿਨ-ਇਨ"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:7
 msgid "Enter username"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨਾਮ ਲਿਖੋ"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:10
 msgid "Password"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:14
 msgid "User does not exist."
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਹੈਗਿਯਾ ਨਹੀ"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:15
 msgid "Password is wrong! Please try again."
@@ -888,16 +874,16 @@ msgstr "ਪਾਸਵੋਰਡ ਸਾਈ ਨਹੀ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕ�
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr ""
+msgstr "ਤੋਹਾਦੇ ਅਕਾਓੰਟ ਬੰਦ ਹੋਗਅਾ! ਕਸਟੋਮਰਿ ਸਪੋਰਿਟ ਨੂੰ ਬੁਲਾਓ"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
 #: lib/booktype/apps/account/templates/account/register_form.html:26
 msgid "Unknown error!"
-msgstr ""
+msgstr "ਅਗਿਆਤ ਇਰਓਰ!"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:21
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਭੁੱਲ ਗਿਅਾ?"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
@@ -907,18 +893,18 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
-msgstr ""
+msgstr "ਇਥੇ ਜਾਓ:"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:7
 msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr ""
+msgstr "ਜੇ ਤੋਸੀ ਪਾਸਵੋਰਦ ਨੂੰ ਨਹੀਂ ਬਦਲਣ ਚਾਹੁੰਦੇ ਸੀ ਕੋਈ ਨਾ ਫਿਕਰ ਨਾ ਕਰੋ ਕਿਸ ਕਾਰਕੇ ਤੋਹਦਾ ਅਕਾਓੰਟ ਆਜਹੇ ਪੱਕਾ ਹੈ ਤੇ ਕੋਈ ਨਹੀਂ ਓਦੇ ਅੰਦਰ ਗਿਆ। "
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
-msgstr ""
+msgstr "ਤੋਹਾਡੇ ਸਾਇਨ-ਇਮ ਤਾ ਹੋ ਗਆ!"
 
 #: lib/booktype/apps/account/templates/account/register.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:59
@@ -928,7 +914,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:111
 #: lib/booktype/apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
-msgstr ""
+msgstr "ਮੈਂਬਰ ਬਣਨਾ! ਫੋਰਮ ਪਾਰਓ"
 
 #: lib/booktype/apps/account/templates/account/register.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:59
@@ -938,225 +924,230 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:111
 #: lib/booktype/apps/portal/templates/portal/people.html:59
 msgid "Registration form"
-msgstr ""
+msgstr "ਰਿਗਿਸਟ੍ਰਾਸ਼ਨ ਫੋਰਮ"
 
 #: lib/booktype/apps/account/templates/account/register.html:37
 msgid "Create Account"
-msgstr ""
+msgstr "ਅਕਾਓੰਟ ਬਣਾ"
 
 #: lib/booktype/apps/account/templates/account/register.html:41
 msgid "User limit has been reached."
-msgstr ""
+msgstr "ਇਤਨੇ ਜਾਦਾ ਅਕਾਓੰਟ ਨਹੀਂ ਬਣ ਸਾਕਦੇ।"
 
 #: lib/booktype/apps/account/templates/account/register.html:48
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:107
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr ""
+msgstr "ਕੱਲੇ ਅਗੂ ਨੇ ਇਸ ਵਕਤ ਨਵੈ ਅਕਾਓੰਟ ਬਣਾ ਸਕਦਾ।"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
 msgid "User name"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ (6 ਅਿਖਾਰ ਤੋ ਜਾਦਾ)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
 msgid "Missing username!"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ ਗੈਬ!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
 msgid "Missing e-mail!"
-msgstr ""
+msgstr "ਇਮੇਲ ਗੈਬ!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਗੈਬ!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:20
 msgid "Please provide your real name."
-msgstr ""
+msgstr "ਤੋਹਾਡਾ ਪੂਰਾ ਨਾਮ ਲਿਖੋ।"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
 "<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ ਗ਼ਲਤ ਹੈ। ਕੋਛ ਹੋਰ ਪਾਓ (ਸਿਰਫ ਅਖਰਾਂ, ਜਾਂ \".\", \"_\", ਕਿ \"-\" ਪਾ ਸਾਕਦੇ)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
-msgstr ""
+msgstr "ਈਮੇਲ ਸਾਈ ਨਹੀਂ"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
 msgid "Your passwords dont match. Please try a different one."
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਜੋੜਦੈ ਨਹੀਂ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ 6 ਅਾਖਰ ਕਿ ਹੋਰ ਲੁੰਬਾ ਚਾਇਦਾ!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ ਕੋਈ ਹੋਰ ਲਿਖੋ ਇਹ ਤਾ ਸਿਸਟਮ ਵਿੱਚ ਪਾਹਲਾ ਤੋ ਹਿ ਹੈਗਆ।"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
-msgstr ""
+msgstr "ਪੂਰਾ ਨਾਮ ਜ਼ਿਆਦਾ ਲੰਬਾ ਲਿਖਆ ਗਆ"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:31
 msgid "CREATE ACCOUNT"
-msgstr ""
+msgstr "ਅਕਾਓੰਟ ਬਣਾ"
 
 #: lib/booktype/apps/account/views.py:70
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
-msgstr ""
+msgstr "ਡੈਸ਼-ਬੋਰਡ"
 
 #: lib/booktype/apps/account/views.py:166
 #: lib/booktype/apps/account/views.py:167
 msgid "User profile"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਪਰੋਫਾਇਲ"
 
 #: lib/booktype/apps/account/views.py:345
 msgid "User settings have been saved successfully!"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਸਿਟੰਗ ਸੇਵਿਡ!"
 
 #: lib/booktype/apps/account/views.py:382
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਦ ਬਦਲ ਗਿਯਾ!"
 
 #: lib/booktype/apps/account/views.py:434
 msgid "Missing username"
-msgstr ""
+msgstr "ਯੂਜ਼ਰਨੇਮ ਗੈਬ"
 
 #: lib/booktype/apps/account/views.py:438
 msgid "No such user"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਹੇਗੈਯਾ ਨਹੀ"
 
 #: lib/booktype/apps/account/views.py:458
 msgid "Reset password"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਨੂੰ ਬਾਦਲੋ"
 
 #: lib/booktype/apps/account/views.py:471
 msgid "Unknown error"
-msgstr ""
+msgstr "ਅੰਨਗਿਆਤ ਇਰਓਰ"
 
 #: lib/booktype/apps/account/views.py:493
 msgid "Password can't be empty"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਨੂੰ ਲਿਖੋ"
 
 #: lib/booktype/apps/account/views.py:498
 msgid "Passwords don't match"
-msgstr ""
+msgstr "ਪਾਸਵੋਰਡ ਰੁਲਦੈ ਨਹੀਂ"
 
 #: lib/booktype/apps/account/views.py:514
 msgid "Wrong secret code"
-msgstr ""
+msgstr "ਗੁੱਝੀ ਗੁਪਤ ਕੋਡ ਗ਼ਲਤ"
 
 #: lib/booktype/apps/account/views.py:786
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
-msgstr ""
+msgstr " ਤੂੰ \"{}\" ਵਿਚ ਸ਼ਾਮਲ ਹੋ ਗਿਆ. ਅਕਸਿਪਟ ਬਾਟਨ ਨੂੰ ਨਾਪੋ ਤੇ ਫੇਰ ਕਿਤਾਬ ਵਿਖੋ।"
 
 #: lib/booktype/apps/core/__init__.py:4
 msgid "Booktype core application"
-msgstr ""
+msgstr "ਬੋਕਟਿਪ ਮੁੱਖ ਅਾਪਲੀਕਾਸ਼ੋਨ"
 
 #: lib/booktype/apps/core/__init__.py:7
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:111
 msgid "Manage Roles"
-msgstr ""
+msgstr "ਰੋਲਾਂ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/core/__init__.py:8
 msgid "Manage Permissions"
-msgstr ""
+msgstr "ਇਜਾਜ਼ਤਾਂ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/core/management/commands/update_default_roles.py:21
 #: lib/booktype/tests/test_case.py:36
 msgid "system default role"
-msgstr ""
+msgstr "ਆਮ ਸਿਸਟਮ ਰੋਲ"
 
 #: lib/booktype/apps/core/models.py:16
 msgid "app name"
-msgstr ""
+msgstr "ਅੈਪ ਦਾ ਨਾਮ"
 
 #: lib/booktype/apps/core/models.py:17 lib/booktype/apps/core/models.py:56
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:35
 msgid "name"
-msgstr ""
+msgstr "ਨਾਮ"
 
 #: lib/booktype/apps/core/models.py:28
 msgid "Permission"
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਤ"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
 #: lib/booktype/apps/edit/views.py:62
 msgid "Permissions"
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਤਾਂ"
 
 #: lib/booktype/apps/core/models.py:61
 msgid "permissions"
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਤਾਂ"
 
 #: lib/booktype/apps/core/models.py:69
 msgid "Role"
-msgstr ""
+msgstr "ਰੋਲ"
 
 #: lib/booktype/apps/core/models.py:84
 msgid "role"
-msgstr ""
+msgstr "ਰੋਲ"
 
 #: lib/booktype/apps/core/models.py:85 lib/booktype/apps/export/models.py:71
 msgid "book"
-msgstr ""
+msgstr "ਕਿਤਾਬ"
 
 #: lib/booktype/apps/core/models.py:87
 msgid "users"
-msgstr ""
+msgstr "ਕਈ ਯੂਜ਼ਰ"
 
 #: lib/booktype/apps/core/models.py:96
 msgid "Book Role"
-msgstr ""
+msgstr "ਕਿਤਾਬਾਂ ਦੀ ਰੋਲ"
 
 #: lib/booktype/apps/core/models.py:97
 msgid "Book Roles"
-msgstr ""
+msgstr "ਕਿਤਾਬਾਂ ਦੀ ਕਿਛ ਰੋਲ"
 
 #: lib/booktype/apps/core/models.py:104
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
 msgid "Name"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਦਾ ਰੋਲ"
+
+#: lib/booktype/apps/core/models.py:123 lib/booktype/apps/edit/forms.py:60
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
+msgid "Language"
+msgstr "ਭਾਸ਼ਾ"
 
 #: lib/booktype/apps/core/models.py:127
 msgid "Skeleton Type"
-msgstr ""
+msgstr "ਕਿਹੜੀ ਮੁਢਲੀ ਕਿਸਮ"
 
 #: lib/booktype/apps/core/models.py:131
 msgid "File"
-msgstr ""
+msgstr "ਫਾਇਲ"
 
 #: lib/booktype/apps/core/models.py:137
 msgid "Book Skeleton"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਦਿ ਮੁਢਲੀ"
 
 #: lib/booktype/apps/core/models.py:138
 msgid "Book Skeletons"
-msgstr ""
+msgstr "ਕਿਤਾਬਾਂ ਦਿ ਮੁਢਲੀਆਂ"
 
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
-msgstr ""
+msgstr "ਬਦਲਤਾ"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:8
 msgid "About"
-msgstr ""
+msgstr "ਜਾਨ ਕਾਰੀ"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:11
 msgid ""
@@ -1170,7 +1161,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
-msgstr ""
+msgstr "ਸਿੱਖਿਆ"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
 msgid ""
@@ -1178,11 +1169,11 @@ msgid ""
 "href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric.org/en/booktype/</a>"
 " or check out Booktype Pro, our cloud-hosted publishing service - <a "
 "href=\"https://booktype.pro/\">https://booktype.pro/</a>."
-msgstr ""
+msgstr "ਜਿ ਆਪੇ ਇਨਸਟਾਲ ਕਾਰਨਾ ਫਿਰ ਬੋਕਟਿਪ ਇਥੋੋ ਲੈਣਾ<a href=\"https://www.sourcefabric.org/en/booktype/\"> https://www.sourcefabric.org/en/booktype/ </a> \n\nਜਾ ਬੋਕਟਿਪ Pro ਕਲਾਓਡ ਬੈਸਦ ਸਿਰਵਿਸ ਲੀ <a href=\"https://booktype.pro/\"> https://booktype.pro/ </a>"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
-msgstr ""
+msgstr "ਮਾਦਿਤ ਚਹਿਦਹੀਂ?"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:30
 msgid ""
@@ -1203,255 +1194,255 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:10
 msgid "User Manual"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਮੈਨ੍ਯੂਅਲ"
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:43
 #: lib/booktype/apps/edit/templates/edit/toolbar_nav.html:29
 msgid "Help us to translate Booktype"
-msgstr ""
+msgstr "ਬੋਕਟਿਪ ਦਿ ਅਨੁਵਾਦ ਵਿੱਚ ਹਿਸਾ ਪਾਓ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:10
 #: lib/booktype/apps/portal/views.py:45
 msgid "Home"
-msgstr ""
+msgstr "ਘਰ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:35
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:116
 #: lib/booktype/apps/portal/views.py:358 lib/booktype/apps/portal/views.py:359
 msgid "People"
-msgstr ""
+msgstr "ਲੋਕ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:44
 msgid "Control Center Home"
-msgstr ""
+msgstr "ਕੰਤਰੋਲ ਸਿਨਤਿਰ ਪੇਜ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:47
 msgid "Admin Settings"
-msgstr ""
+msgstr "ਅਾਗੂ ਦੇ ਸਿਟੰਗ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:50
 msgid "Admin People"
-msgstr ""
+msgstr "ਅਾਗੂ ਦੇ ਬੰਦੇ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:53
 msgid "Admin Books"
-msgstr ""
+msgstr "ਅਾਗੂ ਦੇ ਕਿਤਾਬਾਂ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:56
 msgid "Admin Groups"
-msgstr ""
+msgstr "ਅਾਗੂ ਦੇ ਵਾਰਨਾਂ"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:59
 msgid "Admin Roles"
-msgstr ""
+msgstr "ਅਾਗੂ ਦੇ ਰੋਲ"
 
 #: lib/booktype/apps/core/templates/errors/400.html:9
 msgid "Error 400"
-msgstr ""
+msgstr "ਇਰਓਰ 400"
 
 #: lib/booktype/apps/core/templates/errors/400.html:10
 msgid "Bad request."
-msgstr ""
+msgstr "ਖਿਰਾਬ ਰੀਕ੍ਵੇਸ੍ਟ"
 
 #: lib/booktype/apps/core/templates/errors/403.html:9
 msgid "Error 403"
-msgstr ""
+msgstr "ਇਰਓਰ 403"
 
 #: lib/booktype/apps/core/templates/errors/403.html:10
 msgid "Permission denied."
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਤ ਨਹੀਂ"
 
 #: lib/booktype/apps/core/templates/errors/404.html:9
 #: lib/booktype/apps/reader/views.py:82
 msgid "Error 404"
-msgstr ""
+msgstr "ਇਰਓਰ 404"
 
 #: lib/booktype/apps/core/templates/errors/404.html:10
 msgid "Page not found."
-msgstr ""
+msgstr "ਪੇਜ ਨਹੀਂ ਲੱਭਾ"
 
 #: lib/booktype/apps/core/templates/errors/500.html:9
 msgid "Error 500"
-msgstr ""
+msgstr "ਇਰਓਰ 500"
 
 #: lib/booktype/apps/core/templates/errors/500.html:10
 msgid "Server error."
-msgstr ""
+msgstr "ਸਿਰਵਰ ਇਰਓਰ"
 
 #: lib/booktype/apps/core/templates/errors/book_does_not_exist.html:8
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete_error.html:7
 msgid "Error"
-msgstr ""
+msgstr "ਇਰਓਰ"
 
 #: lib/booktype/apps/core/templates/errors/book_does_not_exist.html:9
 msgid "Book does not exist."
-msgstr ""
+msgstr "ਕਿਤਾਬ ਨਾਹੀਂ ਹੈਗੀ।"
 
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:10
 msgid "You have no permissions to do this!"
-msgstr ""
+msgstr "ਤੈਨੂੰ ਉਹ ਕਰਨ ਲੀ ਇਜਿਾਜ਼ਿਤ ਨਾਹੀਂ!"
 
 #: lib/booktype/apps/core/templates/templatetags/pager.html:8
 #: lib/booktype/apps/core/templates/templatetags/pager.html:10
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:121
 msgid "Previous"
-msgstr ""
+msgstr "ਪਿਛਲਾ"
 
 #: lib/booktype/apps/core/templates/templatetags/pager.html:16
 #: lib/booktype/apps/core/templates/templatetags/pager.html:18
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:120
 msgid "Next"
-msgstr ""
+msgstr "ਅਗਲਾ"
 
 #: lib/booktype/apps/edit/__init__.py:4
 msgid "Booktype edit application"
-msgstr ""
+msgstr "ਬੋਕਤਇਪ ਅਪਲੀਕਾਸ਼ਿਨ ਨੂੰ ਬੁਦਿਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:7
 msgid "Create chapter"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਬਣਾ"
 
 #: lib/booktype/apps/edit/__init__.py:8
 msgid "Rename chapter"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਨੂੰ ਨਵਾਂ ਨਾਮ ਦਿਹੋ"
 
 #: lib/booktype/apps/edit/__init__.py:9
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:43
 msgid "Delete chapter"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਨੂੰ ਮਿਟਾਂਓ"
 
 #: lib/booktype/apps/edit/__init__.py:10
 msgid "Lock chapter"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਨੂੰ ਸੁਰੱਖਿਅਤ ਲਾਖ ਕਾਰਦੋ"
 
 #: lib/booktype/apps/edit/__init__.py:11
 msgid "Edit locked chapter"
-msgstr ""
+msgstr "ਲਾਖ ਹੋਇ ਅਧਿਆਇ ਨੂੰ ਬੁਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:12
 msgid "Export chapter content"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਨੂੰ ਦਰਾਮਦ ਕਰੋ"
 
 #: lib/booktype/apps/edit/__init__.py:13
 msgid "Import documents to chapters"
-msgstr ""
+msgstr "ਦੋਕਯੁਮਿੰਟਾਂ ਨੂੰ ਅਧਿਆਇ ਵਿੱਚ ਦਰਾਮਦ ਕਰ"
 
 #: lib/booktype/apps/edit/__init__.py:15
 msgid "Create section"
-msgstr ""
+msgstr "ਭਾਗ ਬਣਾ"
 
 #: lib/booktype/apps/edit/__init__.py:16
 msgid "Rename section"
-msgstr ""
+msgstr " ਭਾਗ ਨੂੰ ਨਵਾਂ ਨਾਮ ਦਿਹੋ"
 
 #: lib/booktype/apps/edit/__init__.py:17
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:44
 msgid "Delete section"
-msgstr ""
+msgstr "ਭਾਗ ਨੂੰ ਉਦਾੜ"
 
 #: lib/booktype/apps/edit/__init__.py:19
 msgid "Manage chapters on hold"
-msgstr ""
+msgstr "ਹੋਂਲਦ ਵਾਲੇ ਅਧਿਆਵਾਂ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:20
 msgid "Reorder TOC"
-msgstr ""
+msgstr "TOC ਨੂੰ ਬੁਦਿਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:22
 msgid "Upload attachment"
-msgstr ""
+msgstr "ਅਟੈਚ੍ਮਨ੍ਟ ਵਿਚ ਪਾਓ"
 
 #: lib/booktype/apps/edit/__init__.py:23
 msgid "Remove attachment"
-msgstr ""
+msgstr "ਅਤਾਚਮਿੰਟ ਉਜਾੜੋ"
 
 #: lib/booktype/apps/edit/__init__.py:25
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:97
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
-msgstr ""
+msgstr "ਮੁਖਬੰਦ ਪਾਓ"
 
 #: lib/booktype/apps/edit/__init__.py:26
 msgid "Edit cover"
-msgstr ""
+msgstr "ਮੁਖਬੰਦ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:27
 msgid "Delete cover"
-msgstr ""
+msgstr "ਮੱਖਬੰਦ ਨੂੰ ਮਿਟਾਉ"
 
 #: lib/booktype/apps/edit/__init__.py:29
 msgid "Manage Status"
-msgstr ""
+msgstr "ਸਤਾਤਿਸ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:30
 msgid "Change chapter status"
-msgstr ""
+msgstr "ਅਧਿਆਇ ਦਿ ਸਤਾਤਿਸ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:32
 msgid "Edit book"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:33
 msgid "Delete book"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਉਜਾੜੋ"
 
 #: lib/booktype/apps/edit/__init__.py:35
 msgid "Restore history"
-msgstr ""
+msgstr "ਪਿਛਲੈ ਹਿਸਾਬ ਕਿਤਾਬ ਵਾਪਸ ਪਾਦੋ"
 
 #: lib/booktype/apps/edit/__init__.py:36
 msgid "Edit Notes"
-msgstr ""
+msgstr "ਨੋਤਸ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:38
 msgid "Track Changes"
-msgstr ""
+msgstr "ਬਦਲਤਾ ਦਾ ਵੈਖ ਰਾਖੋ"
 
 #: lib/booktype/apps/edit/__init__.py:39
 msgid "Track Changes accept/decline"
-msgstr ""
+msgstr "ਬਦਲਤਾ ਨੂੰ ਸੁਧਾਰੋ accept/decline"
 
 #: lib/booktype/apps/edit/__init__.py:40
 msgid "Track Changes on/off"
-msgstr ""
+msgstr "ਬਦਲਤਾ ਨੂੰ ਸੁਧਾਰੋ on/off "
 
 #: lib/booktype/apps/edit/__init__.py:43
 msgid "Manage Language"
-msgstr ""
+msgstr "ਭਾਸ਼ਾ ਨੂੰ ਸੁਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:44
 msgid "Manage License"
-msgstr ""
+msgstr "ਲਾਇਸਨਸ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:45
 msgid "Manage Metadata"
-msgstr ""
+msgstr "ਮਿਟਾ-ਡੈਟਾ ਨੂੰ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/__init__.py:46
 msgid "Manage Book Settings"
-msgstr ""
+msgstr "ਕਿਤਾਬ ਦੀ ਸਿਟੰਗਾਂ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:48
 msgid "Add Comments"
-msgstr ""
+msgstr "ਨਵਿਆਂ ਗੱਪਾ ਮਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:49
 msgid "Resolve Comments"
-msgstr ""
+msgstr "ਗੱਪਾਂ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:50
 msgid "Delete Comments"
-msgstr ""
+msgstr "ਗੱਪਾਂ ਮਿਟਓ"
 
 #: lib/booktype/apps/edit/__init__.py:52
 msgid "Modify Section Settings"
-msgstr ""
+msgstr "ਭੋਮਕਾਂ ਦੀ ਸਿਟੰਗਸ਼ ਨੂੰ ਸੁੱਧਾਰ"
 
 #: lib/booktype/apps/edit/__init__.py:53
 msgid "Generate Invite Code"
-msgstr ""
+msgstr "ਲੋਕਾਂ ਨੂੰ ਸਾਦਣਾ ਵਾਲੀ ਕੋਡ ਬਣਾ"
 
 #: lib/booktype/apps/edit/channel.py:1409
 #: lib/booktype/apps/edit/channel.py:1414
@@ -1465,24 +1456,24 @@ msgstr ""
 #: lib/booktype/apps/edit/channel.py:1427
 #: lib/booktype/apps/edit/channel.py:1431
 msgid "You have no permissions for splitting locked chapter."
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਜਤ ਨਹੀਂ ਹੈਗੀ ਲਾਕ ਅਾਧਇਆਂ ਨੂੰ ਕਾਟਣ ਲੀ।"
 
 #: lib/booktype/apps/edit/channel.py:1440
 msgid "You have selected invalid title name."
-msgstr ""
+msgstr "ਗ਼ਲਤ ਨਾਮ ਚੋਣਅਾ"
 
 #: lib/booktype/apps/edit/channel.py:1444
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
-msgstr ""
+msgstr "ਆਧਇਆ ਇਸ ਨਾਮ ਤੇੇ ਹੈਗਿਆ"
 
 #: lib/booktype/apps/edit/channel.py:1590
 msgid "You have no permissions for editing this chapter."
-msgstr ""
+msgstr "ਇਜਾਜ਼ਿਜਤ ਨਹੀਂ ਹੈਗੀ ਇਸ ਆਧਇਆ ਨੂੰ ਬਦਲਣਾ"
 
 #: lib/booktype/apps/edit/channel.py:1598
 msgid "Chapter currently being edited."
-msgstr ""
+msgstr "ਇਸ ਆਧਾਇਆ ਦੀ ਬਦਲਤਾ ਚੱਲਦੀ ਹੈ।"
 
 #: lib/booktype/apps/edit/channel.py:1603
 msgid "You have no permissions for editing chapters under lock."
@@ -1558,20 +1549,20 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:8
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:16
 msgid "Unified"
-msgstr ""
+msgstr "ਜੁੜੀ ਹੋਈ"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:9
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:17
 msgid "Split"
-msgstr ""
+msgstr "ਕਾਟ"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:18
 msgid "Full view"
-msgstr ""
+msgstr "ਸਾਰਾ ਦ੍ਰਿਸਟ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:8
 msgid "Section Settings"
-msgstr ""
+msgstr "ਭੋਮਕਾ ਸਿਟੰਗਜ਼"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:15
 msgid "Display Settings"
@@ -1587,32 +1578,32 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:22
 msgid "Show"
-msgstr ""
+msgstr "ਦਿਖਾਵੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
 msgid "In Table of Contents"
-msgstr ""
+msgstr "ਤਾਤਕਾਰਾ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
 msgid "Show section and chapters"
-msgstr ""
+msgstr "ਭੋਮਕਾ ਤੇ ਅਧਿਆਵਾਂ ਦਿਖਾਵੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
 msgid "Show section but hide chapters"
-msgstr ""
+msgstr "ਭੋਮਕਾ ਵਿਖਾਵੋ ਪਰ ਅਧਿਆਵਾਂ ਨੂੰ ਲੁਕਾਵੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:36
 msgid "Hide section but show chapters"
-msgstr ""
+msgstr "ਭੋਮਕਾ ਨੂ ਲੁਕਾਵੋ ਪੁਰ ਅਧਿਆਵਾਂ ਨੂੰ ਦਿਖਾਵੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:37
 msgid "Hide section and chapters"
-msgstr ""
+msgstr "ਭੋਮਕਾ ਤੇ ਅਧਿਆਵਾਂ ਨੂੰ ਲੁਕਾਵੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
 msgid "Extra"
-msgstr ""
+msgstr "ਵੱਧੋ"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
 msgid "Set extra options"
@@ -1702,11 +1693,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
-msgstr ""
+msgstr "ਅਨਡੂ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
 msgid "Redo"
-msgstr ""
+msgstr "ਰੀਡੂ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:31
 msgid "Find & Replace"
@@ -1772,27 +1763,27 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:15
 msgid "Heading 1"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 1"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:16
 msgid "Heading 2"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 2"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:17
 msgid "Heading 3"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 3"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:18
 msgid "Heading 4"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 4"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:19
 msgid "Heading 5"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 5"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:20
 msgid "Heading 6"
-msgstr ""
+msgstr "ਹਾਇਡੰਗ 6"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:21
 msgid "Pre-formatted"
@@ -1804,7 +1795,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:23
 msgid "Author Name"
-msgstr ""
+msgstr "ਲੇਖਕ ਦਾ ਨਾਮ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:24
 msgid "Reference"
@@ -1824,15 +1815,15 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Bold"
-msgstr ""
+msgstr "ਬੋਲਿਡ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:149
 msgid "Italic"
-msgstr ""
+msgstr "ਇਤਾਲਿਖ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:150
 msgid "Underline"
-msgstr ""
+msgstr "ਉਨੰਦਰਲਾਨਿ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:151
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:115
@@ -1841,19 +1832,19 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:155
 msgid "Table"
-msgstr ""
+msgstr "ਤੈਬਾਲ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:157
 msgid "Insert Table"
-msgstr ""
+msgstr "ਤੈਬਾਲ ਪਾਓ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:158
 msgid "Modify Table"
-msgstr ""
+msgstr "ਤੈਬਾਲ ਬਦਲੋ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:161
 msgid "Rows"
-msgstr ""
+msgstr "ਰੋਸ਼"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:91
@@ -2739,8 +2730,9 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:133
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
 msgid ""
-"Please take into account that this EPUB is not valid for distribution. Click"
-" the Download button to proceed."
+"Please notice this EPUB is NOT valid for distribution, but only to generate "
+"book templates (\"skeletons\") on Booktype. Click Download button to "
+"proceed."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:135
@@ -3086,6 +3078,18 @@ msgstr ""
 msgid "Infobox"
 msgstr ""
 
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
+#: lib/booktype/importer/docx/docximporter.py:246
+#: lib/booktype/importer/docx/docximporter.py:515
+msgid "Title"
+msgstr "ਨਾਮ"
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:495
 msgid "Write your infobox title here"
 msgstr ""
@@ -3130,6 +3134,13 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
 msgid "Enter Meta-data"
 msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
+#: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
+msgid "Creator"
+msgstr "ਬਣਾਉਣਵਾਲਾ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:169
 #: lib/booktype/apps/export/models.py:52
@@ -4768,6 +4779,12 @@ msgid ""
 "A theme for science and reporting, built on the Roboto font family. The "
 "compact theme uses line indentation and no paragraph spacing."
 msgstr ""
+
+#: lib/booktype/skeleton/themes/academic/panel.html:7
+#: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
+#: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
+msgid "Author"
+msgstr "ਲੇਖਕ"
 
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:6
 msgid ""
