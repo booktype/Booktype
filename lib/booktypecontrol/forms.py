@@ -197,7 +197,6 @@ class FrontpageForm(BaseControlForm, forms.Form):
         except IOError:
             _dict['description'] = ''
 
-        _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
         _dict['use_anonymous_page'] = config.get_configuration('BOOKTYPE_FRONTPAGE_USE_ANONYMOUS_PAGE')
         _dict['anonymous_message'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_MESSAGE')
         _dict['anonymous_email'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_EMAIL')
@@ -208,7 +207,6 @@ class FrontpageForm(BaseControlForm, forms.Form):
     def save_settings(self, request):
         static_root = settings.BOOKTYPE_ROOT
 
-        config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
         config.set_configuration('BOOKTYPE_FRONTPAGE_USE_ANONYMOUS_PAGE', self.cleaned_data['use_anonymous_page'])
         config.set_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_MESSAGE', self.cleaned_data['anonymous_message'])
         config.set_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_EMAIL', self.cleaned_data['anonymous_email'])

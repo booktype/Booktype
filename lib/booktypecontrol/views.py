@@ -261,11 +261,12 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def get_success_url(self):
         # if form class has custom success url
-        if self.form_class.success_url:
-            success_url = self.form_class.success_url
-            if "#" in success_url:
-                success_url = "{0}{1}".format(self.success_url, success_url)
-            return success_url
+        success_url = self.form_class.success_url
+        if not success_url:
+            success_url = "#%s" % self.submodule
+
+        if success_url and "#" in success_url:
+            return "{0}{1}".format(self.success_url, success_url)
         return super(ControlCenterSettings, self).get_success_url()
 
 
