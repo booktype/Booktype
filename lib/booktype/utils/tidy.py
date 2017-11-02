@@ -58,7 +58,11 @@ def tidy_cleanup(content, **extra):
         return (3, None)
 
     try:
-        p.stdin.write(content.encode('utf8'))
+        try:
+            decoded_content = content.decode('utf-8')
+        except UnicodeDecodeError:
+            decoded_content = content.decode('ascii')
+        p.stdin.write(decoded_content.encode('utf-8'))
     except Exception as err:
         logger.warn("TidyCleanup: There was an error when encoding content. Using raw content. %s" % err)
         p.stdin.write(content)
