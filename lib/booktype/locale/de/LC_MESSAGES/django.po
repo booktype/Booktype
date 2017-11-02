@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-18 23:35-0600\n"
-"PO-Revision-Date: 2017-10-19 07:41+0000\n"
-"Last-Translator: Daniel James <daniel@64studio.com>\n"
+"PO-Revision-Date: 2017-11-02 15:51+0000\n"
+"Last-Translator: Julian <julian.sorge@sourcefabric.org>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,19 +65,19 @@ msgstr "Kapitel löschen"
 
 #: lib/booktype/api/__init__.py:20
 msgid "List Metadata"
-msgstr ""
+msgstr "Liste Metadaten"
 
 #: lib/booktype/api/__init__.py:21
 msgid "Create Metadata"
-msgstr ""
+msgstr "Erstelle Metadaten"
 
 #: lib/booktype/api/__init__.py:22
 msgid "Update Metadata"
-msgstr ""
+msgstr "Aktualisiere Metadaten"
 
 #: lib/booktype/api/__init__.py:23
 msgid "Delete Metadata"
-msgstr ""
+msgstr "Lösche Metadaten"
 
 #: lib/booktype/api/__init__.py:25
 msgid "List Roles"
@@ -113,7 +113,7 @@ msgstr "Booktype Konto Anmeldung"
 #: lib/booktype/apps/account/templates/account/dashboard.html:57
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:8
 msgid "Import Book from DOCX or EPUB"
-msgstr ""
+msgstr "Importiere Buch aus DOCX oder EPUB"
 
 #: lib/booktype/apps/account/__init__.py:8
 msgid "View user info"
@@ -121,7 +121,7 @@ msgstr "Siehe Nutzer Info"
 
 #: lib/booktype/apps/account/__init__.py:9
 msgid "Manage Book Skeletons"
-msgstr ""
+msgstr "Verwalte Buchvorlagen"
 
 #: lib/booktype/apps/account/forms.py:21
 #: lib/booktype/apps/account/templates/account/register_form.html:13
@@ -159,11 +159,11 @@ msgstr "Nachricht"
 
 #: lib/booktype/apps/account/forms.py:127
 msgid "Working title"
-msgstr ""
+msgstr "Arbeitstitel"
 
 #: lib/booktype/apps/account/forms.py:134
 msgid "Language of the book"
-msgstr ""
+msgstr "Sprache des Buches"
 
 #: lib/booktype/apps/account/forms.py:137
 #: lib/booktype/apps/account/forms.py:184 lib/booktype/apps/edit/forms.py:148
@@ -175,7 +175,7 @@ msgstr "Lizenz"
 
 #: lib/booktype/apps/account/forms.py:140
 msgid "Visible to everyone"
-msgstr ""
+msgstr "Für jeden sichtbar"
 
 #: lib/booktype/apps/account/forms.py:141
 msgid ""
@@ -183,7 +183,7 @@ msgid ""
 "book. (It is not necessary to tick the box to invite people to read or "
 "collaborate into the book. To invite people, please use the function on your"
 " dashboard or the info page of this book)."
-msgstr ""
+msgstr "HINWEIS: Wenn dieser Haken gesetzt ist, können alle Nutzer auf der Plattform Dein Buch lesen. (Um Leute zum Bearbeiten des Buches einzuladen muss der Haken NICHT gesetzt sein. Diese können über das Dashboard oder die Info Seite dieses Buches eingeladen werden.)"
 
 #: lib/booktype/apps/account/forms.py:146
 #: lib/booktype/apps/export/models.py:51
@@ -192,27 +192,27 @@ msgstr "Beschreibung"
 
 #: lib/booktype/apps/account/forms.py:148
 msgid "Optional: describe the book to other users on this platform"
-msgstr ""
+msgstr "Optional: Beschreibung des Buches  für andere Nutzer auf der Plattform. "
 
 #: lib/booktype/apps/account/forms.py:160
 msgid "Select the base book"
-msgstr ""
+msgstr "Wähle das Ausgangsbuch"
 
 #: lib/booktype/apps/account/forms.py:164
 msgid "Select the skeleton"
-msgstr ""
+msgstr "Wähle das Buchvorlage"
 
 #: lib/booktype/apps/account/forms.py:174
 msgid "Cover Image"
-msgstr ""
+msgstr "Cover Bild"
 
 #: lib/booktype/apps/account/forms.py:178
 msgid "Title of cover"
-msgstr ""
+msgstr "Cover-Titel"
 
 #: lib/booktype/apps/account/forms.py:181
 msgid "Creator of cover"
-msgstr ""
+msgstr "Urheber des Covers"
 
 #: lib/booktype/apps/account/models.py:35
 msgid "mood"
@@ -517,7 +517,7 @@ msgstr "Buch beitreten"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:324
 msgid "Unexpected error while creating the book"
-msgstr ""
+msgstr "Unerwarteter Fehler bei Erstellen des Buches. "
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
@@ -567,11 +567,11 @@ msgstr "Löschen"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 msgid "Project Information"
-msgstr ""
+msgstr "Information zum Buchprojekt"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:19
 msgid "Please fill in some details of the new project/book on this platform"
-msgstr ""
+msgstr "Bitte beschreibe das neue Buchprojekt kurz. "
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:24
 msgid "There is already a book with this name."
@@ -586,56 +586,56 @@ msgstr "Metadaten"
 msgid ""
 "Please enter metadata of the book. Metadata is necessary for later "
 "publishing"
-msgstr ""
+msgstr "Bitte gebe Metadaten des Buches ein. Diese werden für eine spätere Publikation benötigt. "
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:64
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
 msgid "Creation mode"
-msgstr ""
+msgstr "Bucherstellungsmethode"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:66
 msgid "Choose the way you want to create the book"
-msgstr ""
+msgstr "Wähle, wie das Buch erstellt werden soll"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:74
 msgid "From scratch"
-msgstr ""
+msgstr "Neues, leeres Buchprojekt"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:75
 msgid "Will create an empty book with no sections or chapters"
-msgstr ""
+msgstr "Erstellt ein komplett leeres Buch ohne Kapitel oder Abschnitte"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:81
 msgid "Based on another book"
-msgstr ""
+msgstr "Buch kopieren"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:82
 msgid ""
 "Pick this option if you want to create the book based on another book "
 "existent on the system"
-msgstr ""
+msgstr "Erstellt ein Buch auf Grundlage eines Deiner bestehenden Bücher auf der Plattform. "
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:88
 msgid "Based on skeleton"
-msgstr ""
+msgstr "Aus Buchvorlage"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:89
 msgid ""
 "You will have the option to select a predefined skeleton to base your new "
 "book on"
-msgstr ""
+msgstr "Erstelle Buch aus hinterlegter Buchvorlage. Wähle aus der Liste."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
 msgid "Import from DOCX or EPUB"
-msgstr ""
+msgstr "Import von DOCX oder EPUB Dateien"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:120
 msgid "No book skeletons yet."
-msgstr ""
+msgstr "Noch keine Buchvorlagen hinterlegt. "
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 msgid "You can manage them from the"
-msgstr ""
+msgstr "Du kannst sie verwalten in"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
@@ -672,7 +672,7 @@ msgstr "Cover "
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
-msgstr ""
+msgstr "Sollte bereits ein Cover vorliegen, jetzt hochladen (kann später noch erfolgen oder ersetzt werden)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
@@ -736,7 +736,7 @@ msgstr "Buch Titel (optional)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:63
 msgid "Enter new Book title"
-msgstr ""
+msgstr "Buchtitel eingeben"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:66
 #: lib/booktype/apps/reader/forms.py:19
@@ -1117,7 +1117,7 @@ msgstr "Rollen im Buch"
 
 #: lib/booktype/apps/core/models.py:104
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
 msgid "Name"
@@ -1130,19 +1130,19 @@ msgstr "Sprache"
 
 #: lib/booktype/apps/core/models.py:127
 msgid "Skeleton Type"
-msgstr ""
+msgstr "Typ der Buchvorlage "
 
 #: lib/booktype/apps/core/models.py:131
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: lib/booktype/apps/core/models.py:137
 msgid "Book Skeleton"
-msgstr ""
+msgstr "Buchvorlage"
 
 #: lib/booktype/apps/core/models.py:138
 msgid "Book Skeletons"
-msgstr ""
+msgstr "Buchvorlagen"
 
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
@@ -1577,7 +1577,7 @@ msgstr "Wähle die Ausgabeformate in denen dieser Abschnitt erscheinen soll."
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:21
 msgid "Output Name"
-msgstr ""
+msgstr "Ausgabe Name"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:22
 msgid "Show"
@@ -1585,7 +1585,7 @@ msgstr "Zeige"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
 msgid "In Table of Contents"
-msgstr ""
+msgstr "Inhaltsverzeichnis"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
 msgid "Show section and chapters"
@@ -1593,11 +1593,11 @@ msgstr "Zeige Abschnitte und Kapitel"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
 msgid "Show section but hide chapters"
-msgstr ""
+msgstr "Zeige Abschnitt, verstecke Kapitel"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:36
 msgid "Hide section but show chapters"
-msgstr ""
+msgstr "Verstecke Abschnitt, zeige Kapitel"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:37
 msgid "Hide section and chapters"
@@ -2485,7 +2485,7 @@ msgstr "Kapitel \"%%s\" Status wurde zu \"%%s\" geändert."
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:63
 #, python-format
 msgid "Theme was changed to \"%%s\""
-msgstr ""
+msgstr "Layout Design wurde zu \"%%s\" verändert"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:64
 #, python-format
@@ -2736,13 +2736,13 @@ msgid ""
 "Please notice this EPUB is NOT valid for distribution, but only to generate "
 "book templates (\"skeletons\") on Booktype. Click Download button to "
 "proceed."
-msgstr ""
+msgstr "HINWEIS: Diese EPUB ist nicht für eine Veröffentlichung geeignet, sondern lediglich, um eine Buchvorlage in Booktype zu erstellen. Klicke Button zum Herunterladen. "
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:135
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:274
 msgid "Download as EPUB Skeleton"
-msgstr ""
+msgstr "Als EPUB Buchvorlage herunterladen"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:136
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
@@ -3028,15 +3028,15 @@ msgstr "Änderungen verwerfen"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:357
 msgid "Book theme was changed"
-msgstr ""
+msgstr "Layout Design wurde verändert"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:360
 msgid "Book theme was changed. Do you want to apply it right now?"
-msgstr ""
+msgstr "Buch Layout wurde verändert. Soll es jetzt angewendet werden?"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:364
 msgid "Apply"
-msgstr ""
+msgstr "Anwenden"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:381
 msgid "Number of columns"
@@ -4714,7 +4714,7 @@ msgstr "Korrektorat"
 
 #: lib/booktype/convert/pdf/converter.py:45
 msgid "PDF Legacy (deprecated)"
-msgstr ""
+msgstr "Überholte PDF Version"
 
 #: lib/booktype/importer/docx/docximporter.py:95
 msgid ""
