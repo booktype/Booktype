@@ -123,20 +123,25 @@ def get_toc_dict_for_book(version):
             if current_editor:
                 state = "edit"
 
+            chapter = chap.chapter
+            checked_statuses = list(chapter.checked_statuses.values_list('pk', flat=True))
+
             results.append({
-                'chapterID': chap.chapter.id,
-                'title': chap.chapter.title,
-                'urlTitle': chap.chapter.url_title,
+                'chapterID': chapter.id,
+                'title': chapter.title,
+                'urlTitle': chapter.url_title,
                 'isSection': (chap.typeof != models.BookToc.CHAPTER_TYPE),
-                'status': chap.chapter.status.id,
-                'lockType': chap.chapter.lock_type,
-                'lockUsername': chap.chapter.lock_username,
+                'status': chapter.status.id,
+                'checked_statuses': checked_statuses,
+                'assigned': chapter.assigned,
+                'lockType': chapter.lock_type,
+                'lockUsername': chapter.lock_username,
                 'parentID': parent_id,
                 'tocID': chap.id,
                 'state': state,
                 'editBy': current_editor,
-                'hasComments': chap.chapter.has_comments,
-                'hasMarker': chap.chapter.has_marker
+                'hasComments': chapter.has_comments,
+                'hasMarker': chapter.has_marker
             })
         else:
             results.append({
@@ -602,15 +607,20 @@ def remote_chapter_state(request, message, bookid, version):
         sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
                                                             request.user.username))
 
+    chapterItem = {
+        "hasComments": chapter.has_comments,
+        "hasMarker": chapter.has_marker,
+        "statusID": chapter.status.id,
+        "checked_statuses": list(chapter.checked_statuses.values_list('pk', flat=True))
+    }
+
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_state",
             "chapterID": message["chapterID"],
             "state": message["state"],
             "username": request.user.username,
-            "hasComments": chapter.has_comments,
-            "hasMarker": chapter.has_marker,
-            "statusID": chapter.status.id
+            "chapterItem": chapterItem
         }, myself=True)
 
     return {"result": True}
@@ -668,8 +678,7 @@ def remote_change_status(request, message, bookid, version):
             "chapterID": message["chapterID"],
             "statusID": int(message["statusID"]),
             "username": request.user.username
-        }
-    )
+        })
 
     sputnik.addMessageToChannel(
         request, "/chat/%s/" % bookid, {
@@ -683,16 +692,66 @@ def remote_change_status(request, message, bookid, version):
                 _lazy(status.name)
             ]
         },
-        myself=True
-    )
+        myself=True)
 
     send_notification(
         request, bookid, version,
         "notification_chapter_status_was_changed",
-        chapter.title, _lazy(status.name)
-    )
+        chapter.title, _lazy(status.name))
 
     return {'result': True}
+
+
+def remote_status_checked(request, message, bookid, version):
+    """
+    Saves checked or unchecked status into chapter checked_statuses relation
+    field.
+
+    FIXME: should we notify all the users in the channel?
+    """
+    book, book_version, book_security = get_book(request, bookid, version)
+    checked_state = message.get('checkedState', False)  # true or false?
+
+    # NOTE: should this be tight to permissions?
+
+    try:
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+        status = models.BookStatus.objects.get(id=int(message["statusID"]))
+    except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
+        return dict(result=False)
+
+    if checked_state:
+        chapter.checked_statuses.add(status)
+    else:
+        chapter.checked_statuses.remove(status)
+
+    # let's get the updated list of checked statuses
+    checked_statuses = list(chapter.checked_statuses.values_list('pk', flat=True))
+
+    return dict(result=True, checked_statuses=checked_statuses)
+
+
+def remote_assign_chapter(request, message, bookid, version):
+    """
+    Assign user to a chapter. If userID is null it will remove the assigning
+
+    FIXME:
+        - should we notify all the users in the channel?
+    """
+    book, book_version, book_security = get_book(request, bookid, version)
+    user_assign = message.get('username', '')
+
+    # NOTE: should this be tight to permissions?
+
+    try:
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    chapter.assigned = user_assign
+    chapter.save()
+
+    return dict(result=True, assigned=chapter.assigned)
 
 
 def remote_chapter_save(request, message, bookid, version):
@@ -1599,7 +1658,8 @@ def remote_get_chapter(request, message, bookid, version):
     """
     This is called when you fire up WYSWYG editor or Chapter viewer. It sends back basic chapter information.
 
-    If edit_lock flag is send then it will Sends message "chapter_state" to the channel and create edit_lock for this chapter.
+    If edit_lock flag is send then it will Sends message "chapter_state" to the channel and create edit_lock
+    for this chapter.
 
     Input:
      - chapterID
@@ -1642,6 +1702,7 @@ def remote_get_chapter(request, message, bookid, version):
     # check if chapter is locked or under edit
     if message.get("edit_lock", False):
         editor_username = chapter.get_current_editor_username()
+
         if editor_username and editor_username != request.user.username:
             res["reason"] = ugettext("Chapter currently being edited.")
             return res
@@ -1661,7 +1722,8 @@ def remote_get_chapter(request, message, bookid, version):
     res["current_revision"] = chapter.revision
 
     if message.get("revisions", False):
-        res["revisions"] = [x.revision for x in models.ChapterHistory.objects.filter(chapter=chapter).order_by("revision")]
+        revision_qs = models.ChapterHistory.objects.filter(chapter=chapter).order_by("revision")
+        res["revisions"] = [x.revision for x in revision_qs]
 
     if message.get("revision", chapter.revision) != chapter.revision:
         ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
@@ -1669,16 +1731,20 @@ def remote_get_chapter(request, message, bookid, version):
 
     # if this chapter for edit or read
     if message.get("edit_lock", False):
-        # set the initial timer edit locking
-        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
-                    time.time())
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "chapter_state",
-                                     "chapterID": message["chapterID"],
-                                     "state": "edit",
-                                     "username": request.user.username},
-                                    myself=False)
+        # set the initial timer edit locking
+        sputnik.set(
+            "booktype:%s:%s:editlocks:%s:%s" % (
+                bookid, version, message["chapterID"], request.user.username),
+            time.time())
+
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "chapter_state",
+                "chapterID": message["chapterID"],
+                "state": "edit",
+                "username": request.user.username
+            }, myself=False)
 
     return res
 

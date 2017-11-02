@@ -19,6 +19,7 @@ from django.utils import formats
 from django.conf import settings
 from django.db import transaction
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.shortcuts import get_object_or_404
@@ -37,6 +38,7 @@ from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
 from booktype.apps.core import views
+from booktype.apps.core.models import BookRole
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.convert.plugin import TocSettings
@@ -395,7 +397,7 @@ def cover(request, bookid, cid, fname=None, version=None):
 
 class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
-    """Basic Edit Book View which opens up the editor.
+    """Edit Book View which opens up the editor.
 
     Most of the initial data is loaded from the browser over the Sputnik.
     In the view we just check Basic security permissions and availability
@@ -501,7 +503,36 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
         context['upload_docx_form'] = UploadDocxFileForm()
 
+        # get book participants
+        members_query = self._get_book_participants(book_version)
+
+        from booktype.apps.core.templatetags.booktype_tags import tag_username
+        book_members_list = [tag_username(x) for x in members_query]
+
+        # we should also get assigned users to other chapters
+        assigned_users = book_version.chapter_set.all().values_list("assigned", flat=True)
+        assigned_users = list(assigned_users) + book_members_list
+
+        context['book_members'] = sorted(assigned_users)
+
         return context
+
+    def _get_book_participants(self, book_version):
+        book = book_version.book
+
+        # get all users who have worked on the book
+        book_collaborators_ids = models.BookHistory.objects.filter(
+            version=book_version, kind=2).values_list('user', flat=True)
+
+        # and also get all users who are members of any role on the book
+        book_members = BookRole.objects.filter(book=book).values_list('members', flat=True)
+
+        user_ids = list(book_collaborators_ids) + list(book_members)
+
+        # and of course the book owner
+        user_ids.append(book.owner.id)
+
+        return User.objects.filter(id__in=user_ids).distinct()
 
     def get_login_url(self):
         return reverse('accounts:signin')
@@ -809,7 +840,7 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
     and book history download as well
     """
 
-    # TODO: document how this thing works via url and what parameters might take
+    # TODO: document how this things work via url and what parameters might take
     # in order to accomplish different things
 
     model = models.Book

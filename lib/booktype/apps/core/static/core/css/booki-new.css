@@ -1254,6 +1254,36 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 .sortable-status li>div .btn [class^="icon-"] {
 	margin-right:0
 }
+
+.dropdown-menu.status-options > li {
+	cursor: pointer;
+}
+
+.dropdown-menu.status-options > li:hover {
+	background-image: -webkit-gradient(linear,left 0,left 100%,from(#FF6600),to(#FF6600));
+	background-image: -webkit-linear-gradient(top,#FF6600 0,#FF6600 100%);
+	background-image: -moz-linear-gradient(top,#FF6600 0,#FF6600 100%);
+	background-image: linear-gradient(to bottom,#FF6600 0,#FF6600 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#MSbutton-background-lighter',endColorstr='#MSbutton-background-darker',GradientType=0);
+	background-color: #FF6600
+}
+
+.dropdown-menu.status-options > li:hover a {
+	color: #fff;
+}
+
+.dropdown-menu.status-options > li > a {
+	width: 87%;
+	display: inline-block;
+}
+
+.dropdown-menu.status-options > li > input[type=checkbox] {
+	width: 10%;
+	display: inline-block;
+}
+
+
 .book-versions {
 	margin:30px 0
 }
@@ -1294,30 +1324,98 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 .sortable li.detail-switch div .toc-chapter-detail {
 	display:block
 }
-.sortable li div .toc-chapter-detail div {
-	float:left;
-	padding:0 6px 1px 6px;
-	background:#999;
-	-webkit-border-radius:2px;
-	moz-border-radius:2px;
-	border-radius:2px;
-	margin-right:5px;
-	font-size:11px;
-	line-height:16px
+
+.sortable li div .toc-chapter-detail .selectize-control.single {
+	min-width: 100px;
+  float: right;
+	margin-right: 10px;
+	margin-top: 1px;
 }
+
+.sortable li div .toc-chapter-detail .selectize-input {
+  border-radius: 0px;
+  text-transform: uppercase;
+  font-size: 9px;
+  padding: 0px 5px;
+  font-weight: 600;
+	text-shadow: 0 1px 0 #fff;
+	background: #efefef;
+  border: 1px solid #dfdfdf;
+  box-shadow: none;
+  top: -1px;
+}
+
+.sortable li div .toc-chapter-detail .selectize-input:after{
+	display: none;
+}
+
+.sortable li div .toc-chapter-detail .selectize-dropdown.single{
+	top: 20px !important;
+}
+
+.sortable li div .toc-chapter-detail .selectize-dropdown-content div.option,
+.sortable li div .toc-chapter-detail .selectize-dropdown-content div.create,
+.sortable li div .toc-chapter-detail .selectize-input input{
+	font-weight: 600;
+	text-transform: uppercase;
+  font-size: 9px;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.sortable li div .toc-chapter-detail .selectize-dropdown-content div.option{
+	padding: 3px 8px;
+}
+
 .sortable li .label {
 	margin-top:1px
 }
+
 .sortable li div .toc-chapter-detail .status {
 	float:right;
-	background:#48B0F7
+	background:#48B0F7;
+	padding:0 6px 1px 6px;
+
+	margin-right:5px;
+	font-size:11px;
+	line-height:16px;
+
+	text-align: center;
+	min-width: 60px;
+
+	-webkit-border-radius:0px;
+	moz-border-radius:0px;
+	border-radius:0px;
+}
+
+.sortable li div .toc-chapter-detail .status label {
+	margin-bottom: 0px;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 9px;
+	line-height: 14px;
+	position: relative;
+	top: -1px;
+}
+
+.sortable li div .toc-chapter-detail .status input[type=checkbox] {
+	margin-top: 0px;
+	display: inline-block;
+	position: relative;
+	top: 2.5px;
+}
+
+
+.sortable li .btn-toolbar .status-dropdown > button {
+	min-width: 60px;
 }
 
 .sortable li div .toc-chapter-detail .icons {
-	background: none;
+	background:none;
+	padding:0 6px 1px 6px;
 	padding-left: 0px;
 	font-size: 12px;
 	color: #000;
+	float:left;
 }
 
 .toc-icon-chapter {

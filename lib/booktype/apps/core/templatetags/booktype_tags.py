@@ -23,8 +23,7 @@ register = template.Library()
 logger = logging.getLogger('booktype')
 
 
-@register.simple_tag
-def username(user):
+def tag_username(user):
     """Returns full name of the user.
 
     Args:
@@ -45,6 +44,9 @@ def username(user):
         name = 'Anonymous'
 
     return name
+
+register.simple_tag(func=tag_username, name='username')
+register.filter(filter_func=tag_username, name='username')
 
 
 ###############################################################################

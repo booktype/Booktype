@@ -177,22 +177,18 @@ METADATA_FIELDS = [
 ]
 
 
-# Book
 class Book(models.Model):
     url_title = models.CharField(_('url title'), max_length=2500, blank=False, unique=True)  # can it be blank?
     title = models.CharField(_('title'), max_length=2500, blank=False)
     status = models.ForeignKey('BookStatus', null=True, related_name="status", verbose_name=_("status"))
     language = models.ForeignKey(Language, null=True, verbose_name=_("language"))  # can it be blank?
 
-    # this i need
     version = models.ForeignKey('BookVersion', null=True, related_name="version", verbose_name=_("version"))
 
     group = models.ForeignKey(BookiGroup, null=True, verbose_name=_("group"))
 
     owner = models.ForeignKey(auth_models.User, verbose_name=_("owner"))
 
-    # or is this suppose to be per project
-    # and null=False should be
     license = models.ForeignKey(License, null=True, blank=True, verbose_name=_("license"))
 
     created = models.DateTimeField(_('created'), auto_now=False, default=datetime.datetime.now)
@@ -467,11 +463,18 @@ class BookVersion(models.Model):
 class Chapter(models.Model):
     EDIT_PING_SECONDS_MAX_DELTA = 15
 
-    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
-    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
+    version = models.ForeignKey(BookVersion, null=False, verbose_name=_('version'))
+    book = models.ForeignKey(Book, null=False, verbose_name=_('book'))
     url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_('status'))
+
+    # used to save statuses as checked
+    checked_statuses = models.ManyToManyField(
+        BookStatus, related_name='checked_statuses')
+
+    assigned = models.CharField(_('assigned'), max_length=100, default='', blank=True)
+
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
     revision = models.IntegerField(_('revision'), default=1)
