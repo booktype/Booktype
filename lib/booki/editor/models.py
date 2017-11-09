@@ -435,7 +435,13 @@ class BookVersion(models.Model):
     track_changes = models.BooleanField(default=False)
 
     def get_toc(self):
-        return BookToc.objects.filter(version=self).order_by("-weight")
+        related_types = [
+            'chapter', 'chapter__status',
+            'chapter__lock', 'chapter__book',
+            'chapter__version'
+        ]
+
+        return BookToc.objects.filter(version=self).select_related(*related_types).order_by("-weight")
 
     def get_hold_chapters(self):
         return Chapter.objects.filter(version=self, book=self.book, booktoc__chapter__isnull=True)
