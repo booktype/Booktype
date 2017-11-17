@@ -69,9 +69,10 @@ class AttachmentAdmin(admin.ModelAdmin):
 
 
 class BookStatusAdmin(admin.ModelAdmin):
-    list_display = ('name', 'weight')
+    list_display = ('name', 'weight', 'book')
     ordering = ['-weight']
     list_filter = ['book']
+    search_fields = ['book__title', 'name']
 
 
 class BookTocAdmin(admin.ModelAdmin):
