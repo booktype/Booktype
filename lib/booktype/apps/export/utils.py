@@ -345,19 +345,19 @@ class ExportBook(object):
 
         # handle images
         if elem.tag == 'img':
-
-            if elem.getparent().tag != 'div' or \
-                            'class' not in elem.getparent().attrib or \
-                            'image' not in elem.getparent().attrib['class'].split():
+            if (elem.getparent().tag != 'div' or
+                    'class' not in elem.getparent().attrib or
+                    'image' not in elem.getparent().attrib['class'].split()):
                 image_div = etree.Element('div', {'class': 'image'})
                 elem.addprevious(image_div)
                 image_div.insert(0, elem)
 
             image_div = elem.getparent()
 
-            if image_div.getparent().tag != 'div' or \
-                            'class' not in image_div.getparent().attrib or \
-                            'group_img' not in image_div.getparent().attrib['class'].split():
+            if (image_div.getparent().tag != 'div' or
+                    'class' not in image_div.getparent().attrib or
+                    ('group_img' not in image_div.getparent().attrib['class'].split() and
+                      'wrap' not in image_div.getparent().attrib['class'].split())):
                 group_img = etree.Element('div', {'class': 'group_img'})
                 image_div.addprevious(group_img)
                 group_img.insert(0, image_div)

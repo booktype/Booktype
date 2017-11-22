@@ -1,4 +1,4 @@
-{% load i18n booktype_tags %}
+{% load i18n booktype_tags static %}
 
 <div class="template templateAlohaToolbar">
    {% include "edit/aloha_menu.html" %}
@@ -266,9 +266,11 @@
   </script>
 
   <div id="imagePopup" style="display: none;">
-    <a href="#" class="remove"><i class="fa fa-times-circle"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
-    <a href="#" class="bk-image-editor-start"><i class="fa fa-adjust"></i>  {% trans "EDIT" %}</a>
-    <a href="#" class="bk-image-editor-stop"><i class="fa fa-power-off"></i>  {% trans "STOP EDIT" %}</a>
+    <a href="#" class="remove"><i class="fa fa-times-circle"></i> {% trans "REMOVE" %}&nbsp;</a>
+    <a href="#" class="bk-image-editor-start"><i class="fa fa-adjust"></i> {% trans "EDIT" %}&nbsp;</a>
+    <a href="#" class="bk-image-editor-stop"><i class="fa fa-power-off"></i> {% trans "STOP EDIT" %}&nbsp;</a>
+    <a href="#" class="bk-image-layout-select bk-image-layouts-list"><i class="fa fa-columns"></i> {% trans "LAYOUTS" %}&nbsp;</a>
+    <a href="#" class="bk-image-layout-select bk-image-layout-selected"><i class="fa fa-check"></i> {% trans "SAVE LAYOUT" %}&nbsp;</a>
     <div class="bk-image-editor-ui-controls">
       <hr>
       <div class="form-group">
@@ -305,6 +307,25 @@
         <label for="bk-image-editor-contrast-slider">{% trans "Saturate" %}</label>
         <input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
       </div>
+    </div>
+    <div class="bk-image-layout-ui-controls">
+      <hr>
+      <img class="image-layout-1image" src="{% static 'edit/img/1_image.png' %}">
+      <img class="image-layout-1image_1caption_bottom" src="{% static 'edit/img/1_image_1_caption_bottom.png' %}">
+      <img class="image-layout-1image_1caption_left" src="{% static 'edit/img/1_image_1_caption_left.png' %}">
+      <img class="image-layout-1image_1caption_right" src="{% static 'edit/img/1_image_1_caption_right.png' %}">
+      <img class="image-layout-2images" src="{% static 'edit/img/2_images.png' %}">
+      <img class="image-layout-2images_1caption_bottom" src="{% static 'edit/img/2_images_1_caption_bottom.png' %}">
+      <img class="image-layout-2images_2captions_bottom" src="{% static 'edit/img/2_images_2_captions_bottom.png' %}">
+      <hr>
+      <table>
+        <tr>
+          <td class="color-image"></td>
+          <td>{% trans "image" %}</td>
+          <td class="color-caption"></td>
+          <td>{% trans "text" %}</td>
+        </tr>
+      </table>
     </div>
   </div>
 <!-- End Insert Image Modal -->
