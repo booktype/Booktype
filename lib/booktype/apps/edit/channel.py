@@ -261,6 +261,20 @@ def get_book(request, bookid, versionid):
     return book, book_version, book_security
 
 
+def get_book_statuses(book):
+    """
+    Function returns list of Book statuses.
+
+    :Arguments:
+        book: Book instance
+
+    Returns list of book statuses elements
+    """
+
+    qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
+    return [(st.id, _lazy(st.name), st.color) for st in qs]
+
+
 def remote_init_editor(request, message, bookid, version):
     """
     Called when Booki editor is being initialized.
@@ -309,8 +323,7 @@ def remote_init_editor(request, message, bookid, version):
         users = []
 
     # get workflow statuses
-    statuses = [
-        (st.id, _lazy(st.name), st.color) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    statuses = get_book_statuses(book)
 
     # get attachments
     try:
@@ -2308,8 +2321,7 @@ def remote_book_status_rename(request, message, bookid, version):
     except models.BookStatus.DoesNotExist:
         pass
 
-    qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
-    all_statuses = [(status.id, _lazy(status.name)) for status in qs]
+    all_statuses = get_book_statuses(book)
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
@@ -2365,18 +2377,16 @@ def remote_book_status_order(request, message, bookid, version):
 
         weight -= 1
 
-    all_statuses = [
-        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = get_book_statuses(book)
 
-    sputnik.addMessageToChannel(request,
-                                "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": all_statuses},
-                                myself=False
-                                )
+    sputnik.addMessageToChannel(
+        request,
+        "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_status_changed",
+            "statuses": all_statuses
+        }, myself=False)
 
-    return {"result": True,
-            "statuses": all_statuses}
+    return {"result": True, "statuses": all_statuses}
 
 
 def remote_book_status_remove(request, message, bookid, version):
@@ -2422,21 +2432,21 @@ def remote_book_status_remove(request, message, bookid, version):
     else:
         result = False
 
-    all_statuses = [
-        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")
-    ]
+    all_statuses = get_book_statuses(book)
 
     sputnik.addMessageToChannel(
         request,
-        "/booktype/book/%s/%s/" % (bookid, version),
-        {"command": "chapter_status_changed",
-         "statuses": all_statuses},
-        myself=False
-    )
+        "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_status_changed",
+            "statuses": all_statuses
+        },
+        myself=False)
 
-    return {"status": True,
+    return {
+            "status": True,
             "result": result,
-            "statuses": all_statuses}
+            "statuses": all_statuses
+        }
 
 
 def remote_book_status_create(request, message, bookid, version):
@@ -2483,8 +2493,7 @@ def remote_book_status_create(request, message, bookid, version):
 
     status_id = bs.id
 
-    all_statuses = [
-        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = get_book_statuses(book)
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version),
