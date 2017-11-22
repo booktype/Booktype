@@ -3466,7 +3466,7 @@ def remote_export_settings_get(request, message, bookid, version):
 
     covers = {}
 
-    for cover in models.BookCover.objects.filter(book=book).order_by("title"):
+    for cover in models.BookCover.objects.filter(approved=True, book=book).order_by("title"):
         extension = os.path.splitext(cover.attachment.name)[-1].lower()
         key = '{}/cover{}'.format(cover.cid, extension)
         covers[key] = cover.title

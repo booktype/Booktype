@@ -112,7 +112,8 @@ def remote_connect(request, message):
     # does this work ?
     try:
         clientID = sputnik.incr("sputnik:client_id")
-    except:
+    except Exception as err:
+        logger.warn("Not able to get cliend_id from sputnik. Msg: %s" % err)
         sputnik.rcon.connect()
         clientID = sputnik.incr("sputnik:client_id")
 

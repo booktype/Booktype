@@ -58,14 +58,21 @@ class ChapterLockAdmin(admin.ModelAdmin):
     list_filter = ['chapter', 'user', 'type']
 
 
+class ChapterHistoryAdmin(admin.ModelAdmin):
+    list_display = ('chapter', 'modified', 'revision', 'comment')
+    list_filter = ['chapter', 'revision']
+    search_fields = ['chapter__title', 'chapter__url_title']
+
+
 class AttachmentAdmin(admin.ModelAdmin):
     list_filter = ['book']
 
 
 class BookStatusAdmin(admin.ModelAdmin):
-    list_display = ('name', 'weight')
+    list_display = ('name', 'weight', 'book')
     ordering = ['-weight']
     list_filter = ['book']
+    search_fields = ['book__title', 'name']
 
 
 class BookTocAdmin(admin.ModelAdmin):
@@ -96,7 +103,7 @@ admin.site.register(models.Book, BookAdmin)
 admin.site.register(models.Info, InfoAdmin)
 admin.site.register(models.Chapter, ChapterAdmin)
 admin.site.register(models.ChapterLock, ChapterLockAdmin)
-admin.site.register(models.ChapterHistory)
+admin.site.register(models.ChapterHistory, ChapterHistoryAdmin)
 admin.site.register(models.Attachment, AttachmentAdmin)
 admin.site.register(models.Language)
 admin.site.register(models.BookStatus, BookStatusAdmin)
@@ -104,4 +111,3 @@ admin.site.register(models.BookToc, BookTocAdmin)
 admin.site.register(models.BookiGroup, BookiGroupAdmin)
 admin.site.register(models.BookNotes, BookNotesAdmin)
 admin.site.register(models.BookVersion, BookVersionAdmin)
-

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-24 11:28-0600\n"
-"PO-Revision-Date: 2017-08-24 20:24+0000\n"
-"Last-Translator: Daniel James <daniel@64studio.com>\n"
+"POT-Creation-Date: 2017-10-18 23:35-0600\n"
+"PO-Revision-Date: 2017-11-10 08:47+0000\n"
+"Last-Translator: Julian <julian.sorge@sourcefabric.org>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgstr "Verwende anonyme Seite"
 
 #: lib/booktypecontrol/forms.py:157
 msgid "Show a message, contact email or image to anonymous visitors."
-msgstr ""
+msgstr "Zeige unregistrierten Besuchern eine Nachricht, Kontaktadresse oder ein Bild. "
 
 #: lib/booktypecontrol/forms.py:160
 msgid "Anonymous page message"
@@ -115,7 +115,7 @@ msgstr "Neue Lizenz erfolgreich erstellt. "
 msgid ""
 "Default: visible. If this box is unchecked, create/import wizard will "
 "suggest to mark book as hidden by default."
-msgstr ""
+msgstr "Grundeinstellung Sichtbarkeit: OHNE gesetzten Haken wird beim Erstellen von Büchern empfohlen, das Buch für andere Nutzer generell NICHT sichtbar zu machen. "
 
 #: lib/booktypecontrol/forms.py:302
 msgid ""
@@ -124,7 +124,7 @@ msgstr "Wenn dieser Haken gesetzt ist, wird die Änderungsnachverfolgung für AL
 
 #: lib/booktypecontrol/forms.py:305
 msgid "Visible by default"
-msgstr ""
+msgstr "Sichtbarkeit als Grundeinstellung"
 
 #: lib/booktypecontrol/forms.py:310
 msgid "Track changes"
@@ -140,21 +140,21 @@ msgstr "Standard Lizenz für neu erstellte Bücher."
 
 #: lib/booktypecontrol/forms.py:321
 msgid "Default Language"
-msgstr ""
+msgstr "Einstellung Standardsprache"
 
 #: lib/booktypecontrol/forms.py:324
 msgid "Default language for newly created books."
-msgstr ""
+msgstr "Sprache für neu erstellte Bücher."
 
 #: lib/booktypecontrol/forms.py:327
 msgid "Metadata to be filled"
-msgstr ""
+msgstr "Auszufüllende Metadaten"
 
 #: lib/booktypecontrol/forms.py:331
 msgid ""
 "Select the metadata fields to be filled in book creation wizard (selected "
 "fields will be optional)"
-msgstr ""
+msgstr "Wähle die Metadatenfelder, die bei der Buch-Neuerstellung (optional) ausgefüllt werden sollen. "
 
 #: lib/booktypecontrol/forms.py:410
 msgid "Anyone can register"
@@ -382,7 +382,7 @@ msgstr "Keine"
 
 #: lib/booktypecontrol/forms.py:1118
 msgid "Successfully created new Book Skeleton"
-msgstr ""
+msgstr "Neue Buchvorlage erfolgreich erstellt. "
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
 msgid "Add new person"
@@ -498,29 +498,29 @@ msgstr "Neue Rolle hinzufügen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_skeletons.html:4
 msgid "Add New"
-msgstr ""
+msgstr "Neue hinzufügen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_skeletons.html:6
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_skeletons.html:10
 msgid "List of existent skeletons"
-msgstr ""
+msgstr "Liste der bestehenden Buchvorlagen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_skeletons.html:17
 msgid "No registries to show"
-msgstr ""
+msgstr "Keine Einträge anzuzeigen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_book_skeleton.html:7
 msgid "Delete Book Skeleton"
-msgstr ""
+msgstr "Lösche Buchvorlage"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_book_skeleton.html:11
 msgid ""
 "Are you sure you would like to delete this? You will not be able to undo "
 "this operation!"
-msgstr ""
+msgstr "Buchvorlage sicher löschen? Dies kann nicht rückgängig gemacht werden!"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_book_skeleton.html:15
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
@@ -532,7 +532,7 @@ msgstr "Abbrechen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_book_skeleton.html:16
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:7
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:16
@@ -646,7 +646,7 @@ msgid "Online Users"
 msgstr "Online Nutzer"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:94
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:93
 msgid "Working on:"
 msgstr "Arbeiten an:"
 
@@ -751,7 +751,7 @@ msgstr "Liste der Bücher"
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
 #: lib/booktypecontrol/views.py:63
 msgid "Book Skeletons"
-msgstr ""
+msgstr "Buchvorlagen"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
 #: lib/booktypecontrol/views.py:66
@@ -813,98 +813,98 @@ msgstr "Dashboard"
 
 #: lib/booktypecontrol/views.py:62
 msgid "Add Book Skeleton"
-msgstr ""
+msgstr "Buchvorlage hinzufügen"
 
 #: lib/booktypecontrol/views.py:65
 msgid "Publishing Defaults"
 msgstr "Standard für Veröffentlichungen"
 
-#: lib/booktypecontrol/views.py:91 lib/booktypecontrol/views.py:187
-#: lib/booktypecontrol/views.py:286 lib/booktypecontrol/views.py:350
-#: lib/booktypecontrol/views.py:427 lib/booktypecontrol/views.py:469
-#: lib/booktypecontrol/views.py:499
+#: lib/booktypecontrol/views.py:91 lib/booktypecontrol/views.py:196
+#: lib/booktypecontrol/views.py:295 lib/booktypecontrol/views.py:359
+#: lib/booktypecontrol/views.py:436 lib/booktypecontrol/views.py:478
+#: lib/booktypecontrol/views.py:508
 msgid "Admin Control Center"
 msgstr "Admin Control Center"
 
-#: lib/booktypecontrol/views.py:198
+#: lib/booktypecontrol/views.py:207
 msgid "Successfully saved settings."
 msgstr "Einstellungen erfolgreich gespeichert. "
 
-#: lib/booktypecontrol/views.py:203
+#: lib/booktypecontrol/views.py:212
 msgid "Unknown error while saving changes."
 msgstr "Unbekannter Fehler beim Speichern der Änderungen."
 
-#: lib/booktypecontrol/views.py:289
+#: lib/booktypecontrol/views.py:298
 msgid "Edit Person Info"
 msgstr "Personeninfo editieren"
 
-#: lib/booktypecontrol/views.py:309 lib/booktypecontrol/views.py:360
+#: lib/booktypecontrol/views.py:318 lib/booktypecontrol/views.py:369
 msgid "Successfully saved changes."
 msgstr "Änderungen erfolgreich gespeichert. "
 
-#: lib/booktypecontrol/views.py:331
+#: lib/booktypecontrol/views.py:340
 msgid "Rename Book"
 msgstr "Buch umbenennen"
 
-#: lib/booktypecontrol/views.py:335
+#: lib/booktypecontrol/views.py:344
 msgid "Book name successfully changed."
 msgstr "Name des Buches erfolgreich geändert. "
 
-#: lib/booktypecontrol/views.py:371
+#: lib/booktypecontrol/views.py:380
 msgid "Your password was changed"
 msgstr "Ihr Passwort wurde geändert"
 
-#: lib/booktypecontrol/views.py:390
+#: lib/booktypecontrol/views.py:399
 #, python-format
 msgid "Change Password: %s"
 msgstr "Passwort ändern: %s"
 
-#: lib/booktypecontrol/views.py:405
+#: lib/booktypecontrol/views.py:414
 msgid "Group successfully deleted."
 msgstr "Gruppe erfolgreich gelöscht."
 
-#: lib/booktypecontrol/views.py:435
+#: lib/booktypecontrol/views.py:444
 msgid "Edit licence"
 msgstr "Lizenz editieren"
 
-#: lib/booktypecontrol/views.py:441
+#: lib/booktypecontrol/views.py:450
 msgid "License successfully updated."
 msgstr "Lizenz erfolgreich aktualisiert."
 
-#: lib/booktypecontrol/views.py:453
+#: lib/booktypecontrol/views.py:462
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
 msgstr "Bücher mit dieser Lizenz vorhanden. Löschen nicht möglich"
 
-#: lib/booktypecontrol/views.py:458
+#: lib/booktypecontrol/views.py:467
 msgid "License successfully deleted."
 msgstr "Lizenz erfolgreich gelöscht."
 
-#: lib/booktypecontrol/views.py:477
+#: lib/booktypecontrol/views.py:486
 msgid "Edit role"
 msgstr "Rolle editieren"
 
-#: lib/booktypecontrol/views.py:481
+#: lib/booktypecontrol/views.py:490
 msgid "Role successfully updated."
 msgstr "Rolle erfolgreich aktualisiert."
 
-#: lib/booktypecontrol/views.py:491
+#: lib/booktypecontrol/views.py:500
 msgid "Role successfully deleted."
 msgstr "Rolle erfolgreich gelöscht."
 
-#: lib/booktypecontrol/views.py:507
+#: lib/booktypecontrol/views.py:516
 msgid "Edit Book Skeleton"
-msgstr ""
+msgstr "Bearbeite Buchvorlage"
 
-#: lib/booktypecontrol/views.py:511
+#: lib/booktypecontrol/views.py:520
 msgid "Book Skeleton successfully updated"
-msgstr ""
+msgstr "Buchvorlage erfolgreich aktualisiert"
 
-#: lib/booktypecontrol/views.py:521
+#: lib/booktypecontrol/views.py:530
 msgid "Book Skeleton successfully deleted"
-msgstr ""
+msgstr "Buchvorlage erfolgreich gelöscht"
 
 #: lib/booktypecontrol/widgets.py:22
 msgid "Currently:"
-msgstr ""
+msgstr "Aktuell: "

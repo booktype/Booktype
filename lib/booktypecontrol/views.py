@@ -20,7 +20,7 @@ import booki
 import sputnik
 import forms as control_forms
 
-from collections import Counter
+from collections import Counter, OrderedDict
 
 from django import template
 from django.conf import settings
@@ -100,11 +100,20 @@ class ControlCenterView(BaseCCView, TemplateView):
         most_active_query = BookHistory.objects.filter(kind=2)
 
         # now get the most active users base on saving chapters history
-        users = most_active_query.values_list('user', flat=True)
-        most_active = Counter(users).most_common()[:5]
-        context['most_active_users'] = User.objects.filter(
-            id__in=[id for id, freq in most_active]
-        )
+        users = most_active_query.filter(chapter__isnull=False).values_list('user', flat=True)
+        most_actives = [pk for pk, _y in Counter(users).most_common()[:5]]
+        most_active_users = User.objects.filter(id__in=most_actives)
+
+        # we need to keep the order of frequency found by most_common method
+        most_active_users = list(most_active_users)
+        most_active_users.sort(key=lambda u: most_actives.index(u.pk))
+
+        # let's get latest bookhistory with chapter connected
+        most_active_users_history = OrderedDict()
+        for user in most_active_users:
+            most_active_users_history[user] = most_active_query.filter(user=user).last()
+
+        context['most_active_users_history'] = most_active_users_history
 
         # get latest books
         context['latest_books'] = Book.objects.order_by('-created')[:4]
@@ -252,11 +261,12 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def get_success_url(self):
         # if form class has custom success url
-        if self.form_class.success_url:
-            success_url = self.form_class.success_url
-            if "#" in success_url:
-                success_url = "{0}{1}".format(self.success_url, success_url)
-            return success_url
+        success_url = self.form_class.success_url
+        if not success_url:
+            success_url = "#%s" % self.submodule
+
+        if success_url and "#" in success_url:
+            return "{0}{1}".format(self.success_url, success_url)
         return super(ControlCenterSettings, self).get_success_url()
 
 

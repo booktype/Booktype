@@ -25,6 +25,9 @@ DEBUG = TEMPLATES[0]['OPTIONS']['debug'] = False
 # PROFILE
 PROFILE_ACTIVE = 'prod'
 
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = '{}.wsgi_prod.application'.format('##BOOKTYPE_SITE_DIR##')
+
 # URL ROUTER
 ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_DIR)
 
@@ -37,8 +40,8 @@ REDIS_PASSWORD = None
 # DATABASE
 DATABASES = {
     'default': {
-        'ENGINE': '##DATABASE_ENGINE##',
-        'NAME': '##DATABASE_NAME##',
+        'ENGINE': '',
+        'NAME': '',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',

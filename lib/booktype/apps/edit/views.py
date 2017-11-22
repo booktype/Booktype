@@ -31,6 +31,7 @@ from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from braces.views import (LoginRequiredMixin, JSONResponseMixin)
+from compressor.base import Compressor
 
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
@@ -819,6 +820,19 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
 
     DEFAULT_REV = '10'
 
+    ASSETS = {
+        'css': [
+            'vendor/bootstrap-3.3.7/css/bootstrap.min.css',
+            'core/css/booki-new.css'
+        ],
+        'js': [
+            'core/js/jquery-1.9.1.js',
+            'vendor/bootstrap-3.3.7/js/transition.js',
+            'vendor/bootstrap-3.3.7/js/collapse.js',
+            'vendor/bootstrap-3.3.7/js/tooltip.js'
+        ]
+    }
+
     def _get_history(self, history_mode):
         book = self.object
         items = self.item_list
@@ -931,8 +945,26 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
         context['output'] = self._get_history(self.history_mode)
         context['history_title'] = history_title
         context['book_mode'] = book_mode
+        context['html'] = self.request.GET.get('html')
+        context['assets'] = self.ASSETS
 
         return context
+
+    def get_assets_content(self, asset_type):
+        """Takes content from assets files to then bundle them into single file"""
+
+        cc = Compressor()
+        content = ""
+
+        for f in self.ASSETS.get(asset_type, []):
+            filename = cc.get_filename(f)
+            content += cc.get_filecontent(filename, 'utf-8')
+
+        if asset_type == 'css':
+            content = content.replace('\n', '')
+            content = content.replace('\t', '')
+
+        return content
 
     def render_to_response(self, context, **kwargs):
         response = super(DownloadBookHistory, self).render_to_response(context, **kwargs)
@@ -950,7 +982,11 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
 
         zfile_content = StringIO.StringIO()
         zfile = zipfile.ZipFile(zfile_content, 'w', zipfile.ZIP_STORED)
-        zfile.writestr('{}/{}'.format(zip_name, history_file_name), content)
+        zfile.writestr('{}'.format(history_file_name), content)
+
+        # let's write assets bundle's content
+        zfile.writestr('assets/bundle.css', self.get_assets_content('css').encode('utf-8'))
+        zfile.writestr('assets/bundle.js', self.get_assets_content('js').encode('utf-8'))
 
         # include both history modes within zip file
         if self.request.GET.get('zip_both'):
@@ -961,7 +997,7 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
             content2 = resp.render().content
 
             # now it's time to add it to the zip file
-            zfile.writestr('{}/{}'.format(zip_name, _get_name(pending_mode)), content2)
+            zfile.writestr('{}'.format(_get_name(pending_mode)), content2)
 
         zfile.close()
 

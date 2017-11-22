@@ -50,39 +50,51 @@ def show_info():
 def show_after(destination, name):
     logln("")
     logln("Check [%s] directory for created files:" % destination)
-    logln("   booktype.env        -  Environment variables")
-    logln("   manage.py           -  Manage file")
-    logln("   pytest.ini          -  Global py.test configuration")
-    logln("   conftest.py         -  Py.test configuration with fixtures and db pre settings")
-    logln("   epub2docx.sh        -  Pandoc convertion script from epub to docx")
-    logln("   epub2icml.sh        -  Pandoc convertion script from epub to icml")
-    logln("   booktype2mpdf.php   -  Configuration and convertion script for mpdf")
+    logln("   booktype_dev.env          -  Environment dev variables")
+    logln("   booktype_stage.env        -  Environment stage variables")
+    logln("   booktype_prod.env         -  Environment production variables")
+    logln("   manage_dev.py             -  Manage file for dev profile")
+    logln("   manage_stage.py           -  Manage file for stage profile")
+    logln("   manage_prod.py            -  Manage file for prod profile")
+    logln("   pytest.ini                -  Global py.test configuration")
+    logln("   conftest.py               -  Py.test configuration with fixtures and db pre settings")
+    logln("   epub2docx.sh              -  Pandoc convertion script from epub to docx")
+    logln("   epub2icml.sh              -  Pandoc convertion script from epub to icml")
+    logln("   booktype2mpdf.php         -  Configuration and convertion script for mpdf")
     logln("")
-    logln("   conf/                 -  Configuration files")
-    logln("     wsgi.apache         -  Apache config file")
-    logln("     gunicorn.nginx      -  Nginx config file")
-    logln("     fastcgi.nginx       -  Nginx config file")
-    logln("     supervisor.conf     -  Supervisor config file")   
+    logln("   conf/                     -  Configuration files")
+    logln("     wsgi_stage.apache       -  Apache config file for stage instance")
+    logln("     wsgi_prod.apache        -  Apache config file for prod instance")
+    logln("     gunicorn_stage.nginx    -  Nginx config file for stage instance")
+    logln("     gunicorn_prod.nginx     -  Nginx config file for prod instance")
+    logln("     fastcgi_stage.nginx     -  Nginx config file for stage instance")
+    logln("     fastcgi_prod.nginx      -  Nginx config file for prod instance")
+    logln("     supervisor_stage.conf   -  Supervisor config file for stage instance")
+    logln("     supervisor_prod.conf    -  Supervisor config file for prod instance")
     logln("")
-    logln("   lib/                  -  Local python libraries")
-    logln("   static/               -  Deployed static files")
-    logln("   data/                 -  Attachments, Covers, ...")
+    logln("   lib/                      -  Local python libraries")
+    logln("   static/                   -  Deployed static files")
+    logln("   data/                     -  Attachments, Covers, ...")
     logln("")
-    logln("   {:<10}            -  Booktype project".format(name + "_site"))
-    logln("     locale/             -  Local translations")
-    logln("     templates/          -  Local templates")
-    logln("     static/             -  Local static files")
-    logln("     wsgi.py             -  WSGI file for Apache")
+    logln("   {:<10}                    ".format(name + "_site")[:29] + "-  Booktype project")
+    logln("     locale/                 -  Local translations")
+    logln("     templates/              -  Local templates")
+    logln("     static/                 -  Local static files")
+    logln("     wsgi_dev.py             -  WSGI file for Apache")
+    logln("     wsgi_stage.py           -  WSGI file for Apache")
+    logln("     wsgi_prod.py            -  WSGI file for Apache")
     logln("")
-    logln("     settings/           -  Settings configurations")
-    logln("       base.py           -  Base configuration")
-    logln("       dev.py            -  Development configuration")
-    logln("       prod.py           -  Production configuration")
-    logln("       test.py           -  Testing configuration")
+    logln("     settings/               -  Settings configurations")
+    logln("       base.py               -  Base configuration")
+    logln("       dev.py                -  Development configuration")
+    logln("       stage.py              -  Stage configuration")
+    logln("       prod.py               -  Production configuration")
+    logln("       test.py               -  Testing configuration")
     logln("")
-    logln("     urls/               -  URL routers")
-    logln("       dev.py            -  For Development profile")
-    logln("       prod.py           -  For Production profile")
+    logln("     urls/                   -  URL routers")
+    logln("       dev.py                -  For Development profile")
+    logln("       stage.py              -  For Production profile")
+    logln("       prod.py               -  For Production profile")
     logln("")
     logln("For further instructions read INSTALL file.\n")
 
@@ -345,6 +357,7 @@ def create_urls(destination):
 
     try:
         dev_content = read_file('%s/skeleton/dev_urls.py.original' % booktype_source)
+        stage_content = read_file('%s/skeleton/stage_urls.py.original' % booktype_source)
         prod_content = read_file('%s/skeleton/prod_urls.py.original' % booktype_source)
     except IOError:
         raise MajorError("[ERROR] Can't read dev_urls.py.original file.")
@@ -352,6 +365,10 @@ def create_urls(destination):
     try:
         log("+ Creating %s_site/urls/dev.py file.  " % project)
         f = open('%s/%s_site/urls/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/urls/stage.py file.  " % project)
+        f = open('%s/%s_site/urls/stage.py' % (destination, project), 'wt').write(stage_content)
         logln("[OK]")
 
         log("+ Creating %s_site/urls/prod.py file.  " % project)
@@ -385,6 +402,7 @@ def create_settings(destination, database):
     try:
         content = read_file('%s/skeleton/base_settings.py.original' % booktype_source)
         dev_content = read_file('%s/skeleton/dev_settings.py.original' % booktype_source)
+        stage_content = read_file('%s/skeleton/stage_settings.py.original' % booktype_source)
         prod_content = read_file('%s/skeleton/prod_settings.py.original' % booktype_source)
         test_content = read_file('%s/skeleton/test_settings.py.original' % booktype_source)
     except IOError:
@@ -414,6 +432,7 @@ def create_settings(destination, database):
     for k in vals.keys():
         content = set_var(content, k, vals[k])
         dev_content = set_var(dev_content, k, vals[k])
+        stage_content = set_var(stage_content, k, vals[k])
         prod_content = set_var(prod_content, k, vals[k])
         test_content = set_var(test_content, k, vals[k])
 
@@ -424,6 +443,10 @@ def create_settings(destination, database):
 
         log("+ Creating %s_site/settings/dev.py file.  " % project)
         open('%s/%s_site/settings/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/stage.py file.  " % project)
+        open('%s/%s_site/settings/stage.py' % (destination, project), 'wt').write(stage_content)
         logln("[OK]")
 
         log("+ Creating %s_site/settings/prod.py file.  " % project)
@@ -449,7 +472,7 @@ def get_project_directory(destination):
 
 
 def create_manage(destination, profile):
-    log("+ Creating manage.py file.")
+    log("+ Creating manage_{}.py file.".format(profile))
 
     import booktype
     import stat
@@ -459,17 +482,17 @@ def create_manage(destination, profile):
     project = get_project_name(destination)
 
     try:
-        content = read_file('%s/skeleton/manage.py.original' % booktype_source)
+        content = read_file('%s/skeleton/manage_{}.py.original'.format(profile) % booktype_source)
     except IOError:
-        raise MajorError("[ERROR] Can't read manage.py.original file.")
+        raise MajorError("[ERROR] Can't read manage_{}.py.original file.".format(profile))
 
     content = set_var(content, "SETTINGS", "{}_site.settings.{}".format(project, profile))
     content = set_var(content, "DESTINATION_PATH", destination)
     content = set_var(content, "BOOKTYPE_PATH", booktype_path)
 
     try:
-        log("+ Creating manage.py file.  ")
-        f = open('%s/manage.py' % (destination, ), 'wt')
+        log("+ Creating manage_{}.py file.  ".format(profile))
+        f = open('{}/manage_{}.py'.format(destination, profile), 'wt')
         f.write(content)
 
         # Set execute flag
@@ -485,16 +508,17 @@ def create_manage(destination, profile):
 
 
 def create_env(destination, profile):
-    log("+ Creating booktype.env file.  ")
+    log("+ Creating booktype_{}.env file.  ".format(profile))
 
     import booki
     booki_path = os.path.abspath(os.path.dirname(booki.__file__) + '/..')
 
     try:
-        f = open('%s/booktype.env' % destination, 'wt')
+        f = open('{}/booktype_{}.env'.format(destination, profile), 'wt')
         f.write('''# Booktype comes with predefined settings:
 # %(project_name)s_site.settings.dev [for development]
-# %(project_name)s_site.settings.prod [for production]
+# %(project_name)s_site.settings.stage [for stage instance]
+# %(project_name)s_site.settings.prod [for production instance]
 
 export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.%(profile)s
 
@@ -520,13 +544,13 @@ export PYTHONPATH PATH
 
 
 def create_wsgi(destination, profile, virtual_env):
-    log("+ Creating booktype.wsgi file.  ")
+    log("+ Creating booktype.wsgi_{} file.  ".format(profile))
 
     import booki
     booki_path = os.path.abspath(os.path.dirname(booki.__file__) + '/..')
 
     try:
-        f = open('%s/%s_site/wsgi.py' % (destination, get_project_name(destination)), 'wt')
+        f = open('%s/%s_site/wsgi_%s.py' % (destination, get_project_name(destination), profile), 'wt')
         f.write('''"""
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -563,7 +587,6 @@ sys.path.insert(0, '%(booki_path)s/')
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.%(profile)s"
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.%(profile)s")
 
 # Initialise celery
 import djcelery
@@ -587,20 +610,23 @@ application = get_wsgi_application()
         logln("[OK]")
 
 
-def create_supervisor(destination, virtual_env):
-    log("+ Creating supervisor.conf file.")
+def create_supervisor(destination, profile, virtual_env):
+    log("+ Creating supervisor_{}.conf file.".format(profile))
 
     s = '''[program:%(project_name)s-celery-worker]
 directory       = %(project_directory)s
-command         = %(virtualenv)s/bin/python %(project_directory)s/manage.py celery worker --concurrency=20
+command         = %(virtualenv)s/bin/python %(project_directory)s/manage_%(profile)s.py celery worker --concurrency=20
 user            = www-data
 stopwaitsecs    = 60
-''' % {'project_name': get_project_name(destination),
-       'virtualenv': virtual_env,
-       'project_directory': destination}
+''' % {
+        'project_name': get_project_name(destination),
+        'virtualenv': virtual_env,
+        'project_directory': destination,
+        'profile': profile
+    }
 
     try:
-        f = open('%s/conf/supervisor.conf' % destination, 'wt')
+        f = open('%s/conf/supervisor_%s.conf' % (destination, profile), 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -609,8 +635,8 @@ stopwaitsecs    = 60
         logln("[OK]")
 
 
-def create_apache(destination):
-    log("+ Creating wsgi.apache file.  ")
+def create_apache(destination, profile):
+    log("+ Creating wsgi_{}.apache file.  ".format(profile))
 
     import booki
 
@@ -637,7 +663,7 @@ def create_apache(destination):
      SetEnv LC_TIME "en_GB.UTF-8"
      SetEnv LANG "en_GB.UTF-8"
 
-     WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi.py
+     WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi_%(profile)s.py
 
      # uncomment 'Require all granted' for Apache 2.4 without mod_access_compat
 
@@ -661,13 +687,16 @@ def create_apache(destination):
      ErrorLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-error.log
      LogLevel warn
      CustomLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-access.log combined
-</VirtualHost>''' % {'destination': destination,
-                     'booki_source': booki_source,
-                     'project_name': get_project_name(destination),
-                     'django_path': django_path}
+</VirtualHost>''' % {
+        'destination': destination,
+        'booki_source': booki_source,
+        'project_name': get_project_name(destination),
+        'django_path': django_path,
+        'profile': profile
+    }
 
     try:
-        f = open('%s/conf/wsgi.apache' % destination, 'wt')
+        f = open('%s/conf/wsgi_%s.apache' % (destination, profile), 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -676,8 +705,8 @@ def create_apache(destination):
         logln("[OK]")
 
 
-def create_nginx_gunicorn(destination):
-    log("+ Creating gunicorn.nginx file.  ")
+def create_nginx_gunicorn(destination, profile):
+    log("+ Creating gunicorn_{}.nginx file.  ".format(profile))
 
     import booki
 
@@ -732,12 +761,14 @@ server {
         proxy_read_timeout 10;
         proxy_pass http://localhost:8000/;
     }
-}''' % {'destination': destination,
+}''' % {
+        'destination': destination,
         'booki_source': booki_source,
-        'django_path': django_path}
+        'django_path': django_path
+    }
 
     try:
-        f = open('%s/conf/gunicorn.nginx' % destination, 'wt')
+        f = open('%s/conf/gunicorn_%s.nginx' % (destination, profile), 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -746,8 +777,8 @@ server {
         logln("[OK]")
 
 
-def create_nginx_fastcgi(destination):
-    log("+ Creating factcgi.nginx file.  ")
+def create_nginx_fastcgi(destination, profile):
+    log("+ Creating factcgi_{}.nginx file.  ".format(profile))
 
     import booki
 
@@ -807,7 +838,7 @@ False        expires max;
         'django_path': django_path}
 
     try:
-        f = open('%s/conf/fastcgi.nginx' % destination, 'wt')
+        f = open('%s/conf/fastcgi_%s.nginx' % (destination, profile), 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -817,6 +848,8 @@ False        expires max;
 
 
 if __name__ == '__main__':
+    PROFILES = ('dev', 'stage', 'prod')
+
     parser = argparse.ArgumentParser(description='Create Booktype project')
 
     parser.add_argument("-q", "--quiet", help="Do not display output messages",
@@ -826,8 +859,6 @@ if __name__ == '__main__':
 
     parser.add_argument("-d", "--database", choices=["postgresql", "postgres", "sqlite"],
                         help="Database backend", default="postgresql")
-    parser.add_argument("-p", "--profile", choices=["dev", "prod"],
-                        help="Settings Falseile", default="dev")
 
     parser.add_argument("-c", "--check-versions", help="Check versions of packages",
                         action="store_true", default=True, dest="check_versions")
@@ -871,11 +902,11 @@ if __name__ == '__main__':
             check_lxml_available()
             check_pil_available()
             check_redis_available()
-#             check_south_available()
+            # check_south_available()
             check_unidecode_available()
 
         # show info about user id, group id and etc...
-#        show_info()
+        # show_info()
 
         # check if project directory exists
         if os.path.exists(project_destination):
@@ -901,12 +932,14 @@ if __name__ == '__main__':
         make_directory_structure(project_destination)
 
         # create environment variables
-        create_env(project_destination, args.profile)
+        for profile in PROFILES:
+            create_env(project_destination, profile)
 
-        # create manage.py file
-        create_manage(project_destination, args.profile)
+        # create manage_*.py file
+        for profile in PROFILES:
+            create_manage(project_destination, profile)
 
-        # create settings.py file
+        # create settings_*.py file
         create_settings(project_destination, database=args.database)
 
         # create booktype2mpdf.php file
@@ -922,19 +955,24 @@ if __name__ == '__main__':
         create_urls(project_destination)
 
         # create wsgi file
-        create_wsgi(project_destination, args.profile, args.virtual_env)
+        for profile in PROFILES:
+            create_wsgi(project_destination, profile, args.virtual_env)
 
-        # create supervisor file for wsgi
-        create_supervisor(project_destination, args.virtual_env)
+        # create supervisor file for wsgi (stage and prod only)
+        for profile in PROFILES[1:]:
+            create_supervisor(project_destination, profile, args.virtual_env)
 
-        # create apache file for wsgi
-        create_apache(project_destination)
+        # create apache file for wsgi (stage and prod only)
+        for profile in PROFILES[1:]:
+            create_apache(project_destination, profile)
 
-        # create nginx gunicorn
-        create_nginx_gunicorn(project_destination)
+        # create nginx gunicorn (stage and prod only)
+        for profile in PROFILES[1:]:
+            create_nginx_gunicorn(project_destination, profile)
 
-        # create nginx fastcgi
-        create_nginx_fastcgi(project_destination)
+        # create nginx fastcgi (stage and prod only)
+        for profile in PROFILES[1:]:
+            create_nginx_fastcgi(project_destination, profile)
 
         # copy default themes
         copy_default_themes(project_destination)

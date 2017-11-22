@@ -3,9 +3,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <title>{% trans "History for" %}: {{ history_title }}</title>
-      {% compress css inline %}
-      <link href='{% static "vendor/bootstrap-3.3.7/css/bootstrap.min.css" %}' rel='stylesheet' type='text/css' />
-      <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
+
+      {% if html %}
+        {% for style in assets.css %}
+        <link rel="stylesheet" href="{% static style %}">
+        {% endfor %}
+      {% else %}
+      <link rel="stylesheet" href="assets/bundle.css">
+      {% endif %}
+
       <style>
         /*hide for now. FIXME: figure out how to handle*/
         .bk-image-editor,
@@ -68,7 +74,6 @@
           text-decoration: underline;
         }
         </style>
-      {% endcompress %}
   </head>
   <body>
     <h1 class="book-title">
@@ -102,11 +107,14 @@
       </div>
     {% endfor %}
 
-    {% compress js inline %}
-    <script type='text/javascript' src='{% static "core/js/jquery-1.9.1.js" %}'></script>
-    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/transition.js' %}"></script>
-    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/collapse.js' %}"></script>
-    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/tooltip.js' %}"></script>
+    {% if html %}
+      {% for script in assets.js %}
+      <script type="text/javascript" src="{% static script %}"></script>
+      {% endfor %}
+    {% else %}
+      <script type="text/javascript" src="assets/bundle.js"></script>
+    {% endif %}
+
     <script type='text/javascript'>
       $(document).on('click', 'a[href="#toogle"]', function(e) {
         e.preventDefault();
@@ -128,6 +136,5 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
-    {% endcompress %}
   </body>
 </html>

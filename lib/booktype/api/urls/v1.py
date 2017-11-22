@@ -5,6 +5,7 @@ from django.conf.urls import url, include
 from ..views import AuthToken
 from ..account import views as account_views
 from ..editor import views as editor_views
+from ..themes import views as themes_views
 from ..core import views as core_views
 
 router = routers.DefaultRouter()
@@ -51,9 +52,17 @@ urlpatterns = [
         editor_views.BookUserDetailPermissions.as_view(),
         name="editor_book_user_detail_permissions_api"),
 
+    # attachment list in the book
+    url(r'^books/(?P<pk>[0-9]+)/attachments/$', editor_views.BookAttachmentList.as_view(),
+        name="editor_book_attachment_list_api"),
+
     # roles list
     url(r'^roles/$', core_views.RoleList.as_view(),
         name="core_role_list_api"),
+
+    # themes list
+    url(r'^themes/$', themes_views.ThemeList.as_view(),
+        name="themes_theme_list_api"),
 
     # auth retrieve token
     url(r'^auth-token/$', AuthToken.as_view(),

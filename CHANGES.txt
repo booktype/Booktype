@@ -1,3 +1,202 @@
+2.3.0 (2017-11-14)
+==================
+
+** Test Case
+    * [BK-2354] - Fix failing tests
+
+** Bug
+    * [BK-1299] - Diff error when comparing revisions
+    * [BK-1423] - Used font is not marked in pull down
+    * [BK-1449] - Test failure in python-ooxml 0.12
+    * [BK-1578] - List of book admins is not shown on Book info page
+    * [BK-1602] - Contributors do not appear on Book Detail page when not Superuser
+    * [BK-1657] - Control Centre labels admins as superusers
+    * [BK-1669] - Firefox Browse button does not fit inside field height in various pages
+    * [BK-1683] - Profile buttons wrap on small screens
+    * [BK-1695] - Book Info page gives publication date for a book which has not been published
+    * [BK-1714] - In Book Settings, Publisher appears under both Metadata and Additional Metadata
+    * [BK-1723] - Academic and custom themes do not allow space for cover image in screen PDF
+    * [BK-1732] - Copy&paste text into Aloha: character styles are NOT preserved when track changes on
+    * [BK-1734] - Definition for track icon is missing
+    * [BK-1737] - Export History shows the same timestamp twice
+    * [BK-1739] - Non-approved covers can be selected in the Export wizard
+    * [BK-1768] - DraftView should do word-wrapping on long words
+    * [BK-1789] - EPUB and MOBI outputs have duplicate 'Guide' below Table of Contents
+    * [BK-1890] - My Dashboard menu item should not open My Dashboard in a new tab
+    * [BK-1922] - Internal link feature does not work for mPDF print or screen PDF outputs
+    * [BK-1933] - Imported covers don't show their names in publish screen settings
+    * [BK-1982] - UX - Multi-user bug with theme selection
+    * [BK-1985] - Insert Comment button vanishes after first comment is made
+    * [BK-2011] - Raw HTML editor no longer closes when the user clicks 'Set' button
+    * [BK-2012] - Raw HTML editor did not work in Firefox 48.0 for certain book
+    * [BK-2017] - Table of contents in editor is sometimes very slow to load, or does not load at all
+    * [BK-2045] - Book visibility /CORE
+    * [BK-2050] - Welcome Message: and Show activity: homepage features no longer work
+    * [BK-2126] - Favicon upload doesn't work
+    * [BK-2161] - Insert Table options are shown when edit cursor is inside another table
+    * [BK-2171] - Snapshot .deb packages no longer work
+    * [BK-2178] - Chapter break working unreliable
+    * [BK-2191] - Change title for print pdf export settings modal window
+    * [BK-2192] - Reader doesn't init properly if custom theme wasn't saved
+    * [BK-2193] - Export info block has wrong position
+    * [BK-2195] - Books list throws error when it has more than 16 books
+    * [BK-2197] - Control Center: Publishing Settings don't show PDF reactor print and screen
+    * [BK-2202] - Fix temp folder logic for icml/docx shell scripts
+    * [BK-2205] - Error during epub import
+    * [BK-2208] - Editor inits with wrong section "urlTitle"
+    * [BK-2210] - Save button doesn't work in section settings form.
+    * [BK-2214] - DOCX chapter import: overwrite does not work properly
+    * [BK-2216] - DOCX Import append does not recognise headline 1
+    * [BK-2219] - SimpleTable plugin wrongly wraps whole content
+    * [BK-2222] - Small "<" symbol at the end of content on DOCX import
+    * [BK-2225] - Themes templatetags should accept context to render templates
+    * [BK-2228] - Fix css issue with button
+    * [BK-2233] - JS error during user invite email validation
+    * [BK-2235] - Book reader is broken, it doesn't load themes.
+    * [BK-2236] - Remove useless test assertion in portal tests for frontpage
+    * [BK-2237] - Validation error when creating Invite code after changing language
+    * [BK-2250] - Remove dots from jquery's selector by ID in '_addOnlineUser' and related functions
+    * [BK-2252] - Headings paragraphs are wrongly "fixed" in DOCX import (book mode)
+    * [BK-2269] - Colour for h1 does not apply for epub output with custom theme
+    * [BK-2275] - Missed logging filter for prod profile
+    * [BK-2278] - Modal dialogs with data-remote are not working
+    * [BK-2281] - Bootstrap-notify plugin is missing after bootstrap assets upgrade
+    * [BK-2285] - Wrong indent in image editor
+    * [BK-2286] - MPDF converter fails without logging error when custom width is selected
+    * [BK-2289] - Fix typo in docimporter module
+    * [BK-2290] - Change role modal window doesn't work in the book settings
+    * [BK-2291] - UserInviteForm inits roles not in the correct way
+    * [BK-2292] - If selected theme does not exist use 1st available theme in alphabetical order
+    * [BK-2294] - Don't edit images for ICML output
+    * [BK-2297] - Sidebar menu doesn't activate when accessing from direct url in book settings
+    * [BK-2298] - Comments plugin is not showing comments icon in editor
+    * [BK-2299] - Removing the custom theme breaks the editor
+    * [BK-2311] - Fix section settings in converter outputs and issue with saving settings
+    * [BK-2316] - Fix failed tests
+    * [BK-2317] - CSS issue with show/hide options for sections
+    * [BK-2322] - Increase exported filename length
+    * [BK-2324] - Remove hardcoded info from control center
+    * [BK-2329] - Epub2 export fails
+    * [BK-2332] - Reader does not show default theme if selected theme is not available
+    * [BK-2333] - Use correct API url on the client side
+    * [BK-2334] - Use config.get_configuration for loading settings in context processor
+    * [BK-2335] - Can not enable converters with "-" char in the generic name.
+    * [BK-2336] - Define REST_FRAMEWORK_DEFAULT_VERSION variable in base settings
+    * [BK-2339] - Empty isbn can produce epub export error
+    * [BK-2340] - Improve createbooktype script
+    * [BK-2356] - Actions toolbar menu is not aligned in Editor
+    * [BK-2357] - Migration for related name in chatmessage.thread
+    * [BK-2362] - Editor error when switching from different Blocks of content
+    * [BK-2365] - Bookundo main contenteditor focus makes caret to lose the position
+    * [BK-2368] - Sections settings exported incorrectly when empty sections exists
+    * [BK-2372] - Create API endpoints to cover new editor needs
+    * [BK-2381] - Download history fails when switching to certain languages like german
+    * [BK-2382] - Syntax error in core/js/utils.js line 219
+
+
+** New Feature
+    * [BK-918] - Standard look for custom Aloha Blocks
+    * [BK-989] - Create new page for online book reading
+    * [BK-1007] - Django signals for different events
+    * [BK-1051] - What to do with messaging application
+    * [BK-1086] - Convert old style Booktype project layout to new one
+    * [BK-1222] - Design for Messaging application
+    * [BK-1545] - Frontmatter / Titelei: standard set pages in front of every book
+    * [BK-1607] - Homepage: List just the books and groups for the language that the reader selects
+    * [BK-2180] - Implement download chapter history and bookwise history as well
+    * [BK-2189] - Import .docx files into existing book chapters
+    * [BK-2204] - Marker functionality and icon in TOC
+    * [BK-2218] - REST API for chapters
+    * [BK-2227] - Add ability to change or delete role in the book settings separately for each user.
+    * [BK-2232] - Implement a Invite with code feature to join books to contribute
+    * [BK-2256] - Implement triggering signal when uploading/importing files into book/chapters
+    * [BK-2258] - Create epub2 export
+    * [BK-2263] - Add ability to view log files from django admin
+    * [BK-2303] - Full page image support
+    * [BK-2326] - API for metadata
+    * [BK-2360] - Send message by hitting "enter"
+
+** Task
+    * [BK-1557] - Dashboard and Home Screen differentation
+    * [BK-2076] - Remove "create" buttons from home screen
+    * [BK-2088] - Fix/improve broken tests. Implement py.test testing framework.
+    * [BK-2114] - Section settings: tick box for "chapter start on right page" or just "on new page"
+    * [BK-2211] - syncdb is deprecated in Django 1.9
+    * [BK-2223] - Make ICC Profiles setting available in publish screen if any
+    * [BK-2267] - Decrease default epub's export width for images
+    * [BK-2268] - Decrease default mobi export width for images
+    * [BK-2270] - Remove redundant conditions in converters during creation of ImageEditorConversion
+    * [BK-2273] - Use converter name as suffix for output file names
+    * [BK-2276] - Import DOCX inline in the editor
+    * [BK-2287] - Add ability to provide custom crop margin size for mpdf converter
+    * [BK-2320] - Add versioning for API
+    * [BK-2331] - Cloudflare cache reset
+    * [BK-2337] - Lock ebooklib library requirement to 0.16
+    * [BK-2343] - Collect metadata for PDF generation
+
+** Improvement
+    * [BK-1412] - Profile skeletons could make user-modifable settings more obvious
+    * [BK-1426] - Add a short message to the automatically sent login data mail
+    * [BK-1455] - Permissions for changing themes
+    * [BK-1598] - Interface to edit text blocks on the webpage
+    * [BK-1599] - Invitation to books does not work with existing Accounts
+    * [BK-1606] - Save chat history in Booktype Editor (not only during session)
+    * [BK-1636] - Metadata notice (to complete) and link on publish page
+    * [BK-1671] - Select/Unselect option in the role editor
+    * [BK-1689] - Some collected bugs / improvements - by Peter Baumgartner
+    * [BK-1730] - Make templates to be standalone packages
+    * [BK-1731] - Hide link to registration when set to admin registration only
+    * [BK-1790] - Clarify default roles for anonymous and registered users
+    * [BK-1803] - Do not show header on the separator page in PDF
+    * [BK-1830] - Book settings should include field for 'Table of Contents' string
+    * [BK-1850] - Breadcrumps to the image overview
+    * [BK-1902] - Insert Table feature could allow a caption
+    * [BK-1905] - Custom theme could allow font size setting for body text
+    * [BK-1964] - Email generated by 'Invite people' wizard should be more informative
+    * [BK-2022] - Draft and full view don't support themes.
+    * [BK-2042] - Delete redundant field in control center
+    * [BK-2147] - Control epub version output in settings
+    * [BK-2170] - Deprecate custom theme in next release
+    * [BK-2179] - Update and organise bootstrap + font-awesome assets
+    * [BK-2198] - Missing export in section settings
+    * [BK-2200] - Add suffix for icml/docx output file name
+    * [BK-2201] - Add the ability to choose if append or overwrite content in chapter docx import
+    * [BK-2207] - Log mpdf command stdout
+    * [BK-2215] - DOCX import modal: append and overwrite same colour
+    * [BK-2224] - Sputnik improve addMessageToChannel method
+    * [BK-2234] - Remove default roles from list of roles during invitation
+    * [BK-2241] - Remove target blank links from the ui
+    * [BK-2244] - Improved HOME PAGE
+    * [BK-2245] - Implement marker alert functionality in publish screen
+    * [BK-2251] - Update skeleton to have ability override BOOKTYPE_PATH in manage.py with ENV variable
+    * [BK-2253] - Make the WordImporter module customisable from client instance via settings
+    * [BK-2261] - Allow managing publish options in control centre even if they're custom outputs
+    * [BK-2262] - Allow opening Roles and Metadata from book info page
+    * [BK-2264] - Improve logging for all API endpoints
+    * [BK-2265] - Table options should be to "Update" when cursor is in table_caption element
+    * [BK-2272] - ICML and DOCX converters should have a fallback path to scripts
+    * [BK-2288] - Chapter status does not update in TOC after closing editor
+    * [BK-2296] - 'Initially hidden from others' string could be more clear
+    * [BK-2318] - Allow downloading chapter content from TOC raw modal window
+    * [BK-2321] - Improve grammar in TOC import dialog
+    * [BK-2327] - Pull export settings from constants module when get_configuration fails
+    * [BK-2330] - New book creation process
+    * [BK-2338] - Extract TOC sections settings values to a separate object
+    * [BK-2342] - Implement using EPUB Skeleton for book creation and managing in ControlCenter
+    * [BK-2346] - Book visibility setting should be unchecked by default in book creation wizard
+    * [BK-2348] - Move logtailer app out of production profile
+    * [BK-2351] - Implement DOCX or EPUB import on new Book Creation Wizard
+    * [BK-2352] - Implement Cover Upload in new Book Creation Wizard
+    * [BK-2361] - Sort users alphabetically in book owner drop-down
+    * [BK-2364] - Endnotes plugin should only consider <sup> tags with endnote class attribute
+    * [BK-2375] - Control Centre: fix Site Front Page issues and settings pages should persist after save
+    * [BK-2386] - Improve ChapterHistory admin to be more useful in django admin interface
+    * [BK-2387] - Reduce number of db queries on TOC/Editor
+
+** Technical task
+    * [BK-1046] - Move logging functionality to new booktype application
+
+
 2.2.0 (2017-03-02)
 ==================
 

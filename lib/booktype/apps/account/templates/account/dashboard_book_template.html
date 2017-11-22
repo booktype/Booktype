@@ -19,6 +19,10 @@
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book Info' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
                 <i class="fa fa-eye"></i>
             </a>
+            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Publish Book' %}" href="{% url 'edit:editor' book.url_title %}#publish" target="_blank">
+                <i class="fa fa-print"></i>
+            </a>
+
             {% if user.is_authenticated %}
             <a class="btn btn-xs delete-book" rel="tooltip" title="" data-placement="bottom"
                 data-original-title="{% trans 'Delete Book' %}"
