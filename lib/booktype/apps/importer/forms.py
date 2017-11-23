@@ -5,6 +5,8 @@ from functools import partial
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from booktype.utils import config
+
 EPUB_CTYPE = 'application/epub+zip'
 DOCX_CTYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
@@ -65,6 +67,13 @@ class UploadDocxFileForm(forms.Form):
     chapter_file = forms.FileField(required=True)
     import_mode = forms.ChoiceField(
         required=True, choices=IMPORT_CHOICES, widget=forms.TextInput())
+
+    upload_docx_default_mode = forms.CharField(widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        super(UploadDocxFileForm, self).__init__(*args, **kwargs)
+        default_mode = config.get_configuration('UPLOAD_DOCX_DEFAULT_MODE')
+        self.fields['upload_docx_default_mode'].initial = "" if (default_mode is None) else default_mode
 
     def clean(self, *args, **kwargs):
         data = super(UploadDocxFileForm, self).clean(*args, **kwargs)
