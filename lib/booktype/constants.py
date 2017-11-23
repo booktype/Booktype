@@ -85,6 +85,9 @@ DOCX_HEADING_STYLES_TUPLE = (
 # This will allow settings custom class on clients
 DOCX_IMPORTER_CLASS = 'booktype.importer.WordImporter'
 
+# possible options: "overwrite", "append"
+UPLOAD_DOCX_DEFAULT_MODE = None
+
 # END IMPORTERS STUFF
 
 # SERVER RELATED
