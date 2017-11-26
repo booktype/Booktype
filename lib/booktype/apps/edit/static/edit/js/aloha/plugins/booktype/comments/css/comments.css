@@ -107,7 +107,7 @@
     border-radius: 2px;
     border: 1px solid #FFFF00;
     background-color: #FFFF66;
-    padding: 2px;
+    padding: 2px 2px 2px 3px;
     font-size: 8pt;
     line-height: 8pt;
     text-decoration: none;
@@ -120,6 +120,11 @@
 #contentrevision .comment-link.comment-selected {
     background-color: #fff;
     border: 1px solid #d62727 !important;
+}
+
+#contenteditor .comment-link i,
+#contentrevision .comment-link i{
+  display: inline;
 }
 
 
