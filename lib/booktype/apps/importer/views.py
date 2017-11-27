@@ -194,7 +194,8 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         response = {}
 
         # allow getting custom importer class if any
-        docx = get_importer_class()(book, chapter, notifier=notifier, delegate=delegate)
+        docx = get_importer_class()(
+            book, chapter, notifier=notifier, delegate=delegate, user=self.request.user)
 
         try:
             docx.import_file(chapter_file, **{'process_mode': process_mode})
