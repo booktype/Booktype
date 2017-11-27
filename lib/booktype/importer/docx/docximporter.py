@@ -64,6 +64,7 @@ class WordImporter(object):
             kwargs: Some keyword arguments might be:
                 - delegate (`importer.delegate.Delegate`) Delegate instance
                 - notifier (`importer.notifier.CollectNotifier`) Notifier instance
+                - user (`django.contrib.auth.models.User`) Django user instance
 
         """
 
@@ -75,6 +76,7 @@ class WordImporter(object):
 
         self.notifier = kwargs.get('notifier', CollectNotifier())
         self.delegate = kwargs.get('delegate', Delegate())
+        self.user = kwargs.get('user', None)
 
         # Attachment objects indexed by image file name
         self._attachments = {}
@@ -125,8 +127,9 @@ class WordImporter(object):
             self._check_for_elements()
 
             # trigger signal depending on the import mode
+            # TODO: allow attaching user as sender on `book_imported` signal
             if self.is_chapter_mode:
-                chapter_imported.send(sender=self, chapter=self.chapter)
+                chapter_imported.send(sender=(self.user or self), chapter=self.chapter)
             else:
                 book_imported.send(sender=self, book=book)
 
@@ -315,10 +318,11 @@ class WordImporter(object):
             rev = chapter.revision + 1
 
         # time to save revisions correctly
+        user = self.user or book.owner
         history = logChapterHistory(
                 chapter=chapter,
                 content=chapter.content,
-                user=book.owner,
+                user=user,
                 comment='',
                 revision=rev
             )
@@ -329,7 +333,7 @@ class WordImporter(object):
                 version=book.version,
                 chapter=chapter,
                 chapter_history=history,
-                user=book.owner,
+                user=user,
                 kind=kind
             )
 
