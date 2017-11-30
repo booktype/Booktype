@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-18 23:35-0600\n"
+"POT-Creation-Date: 2017-11-30 10:50-0600\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:576 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:577 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr ""
 
@@ -214,6 +214,7 @@ msgid "mood"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:36
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:324
 msgid "image"
 msgstr ""
 
@@ -490,7 +491,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
-#: lib/booktype/apps/edit/views.py:61
+#: lib/booktype/apps/edit/views.py:62
 msgid "Roles"
 msgstr ""
 
@@ -522,32 +523,36 @@ msgstr ""
 msgid "View Book Info"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:22
+msgid "Publish Book"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:28
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:119
 msgid "Delete Book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:36
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:40
 msgid "View"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:26
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:43
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:42
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:332
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:345
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:379
 msgid "Rename"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:45
+#: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:104
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:334
@@ -712,7 +717,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:47
 #: lib/booktype/apps/importer/views.py:133
-#: lib/booktype/apps/importer/views.py:220
+#: lib/booktype/apps/importer/views.py:221
 msgid "Something went wrong!"
 msgstr ""
 
@@ -736,7 +741,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:73
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:128
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:440
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:461
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:155
@@ -758,7 +763,7 @@ msgid "User settings"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:43
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:347
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:368
 #: lib/booktype/apps/edit/templates/edit/settings/generic.html:15
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:16
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:15
@@ -1074,7 +1079,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:62
+#: lib/booktype/apps/edit/views.py:63
 msgid "Permissions"
 msgstr ""
 
@@ -1437,46 +1442,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1409
-#: lib/booktype/apps/edit/channel.py:1414
+#: lib/booktype/apps/edit/channel.py:1422
+#: lib/booktype/apps/edit/channel.py:1427
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1420
+#: lib/booktype/apps/edit/channel.py:1433
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1427
-#: lib/booktype/apps/edit/channel.py:1431
+#: lib/booktype/apps/edit/channel.py:1440
+#: lib/booktype/apps/edit/channel.py:1444
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1440
+#: lib/booktype/apps/edit/channel.py:1453
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1444
+#: lib/booktype/apps/edit/channel.py:1457
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1590
+#: lib/booktype/apps/edit/channel.py:1603
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1598
+#: lib/booktype/apps/edit/channel.py:1611
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1603
+#: lib/booktype/apps/edit/channel.py:1616
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1607
+#: lib/booktype/apps/edit/channel.py:1620
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:2212
+#: lib/booktype/apps/edit/channel.py:2225
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1528,9 +1533,10 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:20
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:237
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:654
+#: lib/booktype/apps/edit/views.py:655
 msgid "Revision"
 msgstr ""
 
@@ -1630,7 +1636,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:5
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:239
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:500
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:521
 msgid "Insert"
 msgstr ""
 
@@ -1652,83 +1658,91 @@ msgid "Insert endnote"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:13
-msgid "Insert LTR text"
+msgid "Insert non breaking space"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:13
+msgid "Insert nbsp"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:14
+msgid "Insert LTR text"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:15
 msgid "Insert RTL text"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:16
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:17
 msgid "Insert columns"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:17
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:18
 msgid "Insert infobox"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:18
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:19
 msgid "Insert column break"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:20
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:21
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:33
 msgid "Split chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:22
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:23
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:337
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Import DOCX File"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:28
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:30
 msgid "Redo"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:31
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:32
 msgid "Find & Replace"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:33
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
 msgid "Remove styling"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:34
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
 msgid "Remove formatting"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:35
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
 msgid "Decrease indent"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:36
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
 msgid "Increase indent"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:37
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:38
 msgid "Direction to LTR"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:38
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:39
 msgid "Direction to RTL"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:40
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:41
 msgid "Edit raw HTML"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:44
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:45
 msgid "Tools"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:46
+#: lib/booktype/apps/edit/templates/edit/aloha_menu.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:50
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
@@ -1841,7 +1855,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:91
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:375
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:396
 msgid "Columns"
 msgstr ""
 
@@ -1851,7 +1865,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:441
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:462
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
@@ -1914,7 +1928,7 @@ msgid "Right align"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:402
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:423
 msgid "Justify"
 msgstr ""
 
@@ -1959,7 +1973,7 @@ msgid "Save minor change"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:317
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:338
 msgid "Save with comment"
 msgstr ""
 
@@ -2012,11 +2026,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:151
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:221
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:238
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:329
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:363
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:461
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:478
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:350
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:384
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:482
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:499
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:520
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:96
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:153
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:26
@@ -2128,11 +2142,11 @@ msgid ""
 "chapter's content"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/book_edit.html:263
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:264
 msgid "Comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/book_edit.html:303
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:304
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class="
@@ -2171,7 +2185,7 @@ msgid "Time"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:322
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:343
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
 msgid "Comment"
 msgstr ""
@@ -2228,20 +2242,20 @@ msgid "Revisions not found!"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:5
-#: lib/booktype/apps/edit/templates/edit/download_history.html:75
+#: lib/booktype/apps/edit/templates/edit/download_history.html:80
 msgid "History for"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/download_history.html:77
-#: lib/booktype/apps/edit/templates/edit/download_history.html:115
+#: lib/booktype/apps/edit/templates/edit/download_history.html:82
+#: lib/booktype/apps/edit/templates/edit/download_history.html:123
 msgid "Expand all"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/download_history.html:88
+#: lib/booktype/apps/edit/templates/edit/download_history.html:93
 msgid "No changes"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/download_history.html:116
+#: lib/booktype/apps/edit/templates/edit/download_history.html:124
 msgid "Collapse all"
 msgstr ""
 
@@ -2454,7 +2468,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:60
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:130
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:328
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:157
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
@@ -2741,6 +2755,10 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:137
+msgid "Non breaking space"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
 msgid "Invite codes"
 msgstr ""
@@ -2983,106 +3001,118 @@ msgstr ""
 msgid "STOP EDIT"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:289
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:272
+msgid "LAYOUTS"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:273
+msgid "SAVE LAYOUT"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:291
 msgid "Zoom"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:293
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:295
 msgid "Contrast"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:297
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:299
 msgid "Brightness"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:301
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:303
 msgid "Blur"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:307
 msgid "Saturate"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:340
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:326
+msgid "text"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:361
 msgid "Chapter has been modified"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:343
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:364
 msgid "This chapter has been modified. Do you want to save it before closing?"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:367
 msgid "Discard changes"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:378
 msgid "Book theme was changed"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:360
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:381
 msgid "Book theme was changed. Do you want to apply it right now?"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
 msgid "Apply"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:381
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:402
 msgid "Number of columns"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:398
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:419
 msgid "Vertical alignment"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:401
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:422
 msgid "Turn off"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:429
 msgid "Column gap (in mm)"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:434
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:455
 msgid "Column continues after the marker"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:452
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:462
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:473
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:483
 msgid "Split Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:456
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:23
 msgid "New chapter title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:472
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:479
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:493
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:500
 msgid "Remove page break"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:475
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:496
 msgid "Do you want to remove page break?"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:490
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:511
 msgid "Infobox"
 msgstr ""
 
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:515
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:515
+#: lib/booktype/importer/docx/docximporter.py:249
+#: lib/booktype/importer/docx/docximporter.py:519
 msgid "Title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:495
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:516
 msgid "Write your infobox title here"
 msgstr ""
 
@@ -3150,7 +3180,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:594
+#: lib/booktype/apps/edit/views.py:595
 msgid "Book History"
 msgstr ""
 
@@ -3606,13 +3636,13 @@ msgid "Chapter status"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:60
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
 msgid "Book Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:60
+#: lib/booktype/apps/edit/views.py:61
 msgid "Additional Metadata"
 msgstr ""
 
@@ -3827,7 +3857,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:63
+#: lib/booktype/apps/edit/views.py:64
 msgid "Chapter Status"
 msgstr ""
 
@@ -3879,69 +3909,69 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:57
 msgid "General Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:58
 msgid "Book Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:59
 msgid "Book License"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:545
+#: lib/booktype/apps/edit/views.py:546
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:623
+#: lib/booktype/apps/edit/views.py:624
 msgid "Chapter diff"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:661
+#: lib/booktype/apps/edit/views.py:662
 msgid "Book History | Chapter Revision"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:684
+#: lib/booktype/apps/edit/views.py:685
 #, python-format
 msgid "Reverted to revision %s."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:703
+#: lib/booktype/apps/edit/views.py:704
 msgid "Chapter revision successfully reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:705
+#: lib/booktype/apps/edit/views.py:706
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:776
+#: lib/booktype/apps/edit/views.py:777
 msgid "Successfully saved settings."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:778
+#: lib/booktype/apps/edit/views.py:779
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:781
+#: lib/booktype/apps/edit/views.py:782
 msgid "Unknown error while saving changes."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:844
+#: lib/booktype/apps/edit/views.py:858
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:858
+#: lib/booktype/apps/edit/views.py:872
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:860
+#: lib/booktype/apps/edit/views.py:874
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:867
+#: lib/booktype/apps/edit/views.py:881
 msgid "USING REVISION"
 msgstr ""
 
@@ -4045,10 +4075,10 @@ msgstr ""
 msgid "Export Settings"
 msgstr ""
 
-#: lib/booktype/apps/importer/forms.py:51
 #: lib/booktype/apps/importer/forms.py:53
-#: lib/booktype/apps/importer/forms.py:77
-#: lib/booktype/apps/importer/forms.py:79
+#: lib/booktype/apps/importer/forms.py:55
+#: lib/booktype/apps/importer/forms.py:86
+#: lib/booktype/apps/importer/forms.py:88
 msgid "Filetype not supported."
 msgstr ""
 
@@ -4704,43 +4734,43 @@ msgstr ""
 msgid "PDF Legacy (deprecated)"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:95
+#: lib/booktype/importer/docx/docximporter.py:97
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:134
+#: lib/booktype/importer/docx/docximporter.py:137
 msgid ""
 "The file could not be imported because it was not saved in the .docx format. "
 "Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:137
+#: lib/booktype/importer/docx/docximporter.py:140
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:185
+#: lib/booktype/importer/docx/docximporter.py:188
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:220
+#: lib/booktype/importer/docx/docximporter.py:223
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:246
+#: lib/booktype/importer/docx/docximporter.py:249
 msgid "Title Page"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:402
+#: lib/booktype/importer/docx/docximporter.py:406
 msgid "Reference not found for endnote: {}"
 msgstr ""
 
