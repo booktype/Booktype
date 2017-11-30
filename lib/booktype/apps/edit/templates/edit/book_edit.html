@@ -234,8 +234,9 @@
         <script type="text/html" id="templateChapterRevision">
           <li <% if (active) { %> class="active" <% } %> >
             <div class="list-info">
-              <span class="revision-number" data-revision="<%= revision %>"><%= revision %></span>
+              <span class="revision-number" title="{% trans 'Revision' %}" data-revision="<%= revision %>"><%= revision %></span>
               <span class="revision-time"><%= modified %></span>
+              <% if (comment) { %><span><%= comment %></span><% } %>
               <h4>
                 {% if can_view_user_info %}
                   <a target="_blank" href="/accounts/<%= user %>/"><%= user %></a>
