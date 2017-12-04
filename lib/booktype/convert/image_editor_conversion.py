@@ -4,6 +4,7 @@ import shutil
 import ebooklib
 import StringIO
 import logging
+import subprocess
 
 from django.conf import settings
 
@@ -53,6 +54,9 @@ class ImageEditorConversion(object):
 
                 if extension in BkImageEditor.EXTENSION_MAP:
                     self._edit_image(img_element)
+
+                    if settings.COLOR_SPACE_CONVERTER:
+                        self._color_space_convert(img_element)
 
         return html
 
@@ -374,3 +378,50 @@ class ImageEditorConversion(object):
 
         # change image src in html
         elem.set("src", dst)
+
+    def _color_space_convert(self, elem):
+        src = elem.get('src')
+        image_mode = None
+        cmd = None
+
+        # get image mode
+        # http://pillow.readthedocs.io/en/3.4.x/handbook/concepts.html#modes
+        with Image.open(src) as image:
+            image_mode = image.mode
+
+        # validate color space
+        if image_mode not in ('CMYK', 'RGB'):
+            logger.warning('Unsupported color space "{}" in image: {}'.format(
+                image_mode,
+                src
+            ))
+
+        # convert CMYK to RGB
+        if self._converter.name in ('epub2', 'epub3', 'screenpdf', 'pdfreactor-screenpdf') and image_mode == 'CMYK':
+            cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
+                settings.IMAGEMAGICK_PATH,
+                settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH,
+                src,
+                settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
+                src
+            )
+        # convert RGB to CMYK
+        elif self._converter.name in ('pdf', 'pdfreactor') and image_mode == 'RGB':
+            cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
+                settings.IMAGEMAGICK_PATH,
+                settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
+                src,
+                settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH,
+                src
+            )
+        else:
+            return
+
+        if cmd:
+            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, err = p.communicate()
+
+            if err:
+                logger.error('Error during converting color spaces. Error {0}. CMD: {1}'.format(err, cmd))
+            else:
+                logger.info('Converting color spaces was done with output: :"{}"'.format(out))

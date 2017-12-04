@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import hashlib
+import logging
 import math
 from PIL import Image, ImageEnhance, ImageFilter
 
 from django.utils.text import get_valid_filename
 
+
+logger = logging.getLogger("booktype.convert.image_editor")
 
 class BkImageEditor(object):
     """
@@ -28,7 +31,7 @@ class BkImageEditor(object):
     """
 
     USE_CACHE = True
-    QUALITY = 95
+    QUALITY = 100
     DPI = 300
     EXTENSION_MAP = {
         'jpg': 'JPEG',
@@ -158,8 +161,15 @@ class BkImageEditor(object):
                 return output_filepath
 
         try:
+
             # converted to have an alpha layer
-            pil_region = self._input_image_file.convert('RGBA')
+            pil_region = self._input_image_file.convert(self._input_image_file.mode)
+
+            # try to get icc profile
+            try:
+                icc_profile = self._input_image_file.info.get("icc_profile")
+            except:
+                icc_profile = None
 
             # resize image (not frame)
             pil_region = pil_region.resize(
@@ -238,19 +248,14 @@ class BkImageEditor(object):
             # TODO test this part one more time
             pil_region = pil_region.filter(ImageFilter.GaussianBlur(self._image_blur))
 
-            # create new white image
-            white_layer = Image.new('RGBA', pil_region.size, (255,) * 4)
-
-            result_image = Image.composite(pil_region, white_layer, pil_region)
-
-            if result_image.mode not in ('RGB', 'RGBA', 'RGBX'):
-                result_image.convert('RGBA')
+            if icc_profile:
+                pil_region.save(output_filepath, quality=self.QUALITY, dpi=(self.DPI, self.DPI),
+                                icc_profile=icc_profile)
             else:
-                result_image.convert(result_image.mode)
-
-            result_image.save(output_filepath, quality=self.QUALITY, dpi=(self.DPI, self.DPI))
+                pil_region.save(output_filepath, quality=self.QUALITY, dpi=(self.DPI, self.DPI))
 
             return output_filepath
 
         except (IOError, Exception) as e:
+            logger.exception("BkImageEditor: {}. Image: {}".format(e.message, self._input_image_file) )
             return None
