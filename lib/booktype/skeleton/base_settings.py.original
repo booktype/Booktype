@@ -674,3 +674,25 @@ _ADDITIONAL_METADATA = [
 import collections
 
 ADDITIONAL_METADATA = collections.OrderedDict(_ADDITIONAL_METADATA)
+
+
+# IMAGEMAGICK #
+
+# if enabled:
+# - all epub2/3 images will be converted to RGB
+# - all screen PDF images will be converted to RGB
+# - all print PDF images will be converted to CMYK
+COLOR_SPACE_CONVERTER = False
+
+# ubuntu/linux: 'convert'
+# os x: '/usr/local/bin/convert'
+IMAGEMAGICK_PATH = 'convert'
+
+# profiles download page https://www.adobe.com/digitalimag/adobergb.html
+# profiles for Macintosh also work for Linux
+
+# USWebCoatedSWOP.icc profile can be used
+CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH = ''
+
+# AdobeRGB1998.icc profile can be used
+CMYK2RGB_CONVERTER_RGB_PROFILE_PATH = ''
