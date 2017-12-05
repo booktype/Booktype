@@ -53,10 +53,6 @@
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create New Book" %}">{% trans "Create Book" as create_text %} {{ create_text|upper }}</button>
                                 {% endif %}
 
-                                {% if can_upload_book %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Import Book from DOCX or EPUB" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
-                                {% endif %}
-
                                 {% if current_user.is_authenticated %}
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-target="#inviteWizard" data-original-title="{% trans "Invite people to edit your books" %}" data-toggle='modal'>{% trans "Invite" as invite_text %}  {{ invite_text|upper }}</button>
                                 {% endif %}
@@ -67,13 +63,12 @@
                             {% endif %}
                         {% endif %}
 
-                        {# I'm pretty sure nobody will miss this, let's hide it and then later remove it completely if nobody ask for it #}
-
                         <button role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#joinBookModal" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Join book with invite code' %}">{% trans "Join Book" as join_text %} {{ join_text|upper }}</button>
-                        <!-- <div class="btn-group float-right">
+
+                        <div class="btn-group float-right">
                             <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a grid' %}"><i class="fa fa-th"></i></button>
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a list' %}"><i class="fa fa-list-ul"></i></button>
-                        </div> -->
+                        </div>
                     </div>
                 </h2>
 
