@@ -46,6 +46,9 @@ PAGE_SIZE_DATA = {
     "US5x8":          {'page_width': 5 * INCH_2_POINT, 'page_height': 8 * INCH_2_POINT},
     "US7x10":         {'page_width': 7 * INCH_2_POINT, 'page_height': 10 * INCH_2_POINT},
 
+    "Swedish Report": {'page_width': 165 * MM_2_POINT, 'page_height': 242 * MM_2_POINT},
+    "UK Report":      {'page_width': 170 * MM_2_POINT, 'page_height': 244 * MM_2_POINT},
+
     "A5":             {'page_width': 148 * MM_2_POINT, 'page_height': 210 * MM_2_POINT},
     "A4":             {'page_width': 210 * MM_2_POINT, 'page_height': 297 * MM_2_POINT},
     "A3":             {'page_width': 297 * MM_2_POINT, 'page_height': 420 * MM_2_POINT},
