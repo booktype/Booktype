@@ -3478,7 +3478,12 @@ def remote_export_settings_get(request, message, bookid, version):
     for cover in models.BookCover.objects.filter(approved=True, book=book).order_by("title"):
         extension = os.path.splitext(cover.attachment.name)[-1].lower()
         key = '{}/cover{}'.format(cover.cid, extension)
-        covers[key] = cover.title
+
+        cover_name = cover.title
+        if len(cover_name.strip()) == 0:
+            cover_name = cover.filename
+
+        covers[key] = cover_name
 
     settings_options = get_settings(book, export_format)
 
