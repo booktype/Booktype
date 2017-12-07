@@ -97,10 +97,11 @@ class MPDFPlugin(ExternalScriptPlugin):
 
         for header in headers:
             for idx, h in enumerate(content.xpath('.//{}'.format(header))):
+                old_class = h.get('class', '')
                 if header == 'h1' and h.getprevious() is None:
-                    h.set('class', 'chapter-{}'.format(header))
+                    h.set('class', 'chapter-{} {}'.format(header, old_class))
                 else:
-                    h.set('class', 'body-{}'.format(header))
+                    h.set('class', 'body-{} {}'.format(header, old_class))
 
         for quote in content.xpath(".//p[@class='quote']"):
             div = etree.Element('div', {'class': 'quote'})
