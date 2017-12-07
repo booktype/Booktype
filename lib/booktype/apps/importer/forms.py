@@ -68,7 +68,8 @@ class UploadDocxFileForm(forms.Form):
     import_mode = forms.ChoiceField(
         required=True, choices=IMPORT_CHOICES, widget=forms.TextInput())
 
-    upload_docx_default_mode = forms.CharField(widget=forms.HiddenInput())
+    upload_docx_default_mode = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     def __init__(self, *args, **kwargs):
         super(UploadDocxFileForm, self).__init__(*args, **kwargs)
