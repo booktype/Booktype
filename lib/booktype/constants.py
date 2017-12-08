@@ -198,6 +198,7 @@ EPUB_ALLOWED_TAG_ATTRS = (
     ('ol', ('class', 'dir', 'id', 'lang', 'style', 'title', 'xml:lang')),
 )
 
+
 XHTML_DEFAULT_STYLING = u'''
 .group_img {
     page-break-inside: avoid;
@@ -255,6 +256,23 @@ div.caption_small {
   padding-right: 0.5em;
 }
 '''
+
+
+# indicates if ContentCleanUpPlugin should be used or not
+# this plugin is meant to remove all unnecessary and empty tags
+ENABLE_CONTENT_CLEANUP_ON_EXPORT = False
+
+# list of attributes that want to be removed from nodes in ContentCleanUpPlugin
+ATTRS_TO_REMOVE_ON_CLEANUP = ['style']
+
+# list of tags that are meant to be removed by the ContentCleanUpPlugin
+TAGS_TO_REMOVE_ON_CLEANUP = ['br']
+
+# list of tags that are supposed to be empty but are not remove in ContentCleanupPlugin
+ALLOWED_EMPTY_TAGS = ['hr', 'img', 'link']
+
+# list of css classes for nodes that can be empty given their behaviour e.g: .group_img, .bk-image-editor
+ALLOWED_EMPTY_BY_CLASSES = ['group_img', 'group_table', 'bk-image-editor']
 
 EXPORT_SETTINGS = {
     'mpdf': [

@@ -11,10 +11,11 @@ from ..constants import EPUB_NOT_ALLOWED_TAGS, EPUB_AVAILABLE_INBODY_ROOT_TAGS, 
 class CleanupTagsWriterPlugin(BasePlugin):
     """Cleanup plugin for Booktype EPUB Writing"""
 
-    def _cleanup(self, root):
-        for tag, action, replacement in [
-            (i['tag'], i['action'], i['replacement'] if 'replacement' in i else None) for i in EPUB_NOT_ALLOWED_TAGS
-            ]:
+    @staticmethod
+    def _cleanup(root):
+        for x in EPUB_NOT_ALLOWED_TAGS:
+            tag, action, replacement = x['tag'], x['action'], x.get('replacement', None)
+
             if action == 'strip':
                 for element in root.iter('p'):
                     strip_tags(element, tag)
@@ -31,7 +32,8 @@ class CleanupTagsWriterPlugin(BasePlugin):
             else:
                 raise Exception('EPUB_NOT_ALLOWED_TAGS contains not allowed actions.')
 
-    def _cleanup_root(self, root):
+    @staticmethod
+    def _cleanup_root(root):
         """
         Check if chapter's root tag is fit epubcheck requirements
         :param root: lxml.html.HtmlElement
@@ -43,7 +45,8 @@ class CleanupTagsWriterPlugin(BasePlugin):
                     child.tag = 'p'
                     child.attrib.clear()
 
-    def _cleanup_attrs(self, root):
+    @staticmethod
+    def _cleanup_attrs(root):
         """
         Cleanup attributes which are not fit epubcheck requirements
         :param root: lxml.html.HtmlElement
@@ -62,7 +65,6 @@ class CleanupTagsWriterPlugin(BasePlugin):
                 not_allowed_keys = set(element.attrib.keys()) - set(permitted_attrs)
                 for attr_key in not_allowed_keys:
                     del element.attrib[attr_key]
-
 
     def html_before_write(self, book, item):
         if item.get_type() != ebooklib.ITEM_DOCUMENT:

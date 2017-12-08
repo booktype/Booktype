@@ -1,3 +1,4 @@
 from .base_writerplugin import WriterPlugin
 from .image_editor_writerplugin import ImageEditorWriterPlugin
 from .cleanup_tags_writerplugin import CleanupTagsWriterPlugin
+from .content_cleanup_plugin import ContentCleanUpPlugin

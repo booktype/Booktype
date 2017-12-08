@@ -33,8 +33,10 @@ from booktype import constants
 from booktype.utils import config
 from booktype.apps.export.models import ExportSettings
 from booktype.utils.misc import TidyPlugin, import_from_string
+
 from booktype.utils.plugins.icejs import IceCleanPlugin
 from booktype.utils.plugins.comments import CommentsCleanPlugin
+from booktype.convert.epub.writerplugins import ContentCleanUpPlugin
 
 from .epub import ExportEpubBook
 
@@ -214,10 +216,12 @@ class ExportBook(object):
         'data-id',
         'transform-data'
     ]
+
     DEFAULT_PLUGINS = [
         TidyPlugin(),
         standard.SyntaxPlugin()
     ]
+
     PREFIXES = {
         'bkterms': 'http://booktype.org/',
         'add_meta_terms': 'http://booktype.org/additional-metadata/'
@@ -240,18 +244,8 @@ class ExportBook(object):
         self.embeded_images = {}
         self.attachments = models.Attachment.objects.filter(version=book_version)
 
-        # ICEjs changes are removed by default, so to keep them in the epub
-        # we need to pass remove_icejs as False in kwargs
-        if kwargs.get('remove_icejs', True):
-            self.DEFAULT_PLUGINS.append(IceCleanPlugin())
-
-        # comments reference bubble should be removed by default for now
-        # TODO: we should implement a way to attach the comments to the raw epub file
-        if kwargs.get('remove_comments', True):
-            self.DEFAULT_PLUGINS.insert(0, CommentsCleanPlugin())
-
-        # add extra plugins
-        self.DEFAULT_PLUGINS += kwargs.get('extra_plugins', [])
+        self._remove_icejs = kwargs.get('remove_icejs', True)
+        self._remove_comments = kwargs.get('remove_comments', True)
 
         # add extra attributes_global
         self.ATTRIBUTES_GLOBAL += kwargs.get('extra_attributes_global', [])
@@ -259,6 +253,9 @@ class ExportBook(object):
         # add extra prefixes
         for k in kwargs.get('extra_prefixes', dict()):
             self.PREFIXES[k] = kwargs['extra_prefixes'][k]
+
+        # for later usage
+        self.kwargs = kwargs
 
     def _set_metadata(self):
         """
@@ -479,6 +476,35 @@ class ExportBook(object):
         self.epub_book.add_metadata(
             None, 'meta', json.dumps(settings), {'property': 'bkterms:sections_settings'})
 
+    def get_plugins(self):
+        """
+        Retrieves plugins that are going to be used in write process.
+
+        Returns:
+            List with instances of plugins to be used
+        """
+
+        write_plugins = self.DEFAULT_PLUGINS
+
+        # comments reference bubble should be removed by default for now
+        # TODO: we should implement a way to attach the comments to the raw epub file
+        if self._remove_comments:
+            write_plugins.insert(0, CommentsCleanPlugin())
+
+        # ICEjs changes are removed by default, so to keep them in the epub
+        # we need to pass remove_icejs as False in kwargs
+        if self._remove_icejs:
+            write_plugins.append(IceCleanPlugin())
+
+        # let's add cleanup if enabled
+        if config.get_configuration('ENABLE_CONTENT_CLEANUP_ON_EXPORT', False):
+            write_plugins.append(ContentCleanUpPlugin())
+
+        # add extra plugins
+        write_plugins += self.kwargs.get('extra_plugins', [])
+
+        return write_plugins
+
     def run(self):
         """
         Run export process.
@@ -503,10 +529,9 @@ class ExportBook(object):
         standard.ATTRIBUTES_GLOBAL = self.ATTRIBUTES_GLOBAL
 
         epub.write_epub(
-            self.filename,
-            self.epub_book,
-            {'plugins': self.DEFAULT_PLUGINS}
-        )
+            self.filename, self.epub_book, {
+                'plugins': self.get_plugins()
+            })
 
 
 def get_exporter_class():
