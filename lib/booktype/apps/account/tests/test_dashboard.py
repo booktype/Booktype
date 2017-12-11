@@ -88,7 +88,6 @@ class DashboardTest(TestCase):
         self.assertContains(response, 'Log out')
         self.assertContains(response, 'Participating Books')
         self.assertContains(response, '#createBookModal')
-        self.assertContains(response, '#importBookModal')
         self.assertContains(response, 'id="user-settings"')
 
         # this user is collaborating with other books
