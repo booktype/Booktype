@@ -78,8 +78,8 @@ Community
 .. _Support forum: http://forum.sourcefabric.org/categories/booktype-support
 .. _Development forum: http://forum.sourcefabric.org/categories/booktype-development
 .. _Documentation forum: http://forum.sourcefabric.org/categories/booktype-documentation
-.. _Booktype for Authors and Publishers: http://sourcefabric.booktype.pro/booktype-21-for-authors-and-publishers/
-.. _GitHub: https://github.com/sourcefabric/booktype
+.. _Booktype for Authors and Publishers: https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/
+.. _GitHub: https://github.com/booktype/Booktype
 .. _Tracker: https://dev.sourcefabric.org/browse/BK
 .. _Translation platform: https://transifex.com/sourcefabric/booktype
 

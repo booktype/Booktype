@@ -42,7 +42,7 @@ How to install
     pip install Django==1.3 South==0.7.5 unidecode lxml PIL
 
     # Fetch Booktype source
-    git clone https://github.com/sourcefabric/Booktype.git
+    git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
     ./Booktype/scripts/createbooki --database sqlite mybook
@@ -127,7 +127,7 @@ How to install
     pip install Django==1.3 South==0.7.5 unidecode lxml PIL psycopg2
 
     # Fetch Booktype source
-    git clone https://github.com/sourcefabric/Booktype.git
+    git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
     ./Booktype/scripts/createbooki --database postgresql mybook
