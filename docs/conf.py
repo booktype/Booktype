@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.todo'
 ]
 
-extlinks = {'repo': ('https://github.com/sourcefabric/Booktype/tree/master/%s', ' ')}
+extlinks = {'repo': ('https://github.com/booktype/Booktype/tree/master/%s', ' ')}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -56,7 +56,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Booktype'
-copyright = u'2016, Aleksandar Erkalović'
+copyright = u'2017, Aleksandar Erkalović'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -276,7 +276,7 @@ texinfo_documents = [
 epub_title = u'Booktype'
 epub_author = u'Aleksandar Erkalović'
 epub_publisher = u'Aleksandar Erkalović'
-epub_copyright = u'2016, Aleksandar Erkalović'
+epub_copyright = u'2017, Aleksandar Erkalović'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

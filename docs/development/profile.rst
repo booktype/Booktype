@@ -21,7 +21,7 @@ Check the :doc:`deployment documentation </deployment/index>` which external ser
     $ source  bin/activate
 
     # Clone Booktype
-    $ git clone https://github.com/sourcefabric/Booktype.git
+    $ git clone https://github.com/booktype/Booktype.git
 
     # Install Python requirements for development profile
     $ pip install -r Booktype/requirements/dev.txt 
