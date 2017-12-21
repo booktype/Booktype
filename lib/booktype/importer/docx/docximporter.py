@@ -508,6 +508,72 @@ class WordImporter(object):
             else:
                 p.set('class', 'body %s' % classes)
 
+    def _handle_endnotes(self, tree):
+        """
+        Parse endnotes from docx file and generates the right container for it
+        """
+
+        has_endnotes = False
+        endnotes = None
+        endnote_counter = 1
+
+        for sup in tree.xpath('.//sup[@class="endnote"]'):
+            key = sup.get('data-id', '')
+
+            # below values were set in custom hooks endnotes and footnotes
+            relation_id = sup.get('data-relation-id', '')
+            relationship = sup.get('data-relationship', '')
+
+            # continue if there is no key or relationship is not of interest here
+            if key == '' or relationship != 'endnotes':
+                continue
+
+            sup.text = '{}'.format(endnote_counter)
+            endnote_counter += 1
+            note_content = None
+
+            # extract self.dfile.document.{footnotes|endnotes} dict
+            # notes_source_dict = getattr(self.dfile.document, relationship)
+            notes_source_dict = self.dfile.document.endnotes
+            if relation_id not in notes_source_dict.keys():
+                continue
+
+            note_element = notes_source_dict[relation_id]
+            note_content = serialize.serialize_elements(
+                self.dfile.document, note_element, {
+                    'embed_styles': False,
+                    'pretty_print': False,
+                    'relationship': relationship
+                })
+
+            if note_content is not None:
+                if not has_endnotes:
+                    endnotes = etree.SubElement(tree.find('body'), 'ol', {'class': 'endnotes'})
+                    has_endnotes = True
+
+                parser = lxml.html.HTMLParser(
+                    encoding='utf-8', remove_blank_text=True, remove_comments=True)
+                note_tree = lxml.html.fragment_fromstring(
+                    note_content, create_parent=True, parser=parser)
+
+                li = etree.SubElement(endnotes, 'li', {'id': 'endnote-{}'.format(key)})
+                for child in note_tree.find('div').getchildren():
+                    li.append(child)
+
+                # children are normally just one element which inside has more children
+                # so in this case, we just drop_tag and keep content
+                for x in li.getchildren():
+                    x.drop_tag()
+            else:
+                pass  # FIXME: should we remove the sup tag?
+
+    def _handle_footnotes(self, tree):
+        """Just adds a warning for user to convert footnotes to endnotes in Word
+        and then try again the import"""
+
+        warn_msg = _("We do not support footnotes. Please use endnotes in Word file. Convert them in Word file and upload this file again.")  # noqa
+        self.notifier.warning(warn_msg)
+
     def _parse_chapter(self, content):
         # TODO: add docstrings and improve logic
 
@@ -538,60 +604,13 @@ class WordImporter(object):
         # now we need to set body and body-first styles to paragraphs
         self._fix_p_styles(tree)
 
-        has_endnotes = False
-        endnotes = None
-        idx_endnote = 1
-        notes_rel_types = ['footnotes', 'endnotes']
+        # parse and fix endnotes
+        self._handle_endnotes(tree)
 
-        for endnote in tree.xpath('.//sup[@class="endnote"]'):
-            key = endnote.get('data-id', '')
-
-            # below values were set in custom hooks endnotes and footnotes
-            relation_id = endnote.get('data-relation-id', '')
-            relationship = endnote.get('data-relationship', '')
-
-            # continue if there is no key or relationship is not of interest here
-            if key == '' or relationship not in notes_rel_types:
-                continue
-
-            endnote.text = '{}'.format(idx_endnote)
-            idx_endnote += 1
-            note_content = None
-
-            # extract self.dfile.document.{footnotes|endnotes} dict
-            notes_source_dict = getattr(self.dfile.document, relationship)
-            if relation_id not in notes_source_dict.keys():
-                continue
-
-            note_element = notes_source_dict[relation_id]
-            note_content = serialize.serialize_elements(
-                self.dfile.document, note_element, {
-                    'embed_styles': False,
-                    'pretty_print': False,
-                    'relationship': relationship
-                })
-
-            if note_content is not None:
-                if not has_endnotes:
-                    endnotes = etree.SubElement(tree.find('body'), 'ol', {'class': 'endnotes'})
-                    has_endnotes = True
-
-                note_tree = lxml.html.fragment_fromstring(
-                    note_content, create_parent=True,
-                    parser=lxml.html.HTMLParser(
-                        encoding='utf-8', remove_blank_text=True, remove_comments=True)
-                )
-                li = etree.SubElement(endnotes, 'li', {'id': 'endnote-{}'.format(key)})
-                for child in note_tree.find('div').getchildren():
-                    li.append(child)
-
-                # children are normally just one element which inside has more children
-                # so in this case, we just drop_tag and keep content
-                for x in li.getchildren():
-                    x.drop_tag()
+        # footnes we just add a warning
+        self._handle_footnotes(tree)
 
         # let's cleanout infoboxes a bit
-        # TODO: implement of plugins or something else more organized that separate functions
         docutils.clean_infobox_content(tree)
         docutils.fix_citations(tree)
 

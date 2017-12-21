@@ -122,18 +122,11 @@ def hook_p(ctx, document, el, elem):
 def hook_footnote(ctx, document, el, elem):
     """
     Hook for the footnotes elements.
-    Add custom footnote booktype class and remove link tag.
+    We do not support footnotes by default. We will add a warning
+    asking to convert to endnotes and import again
     """
 
-    data_id = str(uuid.uuid1()).replace('-', '')
-
-    # set endnote class because we use it later to fix all notes
-    elem.set('class', 'endnote')
-    elem.set('data-id', data_id)
-
-    # this will be used later to retrieve content of footnote
-    elem.set('data-relationship', 'footnotes')
-    elem.set('data-relation-id', el.rid)
+    return
 
 
 def hook_endnote(ctx, document, el, elem):
