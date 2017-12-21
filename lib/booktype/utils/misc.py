@@ -174,9 +174,11 @@ def remove_unknown_tags(html_content):
     from lxml.html import defs
 
     try:
-        tree = parse_html_string(html_content)
+        tree = parse_html_string(html_content.encode('utf-8'))
     except Exception as err:
-        logger.error("RemoveUnknownTags: Problem while trying to parse content %s" % err)
+        logger.error(
+            "ERROR RemoveUnknownTags: Problem while trying to parse content. Returning raw content. Msg: %s" % err)
+        return html_content
 
     allow_tags = set(defs.tags)
 
