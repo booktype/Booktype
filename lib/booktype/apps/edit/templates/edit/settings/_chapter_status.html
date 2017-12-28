@@ -14,25 +14,32 @@
     <label>{% trans "Chapter statuses:" %}</label>
     <ol class="sortable-status ui-sortable" >
         {% for status in status_list  %}
-        <li class="item" style="display: list-item;" id='list_{{ status.pk }}' data-id='{{ status.pk }}'>
+        <li class="item" style="display: list-item;" id="list_{{ status.id }}"
+          data-id="{{ status.id }}"
+          data-num-chapters={{ status.num_chapters }}
+          data-num-attachments={{ status.num_attachments }}
+          >
             <div style="border-left-color: {{ status.color }};">
                 <div class="status-name">{{ status.name }}</div>
-                <div class="edit-status-block">
+                {% if status.is_default_status %}<span class="label label-info">{% trans "default" %}</span>{% endif %}
+                <div class="edit-status-block mt5">
                     <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="fa fa-check"></i></button>
-                        <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="fa fa-times"></i></button>
-                    </span>
+                      <input type="text" class="form-control">
+                      <span class="input-group-btn">
+                          <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="fa fa-check"></i></button>
+                          <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="fa fa-times"></i></button>
+                      </span>
                     </div>
                 </div>
-                </div>
-                <div class="btn-toolbar">
+              </div>
+              <div class="btn-toolbar">
                 <div class="btn-group">
+                  {% if not status.is_default_status %}
                     <button class="btn btn-default btn-xs edit-status"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-default btn-xs remove-status"{% if status.num_chapters > 0 %} disabled{% endif %}>
+                    <button class="btn btn-default btn-xs remove-status">
                         <i class="fa fa-trash-o"></i>
                     </button>
+                  {% endif %}
                 </div>
             </div>
         </li>
