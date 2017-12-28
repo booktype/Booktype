@@ -72,13 +72,6 @@ try:
 except ImportError:
     pass
 
-# LOGTAILER IF INSTALLED
-try:
-    import logtailer
-    INSTALLED_APPS += ('logtailer',)
-except ImportError:
-    pass
-
 # READ CONFIGURAION
 from booktype.utils import config
 
