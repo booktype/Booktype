@@ -1,3 +1,4 @@
+import json
 from django.utils.functional import Promise
 from django.utils.encoding import force_text
 from django.core.serializers.json import DjangoJSONEncoder
@@ -14,3 +15,9 @@ class LazyEncoder(DjangoJSONEncoder):
         if isinstance(obj, Promise):
             return force_text(obj)
         return super(LazyEncoder, self).default(obj)
+
+
+def serializeJson(data):
+    """Just a simple wrapper to serialize data to json using lazy LazyEncoder"""
+
+    return json.dumps(data, cls=LazyEncoder)
