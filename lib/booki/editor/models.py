@@ -64,7 +64,6 @@ STATUS_CHOICES = (
 )
 
 
-# Book Status
 class BookStatus(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=30, blank=False)
@@ -75,11 +74,11 @@ class BookStatus(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ['book', 'name']
         verbose_name = _('Book status')
         verbose_name_plural = _('Book status')
 
 
-# Book Notes
 # free form shared notes for writers of the book
 class BookNotes(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
@@ -93,7 +92,6 @@ class BookNotes(models.Model):
         verbose_name_plural = _('Book notes')
 
 
-# BookiGroup
 class BookiGroup(models.Model):
     name = models.CharField(_('name'), max_length=300, blank=False)
     url_name = models.CharField(_('url name'), max_length=300, blank=False)

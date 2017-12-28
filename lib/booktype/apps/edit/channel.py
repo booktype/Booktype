@@ -34,7 +34,7 @@ import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
 from booktype.utils import security, config
-from booktype.utils.misc import booktype_slugify, get_available_themes
+from booktype.utils.misc import booktype_slugify, get_available_themes, get_default_book_status
 from booktype.apps.core.models import Role, BookRole
 from booktype.apps.themes.models import BookTheme
 
@@ -273,6 +273,37 @@ def get_book_statuses(book):
 
     qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
     return [(st.id, _lazy(st.name), st.color) for st in qs]
+
+
+def get_book_statuses_dict(book):
+    """
+    Returns list of dict of book statuses elements
+
+    :Arguments:
+        book: Book instance
+    """
+    from django.db.models import Count
+    BookStatus = models.BookStatus
+
+    default_status_name = get_default_book_status()
+    all_statuses = (BookStatus.objects
+                    .filter(book=book)
+                    .annotate(num_chapters=Count('chapter'))
+                    .annotate(num_attachments=Count('attachment'))
+                    .order_by('-weight'))
+
+    status_list = []
+    for status in all_statuses:
+        status_list.append({
+            'id': status.id,
+            'name': _lazy(status.name),
+            'color': status.color,
+            'num_chapters': status.num_chapters,
+            'num_attachments': status.num_attachments,
+            'is_default_status': status.name == default_status_name
+        })
+
+    return status_list
 
 
 def remote_init_editor(request, message, bookid, version):
@@ -2391,7 +2422,10 @@ def remote_book_status_order(request, message, bookid, version):
 
 def remote_book_status_remove(request, message, bookid, version):
     """
-    Removes book status.
+    Removes book status. In case status is being used by chapters or attachment
+    it will reassign chapters and attachments to default status.
+
+    Note: default status cannot be removed
 
     Sends notification to chat.
 
@@ -2421,16 +2455,43 @@ def remote_book_status_remove(request, message, bookid, version):
         raise PermissionDenied
 
     result = True
+    msg = None
 
     up = models.BookStatus.objects.get(book=book, id=message["status_id"])
-    # this is a quick fix
-    # check - no chapter has this status + no attachment has this status and no book has this status
-    if len(list(models.Chapter.objects.filter(status=up, book=book))) == 0 and \
-            len(list(models.Attachment.objects.filter(status=up, version__book=book))) == 0 and \
-            book.status != up:
-        up.delete()
-    else:
-        result = False
+    assigned_chapters = models.Chapter.objects.filter(status=up, book=book)
+    assigned_attachments = models.Attachment.objects.filter(status=up, version__book=book)
+
+    default_status_name = get_default_book_status()
+
+    if book.status == up:
+        msg = _lazy("Unable to delete. Status used in current book")
+
+    if default_status_name == up.name:
+        msg = _lazy("Default status cannot be deleted")
+
+    if msg is not None:
+        return {"result": False, "message": msg}
+
+    # ressign any chapter or attachments to default status
+    if assigned_chapters.count() > 0 or assigned_attachments.count() > 0:
+        try:
+            default_status = models.BookStatus.objects.get(book=book, name=default_status_name)
+        except models.BookStatus.DoesNotExist:
+            return {
+                "result": False,
+                "message": _lazy("Unable to reassign registries. Default status is missing.")
+            }
+
+        for chap in assigned_chapters:
+            chap.status = default_status
+            chap.save()
+
+        for attach in assigned_attachments:
+            attach.status = default_status
+            attach.save()
+
+    # TODO: sync other clients when statuses changed
+    up.delete()
 
     all_statuses = get_book_statuses(book)
 
@@ -2443,7 +2504,6 @@ def remote_book_status_remove(request, message, bookid, version):
         myself=False)
 
     return {
-            "status": True,
             "result": result,
             "statuses": all_statuses
         }
@@ -2496,10 +2556,11 @@ def remote_book_status_create(request, message, bookid, version):
     all_statuses = get_book_statuses(book)
 
     sputnik.addMessageToChannel(
-        request, "/booktype/book/%s/%s/" % (bookid, version),
-        {"command": "chapter_status_changed", "statuses": all_statuses},
-        myself=False
-    )
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_status_changed",
+            "statuses": all_statuses
+        },
+        myself=False)
 
     return {
         "result": True,
