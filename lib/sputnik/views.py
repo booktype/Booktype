@@ -212,4 +212,4 @@ def dispatcher(request, **sputnik_dict):
     # Always return HTTP status 200
     # In the future we should change this and return different kind of statuses in case of error
 
-    return HttpResponse(json.dumps(return_objects, cls=utils.LazyEncoder), content_type="text/json")
+    return HttpResponse(utils.serializeJson(return_objects), content_type="text/json")

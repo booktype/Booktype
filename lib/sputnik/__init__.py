@@ -45,9 +45,9 @@ Sputnik message
 
 from __future__ import with_statement
 
-import json
 import redis
 import logging
+from .utils import serializeJson
 
 from django.conf import settings
 
@@ -57,6 +57,7 @@ try:
     REDIS_DB = settings.REDIS_DB
     REDIS_PASSWORD = settings.REDIS_PASSWORD
 except AttributeError:
+    # TODO: fix this. If one of above attributes are not preset it will set all settings to default
     REDIS_HOST = 'localhost'
     REDIS_PORT = 6379
     REDIS_DB = 0
@@ -68,8 +69,8 @@ rcon = redis.Redis(
 
 logger = logging.getLogger('sputnik')
 
-# Implement our own methods for redis communication. This had to be done before because previous versions of redis had problems
-# with spaces in keys and etc....
+# Implement our own methods for redis communication. This had to be done before because previous
+# versions of redis had problems with spaces in keys and etc....
 
 
 def rencode(key):
@@ -342,7 +343,7 @@ def add_message_to_channel(request, channel_name, message, myself=False):
 
         if c.strip() != '':
             try:
-                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, serializeJson(message))
             except:
                 print_stack(None)
 
@@ -367,7 +368,7 @@ def addMessageToChannel2(clientID, sputnikID, channelName, message, myself=False
 
         if c.strip() != '':
             try:
-                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, serializeJson(message))
             except:
                 logger.debug('*ERROR PUSH*')
 
