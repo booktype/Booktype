@@ -722,7 +722,7 @@ def remote_chapter_save(request, message, bookid, version):
 
     # TODO
     # put this outside in common module
-    # or maybe even betterm put it in the Model
+    # or maybe even better put it in the Model
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -739,7 +739,6 @@ def remote_chapter_save(request, message, bookid, version):
 
     # if chapter is locked -> check access
     if chapter.is_locked():
-        # check access
         if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
@@ -768,28 +767,33 @@ def remote_chapter_save(request, message, bookid, version):
 
         chapter.revision += 1
 
-        message = {"message_id": "user_saved_chapter_to_revision",
-                   "message_args": [request.user.username, chapter.title, chapter.revision]}
+        msg = {
+            "message_id": "user_saved_chapter_to_revision",
+            "message_args": [request.user.username, chapter.title, chapter.revision]}
 
     else:
-        message = {"message_id": "user_saved_chapter",
-                   "message_args": [request.user.username, chapter.title]}
+        msg = {
+            "message_id": "user_saved_chapter",
+            "message_args": [request.user.username, chapter.title]}
 
     chapter.content = content
     chapter.save()
 
     # send chat message to channel
-    message.update({"command": "message_info",
-                    "from": request.user.username,
-                    "email": request.user.email})
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, message, myself=True)
+    msg.update({
+        "command": "message_info", "from": request.user.username, "email": request.user.email})
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, msg, myself=True)
 
-    if not message['continue']:
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "chapter_status",
-                                     "chapterID": message["chapterID"],
-                                     "status": "normal",
-                                     "username": request.user.username})
+    # TODO: not sure if this ever gets evaluated as true.
+    # Check it later and remove if not used
+    if not message.get('continue'):
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "chapter_status",
+                "chapterID": message["chapterID"],
+                "status": "normal",
+                "username": request.user.username
+            })
 
         sputnik.rdelete("type:%s:edit:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
