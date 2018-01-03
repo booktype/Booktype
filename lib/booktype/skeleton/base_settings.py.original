@@ -34,20 +34,21 @@ BOOKTYPE_SITE_NAME = None
 BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 
 # The hostname of the Booktype server (e.g. www.myserver.org, 192.168.1.10, booktype.myserver.org)
-THIS_BOOKTYPE_SERVER = ''
+THIS_BOOKTYPE_SERVER = os.environ['BOOKTYPE_SERVER'] if 'BOOKTYPE_SERVER' in os.environ else ''
 
 # BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
 
-BOOKTYPE_URL = ''
+BOOKTYPE_URL = os.environ['BOOKTYPE_URL'] if 'BOOKTYPE_URL' in os.environ else ''
 # BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 # E-MAIL OPTIONS
 DEFAULT_FROM_EMAIL = 'booktype@booktype.pro'
 REPORT_EMAIL_USER = 'report@booktype.pro'
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 25
+EMAIL_HOST = os.environ['BOOKTYPE_EMAIL_HOST'] if 'BOOKTYPE_EMAIL_HOST' in os.environ else 'localhost'
+EMAIL_PORT = os.environ['BOOKTYPE_EMAIL_PORT'] if 'BOOKTYPE_EMAIL_PORT' in os.environ else 25
+
 # EMAIL_HOST_USER = 'booktype@' + THIS_BOOKTYPE_SERVER
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_TLS = False
@@ -57,14 +58,15 @@ MOBI_CONVERT = "calibre"
 
 # MPDF RENDERER SETTINGS
 
-MPDF_DIR = ''
-PHP_PATH = 'php'
+MPDF_DIR = os.environ['BOOKTYPE_MPDF_DIR'] if 'BOOKTYPE_MPDF_DIR' in os.environ else ''
 MPDF_SCRIPT = '{}/booktype2mpdf.php'.format(BOOKTYPE_ROOT)
+PHP_PATH = os.environ['BOOKTYPE_PHP_PATH'] if 'BOOKTYPE_PHP_PATH' in os.environ else 'php'
 
 # PANDOC
 # /usr/local/bin/pandoc - OSX
 # /usr/bin/pandoc - linux
-PANDOC_PATH = '/usr/local/bin/pandoc'
+
+PANDOC_PATH = os.environ['BOOKTYPE_PANDOC_PATH'] if 'BOOKTYPE_PANDOC_PATH' in os.environ else '/usr/local/bin/pandoc'
 PANDOC_ICML_SCRIPT = '{}/epub2icml.sh'.format(BOOKTYPE_ROOT)
 PANDOC_DOCX_SCRIPT = '{}/epub2docx.sh'.format(BOOKTYPE_ROOT)
 
@@ -128,10 +130,10 @@ DEFAULT_PUBLISHER = "Unknown"
 
 
 # REDIS STUFF
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_PASSWORD = None
+REDIS_HOST = os.environ['BOOKTYPE_REDIS_HOST'] if 'BOOKTYPE_REDIS_HOST' in os.environ else 'localhost'
+REDIS_PORT = os.environ['BOOKTYPE_REDIS_PORT'] if 'BOOKTYPE_REDIS_PORT' in os.environ else 6379
+REDIS_PASSWORD = os.environ['BOOKTYPE_REDIS_PASSWORD'] if 'BOOKTYPE_REDIS_PASSWORD' in os.environ else None
+REDIS_DB = os.environ['BOOKTYPE_REDIS_DB'] if 'BOOKTYPE_REDIS_DB' in os.environ else 0
 
 # DJANGO STUFF
 AUTH_PROFILE_MODULE = 'account.UserProfile'
@@ -325,8 +327,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+# CELERY
+BROKER_URL = os.environ['BOOKTYPE_BROKER_URL'] if 'BOOKTYPE_BROKER_URL' in os.environ else 'amqp://guest:guest@localhost:5672/'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 # set of default roles and corresponding permissions
