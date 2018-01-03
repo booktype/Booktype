@@ -1,8 +1,11 @@
+import os
+
 from .base import *
 
 # WEB SITE URL
-THIS_BOOKTYPE_SERVER = ''
-BOOKTYPE_URL = ''
+THIS_BOOKTYPE_SERVER = os.environ.get('BOOKTYPE_SERVER', '')
+
+BOOKTYPE_URL = os.environ.get('BOOKTYPE_URL', '')
 # BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
@@ -49,11 +52,24 @@ DATABASES = {
     }
 }
 
-# REDIS
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_PASSWORD = None
+if 'BOOKTYPE_DATABASE_ENGINE' in os.environ:
+    DATABASES['default']['ENGINE'] = os.environ['BOOKTYPE_DATABASE_ENGINE']
+
+if 'BOOKTYPE_DATABASE_NAME' in os.environ:
+    DATABASES['default']['NAME'] = os.environ['BOOKTYPE_DATABASE_NAME']
+    
+if 'BOOKTYPE_DATABASE_USER' in os.environ:
+    DATABASES['default']['USER'] = os.environ['BOOKTYPE_DATABASE_USER']
+
+if 'BOOKTYPE_DATABASE_PASSWORD' in os.environ:
+    DATABASES['default']['PASSWORD'] = os.environ['BOOKTYPE_DATABASE_PASSWORD']
+
+if 'BOOKTYPE_DATABASE_HOST' in os.environ:
+    DATABASES['default']['HOST'] = os.environ['BOOKTYPE_DATABASE_HOST']
+    
+if 'BOOKTYPE_DATABASE_PORT' in os.environ:
+    DATABASES['default']['PORT'] = os.environ['BOOKTYPE_DATABASE_PORT']
+
 
 # E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
