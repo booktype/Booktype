@@ -139,23 +139,3 @@
     <a target="_blank" href="{% url "accounts:view_profile" request.user.username %}">{% trans "Dashboard" %}</a>.
   </div>
 </script>
-
-<div id="changeRoles" class="modal changeRoles fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>{% trans "Change roles for " %}<span></span></h3>
-      </div>
-      <div class="modal-body">
-        <div class="roles-options"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="modal-close">
-          {% trans "Close" %}
-        </button>
-        <button id="saveChangeRole" class="btn btn-primary disabled">{% trans "Save" %}</button>
-      </div>
-    </div>
-  </div>
-</div>

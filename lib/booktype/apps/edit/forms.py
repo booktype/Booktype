@@ -340,6 +340,21 @@ class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
                 meta.save()
 
 
+class RolesForm(BaseSettingsForm, forms.Form):
+    required_permission = 'core.manage_roles'
+
+    @classmethod
+    def extra_context(cls, book, request):
+        member_ids = book.bookrole_set.all().values_list('members', flat=True)
+        default_roles = getattr(settings, 'BOOKTYPE_DEFAULT_ROLES', {})
+
+        return {
+            'book_users': User.objects.filter(id__in=member_ids).order_by('username'),
+            'roles': Role.objects.exclude(name__in=default_roles.keys()),
+            'user': request.user
+        }
+
+
 class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
     skip_select_and_checkbox = True
     required_permission = 'core.manage_permissions'

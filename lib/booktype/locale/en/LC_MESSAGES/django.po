@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-28 14:42-0600\n"
+"POT-Creation-Date: 2018-01-16 23:01-0600\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -485,6 +485,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:4
 #: lib/booktype/apps/edit/views.py:62
 msgid "Roles"
 msgstr ""
@@ -1375,46 +1376,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1453
-#: lib/booktype/apps/edit/channel.py:1458
+#: lib/booktype/apps/edit/channel.py:1457
+#: lib/booktype/apps/edit/channel.py:1462
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1464
+#: lib/booktype/apps/edit/channel.py:1468
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1471
 #: lib/booktype/apps/edit/channel.py:1475
+#: lib/booktype/apps/edit/channel.py:1479
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1484
+#: lib/booktype/apps/edit/channel.py:1488
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1488
+#: lib/booktype/apps/edit/channel.py:1492
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1634
+#: lib/booktype/apps/edit/channel.py:1638
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1642
+#: lib/booktype/apps/edit/channel.py:1646
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1647
+#: lib/booktype/apps/edit/channel.py:1651
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1651
+#: lib/booktype/apps/edit/channel.py:1655
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:2256
+#: lib/booktype/apps/edit/channel.py:2260
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1497,7 +1498,6 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:461
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:155
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
@@ -2436,7 +2436,6 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:136
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:157
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:46
 msgid "Save"
@@ -2727,6 +2726,18 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:145
 msgid "Deleted successfully"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:147
+msgid "Role successfully assigned"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:148
+msgid "Role successfully removed"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:149
+msgid "Unexpected error while modifying role"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
@@ -3629,15 +3640,13 @@ msgid "Permissions required to access this module."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:125
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:46
 msgid "CHANGE"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:138
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:54
 msgid "This book doesn't contain invited people. Please invite people in your "
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:148
-msgid "Change roles for "
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:19
@@ -3863,6 +3872,15 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this metadata content? You will not be "
 "able to undo this operation!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:66
+msgid "Assign or remove roles to "
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:69
+msgid ""
+"Please select the roles you would like to assign or remove from this user"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
