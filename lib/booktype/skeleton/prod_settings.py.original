@@ -1,8 +1,11 @@
+import os
+
 from .base import *
 
 # WEB SITE URL
-THIS_BOOKTYPE_SERVER = ''
-BOOKTYPE_URL = ''
+THIS_BOOKTYPE_SERVER = os.environ['BOOKTYPE_SERVER'] if 'BOOKTYPE_SERVER' in os.environ else ''
+
+BOOKTYPE_URL = os.environ['BOOKTYPE_URL'] if 'BOOKTYPE_URL' in os.environ else ''
 # BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
@@ -32,10 +35,13 @@ WSGI_APPLICATION = '{}.wsgi_prod.application'.format('##BOOKTYPE_SITE_DIR##')
 ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_DIR)
 
 # REDIS
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_PASSWORD = None
+REDIS_HOST = os.environ['BOOKTYPE_REDIS_HOST'] if 'BOOKTYPE_REDIS_HOST' in os.environ else 'localhost'
+REDIS_PORT = os.environ['BOOKTYPE_REDIS_PORT'] if 'BOOKTYPE_REDIS_PORT' in os.environ else 6379
+REDIS_PASSWORD = os.environ['BOOKTYPE_REDIS_PASSWORD'] if 'BOOKTYPE_REDIS_PASSWORD' in os.environ else None
+REDIS_DB = os.environ['BOOKTYPE_REDIS_DB'] if 'BOOKTYPE_REDIS_DB' in os.environ else 0
+
+# CELERY
+BROKER_URL = os.environ['BOOKTYPE_BROKER_URL'] if 'BOOKTYPE_BROKER_URL' in os.environ else 'amqp://guest:guest@localhost:5672/'
 
 # DATABASE
 DATABASES = {
@@ -48,6 +54,24 @@ DATABASES = {
         'PORT': ''
     }
 }
+
+if 'BOOKTYPE_DATABASE_ENGINE' in os.environ:
+    DATABASES['default']['ENGINE'] = os.environ['BOOKTYPE_DATABASE_ENGINE']
+
+if 'BOOKTYPE_DATABASE_NAME' in os.environ:
+    DATABASES['default']['NAME'] = os.environ['BOOKTYPE_DATABASE_NAME']
+
+if 'BOOKTYPE_DATABASE_USER' in os.environ:
+    DATABASES['default']['USER'] = os.environ['BOOKTYPE_DATABASE_USER']
+
+if 'BOOKTYPE_DATABASE_PASSWORD' in os.environ:
+    DATABASES['default']['PASSWORD'] = os.environ['BOOKTYPE_DATABASE_PASSWORD']
+
+if 'BOOKTYPE_DATABASE_HOST' in os.environ:
+    DATABASES['default']['HOST'] = os.environ['BOOKTYPE_DATABASE_HOST']
+
+if 'BOOKTYPE_DATABASE_PORT' in os.environ:
+    DATABASES['default']['PORT'] = os.environ['BOOKTYPE_DATABASE_PORT']
 
 # E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
