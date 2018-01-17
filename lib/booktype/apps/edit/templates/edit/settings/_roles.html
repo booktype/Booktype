@@ -1,0 +1,190 @@
+{% load i18n profile %}
+
+<h4 class="border-bottom">
+  {% trans "Roles" %}
+</h4>
+
+<div class="roles">
+  <table class="table table-condensed table-striped">
+    <tbody>
+      {% for user in book_users %}
+      <tr>
+        <tr class="active">
+          <td class="list user-avatar circle">
+            <figure>
+              {% profile_image user %}
+            </figure>
+            <div class="list-info">
+              <h4><a target="_blank" href="{% url 'accounts:view_profile' user.username %}">{{ user.username }}</a></h4>
+              <p>{{ user.get_full_name }}</p>
+            </div>
+          </td>
+          <td>
+            <div class="list-roles pull-left">
+              {% for obj in user.roles.all %}
+                <a class="btn btn-default btn-sm book-roles"
+                  tabindex="0"
+                  role="button"
+                  data-book-role-id="{{ obj.id }}"
+                  data-role-id="{{ obj.role.id }}"
+                  data-html="true"
+                  data-placement="right"
+                  data-trigger="focus"
+                  title="{{ obj.role.description }}"
+                  data-content="{% for x in obj.role.permissions.all %}<span class='label label-info'>{{ x.description }}</span>{% endfor %}">
+                  {{ obj.role.name }}
+                </a>
+              {% endfor %}
+            </div>
+          </td>
+          <td>
+            <div class="change-btn pull-right">
+              <button class="btn btn-default btn-sm" role="button" data-target="#changeRoles"
+                data-toggle="modal"
+                data-user-name="{{ user.username }}"
+                data-user-id="{{ user.id }}">
+                <i class="fa fa-pencil"></i> {% trans "CHANGE" %}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tr>
+      {% empty %}
+
+      {% trans "This book doesn't contain invited people. Please invite people in your " %}
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div id="changeRoles" class="modal changeRoles fade" tabindex="-1" style="top: 150px;" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="mb0 mt0">{% trans "Assign or remove roles to " %} <span></span></h3>
+      </div>
+      <div class="modal-body">
+        <p>{% trans "Please select the roles you would like to assign or remove from this user" %}</p>
+        <div class="roles-options">
+          {% for role in roles %}
+          <button role="button" class="btn btn-default role-btn" data-role-id="{{ role.id }}">
+            {{ role.name }}
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    var changeRolesModal = $('#changeRoles');
+    var changeRolesModalUsername = $('h3 span', changeRolesModal);
+
+    // init popovers
+    if (window.booktype.editor.settingsRolesShowPermissions) {
+      $('.book-roles').popover();
+    }
+
+    $('button[data-target="#changeRoles"]').off('click');
+    $('button[data-target="#changeRoles"]').on('click', function () {
+      var $changeBtn = $(this);
+      var $userRowElem = $changeBtn.closest('tr');
+
+      var userID = $changeBtn.data('user-id');
+      var userName = $changeBtn.data('user-name');
+
+      changeRolesModal.data('user-id', userID);
+      changeRolesModalUsername.html(userName);
+
+      //set actives roles of user that is going to be changed
+      $userRowElem.find('.list-roles a').each(function (id, elem) {
+        var $role = $(elem);
+        var bookRoleID = $role.data('book-role-id');
+        var roleID = $role.data('role-id');
+
+        // make it active and set corresponding book role id
+        var $modalRoleBtn = changeRolesModal.find('[data-role-id="' + roleID + '"]');
+        $modalRoleBtn.addClass('active');
+        $modalRoleBtn.data('book-role-id', bookRoleID);
+      });
+    });
+
+    // reset everything on modal hide
+    $(document).off('hidden.bs.modal', '#changeRoles');
+    $(document).on('hidden.bs.modal', '#changeRoles', function () {
+      changeRolesModal.removeData('user-id');
+      changeRolesModal.find('[data-role-id]')
+        .removeClass('active')
+        .removeData('book-role-id');
+
+      changeRolesModalUsername.html('');
+      Backbone.history.loadUrl();
+    });
+
+    // role buttons are now toggeable, active or not
+    $(document).off('click', '.role-btn');
+    $(document).on('click', '.role-btn', function () {
+      var $btn = $(this);
+      var $modal = $btn.closest('.modal');
+      var roleName = $btn.text();
+      var isRoleActive = $btn.hasClass('active');
+      var roleID = $btn.data('role-id');
+      var userID = $modal.data('user-id');
+
+      //TODO: create a nicer mechanism to shortcut simple notifications
+      var notification = booktype.utils.notification;
+      var notify = {
+        success: function (title) { notification(title, "", { type: "success", z_index: 1050 })},
+        error: function (title) { notification(title, "", { type: "danger", z_index: 1050 }) }
+      };
+
+      booktype.ui.notify(booktype._('sending_data'));
+
+      // assign or remove role according to button state
+      if (isRoleActive) {
+        var bookRoleID = $btn.data('book-role-id');
+
+        booktype.sendToCurrentBook({
+            'command': 'remove_user_from_role',
+            'userid': userID,
+            'roleid': bookRoleID
+          },
+          function (data) {
+            booktype.ui.notify();
+            if (data.result) {
+              $btn.removeClass('active');
+              notify.success(roleName + " " + booktype._('role_removed'));
+            } else {
+              notify.error(booktype._('role_change_error'));
+            }
+          }
+        );
+      } else {
+        booktype.sendToCurrentBook({
+            'command': 'assign_to_role',
+            'userid': userID,
+            'roleid': roleID
+          },
+          function (data) {
+            if (data.result) {
+              $btn.addClass('active')
+              $btn.data('book-role-id', data.role_id);
+
+              notify.success(roleName + " " + booktype._('role_assigned'));
+            } else {
+              notify.error(booktype._('role_change_error'));
+            }
+          }
+        );
+      }
+
+      booktype.ui.notify();
+    });
+
+  });
+
+</script>

@@ -3300,8 +3300,8 @@ def remote_assign_to_role(request, message, bookid, version):
     and assign the user as a member
 
     Arguments:
-        - role
-        - user
+        - roleid
+        - userid
     """
 
     try:
@@ -3313,20 +3313,22 @@ def remote_assign_to_role(request, message, bookid, version):
     if not book_security.has_perm('core.manage_roles'):
         raise PermissionDenied
 
-    for roleid in message['roles']:
-        # check if roles exist, otherwise continue with next loop
-        try:
-            role = Role.objects.get(id=roleid)
-        except:
-            continue
+    roleid = message.get('roleid')
+    if roleid is None:
+        return {'result': False}
 
-        book_role, _ = BookRole.objects.get_or_create(
-            role=role,
-            book=book
-        )
-        book_role.members.add(user)
+    # check if roles exist, otherwise continue with next loop
+    try:
+        role = Role.objects.get(id=roleid)
+    except Exception as err:
+        logger.error("Unable to assign role to user %s", err)
+        return {'result': False}
 
-    return {'result': True}
+    book_role, _ = BookRole.objects.get_or_create(
+        role=role, book=book)
+    book_role.members.add(user)
+
+    return {'result': True, 'role_id': book_role.id}
 
 
 def remote_remove_user_from_role(request, message, bookid, version):
@@ -3345,7 +3347,8 @@ def remote_remove_user_from_role(request, message, bookid, version):
     try:
         user = User.objects.get(id=message['userid'])
         role = BookRole.objects.get(id=message['roleid'])
-    except Exception:
+    except Exception as err:
+        logger.error("Unable to remove role to user %s", err)
         return {'result': False}
 
     role.members.remove(user)
