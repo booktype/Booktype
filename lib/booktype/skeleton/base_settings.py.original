@@ -684,7 +684,7 @@ ADDITIONAL_METADATA = collections.OrderedDict(_ADDITIONAL_METADATA)
 # - all epub2/3 images will be converted to RGB
 # - all screen PDF images will be converted to RGB
 # - all print PDF images will be converted to CMYK
-COLOR_SPACE_CONVERTER = False
+COLOR_SPACE_CONVERTER = os.environ.get('COLOR_SPACE_CONVERTER', False)
 
 # ubuntu/linux: 'convert'
 # os x: '/usr/local/bin/convert'
