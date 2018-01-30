@@ -41,18 +41,20 @@ class ContentCleanUpPlugin(BasePlugin):
         # walk over all elements in the tree and remove all
         # nodes that are recursively empty
         body = root.find('body')
-        for elem in body.xpath("//*"):
+
+        for elem in body.xpath("//body//*"):
             # remove not wanted attributes
             for attr in attrs_to_remove_on_cleanup:
                 if attr in elem.attrib:
                     del elem.attrib[attr]
 
-            parent = elem.getparent()
             klasses = elem.get('class', '').split()
             allowed_by_class = any([x in allowed_empty_by_classes for x in klasses])
 
             if recursively_empty(elem) and elem.tag not in tags_allowed_to_be_empty and not allowed_by_class:
-                parent.remove(elem)
+                # just in case if text contains spaces or tabs, because drop_tag removes only tag
+                elem.text = ''
+                elem.drop_tag()
 
         chapter.content = etree.tostring(root, pretty_print=True, encoding="utf-8", xml_declaration=True)
 
