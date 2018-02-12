@@ -5,7 +5,7 @@
 <div style="display: none;">
   {# data-action attribute part "chapter-pk-to-replace" it's tricky #}
   {# but it's fine for now, we don't have `url` templatetag to use in javascript #}
-  <form id="uploadDocxForm" enctype=multipart/form-data data-action="{% url 'importer:import_to_chapter' book.url_title 'chapter-pk-to-replace' %}" method="POST">
+  <form id="uploadDocxForm" enctype="multipart/form-data" data-action="{% url 'importer:import_to_chapter' book.url_title 'chapter-pk-to-replace' %}" method="POST">
     {% csrf_token %}
     {{ upload_docx_form }}
   </form>
@@ -295,7 +295,10 @@
             <% } %>
         </div>
         <div class="toc-chapter-detail">
-            <div class="status"></div>
+            <div class="status">
+              <label for=""></label>
+              <input type="checkbox" name="mark_status" value="" />
+            </div>
             <% if (is_locked && lock_type === 2) { %>
                 <div>{% trans "Locked" %}</div>
             <% } else if (is_locked && lock_type === 1) { %>
@@ -307,6 +310,20 @@
                     <a href="" class="terminate-edit-chapter"><span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}</a>
                 </div>
             {% endif %}
+
+            <select name="assign_user" placeholder="{% trans 'Assign...' %}">
+              <option value="" <% if (assigned === null) { %>selected="selected"<% } %>></option>
+
+              <% if (assigned !== null) { %>
+                <option value="<%= assigned %>" selected="selected"><%= assigned %></option>
+              <% } %>
+
+              {% for user in book_members %}
+                <% if (assigned !== "{{ user }}") { %>
+                <option value="{{ user }}">{{ user }}</option>
+                <% } %>
+              {% endfor %}
+            </select>
         </div>
     </div>
 
@@ -341,29 +358,29 @@
                         <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
                         <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                        {% check_perm 'edit.rename_chapter' %}
-                            <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.rename_chapter' %}
+                              <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
+                          {% endcheck_perm %}
 
-                        {% check_perm 'edit.manage_chapters_hold' %}
-                            <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.manage_chapters_hold' %}
+                              <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
+                          {% endcheck_perm %}
 
-                        {% check_perm 'edit.delete_chapter' %}
-                            <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.delete_chapter' %}
+                              <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
+                          {% endcheck_perm %}
 
-                        {% check_perm 'edit.lock_chapter' %}
-                            <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.lock_chapter' %}
+                              <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
+                          {% endcheck_perm %}
 
-                        {% check_perm 'edit.export_chapter_content' %}
-                            <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.export_chapter_content' %}
+                              <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
+                          {% endcheck_perm %}
 
-                        {% check_perm 'edit.import_to_chapter' %}
-                        <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
-                        {% endcheck_perm %}
+                          {% check_perm 'edit.import_to_chapter' %}
+                          <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
+                          {% endcheck_perm %}
                         </ul>
                     <% } %>
                 {% elif can_lock_chapter %}
@@ -375,30 +392,30 @@
                 <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
                 <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                {% check_perm 'edit.rename_chapter' %}
-                    <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.rename_chapter' %}
+                      <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
+                  {% endcheck_perm %}
 
-                {% check_perm 'edit.manage_chapters_hold' %}
-                    <li><a href="#" class="option-hold">{% trans "Put on hold" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.manage_chapters_hold' %}
+                      <li><a href="#" class="option-hold">{% trans "Put on hold" %}</a></li>
+                  {% endcheck_perm %}
 
-                {% check_perm 'edit.delete_chapter' %}
-                    <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.delete_chapter' %}
+                      <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
+                  {% endcheck_perm %}
 
-                {% check_perm 'edit.lock_chapter' %}
-                    <li><a href="#" class="option-lock-simple">{% trans "Lock editing" %}</a></li>
-                    <li><a href="#" class="option-lock-everyone">{% trans "Lock exclusively" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.lock_chapter' %}
+                      <li><a href="#" class="option-lock-simple">{% trans "Lock editing" %}</a></li>
+                      <li><a href="#" class="option-lock-everyone">{% trans "Lock exclusively" %}</a></li>
+                  {% endcheck_perm %}
 
-                {% check_perm 'edit.export_chapter_content' %}
-                    <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.export_chapter_content' %}
+                      <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
+                  {% endcheck_perm %}
 
-                {% check_perm 'edit.import_to_chapter' %}
-                    <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
-                {% endcheck_perm %}
+                  {% check_perm 'edit.import_to_chapter' %}
+                      <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
+                  {% endcheck_perm %}
                 </ul>
             <% } %>
         </div>
@@ -406,24 +423,30 @@
         {% check_perm 'edit.change_chapter_status' %}
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                    <div class="btn-group status-dropdown">
+                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                          {% trans "STATUS" %} <span class="caret"></span>
+                        </button>
                         <ul class="dropdown-menu status-options">
                         <% for (var i in statuses) { %>
                             <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
                                 <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                                <input <% if (checked_statuses.indexOf(statuses[i][0]) !== -1) { %> checked="checked" <% } %> type="checkbox" name="mark_status" value="<%= statuses[i][0] %>">
                             </li>
                         <% } %>
                         </ul>
                     </div>
                 {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
-                        <div class="btn-group">
-                            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                        <div class="btn-group status-dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                              {% trans "STATUS" %} <span class="caret"></span>
+                            </button>
                             <ul class="dropdown-menu status-options">
                             <% for (var i in statuses) { %>
                                 <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
                                     <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                                    <input <% if (checked_statuses.indexOf(statuses[i][0]) !== -1) { %> checked="checked" <% } %> type="checkbox" name="mark_status" value="<%= statuses[i][0] %>">
                                 </li>
                             <% } %>
                             </ul>
@@ -431,12 +454,15 @@
                     <% } %>
                 {% endif %}
             <% } else { %>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                <div class="btn-group status-dropdown">
+                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                      {% trans "STATUS" %} <span class="caret"></span>
+                    </button>
                     <ul class="dropdown-menu status-options">
                     <% for (var i in statuses) { %>
                         <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
                             <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                            <input <% if (checked_statuses.indexOf(statuses[i][0]) !== -1) { %> checked="checked" <% } %> type="checkbox" name="mark_status" value="<%= statuses[i][0] %>">
                         </li>
                     <% } %>
                     </ul>
