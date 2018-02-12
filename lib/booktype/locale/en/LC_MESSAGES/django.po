@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-22 16:55-0600\n"
+"POT-Creation-Date: 2018-01-30 11:45+0000\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -105,7 +105,8 @@ msgid "Booktype account application"
 msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:7
-msgid "Import Book from DOCX or EPUB"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
+msgid "Import from DOCX or EPUB"
 msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:8
@@ -113,7 +114,7 @@ msgid "View user info"
 msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:9
-msgid "Manage Book Skeletons"
+msgid "Manage book skeletons"
 msgstr ""
 
 #: lib/booktype/apps/account/forms.py:21
@@ -612,10 +613,6 @@ msgstr ""
 msgid ""
 "You will have the option to select a predefined skeleton to base your new "
 "book on"
-msgstr ""
-
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
-msgid "Import from DOCX or EPUB"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:120
@@ -1212,7 +1209,9 @@ msgid "Book does not exist."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:10
-msgid "You have no permissions to do this!"
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
+#: lib/booktype/apps/edit/views.py:779
+msgid "You have no permissions to execute this action."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/templatetags/pager.html:8
@@ -2600,7 +2599,8 @@ msgid "Unable to delete metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:102
-msgid "At the moment we do not allow splitting if chapters has endnotes."
+msgid ""
+"At the moment, Booktype does not allow splitting chapters with endnotes."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:104
@@ -2613,10 +2613,6 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:106
 msgid "New Comment"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
-msgid "You have no permissions to execute this action"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:108
@@ -3887,12 +3883,12 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:66
-msgid "Assign or remove roles to "
+msgid "Assign to or remove roles from "
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:69
 msgid ""
-"Please select the roles you would like to assign or remove from this user"
+"Please select the roles you would like assigned to or removed from this user"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4

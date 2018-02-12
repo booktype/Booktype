@@ -7,14 +7,14 @@
 
 {% block control_content %}
     {{ block.super }}
-    <h4 class="border-bottom">{% trans "List of existent skeletons" %}</h4>
+    <h4 class="border-bottom">{% trans "Existing skeletons" %}</h4>
     <ul class="list smaller-spacing">
         {% for obj in skeletons %}
             <li>
                 <a href="{% url 'control_center:book_skeleton_edit' obj.pk %}" class="fsize13">{{ obj.name }} {% if obj.description %}- {{ obj.description }}{% endif %}</a>
             </li>
         {% empty %}
-            <li>{% trans "No registries to show" %}</div>
+            <li>{% trans "None" %}</div>
         {% endfor %}
     </ul>
 {% endblock %}

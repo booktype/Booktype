@@ -4,8 +4,8 @@ PERMISSIONS = {
     'verbose_name': _('Booktype account application'),
     'app_name': 'account',
     'permissions': [
-        ('can_upload_book', _('Import Book from DOCX or EPUB')),
+        ('can_upload_book', _('Import from DOCX or EPUB')),
         ('can_view_user_info', _('View user info')),
-        ('can_manage_book_skeletons', _('Manage Book Skeletons'))
+        ('can_manage_book_skeletons', _('Manage book skeletons'))
     ]
 }

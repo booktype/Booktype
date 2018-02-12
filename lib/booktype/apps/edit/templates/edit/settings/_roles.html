@@ -63,10 +63,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 class="mb0 mt0">{% trans "Assign or remove roles to " %} <span></span></h3>
+        <h3 class="mb0 mt0">{% trans "Assign to or remove roles from " %} <span></span></h3>
       </div>
       <div class="modal-body">
-        <p>{% trans "Please select the roles you would like to assign or remove from this user" %}</p>
+        <p>{% trans "Please select the roles you would like assigned to or removed from this user" %}</p>
         <div class="roles-options">
           {% for role in roles %}
           <button role="button" class="btn btn-default role-btn" data-role-id="{{ role.id }}">
