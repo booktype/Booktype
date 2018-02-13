@@ -15,10 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import logging
 import booki
 import sputnik
 import forms as control_forms
+from unipath import Path
+from datetime import datetime, timedelta
+import git
 
 from collections import Counter, OrderedDict
 
@@ -151,8 +155,17 @@ class ControlCenterView(BaseCCView, TemplateView):
         except:
             databaseSize = 0
 
+        # git
+        gitrepo = git.Repo(Path(os.path.abspath(__file__)).ancestor(3))
+
+        _since = datetime.now() - timedelta(days=30)
+        log_stdout = gitrepo.git.log(
+            '--since={}'.format(_since.strftime("%Y-%m-%d"))
+        )
+
         return {
-            'version': '.'.join([str(num) for num in booki.version]),
+            'version': gitrepo.tags[-1],
+            'git_log': log_stdout,
             'users': User.objects.filter(is_active=True).count(),
             'books': Book.objects.count(),
             'groups': BookiGroup.objects.count(),

@@ -2,14 +2,30 @@
 {% load i18n profile staticfiles reader_tags %}
 
 {% block content %}
+
+  <!-- Modal -->
+  <div class="modal fade" id="git-log-modal" tabindex="-1" role="dialog" aria-labelledby="gitLogModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="{% trans "Close" %}">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gitLogModal">{% trans "Booktype update log" %}</h4>
+        </div>
+        <div class="modal-body">
+          <pre>{{ stats.git_log }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="container admin-panel">
         <div class="row two-col">
             <div class="col-xs-8">
-
                 <div class="box purple">
                     <h2 class="box-title">{% trans "Info" %}</h2>
                     <ul class="info-list">
-                        <li><span>{{ stats.version }}</span>{% trans "version" %}</li>
+                        <li><span>{{ stats.version }}</span><a data-toggle="modal" data-target="#git-log-modal">{% trans "version details" %}</a></li>
                         <li><span>{{ stats.users }}</span>{% trans "users" %}</li>
                         <li><span>{{ stats.books }}</span>{% trans "books" %}</li>
                         <li><span>{{ stats.groups }}</span>{% trans "groups" %}</li>
