@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 11:45+0000\n"
-"PO-Revision-Date: 2018-01-30 19:49+0000\n"
+"PO-Revision-Date: 2018-02-12 19:17+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/sourcefabric/booktype/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:577 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:608 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr ""
 
@@ -492,7 +492,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:4
-#: lib/booktype/apps/edit/views.py:62
+#: lib/booktype/apps/edit/views.py:64
 msgid "Roles"
 msgstr ""
 
@@ -541,23 +541,23 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:43
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:545
 msgid "Edit"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:332
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:345
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:379
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:362
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
 msgid "Rename"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:334
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:387
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:351
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
 msgid "Delete"
 msgstr ""
 
@@ -1016,7 +1016,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:63
+#: lib/booktype/apps/edit/views.py:65
 msgid "Permissions"
 msgstr ""
 
@@ -1380,46 +1380,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1457
-#: lib/booktype/apps/edit/channel.py:1462
+#: lib/booktype/apps/edit/channel.py:1516
+#: lib/booktype/apps/edit/channel.py:1521
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1468
+#: lib/booktype/apps/edit/channel.py:1527
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1475
-#: lib/booktype/apps/edit/channel.py:1479
+#: lib/booktype/apps/edit/channel.py:1534
+#: lib/booktype/apps/edit/channel.py:1538
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1488
+#: lib/booktype/apps/edit/channel.py:1547
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1492
+#: lib/booktype/apps/edit/channel.py:1551
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1638
+#: lib/booktype/apps/edit/channel.py:1698
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1646
+#: lib/booktype/apps/edit/channel.py:1707
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1651
+#: lib/booktype/apps/edit/channel.py:1712
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1655
+#: lib/booktype/apps/edit/channel.py:1716
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:2260
+#: lib/booktype/apps/edit/channel.py:2326
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1474,7 +1474,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:237
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:655
+#: lib/booktype/apps/edit/views.py:686
 msgid "Revision"
 msgstr ""
 
@@ -1504,7 +1504,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:517
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
@@ -1643,9 +1643,9 @@ msgid "Split chapter"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:23
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:337
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:354
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:382
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:417
 msgid "Import DOCX File"
 msgstr ""
 
@@ -2407,8 +2407,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:165
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:202
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:307
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:321
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:310
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
 msgid "Terminate editing"
 msgstr ""
 
@@ -2717,7 +2717,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:142
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:544
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
 msgid "Download"
 msgstr ""
@@ -2726,20 +2726,28 @@ msgstr ""
 msgid "Non breaking space"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:145
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:144
 msgid "Deleted successfully"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:147
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:146
 msgid "Role successfully assigned"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:148
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:147
 msgid "Role successfully removed"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:149
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:148
 msgid "Unexpected error while modifying role"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:149
+msgid "Saving status"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:150
+msgid "Assigning user"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
@@ -3163,7 +3171,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:595
+#: lib/booktype/apps/edit/views.py:626
 msgid "Book History"
 msgstr ""
 
@@ -3619,13 +3627,13 @@ msgid "Chapter status"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:60
+#: lib/booktype/apps/edit/views.py:62
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
 msgid "Book Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:61
+#: lib/booktype/apps/edit/views.py:63
 msgid "Additional Metadata"
 msgstr ""
 
@@ -3719,14 +3727,14 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:160
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:300
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:316
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:333
 msgid "Locked"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:162
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:302
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:318
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
 msgid "Locked exclusively"
 msgstr ""
 
@@ -3763,56 +3771,60 @@ msgstr ""
 msgid "Has marker"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:329
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:341
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:375
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:314
+msgid "Assign..."
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:358
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:392
 msgid "EDIT CHAPTER"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:333
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:350
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:366
 msgid "Hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:352
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
 msgid "Unlock"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:336
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:361
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:512
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:378
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:413
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:538
 msgid "Export Content"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:371
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:388
 msgid "UNLOCK"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:383
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Put on hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:391
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:408
 msgid "Lock editing"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:392
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:409
 msgid "Lock exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:410
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:422
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:435
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:428
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:443
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
 msgid "STATUS"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
 msgid "RENAME"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
 msgid "SETTINGS"
 msgstr ""
 
@@ -3839,7 +3851,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:64
+#: lib/booktype/apps/edit/views.py:66
 msgid "Chapter Status"
 msgstr ""
 
@@ -3904,65 +3916,69 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:59
 msgid "General Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:60
 msgid "Book Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:61
 msgid "Book License"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:546
+#: lib/booktype/apps/edit/views.py:577
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:624
+#: lib/booktype/apps/edit/views.py:655
 msgid "Chapter diff"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:662
+#: lib/booktype/apps/edit/views.py:693
 msgid "Book History | Chapter Revision"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:685
+#: lib/booktype/apps/edit/views.py:716
 #, python-format
 msgid "Reverted to revision %s."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:704
+#: lib/booktype/apps/edit/views.py:735
 msgid "Chapter revision successfully reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:706
+#: lib/booktype/apps/edit/views.py:737
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:777
+#: lib/booktype/apps/edit/views.py:808
 msgid "Successfully saved settings."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:782
+#: lib/booktype/apps/edit/views.py:810
+msgid "You have no permissions to execute this action."
+msgstr ""
+
+#: lib/booktype/apps/edit/views.py:813
 msgid "Unknown error while saving changes."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:858
+#: lib/booktype/apps/edit/views.py:889
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:872
+#: lib/booktype/apps/edit/views.py:903
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:874
+#: lib/booktype/apps/edit/views.py:905
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:881
+#: lib/booktype/apps/edit/views.py:912
 msgid "USING REVISION"
 msgstr ""
 

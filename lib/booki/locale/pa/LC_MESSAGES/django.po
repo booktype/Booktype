@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-16 23:01-0600\n"
-"PO-Revision-Date: 2018-01-29 00:47+0000\n"
-"Last-Translator: Jujhar Singh <jujhar.pannu@gmail.com>\n"
+"POT-Creation-Date: 2018-01-22 16:55-0600\n"
+"PO-Revision-Date: 2018-02-12 18:17+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/sourcefabric/booktype/language/pa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,8 +23,8 @@ msgstr ""
 
 #: lib/booki/editor/models.py:33 lib/booki/editor/models.py:47
 #: lib/booki/editor/models.py:69 lib/booki/editor/models.py:96
-#: lib/booki/editor/models.py:357 lib/booki/editor/models.py:423
-#: lib/booki/editor/models.py:747
+#: lib/booki/editor/models.py:353 lib/booki/editor/models.py:419
+#: lib/booki/editor/models.py:750
 msgid "name"
 msgstr "ਨਾਮ"
 
@@ -52,7 +52,7 @@ msgstr "ਭਾਸ਼ਾ"
 msgid "Languages"
 msgstr "ਭਾਸ਼ਾ"
 
-#: lib/booki/editor/models.py:61 lib/booki/editor/models.py:199
+#: lib/booki/editor/models.py:61 lib/booki/editor/models.py:195
 msgid "published"
 msgstr "ਪ੍ਰਕਾਸ਼ਿ ਹੋਆ"
 
@@ -65,16 +65,16 @@ msgid "not translated"
 msgstr "ਅਨੁਵਾਦ ਨਹੀਂ ਹੋਆ"
 
 #: lib/booki/editor/models.py:68 lib/booki/editor/models.py:84
-#: lib/booki/editor/models.py:332 lib/booki/editor/models.py:392
-#: lib/booki/editor/models.py:409 lib/booki/editor/models.py:420
-#: lib/booki/editor/models.py:471 lib/booki/editor/models.py:671
-#: lib/booki/editor/models.py:745 lib/booki/editor/models.py:791
-#: lib/booki/editor/models.py:800 lib/booki/editor/models.py:812
-#: lib/booki/editor/models.py:832
+#: lib/booki/editor/models.py:328 lib/booki/editor/models.py:388
+#: lib/booki/editor/models.py:405 lib/booki/editor/models.py:416
+#: lib/booki/editor/models.py:467 lib/booki/editor/models.py:674
+#: lib/booki/editor/models.py:748 lib/booki/editor/models.py:794
+#: lib/booki/editor/models.py:803 lib/booki/editor/models.py:815
+#: lib/booki/editor/models.py:835
 msgid "book"
 msgstr "ਕਿਤਾਬ"
 
-#: lib/booki/editor/models.py:70 lib/booki/editor/models.py:749
+#: lib/booki/editor/models.py:70 lib/booki/editor/models.py:752
 msgid "weight"
 msgstr "ਭਾਰ"
 
@@ -86,7 +86,7 @@ msgstr "ਰੰਗ"
 msgid "Book status"
 msgstr "ਕਿਤਾਬ ਸਤਾਤਿਸ"
 
-#: lib/booki/editor/models.py:85 lib/booki/editor/models.py:855
+#: lib/booki/editor/models.py:85 lib/booki/editor/models.py:858
 msgid "notes"
 msgstr "ਮਿਮੋਆਂ"
 
@@ -102,12 +102,12 @@ msgstr "ਕਿਤਾਬ ਦਿ ਨੋਤਾਂ"
 msgid "url name"
 msgstr "URL ਦਾ ਨਾਮ"
 
-#: lib/booki/editor/models.py:98 lib/booki/editor/models.py:204
-#: lib/booki/editor/models.py:425
+#: lib/booki/editor/models.py:98 lib/booki/editor/models.py:200
+#: lib/booki/editor/models.py:421
 msgid "description"
 msgstr "ਕਿਤਾਬ ਦੇ ਸੰਖੇਪ ਬਿਆਨ"
 
-#: lib/booki/editor/models.py:100 lib/booki/editor/models.py:192
+#: lib/booki/editor/models.py:100 lib/booki/editor/models.py:190
 msgid "owner"
 msgstr "ਓਨਰ"
 
@@ -115,10 +115,10 @@ msgstr "ਓਨਰ"
 msgid "members"
 msgstr "ਮਿੰਬਰ"
 
-#: lib/booki/editor/models.py:104 lib/booki/editor/models.py:198
-#: lib/booki/editor/models.py:428 lib/booki/editor/models.py:475
-#: lib/booki/editor/models.py:636 lib/booki/editor/models.py:674
-#: lib/booki/editor/models.py:859
+#: lib/booki/editor/models.py:104 lib/booki/editor/models.py:194
+#: lib/booki/editor/models.py:424 lib/booki/editor/models.py:478
+#: lib/booki/editor/models.py:639 lib/booki/editor/models.py:677
+#: lib/booki/editor/models.py:862
 msgid "created"
 msgstr "ਬਣਿਆ"
 
@@ -186,259 +186,263 @@ msgstr "ਇ-ਬੋਕ ISBN"
 msgid "Print ISBN"
 msgstr "ਪ੍ਰਿੰਟ ISBN"
 
-#: lib/booki/editor/models.py:182 lib/booki/editor/models.py:472
+#: lib/booki/editor/models.py:181 lib/booki/editor/models.py:468
 msgid "url title"
 msgstr "URL ਤਾਇਤਿਲ"
 
-#: lib/booki/editor/models.py:183 lib/booki/editor/models.py:473
+#: lib/booki/editor/models.py:182 lib/booki/editor/models.py:469
 msgid "title"
 msgstr "ਤਾਇਤਿਲ"
 
-#: lib/booki/editor/models.py:184 lib/booki/editor/models.py:474
-#: lib/booki/editor/models.py:673
+#: lib/booki/editor/models.py:183 lib/booki/editor/models.py:470
+#: lib/booki/editor/models.py:676
 msgid "status"
 msgstr "ਸਤਾਤਿਸ"
 
-#: lib/booki/editor/models.py:185
+#: lib/booki/editor/models.py:184
 msgid "language"
 msgstr "ਭਾਸ਼ਾ"
 
-#: lib/booki/editor/models.py:188 lib/booki/editor/models.py:334
-#: lib/booki/editor/models.py:470 lib/booki/editor/models.py:670
-#: lib/booki/editor/models.py:743
+#: lib/booki/editor/models.py:186 lib/booki/editor/models.py:330
+#: lib/booki/editor/models.py:466 lib/booki/editor/models.py:673
+#: lib/booki/editor/models.py:746
 msgid "version"
 msgstr "ਛਾਪ"
 
-#: lib/booki/editor/models.py:190 lib/booki/editor/models.py:792
+#: lib/booki/editor/models.py:188 lib/booki/editor/models.py:795
 msgid "group"
 msgstr "ਵਰਨ"
 
-#: lib/booki/editor/models.py:196 lib/booki/editor/models.py:853
+#: lib/booki/editor/models.py:192 lib/booki/editor/models.py:856
 msgid "license"
 msgstr "ਲਾਇਸੰਸ"
 
-#: lib/booki/editor/models.py:201
+#: lib/booki/editor/models.py:197
 msgid "hidden"
 msgstr "ਗੁਪਤ"
 
-#: lib/booki/editor/models.py:202 lib/booki/editor/models.py:793
+#: lib/booki/editor/models.py:198 lib/booki/editor/models.py:796
 msgid "permission"
 msgstr "ਇਜਾਜ਼ਤ"
 
-#: lib/booki/editor/models.py:205
+#: lib/booki/editor/models.py:201
 msgid "cover"
 msgstr "ਮੱਖਬੰਦ"
 
-#: lib/booki/editor/models.py:208
+#: lib/booki/editor/models.py:204
 msgid "Book"
 msgstr "ਕਿਤਾਬ"
 
-#: lib/booki/editor/models.py:209
+#: lib/booki/editor/models.py:205
 msgid "Books"
 msgstr "ਕਿਤਾਬਾਂ"
 
-#: lib/booki/editor/models.py:335 lib/booki/editor/models.py:591
-#: lib/booki/editor/models.py:748
+#: lib/booki/editor/models.py:331 lib/booki/editor/models.py:594
+#: lib/booki/editor/models.py:751
 msgid "chapter"
 msgstr "ਅਧਿਆਇ"
 
-#: lib/booki/editor/models.py:336
+#: lib/booki/editor/models.py:332
 msgid "chapter history"
 msgstr "ਅਧਿਆਇ ਦੀ ਇਤਿਹਾਸ"
 
-#: lib/booki/editor/models.py:337 lib/booki/editor/models.py:476
-#: lib/booki/editor/models.py:593
+#: lib/booki/editor/models.py:333 lib/booki/editor/models.py:479
+#: lib/booki/editor/models.py:596
 msgid "modified"
 msgstr "ਬਦਲਾ ਹੋਆ"
 
-#: lib/booki/editor/models.py:338
+#: lib/booki/editor/models.py:334
 msgid "args"
 msgstr "args"
 
-#: lib/booki/editor/models.py:339 lib/booki/editor/models.py:594
-#: lib/booki/editor/models.py:634 lib/booki/editor/models.py:790
-#: lib/booki/editor/models.py:801 lib/booki/editor/models.py:813
-#: lib/booki/editor/models.py:833
+#: lib/booki/editor/models.py:335 lib/booki/editor/models.py:597
+#: lib/booki/editor/models.py:637 lib/booki/editor/models.py:793
+#: lib/booki/editor/models.py:804 lib/booki/editor/models.py:816
+#: lib/booki/editor/models.py:836
 msgid "user"
 msgstr "ਯੂਜ਼ਰ"
 
-#: lib/booki/editor/models.py:340 lib/booki/editor/models.py:358
+#: lib/booki/editor/models.py:336 lib/booki/editor/models.py:354
 msgid "kind"
 msgstr "ਕਿਸਮ"
 
-#: lib/booki/editor/models.py:360
+#: lib/booki/editor/models.py:356
 msgid "value string"
 msgstr "ਸਤ੍ਰਾਇੰਗ ਦੀ ਮਾਤਰ"
 
-#: lib/booki/editor/models.py:361
+#: lib/booki/editor/models.py:357
 msgid "value integer"
 msgstr "ਇਨੰਤਾਜਿਰ ਦੀ ਮਾਤਰ"
 
-#: lib/booki/editor/models.py:362
+#: lib/booki/editor/models.py:358
 msgid "value text"
 msgstr "ਤਿਕਸਤ ਦੀ ਮਾਤਰ"
 
-#: lib/booki/editor/models.py:363
+#: lib/booki/editor/models.py:359
 msgid "value date"
 msgstr "ਤਰੀਕ ਦੀ ਮਾਤਰ"
 
-#: lib/booki/editor/models.py:396 lib/booki/editor/models.py:397
+#: lib/booki/editor/models.py:392 lib/booki/editor/models.py:393
 msgid "Metadata"
 msgstr "ਮਿਟਾ-ਡਾਟਾ"
 
-#: lib/booki/editor/models.py:414
+#: lib/booki/editor/models.py:410
 msgid "Book setting"
 msgstr "ਕਿਤਾਬ ਸਿਤੰਗ"
 
-#: lib/booki/editor/models.py:415
+#: lib/booki/editor/models.py:411
 msgid "Book settings"
 msgstr "ਕਿਤਾਬ ਸਿਤੰਗਾਂ"
 
-#: lib/booki/editor/models.py:421
+#: lib/booki/editor/models.py:417
 msgid "major"
 msgstr "ਵੱਡਾ"
 
-#: lib/booki/editor/models.py:422
+#: lib/booki/editor/models.py:418
 msgid "minor"
 msgstr "ਨਿੱਕਾ"
 
-#: lib/booki/editor/models.py:477 lib/booki/editor/models.py:595
+#: lib/booki/editor/models.py:476
+msgid "assigned"
+msgstr ""
+
+#: lib/booki/editor/models.py:480 lib/booki/editor/models.py:598
 msgid "revision"
 msgstr "ਛਾਪ"
 
-#: lib/booki/editor/models.py:478 lib/booki/messaging/models.py:34
+#: lib/booki/editor/models.py:481 lib/booki/messaging/models.py:34
 msgid "content"
 msgstr "ਕਾਨਤਿੰਤ"
 
-#: lib/booki/editor/models.py:479
+#: lib/booki/editor/models.py:482
 msgid "content json"
 msgstr "JSON ਕਾਨਤਿੰਤ"
 
-#: lib/booki/editor/models.py:482
+#: lib/booki/editor/models.py:485
 msgid "Chapter"
 msgstr "ਅਧਿਆਇ"
 
-#: lib/booki/editor/models.py:483
+#: lib/booki/editor/models.py:486
 msgid "Chapters"
 msgstr "ਆਧਿਇਆਂ"
 
-#: lib/booki/editor/models.py:596
+#: lib/booki/editor/models.py:599
 msgid "comment"
 msgstr "ਕੋਮਿੰਤ"
 
-#: lib/booki/editor/models.py:603
+#: lib/booki/editor/models.py:606
 msgid "Chapter history"
 msgstr "ਅਧਿਆਇ ਦੀ ਇਤਿਹਾਸ "
 
-#: lib/booki/editor/models.py:639
+#: lib/booki/editor/models.py:642
 msgid "Chapter Lock"
 msgstr "ਅਧਿਆਇ ਨੂੰ ਲਾਕ ਕਰ"
 
-#: lib/booki/editor/models.py:640
+#: lib/booki/editor/models.py:643
 msgid "Chapters Locks"
 msgstr "ਆਧਿਇਆ ਦਾ ਲਾਕਾਂ"
 
-#: lib/booki/editor/models.py:672 lib/booki/editor/models.py:837
+#: lib/booki/editor/models.py:675 lib/booki/editor/models.py:840
 msgid "filename"
 msgstr "ਫਿਾਇਲ-ਨੈਮ"
 
-#: lib/booki/editor/models.py:686
+#: lib/booki/editor/models.py:689
 msgid "Attachment"
 msgstr "ਅਤਾਚਮਿੰਟਸ"
 
-#: lib/booki/editor/models.py:687
+#: lib/booki/editor/models.py:690
 msgid "Attachments"
 msgstr "ਅਤਾਚਮਿੰਟਸ"
 
-#: lib/booki/editor/models.py:738
+#: lib/booki/editor/models.py:741
 msgid "section name"
 msgstr "ਭੋਮਕਾ ਦਾ ਨਾਮ"
 
-#: lib/booki/editor/models.py:739
+#: lib/booki/editor/models.py:742
 msgid "chapter name"
 msgstr "ਅਧਿਆਇ ਦਾ ਨਾਮ"
 
-#: lib/booki/editor/models.py:740
+#: lib/booki/editor/models.py:743
 msgid "line"
 msgstr "ਲਾਇਨ"
 
-#: lib/booki/editor/models.py:746
+#: lib/booki/editor/models.py:749
 msgid "parent"
 msgstr "ਮਾਤਾ"
 
-#: lib/booki/editor/models.py:750
+#: lib/booki/editor/models.py:753
 msgid "typeof"
 msgstr "ਕਿਸਮ"
 
-#: lib/booki/editor/models.py:752
+#: lib/booki/editor/models.py:755
 msgid "settings"
 msgstr "ਸਤਿੰਗ"
 
-#: lib/booki/editor/models.py:775
+#: lib/booki/editor/models.py:778
 msgid "Book TOC"
 msgstr "ਕਿਤਾਬ ਦਾ TOC"
 
-#: lib/booki/editor/models.py:776
+#: lib/booki/editor/models.py:779
 msgid "Book TOCs"
 msgstr "ਕਿਤਾਬ TOCs"
 
-#: lib/booki/editor/models.py:807 lib/booki/editor/models.py:808
+#: lib/booki/editor/models.py:810 lib/booki/editor/models.py:811
 msgid "Attribution Exclude"
 msgstr "ਅਤਰੀਬਯੋਸ਼ੁਨ ਤਿਆਗ"
 
-#: lib/booki/editor/models.py:814
+#: lib/booki/editor/models.py:817
 msgid "wizard type"
 msgstr "ਵਿਜ਼ਰਦ ਟਾਈਪ"
 
-#: lib/booki/editor/models.py:815
+#: lib/booki/editor/models.py:818
 msgid "wizard options"
 msgstr "ਵਿਜ਼ਰਦ ਸਿਤੰਗਸ"
 
-#: lib/booki/editor/models.py:821 lib/booki/editor/models.py:822
+#: lib/booki/editor/models.py:824 lib/booki/editor/models.py:825
 msgid "Publish Wizard"
 msgstr "ਵਿਜ਼ਰਦ ਦੀ ਪਰਕਸ਼ਣ ਕਰੋ"
 
-#: lib/booki/editor/models.py:839
+#: lib/booki/editor/models.py:842
 msgid "Cover title"
 msgstr "ਮੁਖਬੰਦ ਦਾ ਨਾਮ"
 
-#: lib/booki/editor/models.py:841
+#: lib/booki/editor/models.py:844
 msgid "Width"
 msgstr "ਪਾਟ"
 
-#: lib/booki/editor/models.py:842
+#: lib/booki/editor/models.py:845
 msgid "Height"
 msgstr "ਲੰਮਾਈ"
 
-#: lib/booki/editor/models.py:843
+#: lib/booki/editor/models.py:846
 msgid "Unit"
 msgstr "ਯੂਨਿਟ"
 
-#: lib/booki/editor/models.py:844
+#: lib/booki/editor/models.py:847
 msgid "Booksize"
 msgstr "ਕਿਤਾਬ ਦਾ ਸਾਈਜ਼"
 
-#: lib/booki/editor/models.py:846
+#: lib/booki/editor/models.py:849
 msgid "Book cover"
 msgstr "ਕਿਤਾਬ ਦਾ ਮੱਖਬੰਦ"
 
-#: lib/booki/editor/models.py:847
+#: lib/booki/editor/models.py:850
 msgid "E-book cover"
 msgstr "ਇ-ਬੋਕ ਦਾ ਮੱਖਬੰਦ"
 
-#: lib/booki/editor/models.py:848
+#: lib/booki/editor/models.py:851
 msgid "PDF cover"
 msgstr "PDF ਦਾ ਮੱਖਬੰਦ"
 
-#: lib/booki/editor/models.py:850
+#: lib/booki/editor/models.py:853
 msgid "Cover type"
 msgstr "ਮੁਖਬੰਦ ਦਿ ਕਿਸਮ"
 
-#: lib/booki/editor/models.py:852
+#: lib/booki/editor/models.py:855
 msgid "Cover"
 msgstr "ਮੁਖਬੰਦ"
 
-#: lib/booki/editor/models.py:857
+#: lib/booki/editor/models.py:860
 msgid "Approved"
 msgstr "ਆਗ੍ਯਾ ਦਿਤਾ"
 

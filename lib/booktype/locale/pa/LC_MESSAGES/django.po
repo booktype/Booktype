@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 11:45+0000\n"
-"PO-Revision-Date: 2018-01-30 19:49+0000\n"
+"PO-Revision-Date: 2018-02-12 19:17+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/sourcefabric/booktype/language/pa/)\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "ਰੋਲਾਂ ਨੂੰ ਮਿਟਾਓ"
 
 #: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:577 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:608 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr "ਅਧਿਆਇ"
 
@@ -493,7 +493,7 @@ msgstr "ਇਸ ਸੁਨੇਹਾ ਦੀ ਰੋਲਾਂ ਨੂੰ ਬਦਲੋ"
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:4
-#: lib/booktype/apps/edit/views.py:62
+#: lib/booktype/apps/edit/views.py:64
 msgid "Roles"
 msgstr "ਰੋਲ"
 
@@ -542,23 +542,23 @@ msgstr "ਵੈਖ"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:43
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:545
 msgid "Edit"
 msgstr "ਬਦਲ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:332
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:345
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:379
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:362
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
 msgid "Rename"
 msgstr "ਨਿਵਾਂ ਨਾਮ ਦੈਹੋਂ"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:334
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:387
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:351
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
 msgid "Delete"
 msgstr "ਉਜਾੜੋ"
 
@@ -1017,7 +1017,7 @@ msgstr "ਇਜਾਜ਼ਤ"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:63
+#: lib/booktype/apps/edit/views.py:65
 msgid "Permissions"
 msgstr "ਇਜਾਜ਼ਤਾਂ"
 
@@ -1381,46 +1381,46 @@ msgstr "ਭੋਮਕਾਂ ਦੀ ਸਿਟੰਗਸ਼ ਨੂੰ ਸੁੱਧਾ�
 msgid "Generate Invite Code"
 msgstr "ਲੋਕਾਂ ਨੂੰ ਸਾਦਣਾ ਵਾਲੀ ਕੋਡ ਬਣਾਉ"
 
-#: lib/booktype/apps/edit/channel.py:1457
-#: lib/booktype/apps/edit/channel.py:1462
+#: lib/booktype/apps/edit/channel.py:1516
+#: lib/booktype/apps/edit/channel.py:1521
 msgid "You have no permissions for splitting the chapter."
 msgstr "ਇਜਾਜ਼ਤ ਆਧਇਆ ਨੂੰ ਕਾਟਣ ਲਈ ਨਹੀਂ"
 
-#: lib/booktype/apps/edit/channel.py:1468
+#: lib/booktype/apps/edit/channel.py:1527
 msgid "Chapter is under edit."
 msgstr "ਆਧਇਆਂ ਦੀ ਸੁੱਧਾਰ ਅਜੇ ਚਲਰੀ ਹੈ"
 
-#: lib/booktype/apps/edit/channel.py:1475
-#: lib/booktype/apps/edit/channel.py:1479
+#: lib/booktype/apps/edit/channel.py:1534
+#: lib/booktype/apps/edit/channel.py:1538
 msgid "You have no permissions for splitting locked chapter."
 msgstr "ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈਗੀ ਲਾਕ ਅਾਧਇਆਂ ਨੂੰ ਕਾਟਣ ਲਈ।"
 
-#: lib/booktype/apps/edit/channel.py:1488
+#: lib/booktype/apps/edit/channel.py:1547
 msgid "You have selected invalid title name."
 msgstr "ਗ਼ਲਤ ਨਾਮ ਚੋਣਅਾ"
 
-#: lib/booktype/apps/edit/channel.py:1492
+#: lib/booktype/apps/edit/channel.py:1551
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "ਆਧਇਆ ਇਸ ਨਾਮ ਤੇੇ ਹੈਗਿਆ"
 
-#: lib/booktype/apps/edit/channel.py:1638
+#: lib/booktype/apps/edit/channel.py:1698
 msgid "You have no permissions for editing this chapter."
 msgstr "ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈਗੀ ਇਸ ਆਧਇਆ ਨੂੰ ਬਦਲਣਾ"
 
-#: lib/booktype/apps/edit/channel.py:1646
+#: lib/booktype/apps/edit/channel.py:1707
 msgid "Chapter currently being edited."
 msgstr "ਇਸ ਆਧਾਇਆ ਦੀ ਬਦਲਤਾ ਚੱਲਦੀ ਹੈ।"
 
-#: lib/booktype/apps/edit/channel.py:1651
+#: lib/booktype/apps/edit/channel.py:1712
 msgid "You have no permissions for editing chapters under lock."
 msgstr "ਆਧਾਇਆ ਨੂੰ ਬਦਲਣ ਦਿ ਇਜਾਜ਼ਤ ਨਹੀਂ"
 
-#: lib/booktype/apps/edit/channel.py:1655
+#: lib/booktype/apps/edit/channel.py:1716
 msgid "Chapter currently is locked from everyone."
 msgstr "ਅਾਧਾਇਆ ਸਾਰੀਆਂ ਵਸਤੇ ਲਾਕ ਹੋਗਿਆ ਹੈ"
 
-#: lib/booktype/apps/edit/channel.py:2260
+#: lib/booktype/apps/edit/channel.py:2326
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "ਇਕ ਚੋਣਿਆ ਹੋਇਆ ਫੋਰਮਾਤ ਨੂੰ ਬੰਦ ਕਰ ਦਿਤਾ ਤਿ ਉਹਨੇ ਸਿਸਤਿਮ ਰੁਕ ਲੀਆ। ਦੋਬਾਰਾ ਪੈਜ ਲੋਦ ਕਰੋ।"
 
@@ -1475,7 +1475,7 @@ msgstr "ਬਦਲੀ ਹੋਈ"
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:237
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:655
+#: lib/booktype/apps/edit/views.py:686
 msgid "Revision"
 msgstr "ਛਾਪ"
 
@@ -1505,7 +1505,7 @@ msgstr "ਸਾਰਾ ਦ੍ਰਿਸਟ"
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:517
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
@@ -1644,9 +1644,9 @@ msgid "Split chapter"
 msgstr "ਆਧਾਇਆ ਨੂੰ ਕਾਟੋ"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:23
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:337
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:354
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:382
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:417
 msgid "Import DOCX File"
 msgstr "DOCX ਨੂੰ ਦਰਾਮਦ ਕਰੋ"
 
@@ -2408,8 +2408,8 @@ msgstr "ਕਿਤਾਬ ਉਜਾੜਣ ਲਈ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹ�
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:165
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:202
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:307
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:321
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:310
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
 msgid "Terminate editing"
 msgstr "ਇਦਇਤੰਗ ਨੂੰ ਬੰਦ ਕਰੋ"
 
@@ -2718,7 +2718,7 @@ msgstr "EPUB ਮੁਢਲੀਆਂ ਡਾਉਨਲੋਦ ਕਰੋ"
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:142
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:544
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
 msgid "Download"
 msgstr "ਡਾਉਨਲੋਦ"
@@ -2727,20 +2727,28 @@ msgstr "ਡਾਉਨਲੋਦ"
 msgid "Non breaking space"
 msgstr "ਨੋਨ-ਬਰੇਕੰਗ ਸਪੇਸ"
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:145
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:144
 msgid "Deleted successfully"
 msgstr "ਮਿਟਗਿਆ ਹੈ"
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:147
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:146
 msgid "Role successfully assigned"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:148
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:147
 msgid "Role successfully removed"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/edit_strings.html:149
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:148
 msgid "Unexpected error while modifying role"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:149
+msgid "Saving status"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:150
+msgid "Assigning user"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
@@ -3164,7 +3172,7 @@ msgstr "ਫੋਟੋ ਦਾ ਦਿਸ਼ਾ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:595
+#: lib/booktype/apps/edit/views.py:626
 msgid "Book History"
 msgstr "ਕਿਤਾਬ ਦਾ ਇਤਹਾਸ"
 
@@ -3620,13 +3628,13 @@ msgid "Chapter status"
 msgstr "ਅਧਿਆਇ ਸ੍ਟੇਟਸ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:60
+#: lib/booktype/apps/edit/views.py:62
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
 msgid "Book Metadata"
 msgstr "ਕਿਤਾਬ ਮਿਟਾ-ਡਿਟਾ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:61
+#: lib/booktype/apps/edit/views.py:63
 msgid "Additional Metadata"
 msgstr "ਹੋਰ ਮਿਟਾ-ਡੈਟਾ"
 
@@ -3720,14 +3728,14 @@ msgid ""
 msgstr "ਸਾਰੇ ਕਿਤਾਬਾਂ ਨੂੰ ਘੱਟ ਤੋ ਘੱਟ ਇਕ ਅਧਿਆਇ ਚਾਂਦਿਆ ਹੈ ਆਤੇ ਜਿਤਨੀ ਮਰਜ਼ੀ ਬਾਗਾਂ ਪਾ ਸਕਦੇ।"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:160
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:300
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:316
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:333
 msgid "Locked"
 msgstr "ਲਾਕ ਹੋਈ ਹੇ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:162
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:302
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:318
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
 msgid "Locked exclusively"
 msgstr "ਕੱਲਾ ਇਨੂੰ ਲਾਕ ਹੋਆ "
 
@@ -3764,56 +3772,60 @@ msgstr "ਗੁੱਪਾਂ ਹਾਂਗਿਆ"
 msgid "Has marker"
 msgstr "ਨਿਸ਼ਾਨੀਆ ਲਿੱਖਿਆ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:329
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:341
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:375
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:314
+msgid "Assign..."
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:358
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:392
 msgid "EDIT CHAPTER"
 msgstr "ਅਧਿਆਇ ਬਦਲੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:333
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:350
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:366
 msgid "Hold"
 msgstr "ਹੋਲਡ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:352
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
 msgid "Unlock"
 msgstr "ਲਾਕ ਖੁਲ੍ਹੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:336
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:361
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:512
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:378
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:413
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:538
 msgid "Export Content"
 msgstr "ਕਾਨਤਿੰਤ ਬਰਾਮਦ ਕਰੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:371
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:388
 msgid "UNLOCK"
 msgstr "ਲਾਕ ਖੁਲ੍ਹੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:383
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Put on hold"
 msgstr "ਹੋਲਡ ਤੇ ਪਾਉ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:391
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:408
 msgid "Lock editing"
 msgstr "ਲਾਕ ਬਦਲ ਦੇ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:392
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:409
 msgid "Lock exclusively"
 msgstr "ਕੱਲਾ ਇਨੂੰ ਲਾਕ ਕਰੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:410
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:422
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:435
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:428
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:443
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
 msgid "STATUS"
 msgstr "ਸਤਾਤਿਸ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
 msgid "RENAME"
 msgstr "ਨਾਮ ਬਦਲੋ"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
 msgid "SETTINGS"
 msgstr "ਸਤਾਤਿਸ"
 
@@ -3840,7 +3852,7 @@ msgid ""
 msgstr "ਬਿਲਕੁਲ ਸ਼ਹਾਬਸਤ ਹੈ ਕਿ ਇਹ ਫੀਲਦ ਨੂੰ ਮਿਟਉਨਾ? ਤੁਸੀਂ ਬਾਚ ਵਾਪਸ ਨਹੀਂ ਲੈ ਸਕਦੇ!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:64
+#: lib/booktype/apps/edit/views.py:66
 msgid "Chapter Status"
 msgstr "ਅਧਿਆਇ ਸਤਾਤਿਸ"
 
@@ -3905,65 +3917,69 @@ msgstr "ਇਨਫੋ"
 msgid "Table Of Contents"
 msgstr "ਤਤਕਾਰਾ"
 
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:59
 msgid "General Settings"
 msgstr "ਆਮ ਸਿਟੰਗਸ"
 
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:60
 msgid "Book Language"
 msgstr "ਕਿਤਾਬ ਦਾ ਭਾਸ਼ਾ"
 
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:61
 msgid "Book License"
 msgstr "ਕਿਤਾਬ ਦਾ ਲਾਇਸੰਸ"
 
-#: lib/booktype/apps/edit/views.py:546
+#: lib/booktype/apps/edit/views.py:577
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "ਛਾਪ {0} ਸੇਵ ਹੋ ਗਿਆ"
 
-#: lib/booktype/apps/edit/views.py:624
+#: lib/booktype/apps/edit/views.py:655
 msgid "Chapter diff"
 msgstr "ਅਧਿਆਇ ਦੀ ਦਿਫ"
 
-#: lib/booktype/apps/edit/views.py:662
+#: lib/booktype/apps/edit/views.py:693
 msgid "Book History | Chapter Revision"
 msgstr "ਕਿਤਾਬ ਦਾ ਇਤਹਾਸ । ਅਧਿਆਇ ਦਾ ਛਾਪ"
 
-#: lib/booktype/apps/edit/views.py:685
+#: lib/booktype/apps/edit/views.py:716
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "ਪਿਛਾਲੇ ਛਾਪ ਤੇ ਜਾ %s."
 
-#: lib/booktype/apps/edit/views.py:704
+#: lib/booktype/apps/edit/views.py:735
 msgid "Chapter revision successfully reverted."
 msgstr "ਅਧਿਆਇ ਪਿਛਾਲੀ ਛਾਪ ਤੇ ਚਲਪੀ"
 
-#: lib/booktype/apps/edit/views.py:706
+#: lib/booktype/apps/edit/views.py:737
 msgid "Chapter revision could not be reverted."
 msgstr "ਅਧਿਆਇ ਦੀ ਪਿਛਾਲੀ ਛਾਪ ਤੇ ਨਹੀਂ ਜਾ ਸਕੇ।"
 
-#: lib/booktype/apps/edit/views.py:777
+#: lib/booktype/apps/edit/views.py:808
 msgid "Successfully saved settings."
 msgstr "ਸਿਤੰਗ ਸੇਵ ਹੋ ਗਈ।"
 
-#: lib/booktype/apps/edit/views.py:782
+#: lib/booktype/apps/edit/views.py:810
+msgid "You have no permissions to execute this action."
+msgstr " ਤੁਹਾਨੂੰ ਇਹ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ ।"
+
+#: lib/booktype/apps/edit/views.py:813
 msgid "Unknown error while saving changes."
 msgstr "ਕੁਛ ਗੁਲਤ ਹੋ ਗਿਆ, ਅਗਿਆਤ ਇਰਓਰ!"
 
-#: lib/booktype/apps/edit/views.py:858
+#: lib/booktype/apps/edit/views.py:889
 msgid "default one ({})"
 msgstr "ਆਮ ਵਸਤੇ ({})"
 
-#: lib/booktype/apps/edit/views.py:872
+#: lib/booktype/apps/edit/views.py:903
 msgid "Available revisions: {}"
 msgstr "ਛਾਪਾਂ: {}"
 
-#: lib/booktype/apps/edit/views.py:874
+#: lib/booktype/apps/edit/views.py:905
 msgid "There are no revisions available"
 msgstr "ਕੋਈ ਪਿਛਲੀ ਛਾਪ ਨਹੀਂ"
 
-#: lib/booktype/apps/edit/views.py:881
+#: lib/booktype/apps/edit/views.py:912
 msgid "USING REVISION"
 msgstr "ਛਾਪ:"
 
