@@ -77,45 +77,18 @@
                   <p class="wizard_desc">{% trans "Choose a standard paper size or custom dimensions" %}</p>
                   <label for="size">{% trans "Size" %}</label>
                   <select name="size">
-                    <option value="custom">{% trans "custom" %}</option>
-                    <option value="POCKET">POCKET (107mm x 174mm)</option>
-                    <option value="US5x8">US5x8 (126mm x 203mm)</option>
-                    <option value="DIGEST">DIGEST (139mm x 215mm)</option>
-                    <option value="US5.5x8.5">US5.5x8.5 (139mm x 215mm)</option>
-                    <option value="A5">A5 (148mm x 210mm)</option>
-                    <option value="USTRADE6x9">USTRADE6x9 (152mm x 228mm)</option>
-                    <option value="SQUARE7.5">SQUARE7.5 (190mm x 190mm)</option>
-                    <option value="ROYAL">ROYAL (155mm x 233mm)</option>
-                    <option value="LANDSCAPE9x7">LANDSCAPE9x7 (228mm x 177mm)</option>
-                    <option value="COMICBOOK">COMICBOOK (168mm x 260mm)</option>
-                    <option value="B5">B5 (176mm x 250mm)</option>
-                    <option value="US7x10">US7x10 (177mm x 253mm)</option>
-                    <option value="CROWNQUARTO">CROWNQUARTO (189mm x 245mm)</option>
-                    <option value="SQUARE8.5">SQUARE8.5 (215mm x 215mm)</option>
-                    <option value="USLETTER">USLETTER (215mm x 279mm)</option>
-                    <option selected="selected" value="A4">A4 (210mm x 297mm)</option>
-                    <option value="Foolscap (F4)">Foolscap (F4) (210mm x 330mm)</option>
-                    <option value="B4">B4 (250mm x 353mm)</option>
-                    <option value="Oamaru Tabloid">Oamaru Tabloid (265mm x 380mm)</option>
-                    <option value="UK Tabloid">UK Tabloid (279mm x 431mm)</option>
-                    <option value="A3 (NZ Tabloid)">A3 (NZ Tabloid) (297mm x 420mm)</option>
-                    <option value="Berliner">Berliner (315mm x 470mm)</option>
-                    <option value="B3">B3 (353mm x 500mm)</option>
-                    <option value="Oamaru Broadsheet">Oamaru Broadsheet (382mm x 540mm)</option>
-                    <option value="US Broadsheet">US Broadsheet (380mm x 577mm)</option>
-                    <option value="A2 (NZ Broadsheet)">A2 (NZ Broadsheet) (420mm x 594mm)</option>
-                    <option value="UK Broadsheet">UK Broadsheet (457mm x 609mm)</option>
-                    <option value="B2">B2 (500mm x 707mm)</option>
-                    <option value="A1">A1 (594mm x 841mm)</option>
-                    <option value="B1">B1 (707mm x 1000mm)</option>
+                    {% for key, values in page_size_data.items %}
+                      <option value="{{ key|upper }}">
+                        {{ key|upper }}
+                        {% for mm in values %}
+                          {{ mm }}mm
+                          {% if forloop.counter0 == 0 %}
+                            x
+                          {% endif %}
+                        {% endfor %}
+                      </option>
+                    {% endfor %}
                   </select>
-                  <br/>
-                  <label for="custom_width">Width:</label>
-                  <input type="text" name="custom_width" size="4"> <span>{% trans "mm" %}</span>
-                  <br/>
-                  <label for="custom_height">Height:</label>
-                  <input type="text" name="custom_height" size="4"> <span>{% trans "mm" %}</span>
-
                 </section>
                 <h3>{% trans "Margins" %}</h3>
                 <section>
@@ -198,45 +171,18 @@
                   <p class="wizard_desc">{% trans "Choose a standard paper size or custom dimensions" %}</p>
                   <label for="size">{% trans "Size" %}</label>
                   <select name="size">
-                    <option value="custom">{% trans "custom" %}</option>
-                    <option value="POCKET">POCKET (107mm x 174mm)</option>
-                    <option value="US5x8">US5x8 (126mm x 203mm)</option>
-                    <option value="DIGEST">DIGEST (139mm x 215mm)</option>
-                    <option value="US5.5x8.5">US5.5x8.5 (139mm x 215mm)</option>
-                    <option value="A5">A5 (148mm x 210mm)</option>
-                    <option value="USTRADE6x9">USTRADE6x9 (152mm x 228mm)</option>
-                    <option value="SQUARE7.5">SQUARE7.5 (190mm x 190mm)</option>
-                    <option value="ROYAL">ROYAL (155mm x 233mm)</option>
-                    <option value="LANDSCAPE9x7">LANDSCAPE9x7 (228mm x 177mm)</option>
-                    <option value="COMICBOOK">COMICBOOK (168mm x 260mm)</option>
-                    <option value="B5">B5 (176mm x 250mm)</option>
-                    <option value="US7x10">US7x10 (177mm x 253mm)</option>
-                    <option value="CROWNQUARTO">CROWNQUARTO (189mm x 245mm)</option>
-                    <option value="SQUARE8.5">SQUARE8.5 (215mm x 215mm)</option>
-                    <option value="USLETTER">USLETTER (215mm x 279mm)</option>
-                    <option selected="selected" value="A4">A4 (210mm x 297mm)</option>
-                    <option value="Foolscap (F4)">Foolscap (F4) (210mm x 330mm)</option>
-                    <option value="B4">B4 (250mm x 353mm)</option>
-                    <option value="Oamaru Tabloid">Oamaru Tabloid (265mm x 380mm)</option>
-                    <option value="UK Tabloid">UK Tabloid (279mm x 431mm)</option>
-                    <option value="A3 (NZ Tabloid)">A3 (NZ Tabloid) (297mm x 420mm)</option>
-                    <option value="Berliner">Berliner (315mm x 470mm)</option>
-                    <option value="B3">B3 (353mm x 500mm)</option>
-                    <option value="Oamaru Broadsheet">Oamaru Broadsheet (382mm x 540mm)</option>
-                    <option value="US Broadsheet">US Broadsheet (380mm x 577mm)</option>
-                    <option value="A2 (NZ Broadsheet)">A2 (NZ Broadsheet) (420mm x 594mm)</option>
-                    <option value="UK Broadsheet">UK Broadsheet (457mm x 609mm)</option>
-                    <option value="B2">B2 (500mm x 707mm)</option>
-                    <option value="A1">A1 (594mm x 841mm)</option>
-                    <option value="B1">B1 (707mm x 1000mm)</option>
+                    {% for key, values in page_size_data.items %}
+                      <option value="{{ key|upper }}">
+                        {{ key|upper }}
+                        {% for mm in values %}
+                          {{ mm }}mm
+                          {% if forloop.counter0 == 0 %}
+                            x
+                          {% endif %}
+                        {% endfor %}
+                      </option>
+                    {% endfor %}
                   </select>
-                  <br/>
-                  <label for="custom_width">Width:</label>
-                  <input type="text" name="custom_width" size="4"> <span>{% trans "mm" %}</span>
-                  <br/>
-                  <label for="custom_height">Height:</label>
-                  <input type="text" name="custom_height" size="4"> <span>{% trans "mm" %}</span>
-
                 </section>
                 <h3>{% trans "Margins" %}</h3>
                 <section>

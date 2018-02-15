@@ -357,7 +357,7 @@ def cover(request, bookid, cid, fname=None, version=None):
 
         try:
             if extension.lower() in ['pdf', 'psd', 'svg']:
-                raise
+                raise Exception
 
             im = Image.open(cover.attachment.name)
             im.thumbnail((300, 200), Image.ANTIALIAS)
@@ -474,6 +474,8 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
         # publish options are used in panel_publish.html to render available converters
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
         context['publish_options'] = publish_options
+        context['page_size_data'] = config.get_configuration('PAGE_SIZE_DATA')
+
 
         outputs_map = {}
         converters = convert_loader.find_all(
