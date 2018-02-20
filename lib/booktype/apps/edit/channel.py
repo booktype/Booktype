@@ -1847,6 +1847,9 @@ def remote_create_chapter(request, message, bookid, version):
             kind='chapter_create'
         )
 
+    checked_statuses = list(chapter.checked_statuses.values_list('pk', flat=True))
+
+    # TODO: turn this into dict to make it more readable
     result = (
         chapter.id,
         chapter.title,
@@ -1858,7 +1861,8 @@ def remote_create_chapter(request, message, bookid, version):
         "root",                 # parent id (first level)
         toc_item.id,            # tocID
         "normal",               # fake state
-        None                    # fake current editor
+        None,                   # fake current editor,
+        checked_statuses
     )
 
     sputnik.addMessageToChannel(
