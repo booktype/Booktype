@@ -104,7 +104,17 @@ ADMIN_IMPORT_BOOKS = False
 
 BOOKTYPE_MAX_USERS = 0
 BOOKTYPE_MAX_BOOKS = 0
-BOOKTYPE_BOOKS_PER_USER = -1
+BOOKTYPE_BOOKS_PER_USER = {
+    # -1 means no limits
+    'limit_global': -1,
+    'limit_by_user': [
+        # example
+        # {
+        #     'username': 'john',
+        #     'limit': 3,
+        # }
+    ]
+}
 
 GROUP_LIST_PAGE_SIZE = 20
 USER_LIST_PAGE_SIZE = 20

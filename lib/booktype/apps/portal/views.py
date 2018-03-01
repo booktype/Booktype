@@ -18,7 +18,7 @@ from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
 from booktype.utils import security, config
-from booktype.utils.misc import booktype_slugify
+from booktype.utils.misc import booktype_slugify, has_book_limit
 from booktype.apps.core.views import PageView, BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory
 
@@ -86,10 +86,7 @@ class FrontPageView(views.SecurityMixin, PageView):
 
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
 
-        if self.request.user.is_authenticated():
-            context['is_book_limit'] = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
-        else:
-            context['is_book_limit'] = True
+        context['is_book_limit'] = has_book_limit(self.request.user)
 
         if self.request.user.is_superuser:
             context['can_create_book'] = True

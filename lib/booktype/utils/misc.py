@@ -680,3 +680,30 @@ def get_file_extension(filename):
 
     _, ext = os.path.splitext(os.path.basename(filename.lower()))
     return ext[1:]
+
+
+def has_book_limit(user):
+    """
+    Checks if user reached book limit.
+
+    @rtype text: C{user}
+    @param: Returns True if user reached book limit
+    """
+    if not user.is_authenticated():
+        return True
+
+    if user.is_superuser:
+        return False
+
+    book_limit = config.get_configuration('BOOKTYPE_BOOKS_PER_USER')['limit_global']
+
+    user_limit = filter(
+        lambda item: item['username'] == user.username,
+        config.get_configuration('BOOKTYPE_BOOKS_PER_USER')['limit_by_user']
+    )
+
+    if user_limit:
+        book_limit = user_limit[0]['limit']
+
+    return models.Book.objects.filter(owner=user).count() >= book_limit != -1
+

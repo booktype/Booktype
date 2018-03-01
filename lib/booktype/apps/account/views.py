@@ -52,6 +52,7 @@ from booki.messaging.views import get_endpoint_or_none
 from booktype.apps.core.models import Role, BookRole, BookSkeleton
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
+from booktype.utils.misc import has_book_limit
 from booki.editor.models import (
     Book, BookHistory, BookiGroup, BookCover, Language, License)
 from booktype.apps.importer.utils import (
@@ -147,11 +148,7 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
                 context['can_create_book'] = False
 
         # check if user can create/import more books
-        if current_user.is_authenticated():
-            book_p_user = config.get_configuration('BOOKTYPE_BOOKS_PER_USER')
-            context['is_book_limit'] = Book.objects.filter(owner=current_user).count() >= book_p_user != -1
-        else:
-            context['is_book_limit'] = True
+        context['is_book_limit'] = has_book_limit(current_user)
 
         if context['is_book_limit']:
             if not current_user.is_superuser:
@@ -191,8 +188,7 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
             raise PermissionDenied
 
         # check if user can create more books
-        book_p_user = config.get_configuration('BOOKTYPE_BOOKS_PER_USER')
-        if Book.objects.filter(owner=self.request.user).count() >= book_p_user != -1:
+        if has_book_limit(self.request.user):
             raise PermissionDenied
 
     def get(self, request, *args, **kwargs):
