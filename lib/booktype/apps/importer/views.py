@@ -27,7 +27,7 @@ from booktype.importer.docx.utils import get_importer_class
 
 from booktype.utils import config
 from booktype.utils.book import check_book_availability, create_book
-from booktype.utils.misc import booktype_slugify, get_file_extension
+from booktype.utils.misc import booktype_slugify, get_file_extension, has_book_limit
 from booktype.utils.security import BookSecurity
 
 from .forms import UploadBookForm, UploadDocxFileForm
@@ -53,8 +53,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             raise PermissionDenied
 
         # check if user can import more books
-        if Book.objects.filter(owner=request.user).count() >= config.get_configuration(
-           'BOOKTYPE_BOOKS_PER_USER') != -1:
+        if has_book_limit(request.user):
             raise PermissionDenied
 
     def get_default_title(self, temp_file, ext):
