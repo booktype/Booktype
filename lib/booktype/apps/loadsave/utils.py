@@ -53,7 +53,7 @@ def validate_host(host, allowed_hosts):
 
 class RestrictExport(object):
     def get_host(self, request):
-        keys = 'REMOTE_HOST', 'REMOTE_ADDR'
+        keys = 'REMOTE_HOST', 'REMOTE_ADDR', 'HTTP_X_FORWARDED_SERVER'
         for key in keys:
             host = request.META.get(key, '')
 
