@@ -55,7 +55,12 @@ class ImageEditorConversion(object):
                 if extension in BkImageEditor.EXTENSION_MAP:
                     self._edit_image(img_element)
 
-                    if settings.COLOR_SPACE_CONVERTER:
+                    if not hasattr(settings, 'COLOR_SPACE_CONVERTER'):
+                        logger.warning(
+                            '`COLOR_SPACE_CONVERTER` value is not specified in settings file. \
+                            Color space convertion will not run.')
+
+                    if getattr(settings, 'COLOR_SPACE_CONVERTER', False):
                         self._color_space_convert(img_element)
 
         return html
