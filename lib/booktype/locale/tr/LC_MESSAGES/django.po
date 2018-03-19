@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 11:45+0000\n"
-"PO-Revision-Date: 2018-02-12 19:17+0000\n"
+"PO-Revision-Date: 2018-03-05 15:11+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/sourcefabric/booktype/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
 #: lib/booktype/apps/edit/views.py:608 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
-msgstr ""
+msgstr "Alt başlık"
 
 #: lib/booktype/api/editor/serializers.py:107
 msgid "Section"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:4
 msgid "Booktype account application"
-msgstr ""
+msgstr "Booktype hesap başvurusu"
 
 #: lib/booktype/apps/account/__init__.py:7
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
@@ -115,7 +115,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:8
 msgid "View user info"
-msgstr ""
+msgstr "Kullanıcı bilgisini görüntüle"
 
 #: lib/booktype/apps/account/__init__.py:9
 msgid "Manage book skeletons"
@@ -124,36 +124,36 @@ msgstr ""
 #: lib/booktype/apps/account/forms.py:21
 #: lib/booktype/apps/account/templates/account/register_form.html:13
 msgid "Email"
-msgstr ""
+msgstr "E-posta"
 
 #: lib/booktype/apps/account/forms.py:23
 #: lib/booktype/apps/account/templates/account/register_form.html:10
 msgid "Full name"
-msgstr ""
+msgstr "Ad Soyad"
 
 #: lib/booktype/apps/account/forms.py:29
 msgid "About yourself"
-msgstr ""
+msgstr "Hakkınızda"
 
 #: lib/booktype/apps/account/forms.py:34
 msgid "Profile image"
-msgstr ""
+msgstr "Profil resmi"
 
 #: lib/booktype/apps/account/forms.py:42
 msgid "Notification filter"
-msgstr ""
+msgstr "Bildirim filtresi"
 
 #: lib/booktype/apps/account/forms.py:53
 msgid "Password (again)"
-msgstr ""
+msgstr "Parola (tekrar)"
 
 #: lib/booktype/apps/account/forms.py:60
 msgid "Enter email addresses separated by comma"
-msgstr ""
+msgstr "Eposta adreslerini virgülle ayrılmış olarak girin"
 
 #: lib/booktype/apps/account/forms.py:64
 msgid "Message"
-msgstr ""
+msgstr "Mesaj"
 
 #: lib/booktype/apps/account/forms.py:127
 msgid "Working title"
@@ -169,7 +169,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
-msgstr ""
+msgstr "Lisans / Telif"
 
 #: lib/booktype/apps/account/forms.py:140
 msgid "Visible to everyone"
@@ -186,7 +186,7 @@ msgstr ""
 #: lib/booktype/apps/account/forms.py:146
 #: lib/booktype/apps/export/models.py:51
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: lib/booktype/apps/account/forms.py:148
 msgid "Optional: describe the book to other users on this platform"
@@ -214,54 +214,54 @@ msgstr ""
 
 #: lib/booktype/apps/account/models.py:35
 msgid "mood"
-msgstr ""
+msgstr "mod"
 
 #: lib/booktype/apps/account/models.py:36
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:324
 msgid "image"
-msgstr ""
+msgstr "görsel"
 
 #: lib/booktype/apps/account/models.py:37 lib/booktype/apps/core/models.py:19
 #: lib/booktype/apps/core/models.py:58 lib/booktype/apps/core/models.py:120
 msgid "description"
-msgstr ""
+msgstr "açıklama"
 
 #: lib/booktype/apps/account/models.py:38
 #: lib/booktype/apps/account/models.py:64
 #: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
 msgid "user"
-msgstr ""
+msgstr "kullanıcı"
 
 #: lib/booktype/apps/account/models.py:65
 msgid "secretcode"
-msgstr ""
+msgstr "gizli kod"
 
 #: lib/booktype/apps/account/models.py:66
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:38
 msgid "created"
-msgstr ""
+msgstr "oluşturuldu"
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
-msgstr ""
+msgstr "remote useragent"
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
-msgstr ""
+msgstr "remote addr"
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
-msgstr ""
+msgstr "remote host"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:44
 msgid "My Books"
-msgstr ""
+msgstr "Kitaplarım"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:46
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
@@ -276,38 +276,38 @@ msgstr ""
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Books"
-msgstr ""
+msgstr "Kitaplar"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:53
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:8
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:46
 msgid "Create New Book"
-msgstr ""
+msgstr "Yeni Kitap Oluştur"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create Book"
-msgstr ""
+msgstr "Yeni Kitap Oluştur"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:57
 #: lib/booktype/apps/account/templates/account/dashboard.html:222
 msgid "Invite people to edit your books"
-msgstr ""
+msgstr "Kitap düzenlemek için insanları davet et"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Invite"
-msgstr ""
+msgstr "Davet et"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:61
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
-msgstr ""
+msgstr "Kitap sınırına ulaştınız. Lütfen yeni bir tane oluşturmadan önce istemediğiniz kitapları silin."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:61
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
-msgstr ""
+msgstr "Ek kitaplar oluşturulamaz"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:66
 #: lib/booktype/apps/account/templates/account/dashboard.html:292
@@ -323,57 +323,57 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:26
 #: lib/booktype/apps/portal/templates/portal/group.html:53
 msgid "Show in a grid"
-msgstr ""
+msgstr "Izgaraya diz"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:70
 #: lib/booktype/apps/portal/templates/portal/books.html:25
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:27
 #: lib/booktype/apps/portal/templates/portal/group.html:54
 msgid "Show in a list"
-msgstr ""
+msgstr "Liste olarak göster"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:81
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr ""
+msgstr "Tam yazma zamanı, üstteki düğmeye basmanız yeter!"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:83
 msgid "This user has no books"
-msgstr ""
+msgstr "Bu kullanıcının hiç kitabı yok"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:91
 msgid "Participating Books"
-msgstr ""
+msgstr "Katılınılan Kitaplar"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:107
 msgid "My Groups"
-msgstr ""
+msgstr "Gruplarım"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:113
 msgid ""
 "Work with others in Groups. To create a Group click on the button below"
-msgstr ""
+msgstr "Gruplarda diğer kullanıcılarla beraber çalışmak için aşağıdaki Grup düğmesine basarak kendi grubunuzu oluşturabilirsiniz."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:119
 msgid "Participating Groups"
-msgstr ""
+msgstr "Katılınılan Gruplar"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:125
 msgid "Join other groups based on your interest"
-msgstr ""
+msgstr "İlgilendiğiniz gruplara katılın"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:125
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:31
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:62
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:117
 msgid "view all"
-msgstr ""
+msgstr "tümünü gör"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:130
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:80
 msgid "Click this button to create a new group of writers and editors"
-msgstr ""
+msgstr "Yeni bir yazar ve editör grubu oluşturmak için bu düğmeye tıklayın"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:131
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:80
@@ -381,19 +381,19 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:7
 #: lib/booktype/apps/portal/views.py:256
 msgid "Create New Group"
-msgstr ""
+msgstr "Yeni Grup Oluştur"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:143
 #: lib/booktype/apps/account/templates/account/form_signedin.html:3
 msgid "My Profile"
-msgstr ""
+msgstr "Profilim"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:158
 #: lib/booktype/apps/account/templates/account/form_signedin.html:18
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr ""
+msgstr "kişisel ayarlarınız ve Booktype hesabı parolanızı güncellemek için bu düğmeye tıklayın"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:158
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
@@ -401,92 +401,92 @@ msgstr ""
 #: lib/booktype/apps/account/views.py:296
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:159
 msgid "Click this button to log out of your Booktype account"
-msgstr ""
+msgstr "Booktype hesabından çıkış yapmak için düğmeye tıklayın"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:159
 #: lib/booktype/apps/core/templates/core/nav_bar.html:16
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:12
 msgid "Log out"
-msgstr ""
+msgstr "Çıkış"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:167
 msgid "My Recent Activity"
-msgstr ""
+msgstr "Son Etkinlikleriniz"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:169
 #: lib/booktype/apps/portal/templates/portal/books.html:108
 msgid "Recent Activity"
-msgstr ""
+msgstr "Son Etkinlik"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:177
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:155
 msgid "ago"
-msgstr ""
+msgstr "önce"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:190
 msgid "This user has no recent activity."
-msgstr ""
+msgstr "Bu kullanıcının hiç etkinliği yok."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:197
 #: lib/booktype/apps/core/templates/core/nav_menu.html:28
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:61
 #: lib/booktype/apps/portal/views.py:178 lib/booktype/apps/portal/views.py:179
 msgid "Groups"
-msgstr ""
+msgstr "Gruplar"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:202
 msgid "This user is not a member of any groups."
-msgstr ""
+msgstr "Bu kullanıcı herhangi bir grubun üyesi değil."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:229
 msgid "Enter email addresses"
-msgstr ""
+msgstr "Eposta adreslerini girin"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:231
 msgid "Who would you like to invite?"
-msgstr ""
+msgstr "Kimi davet etmek istiyorsunuz?"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:236
 msgid "Enter message"
-msgstr ""
+msgstr "Mesajı girin"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:238
 msgid "What is the message of your invitation?"
-msgstr ""
+msgstr "Davet mesajınız nedir?"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:242
 msgid "Choose Book"
-msgstr ""
+msgstr "Kitap seç"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:244
 msgid "Choose Books for invitation"
-msgstr ""
+msgstr "Davet edilecek Kitapları seçin"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:246
 msgid "Choose Book:"
-msgstr ""
+msgstr "Kitap seç:"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:246
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
-msgstr ""
+msgstr "Tümü"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:248
 msgid "Check all / clear"
-msgstr ""
+msgstr "Hepsini seç/bırak"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:266
 msgid "Set Roles"
-msgstr ""
+msgstr "Rolleri belirle"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:268
 msgid "Set Roles for this invitation"
-msgstr ""
+msgstr "Bu davet için Rolleri belirle"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:269
 #: lib/booktype/apps/core/models.py:70
@@ -497,7 +497,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:4
 #: lib/booktype/apps/edit/views.py:64
 msgid "Roles"
-msgstr ""
+msgstr "Roller"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:296
 msgid "The provided code seems to be invalid or has expired"
@@ -518,13 +518,13 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
 msgid "Edit Book"
-msgstr ""
+msgstr "Kitabı düzenle"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:19
 #: lib/booktype/apps/portal/templates/portal/group.html:73
 #: lib/booktype/apps/reader/__init__.py:13
 msgid "View Book Info"
-msgstr ""
+msgstr "Kitap Bilgisini Görüntüle"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:22
 msgid "Publish Book"
@@ -535,25 +535,25 @@ msgstr ""
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:119
 msgid "Delete Book"
-msgstr ""
+msgstr "Kitabı Sil"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:40
 msgid "View"
-msgstr ""
+msgstr "Görüntüle"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:43
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:545
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:362
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden adlandır"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
@@ -562,7 +562,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 msgid "Project Information"
@@ -574,12 +574,12 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:24
 msgid "There is already a book with this name."
-msgstr ""
+msgstr "Bu adı taşıyan bir kitap zaten var."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:53
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
-msgstr ""
+msgstr "Meta veri"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid ""
@@ -636,19 +636,19 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
-msgstr ""
+msgstr "Kontrol Merkezi"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
 msgid "Drag Your File Here"
-msgstr ""
+msgstr "Dosyayı Buraya Sürükleyin"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
 msgid "or Select from folder"
-msgstr ""
+msgstr "ya da klasörden Seçin"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:142
 msgid "Filename:"
-msgstr ""
+msgstr "Dosya adı:"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
@@ -658,7 +658,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
 msgid "Cover"
-msgstr ""
+msgstr "Kapak"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
 msgid ""
@@ -668,19 +668,19 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
-msgstr ""
+msgstr "Takipçiler"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:5
 msgid "No followers."
-msgstr ""
+msgstr "Takipçi yok."
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:3
 msgid "Following:"
-msgstr ""
+msgstr "Takip edilenler:"
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:5
 msgid "Not following yet."
-msgstr ""
+msgstr "Takip edilmiyor."
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:11
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -690,18 +690,18 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:117
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Members"
-msgstr ""
+msgstr "Üyeler"
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:31
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:7
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:16
 msgid "Delete Group"
-msgstr ""
+msgstr "Grubu Sil"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:9
 msgid "User settings"
-msgstr ""
+msgstr "Kullanıcı ayarları"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:43
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:368
@@ -709,68 +709,68 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:16
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
-msgstr ""
+msgstr "Değişiklikleri kaydet"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:52
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:79
 msgid "Change password"
-msgstr ""
+msgstr "Parolayı değiştir"
 
 #: lib/booktype/apps/account/templates/account/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
-msgstr ""
+msgstr "Kullanıcı bulunmamaktadır!"
 
 #: lib/booktype/apps/account/templates/account/errors/user_does_not_exist.html:5
 #, python-format
 msgid "Can't find user \"%(username)s\"."
-msgstr ""
+msgstr "Bu isimli kullanıcı bulunmuyor: \"%(username)s\"."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
 #: lib/booktype/apps/account/views.py:405
 #: lib/booktype/apps/account/views.py:406
 msgid "Forgot your password"
-msgstr ""
+msgstr "Parolanızı mı unuttunuz?"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
-msgstr ""
+msgstr "E-postanızı kontrol edin!"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr ""
+msgstr "Parola sıfırlama ile ilgili bilgilendirme e-posta adresinize gönderildi."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
-msgstr ""
+msgstr "Kullanıcı adı veya e-posta adresi"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:26
 msgid ""
 "Enter your username or the email address you used to create your account, "
 "and we will send you a link to reset your password."
-msgstr ""
+msgstr "Hesabınızı oluştururken kullandığınız kullanıcı adı veya eposta adresinizi girin. Parolanızı sıfırlamak için bir bağlantı göndereceğiz."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:30
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:42
 msgid "Send request"
-msgstr ""
+msgstr "Talebinizi gönderin."
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
 #: lib/booktype/apps/account/views.py:478
 #: lib/booktype/apps/account/views.py:479
 msgid "Reset your password"
-msgstr ""
+msgstr "Şifreni sıfırla."
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
-msgstr ""
+msgstr "Gizli kod"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:26
 msgid "New password"
-msgstr ""
+msgstr "Yeni parola"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:34
 msgid "New password again"
-msgstr ""
+msgstr "Yeni parola tekrar"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:15
 msgid ""
@@ -784,7 +784,7 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
 msgid "My Dashboard"
-msgstr ""
+msgstr "Kontrol Panelim"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
@@ -793,57 +793,57 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
-msgstr ""
+msgstr "Giriş yap"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:7
 msgid "Enter username"
-msgstr ""
+msgstr "Kullanıcı adınızı girin"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:10
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:14
 msgid "User does not exist."
-msgstr ""
+msgstr "Kullanıcı bulunamadı."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:15
 msgid "Password is wrong! Please try again."
-msgstr ""
+msgstr "Girdiğiniz parola yanlış! Lütfen yeniden deneyin."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr ""
+msgstr "Hesabınız kullanım dışı! Lütfen destek hattına başvurun."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
 #: lib/booktype/apps/account/templates/account/register_form.html:26
 msgid "Unknown error!"
-msgstr ""
+msgstr "Bilinmeyen hata!"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:21
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "Parolanızı unuttunuz?"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
 "To reset your Booktype password, simply click the link below. That will take"
 " you to a web page where you can create a new password."
-msgstr ""
+msgstr "byWriters şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayınız. Bu link sizi yeni bir şifre oluşturacağınız sayfaya yönlendirecektir."
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
-msgstr ""
+msgstr "Buraya git:"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:7
 msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr ""
+msgstr "Eğer şifrenizi değiştirmeyi deneyen siz değilseniz endişe etmenize gerek yok. Hesabınız hala güvende ve kimenin giriş yetkisi yok. Büyük ihtimalle başka bir kullanıcı, kendi hesap şifresini sıfırlamak isterken e-posta adresini yanlış girmiş olmalı."
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
-msgstr ""
+msgstr "Zaten oturum açmıştınız."
 
 #: lib/booktype/apps/account/templates/account/register.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:59
@@ -853,7 +853,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:111
 #: lib/booktype/apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
-msgstr ""
+msgstr "Üye değilsin? Doldurunuz "
 
 #: lib/booktype/apps/account/templates/account/register.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:59
@@ -863,122 +863,122 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:111
 #: lib/booktype/apps/portal/templates/portal/people.html:59
 msgid "Registration form"
-msgstr ""
+msgstr "Kayıt formu"
 
 #: lib/booktype/apps/account/templates/account/register.html:37
 msgid "Create Account"
-msgstr ""
+msgstr "Hesap Oluştur"
 
 #: lib/booktype/apps/account/templates/account/register.html:41
 msgid "User limit has been reached."
-msgstr ""
+msgstr "Kullanıcı limitine ulaşıldı."
 
 #: lib/booktype/apps/account/templates/account/register.html:48
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:107
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr ""
+msgstr "Şu anda sadece yönetici yeni bir hesap oluşturmaya yetkilidir."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
 msgid "User name"
-msgstr ""
+msgstr "Kullanıcı adı"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
-msgstr ""
+msgstr "Şifre (En az 6 karakterden oluşmalıdır)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
 msgid "Missing username!"
-msgstr ""
+msgstr "Eksik kullanıcı adı!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
 msgid "Missing e-mail!"
-msgstr ""
+msgstr "Eksik e-posta!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
-msgstr ""
+msgstr "Eksik parola!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:20
 msgid "Please provide your real name."
-msgstr ""
+msgstr "Lütfen gerçek adınızı giriniz."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
 "<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr ""
+msgstr "Kullanıcı adınız geçersiz. Lütfen başka bir tane deneyin. Alfabetik karakterler kullanabilirsiniz \".\", \"_\", \"-\" (nokta, çizgi ve eksi). <br/><br/>Örneğin:<ul><li>vnazor</li><li>Ali.Veli</li><li>ali_veli</li></ul>"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
-msgstr ""
+msgstr "Bu geçersiz bir e-posta adresi"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
 msgid "Your passwords dont match. Please try a different one."
-msgstr ""
+msgstr "Parolalarınız örtüşmüyor. Lütfen başka bir tane deneyiniz."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
-msgstr ""
+msgstr "Parola en az 6 karakterden oluşmalıdır!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr ""
+msgstr "Bu kullanıcı adı başka bir kullanıcı tarafından alınmıştır. Lütfen farklı bir tane seçiniz."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
-msgstr ""
+msgstr "Adınız ve Soyadınız çok uzun!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:31
 msgid "CREATE ACCOUNT"
-msgstr ""
+msgstr "HESAP OLUŞTUR"
 
 #: lib/booktype/apps/account/views.py:70
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
-msgstr ""
+msgstr "Kontrol paneli"
 
 #: lib/booktype/apps/account/views.py:166
 #: lib/booktype/apps/account/views.py:167
 msgid "User profile"
-msgstr ""
+msgstr "Kullanıcı profili"
 
 #: lib/booktype/apps/account/views.py:345
 msgid "User settings have been saved successfully!"
-msgstr ""
+msgstr "Kullanıcı ayarları başarıyla kaydedildi!"
 
 #: lib/booktype/apps/account/views.py:382
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "Parola başarılı değiştirildi!"
 
 #: lib/booktype/apps/account/views.py:434
 msgid "Missing username"
-msgstr ""
+msgstr "Eksik kullanıcı adı"
 
 #: lib/booktype/apps/account/views.py:438
 msgid "No such user"
-msgstr ""
+msgstr "Böyle bir kullanıcı bulunmuyor"
 
 #: lib/booktype/apps/account/views.py:458
 msgid "Reset password"
-msgstr ""
+msgstr "Parolayı değiştir"
 
 #: lib/booktype/apps/account/views.py:471
 msgid "Unknown error"
-msgstr ""
+msgstr "Bilinmeyen hata"
 
 #: lib/booktype/apps/account/views.py:493
 msgid "Password can't be empty"
-msgstr ""
+msgstr "Parola boş bırakılamaz"
 
 #: lib/booktype/apps/account/views.py:498
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Parolalar örtüşmüyor"
 
 #: lib/booktype/apps/account/views.py:514
 msgid "Wrong secret code"
-msgstr ""
+msgstr "Gizli kod hatalı"
 
 #: lib/booktype/apps/account/views.py:786
 msgid ""
@@ -988,68 +988,68 @@ msgstr ""
 
 #: lib/booktype/apps/core/__init__.py:4
 msgid "Booktype core application"
-msgstr ""
+msgstr "Booktype çekirdek uygulaması"
 
 #: lib/booktype/apps/core/__init__.py:7
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:111
 msgid "Manage Roles"
-msgstr ""
+msgstr "Rolleri yönet"
 
 #: lib/booktype/apps/core/__init__.py:8
 msgid "Manage Permissions"
-msgstr ""
+msgstr "İzinleri yönet"
 
 #: lib/booktype/apps/core/management/commands/update_default_roles.py:21
 #: lib/booktype/tests/test_case.py:36
 msgid "system default role"
-msgstr ""
+msgstr "öntanımlı sistem rolü"
 
 #: lib/booktype/apps/core/models.py:16
 msgid "app name"
-msgstr ""
+msgstr "uygulama adı"
 
 #: lib/booktype/apps/core/models.py:17 lib/booktype/apps/core/models.py:56
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:35
 msgid "name"
-msgstr ""
+msgstr "isim"
 
 #: lib/booktype/apps/core/models.py:28
 msgid "Permission"
-msgstr ""
+msgstr "Yetki"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
 #: lib/booktype/apps/edit/views.py:65
 msgid "Permissions"
-msgstr ""
+msgstr "Yetkiler"
 
 #: lib/booktype/apps/core/models.py:61
 msgid "permissions"
-msgstr ""
+msgstr "yetkiler"
 
 #: lib/booktype/apps/core/models.py:69
 msgid "Role"
-msgstr ""
+msgstr "Rol"
 
 #: lib/booktype/apps/core/models.py:84
 msgid "role"
-msgstr ""
+msgstr "rol"
 
 #: lib/booktype/apps/core/models.py:85 lib/booktype/apps/export/models.py:71
 msgid "book"
-msgstr ""
+msgstr "kitap"
 
 #: lib/booktype/apps/core/models.py:87
 msgid "users"
-msgstr ""
+msgstr "kullanıcılar"
 
 #: lib/booktype/apps/core/models.py:96
 msgid "Book Role"
-msgstr ""
+msgstr "Kitap Rolü"
 
 #: lib/booktype/apps/core/models.py:97
 msgid "Book Roles"
-msgstr ""
+msgstr "Kitap Rolleri"
 
 #: lib/booktype/apps/core/models.py:104
 msgid "EPUB"
@@ -1057,12 +1057,12 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:117 lib/booktype/apps/export/models.py:30
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: lib/booktype/apps/core/models.py:123 lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
 #: lib/booktype/apps/core/models.py:127
 msgid "Skeleton Type"
@@ -1082,11 +1082,11 @@ msgstr ""
 
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
-msgstr ""
+msgstr "Değişiklikler:"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:8
 msgid "About"
-msgstr ""
+msgstr "Hakkında"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:11
 msgid ""
@@ -1098,7 +1098,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
-msgstr ""
+msgstr "Nasıl kullanılır"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
 msgid ""
@@ -1110,7 +1110,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
-msgstr ""
+msgstr "Yardım İster misiniz?"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:30
 msgid ""
@@ -1119,102 +1119,102 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr ""
+msgstr "Sosyal araçlar, kolay iş akışları ve istediğiniz lisanslarla çalışabilme olanaklarıyla Booktype Pro hem iç işleyişiniz hem kamuya açık kullanım için ideal. Yayıncılar, print-on-demand hizmeti verenler ve eğitim kurumları daha iyi kitapları hızlı üretmek için yararlanırken Sourcefabric kurulum, barındırma, güncelleme ve güvenlikle ilgileniyor."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:41
 #: lib/booktype/apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
-msgstr ""
+msgstr "Profesyonel yazarlar için özgür içerik yönetim sistemi Booktype ile çalışıyor."
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:10
 msgid "User Manual"
-msgstr ""
+msgstr "Kullanım Kılavuzu"
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:43
 #: lib/booktype/apps/edit/templates/edit/toolbar_nav.html:29
 msgid "Help us to translate Booktype"
-msgstr ""
+msgstr "Booktype'ın çevirilerine yardım edin"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:10
 #: lib/booktype/apps/portal/views.py:45
 msgid "Home"
-msgstr ""
+msgstr "Ana sayfa"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:35
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:116
 #: lib/booktype/apps/portal/views.py:358 lib/booktype/apps/portal/views.py:359
 msgid "People"
-msgstr ""
+msgstr "Kişiler"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:44
 msgid "Control Center Home"
-msgstr ""
+msgstr "Kontrol Merkezi Ana Sayfası"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:47
 msgid "Admin Settings"
-msgstr ""
+msgstr "Yönetici Ayarları"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:50
 msgid "Admin People"
-msgstr ""
+msgstr "Yönetici Kişiler"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:53
 msgid "Admin Books"
-msgstr ""
+msgstr "Yönetici Kitapları"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:56
 msgid "Admin Groups"
-msgstr ""
+msgstr "Yönetici Grupları"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:59
 msgid "Admin Roles"
-msgstr ""
+msgstr "Yönetici Rolleri"
 
 #: lib/booktype/apps/core/templates/errors/400.html:9
 msgid "Error 400"
-msgstr ""
+msgstr "Hata 400"
 
 #: lib/booktype/apps/core/templates/errors/400.html:10
 msgid "Bad request."
-msgstr ""
+msgstr "Hatalı istek."
 
 #: lib/booktype/apps/core/templates/errors/403.html:9
 msgid "Error 403"
-msgstr ""
+msgstr "Hata 403"
 
 #: lib/booktype/apps/core/templates/errors/403.html:10
 msgid "Permission denied."
-msgstr ""
+msgstr "Yetki alınamadı."
 
 #: lib/booktype/apps/core/templates/errors/404.html:9
 #: lib/booktype/apps/reader/views.py:82
 msgid "Error 404"
-msgstr ""
+msgstr "Hata 404"
 
 #: lib/booktype/apps/core/templates/errors/404.html:10
 msgid "Page not found."
-msgstr ""
+msgstr "Sayfa bulunamadı."
 
 #: lib/booktype/apps/core/templates/errors/500.html:9
 msgid "Error 500"
-msgstr ""
+msgstr "Hata 500"
 
 #: lib/booktype/apps/core/templates/errors/500.html:10
 msgid "Server error."
-msgstr ""
+msgstr "Sunucu sorunu."
 
 #: lib/booktype/apps/core/templates/errors/book_does_not_exist.html:8
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete_error.html:7
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: lib/booktype/apps/core/templates/errors/book_does_not_exist.html:9
 msgid "Book does not exist."
-msgstr ""
+msgstr "Kitap bulunamadı."
 
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:10
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
@@ -1226,13 +1226,13 @@ msgstr ""
 #: lib/booktype/apps/core/templates/templatetags/pager.html:10
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:127
 msgid "Previous"
-msgstr ""
+msgstr "Geri"
 
 #: lib/booktype/apps/core/templates/templatetags/pager.html:16
 #: lib/booktype/apps/core/templates/templatetags/pager.html:18
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:126
 msgid "Next"
-msgstr ""
+msgstr "İleri"
 
 #: lib/booktype/apps/edit/__init__.py:4
 msgid "Booktype edit application"
@@ -1240,7 +1240,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:7
 msgid "Create chapter"
-msgstr ""
+msgstr "Alt başlık oluştur"
 
 #: lib/booktype/apps/edit/__init__.py:8
 msgid "Rename chapter"
@@ -1249,7 +1249,7 @@ msgstr ""
 #: lib/booktype/apps/edit/__init__.py:9
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:43
 msgid "Delete chapter"
-msgstr ""
+msgstr "Alt başlığı sil"
 
 #: lib/booktype/apps/edit/__init__.py:10
 msgid "Lock chapter"
@@ -1269,7 +1269,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:15
 msgid "Create section"
-msgstr ""
+msgstr "Bölüm oluştur"
 
 #: lib/booktype/apps/edit/__init__.py:16
 msgid "Rename section"
@@ -1301,7 +1301,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:97
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
-msgstr ""
+msgstr "Kapağı yükle"
 
 #: lib/booktype/apps/edit/__init__.py:26
 msgid "Edit cover"
@@ -1309,7 +1309,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:27
 msgid "Delete cover"
-msgstr ""
+msgstr "Kapağı sil"
 
 #: lib/booktype/apps/edit/__init__.py:29
 msgid "Manage Status"
@@ -1325,7 +1325,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:33
 msgid "Delete book"
-msgstr ""
+msgstr "Kitabı sil"
 
 #: lib/booktype/apps/edit/__init__.py:35
 msgid "Restore history"
@@ -1428,11 +1428,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/forms.py:64
 msgid "Right to left text"
-msgstr ""
+msgstr "Sağdan sola yazı"
 
 #: lib/booktype/apps/edit/forms.py:66
 msgid "Book with right to left writing."
-msgstr ""
+msgstr "Kitabı sağdan sola yazı ile yaz."
 
 #: lib/booktype/apps/edit/forms.py:104
 msgid "Track changes"
@@ -1479,7 +1479,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
 #: lib/booktype/apps/edit/views.py:686
 msgid "Revision"
-msgstr ""
+msgstr "Revizyon/Gözden geçirme"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:6
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:14
@@ -1512,7 +1512,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:8
 msgid "Section Settings"
@@ -1643,7 +1643,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:21
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:33
 msgid "Split chapter"
-msgstr ""
+msgstr "Alt başlığı böl"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:23
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:354
@@ -1765,7 +1765,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:29
 msgid "Font"
-msgstr ""
+msgstr "Yazı karakteri"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
 msgid "Font size"
@@ -1812,7 +1812,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:396
 msgid "Columns"
-msgstr ""
+msgstr "Sütunlar"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:172
 msgid "Table caption"
@@ -1823,7 +1823,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:462
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:177
 msgid "Update"
@@ -1917,7 +1917,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "SAVE"
-msgstr ""
+msgstr "KAYDET"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
 msgid "Save and close"
@@ -1947,7 +1947,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:60
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:26
 msgid "Chapters"
-msgstr ""
+msgstr "Alt başlıklar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
 msgid "EXPAND TOC"
@@ -1956,12 +1956,12 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
 msgid "Online Users"
-msgstr ""
+msgstr "Çevrimiçi Kullanıcılar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:95
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:32
 msgid "Chat"
-msgstr ""
+msgstr "Sohbet"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:101
 msgid "Post a notification"
@@ -2000,22 +2000,22 @@ msgstr ""
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:18
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:270
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:113
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:85
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:142
 msgid "Notes"
-msgstr ""
+msgstr "Notlar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:115
 msgid "Shared notes for this book"
-msgstr ""
+msgstr "Bu kitap ile ilgili paylaşılan notlar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:121
 msgid "SAVE NOTE"
-msgstr ""
+msgstr "NOTU KAYDET"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:122
 msgid "Note Saved.."
@@ -2084,7 +2084,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:224
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:27
 msgid "Attachments"
-msgstr ""
+msgstr "Ekli dosyalar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:229
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:28
@@ -2099,7 +2099,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:264
 msgid "Comments"
-msgstr ""
+msgstr "Yorumlar"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:304
 #, python-format
@@ -2143,7 +2143,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:343
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
 msgid "Comment"
-msgstr ""
+msgstr "Yorumlar"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:3
 msgid "BACK TO CHAPTER HISTORY"
@@ -2157,15 +2157,15 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:12
 msgid "Version"
-msgstr ""
+msgstr "Sürüm"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:19
 msgid "PREVIOUS"
-msgstr ""
+msgstr "GERİ"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:22
 msgid "NEXT"
-msgstr ""
+msgstr "İLERİ"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:26
 msgid "REVERT TO THIS REVISION"
@@ -2181,12 +2181,12 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:54
 msgid "Revert to this revision?"
-msgstr ""
+msgstr "Bu revizyona dönmek istiyormusunuz?"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr ""
+msgstr "Var olan alt başlığının içeriği bu sürüme dönüştürülecektir. Emin misiniz?"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -2252,7 +2252,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:10
 #, python-brace-format
 msgid "\"{0}\" is being published."
-msgstr ""
+msgstr "\"{0}\"  yayınlandı."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:11
 #, python-brace-format
@@ -2279,7 +2279,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:17
 msgid "Loading data."
-msgstr ""
+msgstr "Veri yükleniyor."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:18
 msgid "Sending data."
@@ -2315,7 +2315,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:34
 msgid "Loading media files"
-msgstr ""
+msgstr "Çoklu ortam dosyaları yükleniyor"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:35
 msgid "Removing media files"
@@ -2367,7 +2367,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:47
 msgid "Next &gt;"
-msgstr ""
+msgstr "İleri &gt;"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:48
 msgid "Revision reverted"
@@ -2392,7 +2392,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:54
 msgid "and"
-msgstr ""
+msgstr "ve"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:55
 #, python-format
@@ -2446,7 +2446,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:46
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:67
 #, python-format
@@ -2613,7 +2613,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:104
 msgid "Accept"
-msgstr ""
+msgstr "Kabul"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
 msgid "Reply"
@@ -2723,7 +2723,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:544
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
 msgid "Download"
-msgstr ""
+msgstr "İndir"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:143
 msgid "Non breaking space"
@@ -2850,7 +2850,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:39
 msgid "Next $gt;"
-msgstr ""
+msgstr "İleri $gt;"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:53
 msgid "Whole book"
@@ -2989,7 +2989,7 @@ msgstr ""
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:78
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:89
 msgid "EDIT"
-msgstr ""
+msgstr "DÜZENLE"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:271
 msgid "STOP EDIT"
@@ -3104,7 +3104,7 @@ msgstr ""
 #: lib/booktype/importer/docx/docximporter.py:249
 #: lib/booktype/importer/docx/docximporter.py:585
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:516
 msgid "Write your infobox title here"
@@ -3113,27 +3113,27 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:11
 msgid "Cover Manager"
-msgstr ""
+msgstr "Kapak Yöneticisi"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:11
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:178
 msgid "Approved"
-msgstr ""
+msgstr "Onaylandı"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:14
 msgid "Pending"
-msgstr ""
+msgstr "Beklemede"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:34
 msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr ""
+msgstr "Hata: Yüklemek istediğiniz dosya türü kabul edilmemektedir. Lütfen şu dosya türlerinde yükleme yapmayı deneyiniz: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
-msgstr ""
+msgstr "Önemli Bilgi"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:40
 msgid ""
@@ -3149,14 +3149,14 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
 msgid "Enter Meta-data"
-msgstr ""
+msgstr "Meta verisi ekleyin"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:123
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:125
 msgid "Creator"
-msgstr ""
+msgstr "Hazırlayan"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:169
 #: lib/booktype/apps/export/models.py:52
@@ -3176,11 +3176,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
 #: lib/booktype/apps/edit/views.py:626
 msgid "Book History"
-msgstr ""
+msgstr "Kitap Geçmişi"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:8
 msgid "Here you can follow the edit history of your book."
-msgstr ""
+msgstr "Buradan kitabınızda yapmış olduğunuz değişikliklerin geçmişini görebilirsiniz."
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:9
 msgid "click on the chapter link to compare revisions"
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:12
 msgid "Filter by user"
-msgstr ""
+msgstr "Kullanıcıya göre süz"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:13
 msgid "Filter by chapter"
@@ -3196,11 +3196,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:14
 msgid "Filter"
-msgstr ""
+msgstr "Süz"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:17
 msgid "Clear filters"
-msgstr ""
+msgstr "Süzgeçleri sil"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:649
@@ -3209,12 +3209,12 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:31
 msgid "Loading content..."
-msgstr ""
+msgstr "İçerik yükleniyor..."
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:10
 msgid "Media"
-msgstr ""
+msgstr "Çoklu Ortam"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:9
 msgid "Cancel upload"
@@ -3228,23 +3228,23 @@ msgstr ""
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr ""
+msgstr "Yükleyip kullandığınız tüm görseller listelenmektedir."
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
-msgstr ""
+msgstr "önizleme"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:36
 msgid "dimension"
-msgstr ""
+msgstr "boyutlar"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:37
 msgid "size"
-msgstr ""
+msgstr "ebatlar"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:45
 msgid "Delete selected items"
-msgstr ""
+msgstr "Seçili öğeleri sil"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:54
 msgid "Remove media files"
@@ -3260,7 +3260,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:104
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:133
 msgid "I understand and agree"
-msgstr ""
+msgstr "Anlıyorum ve onaylıyorum"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:65
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:112
@@ -3268,7 +3268,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:17
 #: lib/booktype/apps/portal/widgets.py:30
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:76
 msgid "Warning"
@@ -3282,7 +3282,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:662
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
-msgstr ""
+msgstr "Yayınla"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:8
 msgid "There are some issues with this document. Please resolve them."
@@ -3335,7 +3335,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:196
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:199
 msgid "Size"
-msgstr ""
+msgstr "Yazı boyutu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:77
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:198
@@ -3345,7 +3345,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:80
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:201
 msgid "custom"
-msgstr ""
+msgstr "Özel Ebat"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:117
@@ -3365,7 +3365,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:266
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:274
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:120
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:241
@@ -3380,22 +3380,22 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:123
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:244
 msgid "Top Margin"
-msgstr ""
+msgstr "Üst kenar boşluğu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:126
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:247
 msgid "Side Margin"
-msgstr ""
+msgstr "Yan kenar boşluğu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:129
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:250
 msgid "Bottom Margin"
-msgstr ""
+msgstr "Alt kenar payı"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:132
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:253
 msgid "Gutter"
-msgstr ""
+msgstr "Sayfa boşluğu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:257
@@ -3489,7 +3489,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:418
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
 msgid "No Cover"
-msgstr ""
+msgstr "Kapak yok"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
 msgid "EPUB3 Settings"
@@ -3506,11 +3506,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:442
 msgid "Mobi Settings"
-msgstr ""
+msgstr "Mobi Ayarları"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:476
 msgid "XHTML Settings"
-msgstr ""
+msgstr "XHTML Ayarları"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:501
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:652
@@ -3541,12 +3541,12 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:611
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:622
 msgid "settings"
-msgstr ""
+msgstr "ayarlar"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
 #: lib/booktype/convert/screenpdf/converter.py:32
 msgid "Screen PDF"
-msgstr ""
+msgstr "Ekran PDF dökümanı (72dpi)"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
 #: lib/booktype/convert/epub/converter.py:57
@@ -3571,12 +3571,12 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
 #: lib/booktype/convert/mobi/converter.py:34
 msgid "MOBI"
-msgstr ""
+msgstr "MOBI"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:619
 #: lib/booktype/convert/xhtml/converter.py:44
 msgid "XHTML"
-msgstr ""
+msgstr "XHTML"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:629
 msgid "EXPORT YOUR BOOK"
@@ -3592,7 +3592,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:710
 msgid "comments"
-msgstr ""
+msgstr "yorumlar"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:719
 msgid "Your comment here"
@@ -3610,39 +3610,39 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:65
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
-msgstr ""
+msgstr "Kitap Ayarları"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:13
 #: lib/booktype/apps/reader/views.py:64
 msgid "Book"
-msgstr ""
+msgstr "Kitap"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:17
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:30
 msgid "Workflow"
-msgstr ""
+msgstr "İş Akışı"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:31
 msgid "Chapter status"
-msgstr ""
+msgstr "Alt başlık konumu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
 #: lib/booktype/apps/edit/views.py:62
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
 msgid "Book Metadata"
-msgstr ""
+msgstr "Kitap Meta Veri"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
 #: lib/booktype/apps/edit/views.py:63
 msgid "Additional Metadata"
-msgstr ""
+msgstr "Ek Meta Veri"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:43
 msgid "Security"
-msgstr ""
+msgstr "Güvenlik"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:66
 msgid "Settings module not available."
@@ -3707,7 +3707,7 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Bu alt başlığı silmek istediğinizden emin misiniz? İlgili tüm veriler silinecektir."
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:123
 msgid "Remove section"
@@ -3727,7 +3727,7 @@ msgstr ""
 msgid ""
 "All books should contain at least one chapter and can have as many sections "
 "as you like, or none."
-msgstr ""
+msgstr "Tüm kitaplar en az bir bölüm ve istediğiniz kadar alt başlıktan oluşmalıdır."
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:160
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:303
@@ -3744,11 +3744,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
 msgid "Table of Contents"
-msgstr ""
+msgstr "İçindekiler Tablosu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
 msgid "Detail View"
-msgstr ""
+msgstr "Ayrıntı Göster"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:232
 msgid "Expand all Sections"
@@ -3821,11 +3821,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:443
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
 msgid "STATUS"
-msgstr ""
+msgstr "DURUM"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
 msgid "RENAME"
-msgstr ""
+msgstr "YENİDEN ADLANDIR"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
 msgid "SETTINGS"
@@ -3833,7 +3833,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
-msgstr ""
+msgstr "Alan Ekle"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:27
 msgid "Add another metadata field"
@@ -3860,15 +3860,15 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:6
 msgid "New status:"
-msgstr ""
+msgstr "Yeni durum:"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:10
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:14
 msgid "Chapter statuses:"
-msgstr ""
+msgstr "Alt başlık durumu:"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:24
 msgid "default"
@@ -3880,7 +3880,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_license.html:7
 msgid "Read full text of the license"
-msgstr ""
+msgstr "Lisans/Telif metnini oku"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:20
 msgid "Delete metadata content"
@@ -3921,11 +3921,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/views.py:59
 msgid "General Settings"
-msgstr ""
+msgstr "Genel Ayarlar"
 
 #: lib/booktype/apps/edit/views.py:60
 msgid "Book Language"
-msgstr ""
+msgstr "Kitap Dili"
 
 #: lib/booktype/apps/edit/views.py:61
 msgid "Book License"
@@ -3959,7 +3959,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/views.py:808
 msgid "Successfully saved settings."
-msgstr ""
+msgstr "Ayarlar başarılı kaydedildi."
 
 #: lib/booktype/apps/edit/views.py:810
 msgid "You have no permissions to execute this action."
@@ -3967,7 +3967,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/views.py:813
 msgid "Unknown error while saving changes."
-msgstr ""
+msgstr "Değişiklikleri kaydederken beklenmedik bir hata ile karşılaşıldı."
 
 #: lib/booktype/apps/edit/views.py:889
 msgid "default one ({})"
@@ -4035,7 +4035,7 @@ msgstr ""
 
 #: lib/booktype/apps/export/models.py:34 lib/booktype/apps/export/models.py:50
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: lib/booktype/apps/export/models.py:37
 msgid "Book Export"
@@ -4063,7 +4063,7 @@ msgstr ""
 
 #: lib/booktype/apps/export/models.py:60
 msgid "version"
-msgstr ""
+msgstr "sürüm"
 
 #: lib/booktype/apps/export/models.py:63
 msgid "Content"
@@ -4083,7 +4083,7 @@ msgstr ""
 
 #: lib/booktype/apps/export/models.py:77 lib/booktype/apps/export/models.py:78
 msgid "Export Settings"
-msgstr ""
+msgstr "Ayarları Dışa Aktar"
 
 #: lib/booktype/apps/importer/forms.py:53
 #: lib/booktype/apps/importer/forms.py:55
@@ -4104,7 +4104,7 @@ msgstr ""
 #: lib/booktype/apps/importer/views.py:133
 #: lib/booktype/apps/importer/views.py:221
 msgid "Something went wrong!"
-msgstr ""
+msgstr "Bir şeyler yanlış gitti!"
 
 #: lib/booktype/apps/portal/__init__.py:4
 msgid "Booktype portal application"
@@ -4148,7 +4148,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:17
 msgid "All groups"
-msgstr ""
+msgstr "Tüm gruplar"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:27
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:90
@@ -4175,7 +4175,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:92
 #: lib/booktype/apps/portal/templates/portal/group.html:36
 msgid "JOIN THIS GROUP"
-msgstr ""
+msgstr "BU GRUBA KATIL"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:37
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:75
@@ -4184,7 +4184,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:65
 msgid "Active groups"
-msgstr ""
+msgstr "Etkin gruplar"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:76
 msgid "There are no active groups at the moment"
@@ -4193,7 +4193,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:82
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:45
 msgid "New groups"
-msgstr ""
+msgstr "Yeni gruplar"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:100
 msgid "There are no new groups at the moment"
@@ -4211,7 +4211,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/books.html:66
 msgid "Latest Books"
-msgstr ""
+msgstr "Son Kitaplar"
 
 #: lib/booktype/apps/portal/templates/portal/books.html:86
 msgid "Published Books"
@@ -4227,12 +4227,12 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/errors/group_does_not_exist.html:8
 msgid "Group not found!"
-msgstr ""
+msgstr "Grup bulunamadı!"
 
 #: lib/booktype/apps/portal/templates/portal/errors/group_does_not_exist.html:9
 #, python-format
 msgid "Can't find group \"%(group_name)s\"."
-msgstr ""
+msgstr "Bu grup bulunamadı: \"%(group_name)s\"."
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:46
 msgid ""
@@ -4241,11 +4241,11 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 msgid "Members:"
-msgstr ""
+msgstr "Üyeler:"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 msgid "Books:"
-msgstr ""
+msgstr "Kitaplar:"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:136
 msgid "There are no users yet"
@@ -4259,7 +4259,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:9
 msgid "Group Settings"
-msgstr ""
+msgstr "Grup Ayarları"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:75
 msgid "Remove Book from this group"
@@ -4294,7 +4294,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/people.html:17
 msgid "All people"
-msgstr ""
+msgstr "Tüm kişiler"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:39
 msgid "There are no people yet"
@@ -4302,7 +4302,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/people.html:65
 msgid "Active people"
-msgstr ""
+msgstr "Etkin kişiler"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:84
 msgid "There are no active people at the moment"
@@ -4310,7 +4310,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/people.html:90
 msgid "New people"
-msgstr ""
+msgstr "Yeni kişiler"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:109
 msgid "There are no new people at the moment"
@@ -4330,15 +4330,15 @@ msgstr ""
 
 #: lib/booktype/apps/portal/views.py:44
 msgid "Booktype"
-msgstr ""
+msgstr "byWriters"
 
 #: lib/booktype/apps/portal/views.py:112
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: lib/booktype/apps/portal/views.py:293
 msgid "Group settings"
-msgstr ""
+msgstr "Grup ayarları"
 
 #: lib/booktype/apps/portal/views.py:337
 msgid "You are not allowed to delete this group"
@@ -4378,7 +4378,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/forms.py:15
 msgid "Book image"
-msgstr ""
+msgstr "Kitap görseli"
 
 #: lib/booktype/apps/reader/forms.py:19
 msgid "Hide this book from other people"
@@ -4388,11 +4388,11 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Bu kitabı silmek istediğinizden emin misiniz? Bu kitap ile ilgili tüm verileri bir daha ulaşmamak üzere kaybedeceksiniz!"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
-msgstr ""
+msgstr "Silmek için kitabın adını eksiksiz yazınız"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:14
 msgid "Draft"
@@ -4439,11 +4439,11 @@ msgstr ""
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:7
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:95
 msgid "Edit Book Info"
-msgstr ""
+msgstr "Kitap bilgilerini düzenle"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:33
 msgid "Status:"
-msgstr ""
+msgstr "Durumu:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:35
 msgid "(this book is hidden from other people)"
@@ -4455,19 +4455,19 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:40
 msgid "Current version:"
-msgstr ""
+msgstr "Güncel sürüm:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:41
 msgid "Created:"
-msgstr ""
+msgstr "Oluşturulma tarihi"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:42
 msgid "Published:"
-msgstr ""
+msgstr "Yayınlanma tarihi:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:45
 msgid "Follow changes"
-msgstr ""
+msgstr "Değişiklikleri takip et"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:53
 msgid "Click this button to open the editor at the Table of Contents"
@@ -4475,7 +4475,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:54
 msgid "Edit this Book"
-msgstr ""
+msgstr "Bu kitabı düzenle"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:59
 msgid "Click this button to view the draft of the book as a single page"
@@ -4491,7 +4491,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:66
 msgid "View draft"
-msgstr ""
+msgstr "Önizleme"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
 msgid "Invite Codes"
@@ -4511,23 +4511,23 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:148
 msgid "Recent activity"
-msgstr ""
+msgstr "Son etkinlikler"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:181
 msgid "Owner"
-msgstr ""
+msgstr "Kitabın sahibi"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:204
 msgid "Admins"
-msgstr ""
+msgstr "Yöneticiler"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Contributors"
-msgstr ""
+msgstr "Katkıda bulunanlar"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:253
 msgid "Book versions"
-msgstr ""
+msgstr "Kitap sürümleri"
 
 #: lib/booktype/apps/reader/templates/reader/errors/_does_not_exist.html:9
 #, python-format
@@ -4536,7 +4536,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:29
 msgid "Created new chapter"
-msgstr ""
+msgstr "Oluşturulan yeni alt başlık"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:30
 msgid "Chapter saved"
@@ -4544,11 +4544,11 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:31
 msgid "Chapter rename"
-msgstr ""
+msgstr "Alt başlığı yeniden adlandır"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:32
 msgid "Chapter reorder"
-msgstr ""
+msgstr "Alt başlığı yeniden sırala"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:34
 msgid "Created new section"
@@ -4560,19 +4560,19 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:36
 msgid "Created new book"
-msgstr ""
+msgstr "Oluşturulan yeni kitap"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:37
 msgid "Minor version"
-msgstr ""
+msgstr "Küçük sürüm"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:38
 msgid "Major version"
-msgstr ""
+msgstr "Büyük sürüm"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:39
 msgid "Uploaded"
-msgstr ""
+msgstr "Yüklendi"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:40
 msgid "Attachment delete"
