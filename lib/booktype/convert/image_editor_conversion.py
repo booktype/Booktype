@@ -395,7 +395,7 @@ class ImageEditorConversion(object):
             image_mode = image.mode
 
         # validate color space
-        if image_mode not in ('CMYK', 'RGB'):
+        if image_mode not in ('CMYK', 'RGB', 'RGBA'):
             logger.warning('Unsupported color space "{}" in image: {}'.format(
                 image_mode,
                 src
@@ -429,4 +429,4 @@ class ImageEditorConversion(object):
             if err:
                 logger.error('Error during converting color spaces. Error {0}. CMD: {1}'.format(err, cmd))
             else:
-                logger.info('Converting color spaces was done with output: :"{}"'.format(out))
+                logger.info('Converting color spaces command "{}" executed with output: "{}"'.format(cmd, out))
