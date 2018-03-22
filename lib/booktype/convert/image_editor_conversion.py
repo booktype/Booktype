@@ -56,9 +56,10 @@ class ImageEditorConversion(object):
                     self._edit_image(img_element)
 
                     if not hasattr(settings, 'COLOR_SPACE_CONVERTER'):
-                        logger.warning(
-                            '`COLOR_SPACE_CONVERTER` value is not specified in settings file. \
-                            Color space convertion will not run.')
+                        warn_msg = [
+                            '`COLOR_SPACE_CONVERTER` value is not specified in settings file.',
+                            'Color space conversion not running.']
+                        logger.warn(" ".join(warn_msg))
 
                     if getattr(settings, 'COLOR_SPACE_CONVERTER', False):
                         self._color_space_convert(img_element)
@@ -384,9 +385,16 @@ class ImageEditorConversion(object):
         # change image src in html
         elem.set("src", dst)
 
-    def _color_space_convert(self, elem,
-                             rgb_icc_profile_path=settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
-                             cmyk_icc_profile_path=settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH):
+    def _color_space_convert(self, elem, rgb_icc_profile_path=None, cmyk_icc_profile_path=None):
+
+        if rgb_icc_profile_path is None or cmyk_icc_profile_path is None:
+            try:
+                rgb_icc_profile_path = settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH
+                cmyk_icc_profile_path = settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH
+            except AttributeError as err:
+                logger.warning("Color space conversion not running. Details: %s" % err)
+                return
+
         src = elem.get('src')
         image_mode = None
         cmd = None
