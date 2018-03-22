@@ -384,7 +384,9 @@ class ImageEditorConversion(object):
         # change image src in html
         elem.set("src", dst)
 
-    def _color_space_convert(self, elem):
+    def _color_space_convert(self, elem,
+                             rgb_icc_profile_path=settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
+                             cmyk_icc_profile_path=settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH):
         src = elem.get('src')
         image_mode = None
         cmd = None
@@ -420,18 +422,18 @@ class ImageEditorConversion(object):
         if self._converter.name in ('epub2', 'epub3', 'screenpdf', 'pdfreactor-screenpdf') and image_mode == 'CMYK':
             cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
                 settings.IMAGEMAGICK_PATH,
-                settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH,
+                cmyk_icc_profile_path,
                 src,
-                settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
+                rgb_icc_profile_path,
                 src
             )
         # convert RGB to CMYK
         elif self._converter.name in ('pdf', 'pdfreactor') and image_mode == 'RGB':
             cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
                 settings.IMAGEMAGICK_PATH,
-                settings.CMYK2RGB_CONVERTER_RGB_PROFILE_PATH,
+                rgb_icc_profile_path,
                 src,
-                settings.CMYK2RGB_CONVERTER_CMYK_PROFILE_PATH,
+                cmyk_icc_profile_path,
                 src
             )
         else:
