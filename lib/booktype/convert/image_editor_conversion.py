@@ -394,12 +394,27 @@ class ImageEditorConversion(object):
         with Image.open(src) as image:
             image_mode = image.mode
 
-        # validate color space
-        if image_mode not in ('CMYK', 'RGB', 'RGBA'):
-            logger.warning('Unsupported color space "{}" in image: {}'.format(
-                image_mode,
-                src
-            ))
+            # validate color space
+            if image_mode not in ('CMYK', 'RGB'):
+                logger.warning('Unsupported color space "{}" in image: {}. It will be converted to RGB'.format(
+                    image_mode,
+                    src
+                ))
+
+                # convert RGBA to RGB
+                if image_mode == 'RGBA':
+                    png = image
+                    # required for png.split()
+                    png.load()
+                    jpeg = Image.new("RGB", png.size, (255, 255, 255))
+                    jpeg.paste(png, mask=png.split()[3])
+                    src = '{}.jpeg'.format(src.rsplit('.', 1)[0])
+                    jpeg.save(src, 'JPEG', quality=100)
+                    image_mode = "RGB"
+                    # remove old image
+                    os.remove(elem.get('src'))
+                    # set new image for an element
+                    elem.set('src', src)
 
         # convert CMYK to RGB
         if self._converter.name in ('epub2', 'epub3', 'screenpdf', 'pdfreactor-screenpdf') and image_mode == 'CMYK':
