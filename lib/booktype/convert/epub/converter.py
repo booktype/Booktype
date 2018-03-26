@@ -56,6 +56,7 @@ class Epub3Converter(BaseConverter):
     name = 'epub3'
     verbose_name = _('EPUB3')
     support_section_settings = True
+    images_color_model = "RGB"
 
     toc_title = 'toc'
     default_style = 'style1'
@@ -511,6 +512,7 @@ class Epub2Converter(Epub3Converter):
     name = 'epub2'
     verbose_name = _('EPUB2')
     support_section_settings = True
+    images_color_model = "RGB"
     writer_plugin_class = WriterPlugin
 
     def __init__(self, *args, **kwargs):

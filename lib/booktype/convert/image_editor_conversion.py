@@ -395,6 +395,19 @@ class ImageEditorConversion(object):
                 logger.warning("Color space conversion not running. Details: %s" % err)
                 return
 
+            if not hasattr(self._converter, 'images_color_model'):
+                logger.warning('Converter "{}" has not "images_color_model" attribute.'.format(
+                    self._converter
+                ))
+                return
+
+            if self._converter.images_color_model not in ('RGB', 'CMYK'):
+                logger.warning('Unsupported "images_color_model" attribute value: "{}", in converter: {}'.format(
+                    self._converter.images_color_model,
+                    self._converter
+                ))
+                return
+
         src = elem.get('src')
         image_mode = None
         cmd = None
@@ -427,7 +440,7 @@ class ImageEditorConversion(object):
                     elem.set('src', src)
 
         # convert CMYK to RGB
-        if self._converter.name in ('epub2', 'epub3', 'screenpdf', 'pdfreactor-screenpdf') and image_mode == 'CMYK':
+        if self._converter.images_color_model == 'RGB' and image_mode == 'CMYK':
             cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
                 settings.IMAGEMAGICK_PATH,
                 cmyk_icc_profile_path,
@@ -436,7 +449,7 @@ class ImageEditorConversion(object):
                 src
             )
         # convert RGB to CMYK
-        elif self._converter.name in ('pdf', 'pdfreactor') and image_mode == 'RGB':
+        elif self._converter.images_color_model == 'CMYK' and image_mode == 'RGB':
             cmd = '{0} -profile "{1}" {2} -profile "{3}" {4}'.format(
                 settings.IMAGEMAGICK_PATH,
                 rgb_icc_profile_path,

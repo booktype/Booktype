@@ -100,6 +100,7 @@ class MPDFConverter(BaseConverter):
     name = 'mpdf'
     verbose_name = _("Printers' PDF")
     support_section_settings = True
+    images_color_model = "CMYK"
 
     _images_dir = "images/"
     _body_pdf_name = "body.pdf"
