@@ -43,6 +43,7 @@ class XHTMLConverter(BaseConverter):
     name = 'xhtml'
     verbose_name = _('XHTML')
     support_section_settings = False
+    images_color_model = "RGB"
 
     _images_dir = "images/"
 

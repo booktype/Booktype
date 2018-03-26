@@ -31,6 +31,7 @@ class ScreenPDFConverter(MPDFConverter):
     name = 'screenpdf'
     verbose_name = _("Screen PDF")
     support_section_settings = True
+    images_color_model = "RGB"
 
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)
