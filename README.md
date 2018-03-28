@@ -31,6 +31,9 @@ Straightforward instructions to get you started on your first dev install of
 Booktype can be found [on the Digital Ocean community tutorials site](https://www.digitalocean.com/community/tutorials/how-to-publish-real-books-with-booktype-on-debian-8)
 and provide a clear path to getting an install running on a Debian 8 machine.
 
+Installation using docker can be found on 
+[Bookstype-docker](https://github.com/booktype/booktype-docker)
+
 Extra information can be found on the [online instructions](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/before-you-install/) and in the [Booktype manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/).
 
 

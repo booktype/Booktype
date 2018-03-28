@@ -1,4 +1,4 @@
-Installing Booktype 2.1
+Installing Booktype 2.3
 -----------------------
 
 Booktype is web-based software which means you do not install it on the author's 
@@ -39,6 +39,11 @@ testing.
 
  [Mac OS X](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/manual-installation-on-os-x/)
 
+Installation using docker
+--------------------------
+
+Installation with docker can be found on 
+[Bookstype-docker](https://github.com/booktype/booktype-docker)
 
 PDF renderer installation
 -------------------------
