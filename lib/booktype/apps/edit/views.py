@@ -107,17 +107,7 @@ def upload_attachment(request, bookid, version=None):
         )
         att.save()
 
-    response_data = {
-        "files": [{
-            "url": "http://127.0.0.1/",
-            "thumbnail_url": "http://127.0.0.1/",
-            "name": "boot.png",
-            "type": "image/png",
-            "size": 172728,
-            "delete_url": "",
-            "delete_type": "DELETE"
-        }]
-    }
+    response_data = {}
 
     # add cliendID and sputnikID to request object
     # this will allow us to use sputnik and addMessageToChannel

@@ -25,6 +25,11 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
 
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+
 logger = logging.getLogger('booktype')
 
 
@@ -711,8 +716,16 @@ class Attachment(models.Model):
         if not os.path.exists(im_path):
             try:
                 im = misc.create_thumbnail(self.attachment, size=size, aspect_ratio=aspect_ratio)
+                # 8-bit pixels
                 if im.mode == 'P':
                     im = im.convert('RGB')
+                # 4x8-bit pixels, png for instance
+                elif im.mode == 'RGBA':
+                    # required for png.split()
+                    im.load()
+                    jpeg = Image.new("RGB", im.size, (255, 255, 255))
+                    jpeg.paste(im, mask=im.split()[3])
+                    im = jpeg
                 im.save(im_path, 'JPEG', quality=100)
             except Exception as err:
                 logger.exception('Can not create thumbnail. Error msg: %s' % err)
