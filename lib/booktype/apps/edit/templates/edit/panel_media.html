@@ -46,6 +46,30 @@
   {% endcheck_perm %}
 </div>
 
+<div id="renameMedia" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{% trans "Rename filename" %}</h3>
+    </div>
+    <div class="modal-body">
+      <form>
+        <p>{% trans "Renaming can produce an issue if this image was inserted into the chapter. You must edit raw html manually to fix a file path." %}</p>
+        <input type="hidden" name="attachment" value=""/>
+        <input type="text" name="filename" value=""/>.<span></span>
+      </form>
+      <br/>
+      <div class="alert alert-warning hide" role="alert">sdfsdf</div>
+    </div>
+    <div class="modal-footer">
+      <button href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
+      <button class="btn btn-primary rename-media">{% trans "Rename" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
 <div id="removeMedia" class="modal fade">
  <div class="modal-dialog">
   <div class="modal-content">

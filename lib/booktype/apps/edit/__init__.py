@@ -21,6 +21,7 @@ PERMISSIONS = {
 
         ('upload_attachment', _('Upload attachment')),
         ('remove_attachment', _('Remove attachment')),
+        ('rename_attachment', _('Rename attachment')),
 
         ('upload_cover', _('Upload cover')),
         ('edit_cover', _('Edit cover')),

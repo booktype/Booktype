@@ -529,6 +529,77 @@ def remote_attachments_list(request, message, bookid, version):
     return {"attachments": attachments}
 
 
+def remote_attachment_rename(request, message, bookid, version):
+    """
+    Change specific attachment's filename.
+
+    Input:
+      - attachment - Attachment id
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns success of this command
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.rename_attachment'):
+        raise PermissionDenied
+
+    for att_id in message['attachments']:
+        att = models.Attachment.objects.get(pk=att_id, version=book_version)
+
+        logBookHistory(
+            book=book,
+            version=book_version,
+            args={'filename': os.path.split(att.attachment.name)[1]},
+            user=request.user,
+            kind='attachment_rename'
+        )
+
+        filename = booktype_slugify(message['filename'].strip())
+
+        if not filename:
+            return {"result": False}
+
+        new_filepath = os.path.join(
+            att.attachment.path.rsplit('/', 1)[0],
+            '{}.{}'.format(filename, att.attachment.path.rsplit('.', 1)[-1])
+        )
+        old_filepath = att.attachment.path
+
+        if new_filepath == old_filepath:
+            return {"result": True}
+
+        if os.path.exists(new_filepath):
+            return {"result": False, 'message': _lazy('File with this name already exists.')}
+
+        # delete thumbnails
+        att.delete_thumbnail()
+        att.delete_thumbnail(size=(150, 150))
+
+        # rename file
+        os.rename(
+            old_filepath,
+            new_filepath
+        )
+
+        # save
+        att.attachment.name = new_filepath
+        att.save()
+
+        send_notification(request, bookid, version, "notification_attachment_was_renamed")
+
+    return {"result": True}
+
+
 def remote_attachments_delete(request, message, bookid, version):
     """
     Deletes specific attachment.
@@ -556,9 +627,7 @@ def remote_attachments_delete(request, message, bookid, version):
     for att_id in message['attachments']:
         att = models.Attachment.objects.get(pk=att_id, version=book_version)
 
-        from booki.utils import log
-
-        log.logBookHistory(
+        logBookHistory(
             book=book,
             version=book_version,
             args={'filename': os.path.split(att.attachment.name)[1]},

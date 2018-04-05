@@ -201,6 +201,9 @@
               </div>
             </div>
             <div class="tab-pane active" id="medialibrary">
+              <div id="media-image-search">
+                <input type="text" placeholder="{% trans "Search by filename or size" %}">
+              </div>
               <div class="image-info-container">
                 <div class="image-preview">
                   <img src="">
@@ -254,13 +257,18 @@
   </script>
 
   <script type="text/html" id='templateImageThumbnail'>
-     <li data-media-id="<%= media_id %>">
-       <img src="<%= preview %>" data-src="static/<%= name %>" style="max-width: 150px"/>
+     <li data-media-id="<%= media_id %>" data-filename="<%= name %>">
+       <img src="<%= preview %>" data-src="static/<%= name %>" style="max-width: 150px" data-search="<%= name %>,<%= dimension[0] %>,<%= dimension[1] %>"/>
          <a class="image-dropdown-button" data-toggle="dropdown"><i class="fa fa-caret-down"></i></a>
          <ul class="dropdown-menu" style="">
            {% trans "Edit metadata" %}
            <li><a href="static/<%= name %>" target="_blank"><i class="fa fa-download"></i> {% trans "Download" %}</a></li>
-           <li><a href="#" class="delete-attachment"><i class="fa fa-trash"></i> {% trans "Delete" %}</a></li>
+           {% check_perm 'edit.rename_attachment' %}
+             <li><a href="#" class="rename-attachment"><i class="fa fa-edit"></i> {% trans "Rename" %}</a></li>
+           {% endcheck_perm %}
+           {% check_perm 'edit.remove_attachment' %}
+             <li><a href="#" class="delete-attachment"><i class="fa fa-trash"></i> {% trans "Delete" %}</a></li>
+           {% endcheck_perm %}
          </ul>
      </li>
   </script>
