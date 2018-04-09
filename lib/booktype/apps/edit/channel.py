@@ -2898,7 +2898,7 @@ def remote_get_chapter_history(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     chapter_history = models.ChapterHistory.objects.filter(
-        chapter__book=book, chapter__id=message["chapter"]).order_by("-modified")
+        chapter__book=book, chapter__id=message["chapter"]).order_by("-revision")
 
     history = []
 
