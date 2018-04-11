@@ -22,6 +22,7 @@ import time
 import datetime
 import logging
 
+from lxml import html, etree
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -564,16 +565,18 @@ def remote_attachment_rename(request, message, bookid, version):
             kind='attachment_rename'
         )
 
-        filename = booktype_slugify(message['filename'].strip())
+        _filename = booktype_slugify(message['filename'].strip())
 
-        if not filename:
+        if not _filename:
             return {"result": False}
 
+        new_filename = '{}.{}'.format(_filename, att.attachment.path.rsplit('.', 1)[-1])
         new_filepath = os.path.join(
             att.attachment.path.rsplit('/', 1)[0],
-            '{}.{}'.format(filename, att.attachment.path.rsplit('.', 1)[-1])
+            new_filename
         )
         old_filepath = att.attachment.path
+        old_filename = old_filepath.rsplit('/', 1)[-1]
 
         if new_filepath == old_filepath:
             return {"result": True}
@@ -595,7 +598,43 @@ def remote_attachment_rename(request, message, bookid, version):
         att.attachment.name = new_filepath
         att.save()
 
-        send_notification(request, bookid, version, "notification_attachment_was_renamed")
+        # walk through all chapters and change filename
+        for chapter in book_version.get_toc():
+            should_update_content = False
+            cont = chapter.chapter.content
+            utf8_parser = html.HTMLParser(encoding='utf-8')
+            root = html.document_fromstring(cont, parser=utf8_parser)
+
+            for element in root.iter('img'):
+                src = element.get('src', None)
+
+                if not src:
+                    continue
+
+                src_prefix, src_filename = src.rsplit('/', 1)
+
+                if src_filename != old_filename:
+                    continue
+
+                element.set('src', '/'.join((src_prefix, new_filename)))
+                should_update_content = True
+
+            if should_update_content:
+                cont = etree.tostring(root, method='html', encoding='utf-8')[12:-14]
+                chapter.chapter.content = cont
+                chapter.chapter.save()
+
+        # update all clients html
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "attachment_rename",
+                "oldSrc": 'static/{}'.format(old_filename),
+                "newSrc": 'static/{}'.format(new_filename)
+            },
+            myself=True
+        )
+
+        send_notification(request, bookid, version, "attachment_was_renamed")
 
     return {"result": True}
 
