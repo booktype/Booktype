@@ -162,7 +162,9 @@
                 <span class="label locked">{% trans "Locked exclusively" %}</span>
             <% } %>
             {% if is_owner or is_admin %}
-            <a href="" class="label label-danger terminate-edit-chapter"><span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}</a>
+            <a href="" class="label label-danger terminate-edit-chapter">
+              <span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}
+            </a>
             {% endif %}
          </div>
         {% if is_owner or is_admin %}
@@ -199,7 +201,9 @@
     <% } else { %>
         <div class="chapter-labels pull-left">
             {% if is_owner or is_admin %}
-            <a href="" class="label label-danger terminate-edit-chapter"><span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}</a>
+            <a href="" class="label label-danger terminate-edit-chapter">
+              <span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}
+            </a>
             {% endif %}
         </div>
         <div class="btn-group">
@@ -299,18 +303,7 @@
               <label for=""></label>
               <input type="checkbox" name="mark_status" value="" />
             </div>
-            <% if (is_locked && lock_type === 2) { %>
-                <div>{% trans "Locked" %}</div>
-            <% } else if (is_locked && lock_type === 1) { %>
-                <div>{% trans "Locked exclusively" %}</div>
-            <% } %>
             <div class="icons"><%= commentChunk %> <%= markerChunk %></div>
-            {% if is_owner or is_admin %}
-                <div style="background-color: #d9534f" class="terminate-edit-chapter">
-                    <a href="" class="terminate-edit-chapter"><span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}</a>
-                </div>
-            {% endif %}
-
             <select name="assign_user" placeholder="{% trans 'Assign...' %}">
               <option value="" <% if (assigned === null) { %>selected="selected"<% } %>></option>
 
@@ -330,12 +323,14 @@
     <div class="btn-toolbar show">
         <div class="chapter-labels pull-left">
             <% if (is_locked && lock_type === 2) { %>
-                <span class="label">{% trans "Locked" %}</span>
+                <span class="label label-default">{% trans "Locked" %}</span>
             <% } else if (is_locked && lock_type === 1) { %>
-                <span class="label">{% trans "Locked exclusively" %}</span>
+                <span class="label label-default">{% trans "Locked exclusively" %}</span>
             <% } %>
             {% if is_owner or is_admin %}
-                <a href="" class="label label-danger terminate-edit-chapter"><span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}</a>
+                <a href="" class="label label-danger terminate-edit-chapter">
+                  <span class="fa fa-times-circle"></span>&nbsp;{% trans "Terminate editing" %}
+                </a>
             {% endif %}
         </div>
 
