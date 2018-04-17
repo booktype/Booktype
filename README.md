@@ -31,14 +31,13 @@ Extra information can be found on the [online instructions](https://sourcefabric
 How to contribute
 -----------------
 
-Only 4 steps:
-
-1. Fork the [sourcefabric/Booktype](https://github.com/booktype/Booktype/) repository. Please see GitHub
+1. Fork the [booktype/Booktype](https://github.com/booktype/Booktype/) repository. Please see GitHub
    [help on forking](https://help.github.com/articles/fork-a-repo) or use this [direct link](https://github.com/booktype/Booktype/fork) to fork.
 2. Clone your fork to your local machine.
-3. Create a new [local feature branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
-4. Run tests.
-5. Create a [pull request](https://help.github.com/articles/creating-a-pull-request) with your feature/bugfix.
+3. Create a new [local branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
+4. Run tests and make sure your contribution works correctly.
+5. Create a [pull request](https://help.github.com/articles/creating-a-pull-request) with details of your new feature, bugfix or other contribution.
+6. Sign and return the contributor agreement paperwork, either for an [individual](https://github.com/booktype/contributor-agreements/raw/master/individual-contributor-license-agreement.pdf), or an [entity](https://github.com/booktype/contributor-agreements/raw/master/entity-contributor-license-agreement.pdf) such as a company, university or other organisation. This paperwork gives us the right to use your work in Booktype, and makes it clear that you retain ownership of the copyright in your contribution. 
 
 
 Testing
