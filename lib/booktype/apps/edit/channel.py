@@ -601,7 +601,12 @@ def remote_attachment_rename(request, message, bookid, version):
         # walk through all chapters and change filename
         for chapter in book_version.get_toc():
             should_update_content = False
-            cont = chapter.chapter.content
+
+            try:
+                cont = chapter.chapter.content
+            except AttributeError:
+                continue
+
             utf8_parser = html.HTMLParser(encoding='utf-8')
             root = html.document_fromstring(cont, parser=utf8_parser)
 
