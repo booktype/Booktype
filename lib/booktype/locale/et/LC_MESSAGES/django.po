@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 11:45+0000\n"
-"PO-Revision-Date: 2018-03-05 14:56+0000\n"
+"POT-Creation-Date: 2018-04-16 17:00+0100\n"
+"PO-Revision-Date: 2018-04-17 19:15+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/sourcefabric/booktype/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Booktype API"
 
 #: lib/booktype/api/__init__.py:9
 msgid "Generate Auth Token"
-msgstr ""
+msgstr "Genereeri autentimise kontrollkood"
 
 #: lib/booktype/api/__init__.py:10
 msgid "Can Review API docs"
@@ -46,7 +46,7 @@ msgstr "Halda keeli"
 
 #: lib/booktype/api/__init__.py:15
 msgid "List Chapters"
-msgstr ""
+msgstr "Peatükkide nimekiri"
 
 #: lib/booktype/api/__init__.py:16
 msgid "Create Chapters"
@@ -62,15 +62,15 @@ msgstr "Kustuta peatükid"
 
 #: lib/booktype/api/__init__.py:20
 msgid "List Metadata"
-msgstr ""
+msgstr "META-andmete kasutamine"
 
 #: lib/booktype/api/__init__.py:21
 msgid "Create Metadata"
-msgstr ""
+msgstr "Loo META-andmed"
 
 #: lib/booktype/api/__init__.py:22
 msgid "Update Metadata"
-msgstr ""
+msgstr "Uuenda META-andmed"
 
 #: lib/booktype/api/__init__.py:23
 msgid "Delete Metadata"
@@ -78,7 +78,7 @@ msgstr "Kustuta metaandmed"
 
 #: lib/booktype/api/__init__.py:25
 msgid "List Roles"
-msgstr ""
+msgstr "Rollide nimekiri"
 
 #: lib/booktype/api/__init__.py:26
 msgid "Create Roles"
@@ -94,13 +94,13 @@ msgstr "Kustuta rollid"
 
 #: lib/booktype/api/editor/serializers.py:97
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:608 lib/booktype/apps/reader/views.py:251
+#: lib/booktype/apps/edit/views.py:600 lib/booktype/apps/reader/views.py:251
 msgid "Chapter"
 msgstr "Peatükk"
 
 #: lib/booktype/api/editor/serializers.py:107
 msgid "Section"
-msgstr ""
+msgstr "Sektsioon"
 
 #: lib/booktype/apps/account/__init__.py:4
 msgid "Booktype account application"
@@ -109,7 +109,7 @@ msgstr ""
 #: lib/booktype/apps/account/__init__.py:7
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:95
 msgid "Import from DOCX or EPUB"
-msgstr ""
+msgstr "Impordi DOCX või EPUB failist"
 
 #: lib/booktype/apps/account/__init__.py:8
 msgid "View user info"
@@ -117,7 +117,7 @@ msgstr "Vaata kasutaja infot"
 
 #: lib/booktype/apps/account/__init__.py:9
 msgid "Manage book skeletons"
-msgstr ""
+msgstr "Halda raamatu kondikavasid"
 
 #: lib/booktype/apps/account/forms.py:21
 #: lib/booktype/apps/account/templates/account/register_form.html:13
@@ -139,7 +139,7 @@ msgstr "Profiilipilt"
 
 #: lib/booktype/apps/account/forms.py:42
 msgid "Notification filter"
-msgstr ""
+msgstr "Teavituste filter"
 
 #: lib/booktype/apps/account/forms.py:53
 msgid "Password (again)"
@@ -159,7 +159,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/forms.py:134
 msgid "Language of the book"
-msgstr ""
+msgstr "Raamatu keel"
 
 #: lib/booktype/apps/account/forms.py:137
 #: lib/booktype/apps/account/forms.py:184 lib/booktype/apps/edit/forms.py:142
@@ -196,7 +196,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/forms.py:164
 msgid "Select the skeleton"
-msgstr "Vali skelet"
+msgstr "Vali kondikava"
 
 #: lib/booktype/apps/account/forms.py:174
 msgid "Cover Image"
@@ -204,7 +204,7 @@ msgstr "Kaanepilt"
 
 #: lib/booktype/apps/account/forms.py:178
 msgid "Title of cover"
-msgstr ""
+msgstr "Pealkiri kaanel"
 
 #: lib/booktype/apps/account/forms.py:181
 msgid "Creator of cover"
@@ -215,7 +215,7 @@ msgid "mood"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:36
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:324
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:332
 msgid "image"
 msgstr "pilt"
 
@@ -243,19 +243,19 @@ msgstr "loodud"
 #. this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
-msgstr ""
+msgstr "kaugühenduse useragent"
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
-msgstr ""
+msgstr "kaugühenduse aadr"
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
-msgstr ""
+msgstr "kaugühenduse host"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:44
 msgid "My Books"
@@ -271,7 +271,7 @@ msgstr "Minu raamatud"
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
-#: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
+#: lib/booktype/apps/portal/views.py:387 lib/booktype/apps/portal/views.py:388
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Books"
 msgstr "Raamatud"
@@ -305,7 +305,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard.html:61
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
-msgstr ""
+msgstr "Rohkem raamatuid ei saa luua"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:66
 #: lib/booktype/apps/account/templates/account/dashboard.html:292
@@ -351,15 +351,15 @@ msgstr "Minu grupid"
 #: lib/booktype/apps/account/templates/account/dashboard.html:113
 msgid ""
 "Work with others in Groups. To create a Group click on the button below"
-msgstr ""
+msgstr "Tööta teistega gruppides. Grupi loomiseks kliki alloleval nupul"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:119
 msgid "Participating Groups"
-msgstr ""
+msgstr "Gruppides osalemine"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:125
 msgid "Join other groups based on your interest"
-msgstr ""
+msgstr "Liitu teiste sind huvitavate gruppidega"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:125
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:31
@@ -371,13 +371,13 @@ msgstr "vaata kõiki"
 #: lib/booktype/apps/account/templates/account/dashboard.html:130
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:80
 msgid "Click this button to create a new group of writers and editors"
-msgstr ""
+msgstr "Kliki sellele nupule, et luua uus kirjutajate ja toimetajate grupp"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:131
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:80
 #: lib/booktype/apps/portal/templates/portal/group_create.html:9
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:7
-#: lib/booktype/apps/portal/views.py:256
+#: lib/booktype/apps/portal/views.py:253
 msgid "Create New Group"
 msgstr "Loo uus grupp"
 
@@ -391,19 +391,19 @@ msgstr "Minu profiil"
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr ""
+msgstr "Kliki sellele nupule, et uuendada oma isiklikke seadeid ja Booktype konto parooli"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:158
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:295
-#: lib/booktype/apps/account/views.py:296
+#: lib/booktype/apps/account/views.py:291
+#: lib/booktype/apps/account/views.py:292
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "Seaded"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:159
 msgid "Click this button to log out of your Booktype account"
-msgstr ""
+msgstr "Kliki sellele nupule, et oma Booktype kontolt välja logida"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:159
 #: lib/booktype/apps/core/templates/core/nav_bar.html:16
@@ -418,7 +418,7 @@ msgstr "Minu hiljutine tegevus"
 #: lib/booktype/apps/account/templates/account/dashboard.html:169
 #: lib/booktype/apps/portal/templates/portal/books.html:108
 msgid "Recent Activity"
-msgstr ""
+msgstr "Hiljutine tegevus"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:177
 #: lib/booktype/apps/portal/templates/portal/books.html:115
@@ -428,26 +428,26 @@ msgstr "tagasi"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:190
 msgid "This user has no recent activity."
-msgstr ""
+msgstr "Sellel kasutajal pole hiljutisi tegevusi."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:197
 #: lib/booktype/apps/core/templates/core/nav_menu.html:28
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:61
-#: lib/booktype/apps/portal/views.py:178 lib/booktype/apps/portal/views.py:179
+#: lib/booktype/apps/portal/views.py:175 lib/booktype/apps/portal/views.py:176
 msgid "Groups"
 msgstr "Grupid"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:202
 msgid "This user is not a member of any groups."
-msgstr ""
+msgstr "See kasutaja pole üheski grupis."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:229
 msgid "Enter email addresses"
-msgstr ""
+msgstr "Sisesta e-posti aadressid"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:231
 msgid "Who would you like to invite?"
-msgstr ""
+msgstr "Keda sa sooviksid kutsuda?"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:236
 msgid "Enter message"
@@ -455,15 +455,15 @@ msgstr "Sisesta sõnum"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:238
 msgid "What is the message of your invitation?"
-msgstr ""
+msgstr "Mis on sõnum sinu kutsel?"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:242
 msgid "Choose Book"
-msgstr ""
+msgstr "Vali raamat"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:244
 msgid "Choose Books for invitation"
-msgstr ""
+msgstr "Vali raamatud, millele kutse luua"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:246
 msgid "Choose Book:"
@@ -476,7 +476,7 @@ msgstr "Kõik"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:248
 msgid "Check all / clear"
-msgstr ""
+msgstr "Märgi kõik või mitte midagi"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:266
 msgid "Set Roles"
@@ -484,7 +484,7 @@ msgstr "Määra rollid"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:268
 msgid "Set Roles for this invitation"
-msgstr ""
+msgstr "Määra selle kutse rollid"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:269
 #: lib/booktype/apps/core/models.py:70
@@ -499,11 +499,11 @@ msgstr "Rollid"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:296
 msgid "The provided code seems to be invalid or has expired"
-msgstr ""
+msgstr "Sisestatud kood näib olevat vigane või on aegunud"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:301
 msgid "Enter your invite code"
-msgstr ""
+msgstr "Sisesta oma kutse kood"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:307
 msgid "Join now"
@@ -511,7 +511,7 @@ msgstr "Liitu kohe"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:316
 msgid "Unexpected error while creating the book"
-msgstr ""
+msgstr "Raamatu loomisel tekkis ootamatu tõrge"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
@@ -522,7 +522,7 @@ msgstr "Muuda raamatud"
 #: lib/booktype/apps/portal/templates/portal/group.html:73
 #: lib/booktype/apps/reader/__init__.py:13
 msgid "View Book Info"
-msgstr ""
+msgstr "Vaata raamatu infot"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:22
 msgid "Publish Book"
@@ -547,6 +547,8 @@ msgid "Edit"
 msgstr "Muuda"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:267
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:67
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:362
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
@@ -555,7 +557,7 @@ msgstr "Nimeta ümber"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:270
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:351
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
@@ -572,59 +574,59 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:24
 msgid "There is already a book with this name."
-msgstr ""
+msgstr "Selle nimega raamat on juba olemas."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:53
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
-msgstr ""
+msgstr "META-andmed"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid ""
 "Please enter metadata of the book. Metadata is necessary for later "
 "publishing"
-msgstr ""
+msgstr "Palun sisesta raamatu META-andmed. Need on hiljem vajalikud raamatu avaldamiseks"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:64
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:69
 msgid "Creation mode"
-msgstr ""
+msgstr "Loomise režiim"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:66
 msgid "Choose the way you want to create the book"
-msgstr ""
+msgstr "Vali raamatu loomise viis"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:74
 msgid "From scratch"
-msgstr ""
+msgstr "Nullist"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:75
 msgid "Will create an empty book with no sections or chapters"
-msgstr ""
+msgstr "Loob tühja raamatu ilma sektsioonide või peatükkideta"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:81
 msgid "Based on another book"
-msgstr ""
+msgstr "Põhineb mõnel teisel raamatul"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:82
 msgid ""
 "Pick this option if you want to create the book based on another book "
 "existent on the system"
-msgstr ""
+msgstr "Tee see valik, kui soovid luua raamatu, mis põhineb juba siin süsteemis olevale raamatule"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:88
 msgid "Based on skeleton"
-msgstr ""
+msgstr "Põhineb kondikaval"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:89
 msgid ""
 "You will have the option to select a predefined skeleton to base your new "
 "book on"
-msgstr ""
+msgstr "Võid valida eelnevalt loodud kondikava, mida oma uue raamatu alusena kasutada"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:120
 msgid "No book skeletons yet."
-msgstr ""
+msgstr "Ühtegi raamatu kondikava pole veel."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
 msgid "You can manage them from the"
@@ -638,7 +640,7 @@ msgstr "Juhtkeskus"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
 msgid "Drag Your File Here"
-msgstr ""
+msgstr "Lohista oma failid siia"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
 msgid "or Select from folder"
@@ -649,36 +651,36 @@ msgid "Filename:"
 msgstr "Failiinimi:"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:380
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:224
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:258
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:292
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:326
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:360
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:394
 msgid "Cover"
-msgstr ""
+msgstr "Kaanepilt"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
-msgstr ""
+msgstr "Kui sul on raamatu kaanepilt, siis saad selle nüüd lisada (seda saab hiljem lisada või muuta)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
-msgstr ""
+msgstr "Jälgijad:"
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:5
 msgid "No followers."
-msgstr ""
+msgstr "Jälgijaid pole."
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:3
 msgid "Following:"
-msgstr ""
+msgstr "Jälgimisel:"
 
 #: lib/booktype/apps/account/templates/account/dashboard_following.html:5
 msgid "Not following yet."
-msgstr ""
+msgstr "Ei jälgi veel midagi."
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:11
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -702,7 +704,7 @@ msgid "User settings"
 msgstr "Kasutaja seaded"
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:43
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:368
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:376
 #: lib/booktype/apps/edit/templates/edit/settings/generic.html:15
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:16
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:15
@@ -721,21 +723,21 @@ msgstr "Kasutajat pole olemas!"
 #: lib/booktype/apps/account/templates/account/errors/user_does_not_exist.html:5
 #, python-format
 msgid "Can't find user \"%(username)s\"."
-msgstr ""
+msgstr "Ei leia kasutajat \"%(username)s\"."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:405
-#: lib/booktype/apps/account/views.py:406
+#: lib/booktype/apps/account/views.py:401
+#: lib/booktype/apps/account/views.py:402
 msgid "Forgot your password"
-msgstr ""
+msgstr "Unustasid oma parooli"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
-msgstr ""
+msgstr "Vaata oma e-posti"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr ""
+msgstr "Parooli taastamise juhendid saadeti su s-postile."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
@@ -753,8 +755,8 @@ msgid "Send request"
 msgstr "Saada päring"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:478
-#: lib/booktype/apps/account/views.py:479
+#: lib/booktype/apps/account/views.py:474
+#: lib/booktype/apps/account/views.py:475
 msgid "Reset your password"
 msgstr "Taasta oma parool"
 
@@ -768,7 +770,7 @@ msgstr "Uus parool"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:34
 msgid "New password again"
-msgstr ""
+msgstr "Uus parool veel kord"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:15
 msgid ""
@@ -777,7 +779,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:71
+#: lib/booktype/apps/account/views.py:72
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -786,8 +788,8 @@ msgstr "Minu töölaud"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:528
-#: lib/booktype/apps/account/views.py:529
+#: lib/booktype/apps/account/views.py:524
+#: lib/booktype/apps/account/views.py:525
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -803,15 +805,15 @@ msgstr "Parool"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:14
 msgid "User does not exist."
-msgstr ""
+msgstr "Kasutajat pole olemas."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:15
 msgid "Password is wrong! Please try again."
-msgstr ""
+msgstr "Parool on vale! Palun proovi uuesti."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr ""
+msgstr "Sin ukonto pole aktiivne! Palun võta ühendust saidi kasutajatoega."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
 #: lib/booktype/apps/account/templates/account/register_form.html:26
@@ -830,7 +832,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
-msgstr ""
+msgstr "Mine:"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:7
 msgid ""
@@ -851,7 +853,7 @@ msgstr "Sa oled juba sisse loginud!"
 #: lib/booktype/apps/portal/templates/portal/group.html:111
 #: lib/booktype/apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
-msgstr ""
+msgstr "Pole liige? Palun täida"
 
 #: lib/booktype/apps/account/templates/account/register.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:59
@@ -869,7 +871,7 @@ msgstr "Loo konto"
 
 #: lib/booktype/apps/account/templates/account/register.html:41
 msgid "User limit has been reached."
-msgstr ""
+msgstr "Kasutajate limiit on täis."
 
 #: lib/booktype/apps/account/templates/account/register.html:48
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
@@ -883,15 +885,15 @@ msgstr "Kasutaja nimi"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
-msgstr ""
+msgstr "Parool (vähemalt 6 märki)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
 msgid "Missing username!"
-msgstr ""
+msgstr "Kasutajanimi puudub!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
 msgid "Missing e-mail!"
-msgstr ""
+msgstr "E-posti aadress puudub!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -910,19 +912,19 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
-msgstr ""
+msgstr "See pole korrektne e-posti aadress"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
 msgid "Your passwords dont match. Please try a different one."
-msgstr ""
+msgstr "Sinu paroolid ei kattu. Palun proovi mõnda teist."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
-msgstr ""
+msgstr "Paroolis peab olema 6 või rohkem märki!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr ""
+msgstr "Kasutajanimi on juba võetud. Palun proovi mõnda teist."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
@@ -932,53 +934,53 @@ msgstr "Täispikk nimi on liiga pikk!"
 msgid "CREATE ACCOUNT"
 msgstr "LOO KONTO"
 
-#: lib/booktype/apps/account/views.py:70
+#: lib/booktype/apps/account/views.py:71
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr "Töölaud"
 
-#: lib/booktype/apps/account/views.py:166
-#: lib/booktype/apps/account/views.py:167
+#: lib/booktype/apps/account/views.py:163
+#: lib/booktype/apps/account/views.py:164
 msgid "User profile"
 msgstr "Kasutajaprofiil"
 
-#: lib/booktype/apps/account/views.py:345
+#: lib/booktype/apps/account/views.py:341
 msgid "User settings have been saved successfully!"
-msgstr ""
+msgstr "Kasutaja seaded on salvestatud!"
 
-#: lib/booktype/apps/account/views.py:382
+#: lib/booktype/apps/account/views.py:378
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "Paroolid on muudetud!"
 
-#: lib/booktype/apps/account/views.py:434
+#: lib/booktype/apps/account/views.py:430
 msgid "Missing username"
 msgstr "Kasutajanimi puudub"
 
-#: lib/booktype/apps/account/views.py:438
+#: lib/booktype/apps/account/views.py:434
 msgid "No such user"
 msgstr "Sellist kasutajat pole"
 
-#: lib/booktype/apps/account/views.py:458
+#: lib/booktype/apps/account/views.py:454
 msgid "Reset password"
 msgstr "Taasta parool"
 
-#: lib/booktype/apps/account/views.py:471
+#: lib/booktype/apps/account/views.py:467
 msgid "Unknown error"
 msgstr "Tundmatu viga"
 
-#: lib/booktype/apps/account/views.py:493
+#: lib/booktype/apps/account/views.py:489
 msgid "Password can't be empty"
 msgstr "Parool ei saa olla tühi"
 
-#: lib/booktype/apps/account/views.py:498
+#: lib/booktype/apps/account/views.py:494
 msgid "Passwords don't match"
 msgstr "Paroolid ei kattu"
 
-#: lib/booktype/apps/account/views.py:514
+#: lib/booktype/apps/account/views.py:510
 msgid "Wrong secret code"
 msgstr "Vale salakood"
 
-#: lib/booktype/apps/account/views.py:786
+#: lib/booktype/apps/account/views.py:782
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -986,7 +988,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/__init__.py:4
 msgid "Booktype core application"
-msgstr ""
+msgstr "Booktype tuuma rakendus"
 
 #: lib/booktype/apps/core/__init__.py:7
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:111
@@ -1064,7 +1066,7 @@ msgstr "Keel"
 
 #: lib/booktype/apps/core/models.py:127
 msgid "Skeleton Type"
-msgstr ""
+msgstr "Kondikava liik"
 
 #: lib/booktype/apps/core/models.py:131
 msgid "File"
@@ -1072,11 +1074,11 @@ msgstr "Fail"
 
 #: lib/booktype/apps/core/models.py:137
 msgid "Book Skeleton"
-msgstr ""
+msgstr "Raamatu kondikava"
 
 #: lib/booktype/apps/core/models.py:138
 msgid "Book Skeletons"
-msgstr ""
+msgstr "Raamatu kondikavad"
 
 #: lib/booktype/apps/core/templates/core/authors.html:13
 msgid "Modifications:"
@@ -1139,37 +1141,37 @@ msgstr "Aita meil tõlkida Booktype'i"
 #: lib/booktype/apps/core/templates/core/nav_menu.html:10
 #: lib/booktype/apps/portal/views.py:45
 msgid "Home"
-msgstr ""
+msgstr "Avahelt"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:35
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:116
-#: lib/booktype/apps/portal/views.py:358 lib/booktype/apps/portal/views.py:359
+#: lib/booktype/apps/portal/views.py:355 lib/booktype/apps/portal/views.py:356
 msgid "People"
 msgstr "Inimesed"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:44
 msgid "Control Center Home"
-msgstr ""
+msgstr "Juhtkeskuse avaleht"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:47
 msgid "Admin Settings"
-msgstr ""
+msgstr "Halda seadeid"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:50
 msgid "Admin People"
-msgstr ""
+msgstr "Halda inimesi"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:53
 msgid "Admin Books"
-msgstr ""
+msgstr "Halda raamatuid"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:56
 msgid "Admin Groups"
-msgstr ""
+msgstr "Halda gruppe"
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:59
 msgid "Admin Roles"
-msgstr ""
+msgstr "Halda rolle"
 
 #: lib/booktype/apps/core/templates/errors/400.html:9
 msgid "Error 400"
@@ -1216,7 +1218,7 @@ msgstr "Raamatut pole olemas."
 
 #: lib/booktype/apps/core/templates/errors/nopermissions.html:10
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
-#: lib/booktype/apps/edit/views.py:779
+#: lib/booktype/apps/edit/views.py:802
 msgid "You have no permissions to execute this action."
 msgstr "Sul pole selle toimingu sooritamiseks õigusi."
 
@@ -1234,7 +1236,7 @@ msgstr "Järgmine"
 
 #: lib/booktype/apps/edit/__init__.py:4
 msgid "Booktype edit application"
-msgstr ""
+msgstr "Booktype rakenduse muutmine"
 
 #: lib/booktype/apps/edit/__init__.py:7
 msgid "Create chapter"
@@ -1284,7 +1286,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:20
 msgid "Reorder TOC"
-msgstr ""
+msgstr "Muuda sisukorra osade järjekorda"
 
 #: lib/booktype/apps/edit/__init__.py:22
 msgid "Upload attachment"
@@ -1294,133 +1296,137 @@ msgstr "Laadi fail üles"
 msgid "Remove attachment"
 msgstr "Eemalda manus"
 
-#: lib/booktype/apps/edit/__init__.py:25
+#: lib/booktype/apps/edit/__init__.py:24
+msgid "Rename attachment"
+msgstr ""
+
+#: lib/booktype/apps/edit/__init__.py:26
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:97
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
 msgstr "Laadi kaanepilt üles"
 
-#: lib/booktype/apps/edit/__init__.py:26
+#: lib/booktype/apps/edit/__init__.py:27
 msgid "Edit cover"
 msgstr "Muuda kaanepilti"
 
-#: lib/booktype/apps/edit/__init__.py:27
+#: lib/booktype/apps/edit/__init__.py:28
 msgid "Delete cover"
 msgstr "Kustuta kaanepilt"
 
-#: lib/booktype/apps/edit/__init__.py:29
+#: lib/booktype/apps/edit/__init__.py:30
 msgid "Manage Status"
 msgstr "Halda staatust"
 
-#: lib/booktype/apps/edit/__init__.py:30
+#: lib/booktype/apps/edit/__init__.py:31
 msgid "Change chapter status"
 msgstr "Muuda peatüki staatust"
 
-#: lib/booktype/apps/edit/__init__.py:32
+#: lib/booktype/apps/edit/__init__.py:33
 msgid "Edit book"
 msgstr "Muuda raamatut"
 
-#: lib/booktype/apps/edit/__init__.py:33
+#: lib/booktype/apps/edit/__init__.py:34
 msgid "Delete book"
 msgstr "Kustuta raamat"
 
-#: lib/booktype/apps/edit/__init__.py:35
+#: lib/booktype/apps/edit/__init__.py:36
 msgid "Restore history"
 msgstr "Taasta ajalugu"
 
-#: lib/booktype/apps/edit/__init__.py:36
+#: lib/booktype/apps/edit/__init__.py:37
 msgid "Edit Notes"
 msgstr "Muuda märkmeid"
 
-#: lib/booktype/apps/edit/__init__.py:38
+#: lib/booktype/apps/edit/__init__.py:39
 msgid "Track Changes"
 msgstr "Jälgi muudatusi"
 
-#: lib/booktype/apps/edit/__init__.py:39
+#: lib/booktype/apps/edit/__init__.py:40
 msgid "Track Changes accept/decline"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:40
+#: lib/booktype/apps/edit/__init__.py:41
 msgid "Track Changes on/off"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:43
+#: lib/booktype/apps/edit/__init__.py:44
 msgid "Manage Language"
 msgstr "Keele haldamine"
 
-#: lib/booktype/apps/edit/__init__.py:44
+#: lib/booktype/apps/edit/__init__.py:45
 msgid "Manage License"
 msgstr "Litsentsi haldamine"
 
-#: lib/booktype/apps/edit/__init__.py:45
+#: lib/booktype/apps/edit/__init__.py:46
 msgid "Manage Metadata"
 msgstr "Metaandmete haldamine"
 
-#: lib/booktype/apps/edit/__init__.py:46
+#: lib/booktype/apps/edit/__init__.py:47
 msgid "Manage Book Settings"
 msgstr "Raamatu seadete haldamine"
 
-#: lib/booktype/apps/edit/__init__.py:48
+#: lib/booktype/apps/edit/__init__.py:49
 msgid "Add Comments"
 msgstr "Lisa kommentaare"
 
-#: lib/booktype/apps/edit/__init__.py:49
+#: lib/booktype/apps/edit/__init__.py:50
 msgid "Resolve Comments"
 msgstr "Lahenda kommentaare"
 
-#: lib/booktype/apps/edit/__init__.py:50
+#: lib/booktype/apps/edit/__init__.py:51
 msgid "Delete Comments"
 msgstr "Kustuta kommentaare"
 
-#: lib/booktype/apps/edit/__init__.py:52
+#: lib/booktype/apps/edit/__init__.py:53
 msgid "Modify Section Settings"
 msgstr "Muuda sektsiooni seadeid"
 
-#: lib/booktype/apps/edit/__init__.py:53
+#: lib/booktype/apps/edit/__init__.py:54
 msgid "Generate Invite Code"
 msgstr "Loo kutse kood"
 
-#: lib/booktype/apps/edit/channel.py:1516
-#: lib/booktype/apps/edit/channel.py:1521
+#: lib/booktype/apps/edit/channel.py:1585
+#: lib/booktype/apps/edit/channel.py:1590
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1527
+#: lib/booktype/apps/edit/channel.py:1596
 msgid "Chapter is under edit."
 msgstr "Peatükk on muutmisel."
 
-#: lib/booktype/apps/edit/channel.py:1534
-#: lib/booktype/apps/edit/channel.py:1538
+#: lib/booktype/apps/edit/channel.py:1603
+#: lib/booktype/apps/edit/channel.py:1607
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1547
+#: lib/booktype/apps/edit/channel.py:1616
 msgid "You have selected invalid title name."
-msgstr ""
+msgstr "Sa valisid vigase pealkirja."
 
-#: lib/booktype/apps/edit/channel.py:1551
+#: lib/booktype/apps/edit/channel.py:1620
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
-msgstr ""
+msgstr "Selle pealkirjaga peatükk on juba olemas."
 
-#: lib/booktype/apps/edit/channel.py:1698
+#: lib/booktype/apps/edit/channel.py:1767
 msgid "You have no permissions for editing this chapter."
-msgstr ""
+msgstr "Sul pole õigusi selle peatüki muutmiseks."
 
-#: lib/booktype/apps/edit/channel.py:1707
+#: lib/booktype/apps/edit/channel.py:1776
 msgid "Chapter currently being edited."
-msgstr ""
+msgstr "Peatükk on praegu muutmisel."
 
-#: lib/booktype/apps/edit/channel.py:1712
+#: lib/booktype/apps/edit/channel.py:1781
 msgid "You have no permissions for editing chapters under lock."
-msgstr ""
+msgstr "Sul pole õigusi lukustatud peatükkide muutmiseks."
 
-#: lib/booktype/apps/edit/channel.py:1716
+#: lib/booktype/apps/edit/channel.py:1785
 msgid "Chapter currently is locked from everyone."
-msgstr ""
+msgstr "Peatükk on praegu kõigi jaoks lukustatud."
 
-#: lib/booktype/apps/edit/channel.py:2326
+#: lib/booktype/apps/edit/channel.py:2399
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1430,7 +1436,7 @@ msgstr "Paremalt vasakule tekst"
 
 #: lib/booktype/apps/edit/forms.py:66
 msgid "Book with right to left writing."
-msgstr ""
+msgstr "Paremalt vasakule tekstiga raamat."
 
 #: lib/booktype/apps/edit/forms.py:104
 msgid "Track changes"
@@ -1438,7 +1444,7 @@ msgstr "Jälgi muudatusi"
 
 #: lib/booktype/apps/edit/forms.py:106
 msgid "Chapter changes will tracked."
-msgstr ""
+msgstr "Peatüki muudatuse jälgitakse."
 
 #: lib/booktype/apps/edit/forms.py:127
 msgid "New Status"
@@ -1475,14 +1481,14 @@ msgstr "Muudetud"
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:237
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:686
+#: lib/booktype/apps/edit/views.py:678
 msgid "Revision"
-msgstr ""
+msgstr "Versioon"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:6
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:14
 msgid "Comparing chapter revisions"
-msgstr ""
+msgstr "Peatüki versioonide võrdlemine"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:8
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:16
@@ -1500,9 +1506,10 @@ msgstr "Täielik vaade"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:128
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:461
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:469
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:64
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:66
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:88
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:517
@@ -1529,41 +1536,41 @@ msgid "Output Name"
 msgstr "Väljundi nimi"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:22
-msgid "Show"
-msgstr "Näita"
+msgid "Show in Output?"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
-msgid "In Table of Contents"
+msgid "Show in Table of Contents?"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
 msgid "Show section and chapters"
-msgstr ""
+msgstr "Näita sektsiooni ja peatükke"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
 msgid "Show section but hide chapters"
-msgstr ""
+msgstr "Näita sektsiooni, aga peida peatükid"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:36
 msgid "Hide section but show chapters"
-msgstr ""
+msgstr "Peida sektsioon, aga näita peatükke"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:37
 msgid "Hide section and chapters"
-msgstr ""
+msgstr "Peida sektsioon ja peatükid"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:47
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
 msgid "Extra"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
 msgid "Set extra options"
-msgstr ""
+msgstr "Määra lisavalikud"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:52
 msgid "Mark section as"
-msgstr ""
+msgstr "Märgi sektsioon kui"
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:55
 msgid "Frontmatter"
@@ -1588,35 +1595,35 @@ msgstr "nt. autorid"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:5
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:113
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:239
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:521
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:242
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:529
 msgid "Insert"
-msgstr ""
+msgstr "Sisesta"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:8
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:116
 msgid "Insert comment"
-msgstr ""
+msgstr "Sisesta kommentaar"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:10
 msgid "Insert horizontal line"
-msgstr ""
+msgstr "Sisesta horisontaalne joon"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:11
 msgid "Insert page break"
-msgstr ""
+msgstr "Sisesta lehekülje vahetus"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:12
 msgid "Insert endnote"
-msgstr ""
+msgstr "Sisesta lõpumärkus"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:13
 msgid "Insert non breaking space"
-msgstr ""
+msgstr "Sisesta jäik tühik"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:13
 msgid "Insert nbsp"
-msgstr ""
+msgstr "Sisesta nbsp"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:14
 msgid "Insert LTR text"
@@ -1628,11 +1635,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:17
 msgid "Insert columns"
-msgstr ""
+msgstr "Sisesta veerge"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:18
 msgid "Insert infobox"
-msgstr ""
+msgstr "Sisesta infokast"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:19
 msgid "Insert column break"
@@ -1648,16 +1655,16 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:382
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:417
 msgid "Import DOCX File"
-msgstr ""
+msgstr "Impordi DOCX fail"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:29
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
-msgstr ""
+msgstr "Samm tagasi"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:30
 msgid "Redo"
-msgstr ""
+msgstr "Samm edasi"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:32
 msgid "Find & Replace"
@@ -1681,15 +1688,15 @@ msgstr "Kasvata taanet"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:38
 msgid "Direction to LTR"
-msgstr ""
+msgstr "Teksti suund vasakult paremale"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:39
 msgid "Direction to RTL"
-msgstr ""
+msgstr "Teksti suund paremalt vasakule"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:41
 msgid "Edit raw HTML"
-msgstr ""
+msgstr "Muuda HTML-i"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:45
 msgid "Tools"
@@ -1763,15 +1770,15 @@ msgstr "Viide"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:29
 msgid "Font"
-msgstr ""
+msgstr "Font"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
 msgid "Font size"
-msgstr ""
+msgstr "Fondi suurus"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:36
 msgid "Change Font size"
-msgstr ""
+msgstr "Muuda fondi suurust"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Bold"
@@ -1808,7 +1815,7 @@ msgstr "Read"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:97
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:396
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:404
 msgid "Columns"
 msgstr "Veerud"
 
@@ -1818,8 +1825,8 @@ msgstr "Tabeli pealkiri"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:462
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:82
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:470
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:106
 msgid "OK"
 msgstr "OK"
 
@@ -1837,19 +1844,19 @@ msgstr "Tabeli valikud"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
 msgid "Add Row Before"
-msgstr ""
+msgstr "Lisa rida ettepoole"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
 msgid "Add Row After"
-msgstr ""
+msgstr "Lisa rida tahapoole"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:185
 msgid "Add Column Before"
-msgstr ""
+msgstr "Lisa veerg ettepoole"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:186
 msgid "Add Column After"
-msgstr ""
+msgstr "Lisa veerg tahapoole"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:187
 msgid "Delete Row"
@@ -1881,33 +1888,33 @@ msgid "Right align"
 msgstr "Joondus paremale"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:423
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:431
 msgid "Justify"
 msgstr "Rööpjoondus"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:206
 msgid "Unordered List"
-msgstr ""
+msgstr "Loetelu"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "Ordered List"
-msgstr ""
+msgstr "Nummerdatud loetelu"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:210
 msgid "Indent left"
-msgstr ""
+msgstr "Taane vasakule"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:211
 msgid "Indent right"
-msgstr ""
+msgstr "Taane paremale"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:214
 msgid "Left to right"
-msgstr ""
+msgstr "Vasakult paremale"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:215
 msgid "Right to left"
-msgstr ""
+msgstr "Paremalt vasakule"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "Save chapter"
@@ -1926,7 +1933,7 @@ msgid "Save minor change"
 msgstr "Salvesta pisimuudatus"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:346
 msgid "Save with comment"
 msgstr "Salvesta kommentaariga"
 
@@ -1940,7 +1947,7 @@ msgstr "SULGE"
 
 #: lib/booktype/apps/edit/templates/edit/base.html:8
 msgid "Booktype Edit"
-msgstr ""
+msgstr "Booktype muutmine"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:60
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:26
@@ -1949,12 +1956,12 @@ msgstr "Peatükid"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
 msgid "EXPAND TOC"
-msgstr ""
+msgstr "LAIENDA SISUKORDA"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
 msgid "Online Users"
-msgstr ""
+msgstr "Kasutajad veebis"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:95
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:32
@@ -1963,7 +1970,7 @@ msgstr "Vestlus"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:101
 msgid "Post a notification"
-msgstr ""
+msgstr "Postita teavitus"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:106
 msgid "Send"
@@ -1977,13 +1984,13 @@ msgstr "Saada"
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:115
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:133
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:151
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:221
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:238
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:350
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:384
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:482
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:499
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:520
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:224
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:241
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:358
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:392
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:490
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:507
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:528
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:96
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:153
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:26
@@ -2009,7 +2016,7 @@ msgstr "Märkmed"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:115
 msgid "Shared notes for this book"
-msgstr ""
+msgstr "Jagatud märkmed sellest raamatust"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:121
 msgid "SAVE NOTE"
@@ -2022,12 +2029,12 @@ msgstr "Märkus on salvestatud.."
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:136
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:20
 msgid "Chapters on Hold"
-msgstr ""
+msgstr "Ootel olevad peatükid"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:149
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:30
 msgid "Tracking Options"
-msgstr ""
+msgstr "Jälitamise valikud"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:154
 msgid "Track changes for this revision only"
@@ -2047,13 +2054,13 @@ msgstr "Salvesta muudatused"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:101
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:508
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:454
 msgid "Yes"
 msgstr "Jah"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:99
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:507
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:453
 msgid "No"
 msgstr "Ei"
 
@@ -2065,19 +2072,19 @@ msgstr "Toimingud"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:198
 msgid "Accept all changes"
-msgstr ""
+msgstr "Nõustu kõigi muudatustega"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:201
 msgid "Decline all changes"
-msgstr ""
+msgstr "Lükka kõik muudatused tagasi"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:207
 msgid "Accept one"
-msgstr ""
+msgstr "Nõustu ühega"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:210
 msgid "Decline one"
-msgstr ""
+msgstr "Lükka üks tagasi"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:224
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:27
@@ -2087,7 +2094,7 @@ msgstr "Manused"
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:229
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:28
 msgid "Chapter History"
-msgstr ""
+msgstr "Peatüki ajalugu"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:231
 msgid ""
@@ -2097,7 +2104,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:264
 msgid "Comments"
-msgstr ""
+msgstr "Kommentaarid"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:304
 #, python-format
@@ -2108,78 +2115,78 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
-msgstr ""
+msgstr "Tulemusi pole."
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:4
 msgid "BACK TO INDEX"
-msgstr ""
+msgstr "TAGASI REGISTRISSE"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:12
 msgid "COMPARE"
-msgstr ""
+msgstr "VÕRDLE"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:15
 msgid "COMPARE FULL VIEW"
-msgstr ""
+msgstr "VÕRDLE TÄISVAATES"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:22
 msgid "Compare"
-msgstr ""
+msgstr "Võrdle"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:24
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:10
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:26
 msgid "User"
-msgstr ""
+msgstr "Kasutaja"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:25
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:27
 msgid "Time"
-msgstr ""
+msgstr "Aeg"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:343
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:351
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:602
 msgid "Comment"
-msgstr ""
+msgstr "Kommentaar"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:3
 msgid "BACK TO CHAPTER HISTORY"
-msgstr ""
+msgstr "TAGASI PEATÜKI AJALOO JUURDE"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:11
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:248
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:251
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:25
 msgid "Modified"
-msgstr ""
+msgstr "Muudetud"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:12
 msgid "Version"
-msgstr ""
+msgstr "Versioon"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:19
 msgid "PREVIOUS"
-msgstr ""
+msgstr "EELMINE"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:22
 msgid "NEXT"
-msgstr ""
+msgstr "JÄRGMINE"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:26
 msgid "REVERT TO THIS REVISION"
-msgstr ""
+msgstr "TAASTA SEE VERSIOON"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:31
 msgid "Source View"
-msgstr ""
+msgstr "Lähtekoodi vaade"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:32
 msgid "Normal View"
-msgstr ""
+msgstr "Tavavaade"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:54
 msgid "Revert to this revision?"
-msgstr ""
+msgstr "Kas taastada see versioon?"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
@@ -2188,29 +2195,29 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
-msgstr ""
+msgstr "Jah, taasta!"
 
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:27
 msgid "Revisions not found!"
-msgstr ""
+msgstr "Versioone ei leitud!"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:5
 #: lib/booktype/apps/edit/templates/edit/download_history.html:80
 msgid "History for"
-msgstr ""
+msgstr "Ajalugu"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:82
 #: lib/booktype/apps/edit/templates/edit/download_history.html:123
 msgid "Expand all"
-msgstr ""
+msgstr "Laienda kõiki"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:93
 msgid "No changes"
-msgstr ""
+msgstr "Muudatusi pole"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:124
 msgid "Collapse all"
-msgstr ""
+msgstr "Sulge kõik"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:3
 #, python-brace-format
@@ -2235,27 +2242,27 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:7
 #, python-brace-format
 msgid "{0} has deleted chapter \"{1}\"."
-msgstr ""
+msgstr "{0} kustutas peatüki \"{1}\"."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:8
 #, python-brace-format
 msgid "{0} has created new chapter \"{1}\"."
-msgstr ""
+msgstr "{0} lisas uue peatüki \"{1}\"."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:9
 #, python-brace-format
 msgid "{0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr ""
+msgstr "{0} kloonis peatüki \"{1}\" raamatust \"{2}\"."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:10
 #, python-brace-format
 msgid "\"{0}\" is being published."
-msgstr ""
+msgstr "\"{0}\" on avaldamisel."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:11
 #, python-brace-format
 msgid "{0} has created new section \"{1}\"."
-msgstr ""
+msgstr "{0} lisas uue sektsiooni \"{1}\"."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:12
 #, python-brace-format
@@ -2269,23 +2276,23 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:15
 msgid "Loading chapter."
-msgstr ""
+msgstr "Peatüki laadimine."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:16
 msgid "Saving chapter."
-msgstr ""
+msgstr "Peatüki salvestamine."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:17
 msgid "Loading data."
-msgstr ""
+msgstr "Andmete laadimine."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:18
 msgid "Sending data."
-msgstr ""
+msgstr "Andmete saatmine."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:19
 msgid "Set status."
-msgstr ""
+msgstr "Määra staatus."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:21
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:170
@@ -2296,106 +2303,106 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:23
 msgid "Removing chapter"
-msgstr ""
+msgstr "Peatüki eemaldamine"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:24
 msgid "Saved..."
-msgstr ""
+msgstr "Salvestatud..."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:25
 msgid "Chapter has been modified. Do you want to save it before closing?"
-msgstr ""
+msgstr "Peatükki on muudetud. Kas sa soovid seda enne sulgemist salvestada?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:29
 #: lib/booktype/apps/themes/templates/themes/panel.html:3
 msgid "Choose Your Design"
-msgstr ""
+msgstr "Vali oma kujundus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:34
 msgid "Loading media files"
-msgstr ""
+msgstr "Meediafailide laadimine"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:35
 msgid "Removing media files"
-msgstr ""
+msgstr "Meediafailide eemaldamine"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:37
 msgid "Couldn't create chapter."
-msgstr ""
+msgstr "Ei suutnud peatükki luua."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:38
 msgid "Section with this title already exists."
-msgstr ""
+msgstr "Selle pealkirjaga sektsioon on juba olemas."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:39
 msgid "Couldn't create section."
-msgstr ""
+msgstr "Ei suutnud sektsiooni luua."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:40
 msgid "Set default size"
-msgstr ""
+msgstr "Määra vaikimisi suurus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:41
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:182
 msgid "Edit Image Data"
-msgstr ""
+msgstr "Muuda pildi andmeid"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:42
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:186
 msgid "View Original Image"
-msgstr ""
+msgstr "Vaata algset pilti"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:43
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:190
 msgid "Delete Cover Image"
-msgstr ""
+msgstr "Kustuta kaanepilt"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:44
 msgid "Selected user already belongs to this role"
-msgstr ""
+msgstr "Valitud kasutajal juba on see roll"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:45
 msgid "Unable to remove user from role"
-msgstr ""
+msgstr "Rolli eemaldamine kasutajalt ebaõnnestus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:46
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
-msgstr ""
+msgstr "Leia"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:47
 msgid "Next &gt;"
-msgstr ""
+msgstr "Järgmine &gt;"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:48
 msgid "Revision reverted"
-msgstr ""
+msgstr "Versioon on taastatud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:49
 msgid "Revision revert failed"
-msgstr ""
+msgstr "Versiooni taastamine ebaõnnestus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:50
 msgid "RESTORE"
-msgstr ""
+msgstr "TAASTA"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:52
 msgid "Do you really want to delete this chapter status?"
-msgstr ""
+msgstr "Kas sa tõesti soovid seda peatüki staatust eemaldada?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:53
 #, python-format
 msgid "%%(num_chapters)s chapters"
-msgstr ""
+msgstr "%%(num_chapters)s peatükki"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:54
 msgid "and"
-msgstr ""
+msgstr "ja"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:55
 #, python-format
 msgid "%%(num_attachments)s attachments"
-msgstr ""
+msgstr "%%(num_attachments)s lisatud faili"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:56
 msgid "will be reassigned to default status"
@@ -2403,7 +2410,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:58
 msgid "You have no permission to delete this book"
-msgstr ""
+msgstr "Sul pole selle raamatu kustutamiseks õigust"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:165
@@ -2411,35 +2418,35 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:310
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
 msgid "Terminate editing"
-msgstr ""
+msgstr "Katkesta muutmine"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:60
 msgid "Editing was terminated by book administrator."
-msgstr ""
+msgstr "Raamatu administraator katkestas muutmise."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:61
 msgid "Your invitation has been sent"
-msgstr ""
+msgstr "Sinu kutse on saadetud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:62
 msgid "Editing terminated."
-msgstr ""
+msgstr "Muutmine on katkestatud."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:63
 msgid "Access denied."
-msgstr ""
+msgstr "Ligipääs on keelatud."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:64
 msgid "Nothing has been exported."
-msgstr ""
+msgstr "Midagi ei eksporditud."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:65
 msgid "Exporting book."
-msgstr ""
+msgstr "Raamatu eksportimine."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:66
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:357
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:46
@@ -2449,7 +2456,7 @@ msgstr "Salvesta"
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:67
 #, python-format
 msgid "By: %%s"
-msgstr ""
+msgstr "Kes: %%s"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:68
 #, python-format
@@ -2459,32 +2466,32 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:69
 #, python-format
 msgid "Theme was changed to \"%%s\""
-msgstr ""
+msgstr "Teemat on muudetud. Uus teema on \"%%s\""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:70
 #, python-format
 msgid "Chapter \"%%s\" was created"
-msgstr ""
+msgstr "Peatükk \"%%s\" on loodud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:71
 #, python-format
 msgid "Chapter \"%%s\" was deleted"
-msgstr ""
+msgstr "Peatükk \"%%s\" on kustutatud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:72
 #, python-format
 msgid "Section \"%%s\" was created"
-msgstr ""
+msgstr "Sektsioon \"%%s\" on loodud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:73
 #, python-format
 msgid "Section \"%%s\" was deleted"
-msgstr ""
+msgstr "Sektsioon \"%%s\" on kustutatud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:74
 #, python-format
 msgid "Section \"%%s\" with chapters inside was deleted"
-msgstr ""
+msgstr "Sektsioon \"%%s\" koos selles olevate peatükkidega kustutati"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:75
 #, python-format
@@ -2509,16 +2516,16 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:79
 #, python-format
 msgid "Chapter \"%%s\" was locked"
-msgstr ""
+msgstr "Peatükk \"%%s\" lukustati"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:80
 #, python-format
 msgid "Chapter \"%%s\" was unlocked"
-msgstr ""
+msgstr "Peatüki \"%%s\" lukustus eemaldati"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:81
 msgid "Table of contents order was changed"
-msgstr ""
+msgstr "Sisukorra sisu järjestus muudeti"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:82
 #, python-format
@@ -2532,7 +2539,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:84
 msgid "Notes were changed"
-msgstr ""
+msgstr "Märkmeid muudeti"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:85
 #, python-format
@@ -2542,7 +2549,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:86
 #, python-format
 msgid "Attachment \"%%s\" was deleted"
-msgstr ""
+msgstr "Lisatud fail \"%%s\" kustutati"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:87
 #, python-format
@@ -2570,19 +2577,19 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:92
 msgid "endnotes"
-msgstr ""
+msgstr "lõpumärkused"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:93
 msgid "endnotes without reference"
-msgstr ""
+msgstr "lõpumärkused ilma viideteta"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:94
 msgid "Inserted by"
-msgstr ""
+msgstr "Sisestas"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:95
 msgid "Deleted by"
-msgstr ""
+msgstr "Kustutas"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:96
 msgid "Start columns: "
@@ -2590,7 +2597,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:98
 msgid "Do you want to remove the columns?"
-msgstr ""
+msgstr "Kas sa soovid veerud eemaldada?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:99
 msgid "Some output formats do not have support for columns."
@@ -2598,11 +2605,11 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:100
 msgid "Metadata deleted successfully"
-msgstr ""
+msgstr "META-andmed on kustutatud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:101
 msgid "Unable to delete metadata"
-msgstr ""
+msgstr "META-andmete kustutamine ebaõnnestus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:102
 msgid ""
@@ -2623,7 +2630,7 @@ msgstr "Uus kommentaar"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:108
 msgid "Alert"
-msgstr ""
+msgstr "Hoiatus"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:109
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:66
@@ -2650,7 +2657,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:118
 msgid "Do you want to remove the infobox?"
-msgstr ""
+msgstr "Kas sa soovid infkasti eemaldada?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:119
 msgid "Chapter Comments"
@@ -2658,7 +2665,7 @@ msgstr "Peatüki kommentaarid"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:120
 msgid "Do you want to remove this quote?"
-msgstr ""
+msgstr "Kas sa soovid seda tsitaati eemaldada?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:122
 msgid "New Quote"
@@ -2666,11 +2673,11 @@ msgstr "Uus tsitaat"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:123
 msgid "Cite for this quote"
-msgstr ""
+msgstr "Selle tsitaadi tekst"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:124
 msgid "Author name (optional)"
-msgstr ""
+msgstr "Autori nimi (valikuline)"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:128
 msgid "Finish"
@@ -2678,7 +2685,7 @@ msgstr "Lõpeta"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:130
 msgid "Your document has been imported successfully"
-msgstr ""
+msgstr "Sinu dokument on imporditud"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:131
 msgid "Choose import mode"
@@ -2707,17 +2714,17 @@ msgid ""
 "Please notice this EPUB is NOT valid for distribution, but only to generate "
 "book templates (\"skeletons\") on Booktype. Click Download button to "
 "proceed."
-msgstr ""
+msgstr "Pea meeles, et see EPUB POLE SOBILIK levitamiseks, vaid ainult Booktype raamatu mallide (\"kondikavade\") loomiseks. Jätkamiseks kliki allalaadimise nupule."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:141
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:274
 msgid "Download as EPUB Skeleton"
-msgstr ""
+msgstr "Laadi alla kui EPUB kondikava"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:142
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:265
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:620
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:544
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
 msgid "Download"
@@ -2725,7 +2732,7 @@ msgstr "Laadi alla"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:143
 msgid "Non breaking space"
-msgstr ""
+msgstr "Jäik tühik"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:144
 msgid "Deleted successfully"
@@ -2753,7 +2760,7 @@ msgstr "Kasutaja määramine"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
 msgid "Invite codes"
-msgstr ""
+msgstr "Kutsete koodid"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:16
 msgid "Generate a code to invite people to contribute to your book"
@@ -2761,7 +2768,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:38
 msgid "Your new invite code is"
-msgstr ""
+msgstr "Sin uuus kutse kood on"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:40
 msgid ""
@@ -2799,7 +2806,7 @@ msgstr "Loo"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:79
 msgid "Existent Codes"
-msgstr ""
+msgstr "Olemasolevad koodid"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:83
 msgid "Code"
@@ -2815,15 +2822,15 @@ msgstr "Aegub"
 
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:122
 msgid "No invite codes yet"
-msgstr ""
+msgstr "Ühtegi kutse koodi pole veel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
-msgstr ""
+msgstr "Keskendumise režiim"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:21
 msgid "Find &amp; Replace"
-msgstr ""
+msgstr "Otsi ja asenda"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:28
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:36
@@ -2864,7 +2871,7 @@ msgstr "Raamatu peatükkide arv"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:56
 msgid "Book character count (with spaces)"
-msgstr ""
+msgstr "Raamatu märkide arv (koos tühikutega)"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
@@ -2872,7 +2879,7 @@ msgstr "Märkide arv"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:60
 msgid "Character count (with spaces)"
-msgstr ""
+msgstr "Raamatu märkide arv (ilma tühikuteta)"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:74
 msgid "Link"
@@ -2901,15 +2908,15 @@ msgstr "Allmärkus"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:134
 msgid "Insert footnote"
-msgstr ""
+msgstr "Sisesta allmärkus"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:145
 msgid "HTML Edit"
-msgstr ""
+msgstr "HTML-i muutmine"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:168
 msgid "Sources"
-msgstr ""
+msgstr "Lähtekood"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:170
 msgid "Media library"
@@ -2921,65 +2928,69 @@ msgstr "Laadi pilt üles"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:181
 msgid "Drag Your Images Here"
-msgstr ""
+msgstr "Lohista oma pildid siia"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:185
 msgid "or Select them from folder"
-msgstr ""
+msgstr "või vali kaustast"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:192
 msgid "Please wait, we are processing your image..."
+msgstr "Palun oota, töötleme su pilti..."
+
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:205
+msgid "Search by filename or size"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:212
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:215
 msgid "Image Title"
 msgstr "Pildi pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:213
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:216
 msgid "Enter Title"
 msgstr "Sisesta pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:216
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:219
 msgid "Image Caption"
 msgstr "Pildi pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:217
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:220
 msgid "Caption"
 msgstr "Pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:223
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:226
 msgid "Save Metadata"
 msgstr "Salvesta metaandmed"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:225
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:228
 msgid "Edit caption"
 msgstr "uuda pealkirja"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:233
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:236
 msgid "Enter image link"
 msgstr "Sisesta pildi link"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:247
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:250
 msgid "File Name"
 msgstr "Faili nimi"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:249
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:252
 msgid "File Size"
 msgstr "Faili suurus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:250
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:253
 msgid "Dimensions"
 msgstr "Mõõdud"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:261
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:264
 msgid "Edit metadata"
 msgstr "Muuda metaandmeid"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:269
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:277
 msgid "REMOVE"
 msgstr "EEMALDA"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:270
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:278
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:178
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
@@ -2989,112 +3000,112 @@ msgstr "EEMALDA"
 msgid "EDIT"
 msgstr "MUUDA"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:271
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:279
 msgid "STOP EDIT"
 msgstr "PEATA MUUTMINE"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:272
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:280
 msgid "LAYOUTS"
 msgstr "PAIGUTUSED"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:273
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:281
 msgid "SAVE LAYOUT"
 msgstr "SALVESTA PAIGUTUS"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:291
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:299
 msgid "Zoom"
 msgstr "Suurendus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:295
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:303
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:299
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:307
 msgid "Brightness"
 msgstr "Heledus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:311
 msgid "Blur"
 msgstr "Hägusus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:307
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:315
 msgid "Saturate"
 msgstr "Värviküllastus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:326
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:334
 msgid "text"
 msgstr "tekst"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:361
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:369
 msgid "Chapter has been modified"
-msgstr ""
+msgstr "Peatükki on muudetud"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:372
 msgid "This chapter has been modified. Do you want to save it before closing?"
-msgstr ""
+msgstr "Seda peatükki on muudetud. Kas sa soovid seda enne sulgemist salvestada?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:367
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:375
 msgid "Discard changes"
-msgstr ""
+msgstr "Loobu muudatustest"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:378
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:386
 msgid "Book theme was changed"
 msgstr "Raamatu teemat muudeti"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:381
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:389
 msgid "Book theme was changed. Do you want to apply it right now?"
-msgstr ""
+msgstr "Raamatu teemat muudeti. Kas sa soovid seda kohe rakendada?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:393
 msgid "Apply"
 msgstr "Rakenda"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:402
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:410
 msgid "Number of columns"
-msgstr ""
+msgstr "Veergude arv"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:419
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:427
 msgid "Vertical alignment"
-msgstr ""
+msgstr "Vertikaalne joondus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:422
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:430
 msgid "Turn off"
 msgstr "Lülita välja"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:429
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:437
 msgid "Column gap (in mm)"
-msgstr ""
+msgstr "Veergude vahe (mm)"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:455
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:463
 msgid "Column continues after the marker"
-msgstr ""
+msgstr "Veerg jätkub pärast markerit"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:473
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:483
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:481
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:491
 msgid "Split Chapter"
-msgstr ""
+msgstr "Jaga peatükk kaheks"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:485
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:23
 msgid "New chapter title"
-msgstr ""
+msgstr "Uue peatüki pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:493
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:500
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:501
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:508
 msgid "Remove page break"
-msgstr ""
+msgstr "Eemalda lehekülje piir"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:496
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:504
 msgid "Do you want to remove page break?"
-msgstr ""
+msgstr "Kas sa soovid lehekülje piiri eemaldada?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:511
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:519
 msgid "Infobox"
-msgstr ""
+msgstr "Infokast"
 
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:515
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:523
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
@@ -3104,14 +3115,14 @@ msgstr ""
 msgid "Title"
 msgstr "Pealkiri"
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:516
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:524
 msgid "Write your infobox title here"
-msgstr ""
+msgstr "Kirjuta oma infokasti pealkiri siia"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:11
 msgid "Cover Manager"
-msgstr ""
+msgstr "Kaanepiltide haldamine"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:11
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:178
@@ -3120,7 +3131,7 @@ msgstr "Heaks kiidetud"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:14
 msgid "Pending"
-msgstr ""
+msgstr "Ootel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:34
 msgid ""
@@ -3147,7 +3158,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
 msgid "Enter Meta-data"
-msgstr ""
+msgstr "Sisesta META-andmed"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:66
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:68
@@ -3172,17 +3183,17 @@ msgstr "Pildi mõõdud"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:626
+#: lib/booktype/apps/edit/views.py:618
 msgid "Book History"
 msgstr "Raamatu ajalugu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:8
 msgid "Here you can follow the edit history of your book."
-msgstr ""
+msgstr "Siin näed oma raamatu muutmise ajalugu."
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:9
 msgid "click on the chapter link to compare revisions"
-msgstr ""
+msgstr "versioonide võrdlemiseks kliki peatüki lingil"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:12
 msgid "Filter by user"
@@ -3201,7 +3212,7 @@ msgid "Clear filters"
 msgstr "Tühjenda filtrid"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:649
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:595
 msgid "Action"
 msgstr "Toiming"
 
@@ -3242,25 +3253,35 @@ msgstr "suurus"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:45
 msgid "Delete selected items"
-msgstr ""
+msgstr "Kustuta valitud kirjed"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:54
-msgid "Remove media files"
+msgid "Rename filename"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:58
+msgid ""
+"Renaming can produce an issue if this image was inserted into the chapter. "
+"You must edit raw html manually to fix a file path."
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:78
+msgid "Remove media files"
+msgstr "Eemalda meediafailid"
+
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:83
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:60
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:84
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:104
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:133
 msgid "I understand and agree"
-msgstr ""
+msgstr "Saan aru ja nõustun"
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:65
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:89
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:112
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:142
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:17
@@ -3268,16 +3289,16 @@ msgstr ""
 msgid "Remove"
 msgstr "Eemalda"
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:76
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:100
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:79
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:103
 msgid "You can only upload JPEG/PNG files."
-msgstr ""
+msgstr "Üles saab laadida ainult JPEG ja PNG faile."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:662
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
 msgstr "Avalda"
@@ -3301,15 +3322,15 @@ msgstr "Ekspordi ajalugu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:45
 msgid "Checking book info."
-msgstr ""
+msgstr "Raamatu info kontrollimine."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:47
 msgid "Important! Before you export..."
-msgstr ""
+msgstr "Oluline! Enne kui sa ekspordid..."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:49
 msgid "Please check the settings for your chosen formats before exporting."
-msgstr ""
+msgstr "Palun kontrolli enne eksportimist valitud vormingu seadeid."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:50
 msgid ""
@@ -3326,283 +3347,274 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:69
 msgid "Print PDF Settings"
-msgstr ""
+msgstr "Prinditava PDF-i seaded"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:75
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:78
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:196
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:199
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:169
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:172
 msgid "Size"
 msgstr "Suurus"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:77
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:198
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:171
 msgid "Choose a standard paper size or custom dimensions"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:80
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:201
-msgid "custom"
-msgstr "kohandatud"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:117
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:124
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:133
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:145
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:153
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:166
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:238
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:245
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:251
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:254
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:266
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:274
-msgid "mm"
-msgstr "mm"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:120
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:241
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:93
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:187
 msgid "Margins"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:122
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:243
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:95
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:189
 msgid "Set the margin and gutter dimensions"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:244
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:96
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:190
 msgid "Top Margin"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:97
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:100
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:103
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:118
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:126
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:247
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:139
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:191
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:194
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:197
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:200
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:212
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:220
+msgid "mm"
+msgstr "mm"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:99
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:193
 msgid "Side Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:129
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:250
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:102
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:196
 msgid "Bottom Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:132
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:253
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:199
 msgid "Gutter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:257
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:203
 msgid "Header and Footer"
-msgstr ""
+msgstr "Päis ja jalus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:138
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:259
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:111
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:205
 msgid "Set header and footer visibility, and their margins"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:140
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:261
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:113
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:207
 msgid "Show Header"
-msgstr ""
+msgstr "Näita päist"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:144
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:265
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:117
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:211
 msgid "Header Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:121
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:215
 msgid "Show Footer"
-msgstr ""
+msgstr "Näita jalust"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:152
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:273
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:125
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:219
 msgid "Footer Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:159
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:132
 msgid "Set extra options for paper trimming"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:161
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:134
 msgid "Crop Marks"
-msgstr ""
+msgstr "Lõikamise märgid"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:165
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:138
 msgid "Bleed size"
 msgstr "Lõikeserv"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:171
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:174
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:287
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:290
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:321
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:324
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:355
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:358
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:389
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:392
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:423
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:426
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:457
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:460
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:482
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:485
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:144
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:147
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:267
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:270
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:301
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:304
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:335
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:369
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:372
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:403
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:406
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:428
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:431
 msgid "Styling"
 msgstr "Stiliseerimine"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:173
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:289
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:323
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:357
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:391
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:425
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:459
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:484
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:146
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:337
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:371
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:430
 msgid "Manually edit CSS style"
-msgstr ""
+msgstr "Muuda CSS-faili käsitsi"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:190
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:163
 msgid "Screen PDF Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:280
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:314
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:348
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:382
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:416
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:450
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:260
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:294
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:328
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:362
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:396
 msgid "Select a cover from the Cover Manager"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:282
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:316
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:350
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:384
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:418
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:228
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:262
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:296
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:330
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:398
 msgid "No Cover"
-msgstr ""
+msgstr "Kaant pole"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:252
 msgid "EPUB3 Settings"
 msgstr "EPUB3 seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:286
 msgid "EPUB2 Settings"
 msgstr "EPUB2 seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:320
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:354
 msgid "Adobe InDesign Settings"
 msgstr "Adobe InDesign seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:442
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:388
 msgid "Mobi Settings"
 msgstr "Mobi seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:476
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:422
 msgid "XHTML Settings"
 msgstr "XHTML seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:501
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:652
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:447
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:598
 msgid "Remove export"
-msgstr ""
+msgstr "Eemalda eksportimine"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:504
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:450
 msgid "Do you want to remove this export?"
-msgstr ""
+msgstr "Kas sa soovid seda eksportimist eemaldada?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:522
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:468
 msgid "Choose format for export"
-msgstr ""
+msgstr "Vali vorming, millesse eksportida"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:524
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
 msgid "No available publish formats."
-msgstr ""
+msgstr "Ühtegi avaldamise vormingut pole saadaval."
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:489
 #: lib/booktype/convert/mpdf/converter.py:101
 msgid "Printers' PDF"
 msgstr "Printeri PDF"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:546
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:492
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:503
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:514
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:526
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:557
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:568
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:580
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:611
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:622
 msgid "settings"
 msgstr "seaded"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:500
 #: lib/booktype/convert/screenpdf/converter.py:32
 msgid "Screen PDF"
 msgstr "Ekraani PDF"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:511
 #: lib/booktype/convert/epub/converter.py:57
 msgid "EPUB3"
 msgstr "EPUB3"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:577
-#: lib/booktype/convert/epub/converter.py:512
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
+#: lib/booktype/convert/epub/converter.py:513
 msgid "EPUB2"
 msgstr "EPUB2"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:589
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:535
 #: lib/booktype/convert/pandoc/icml/converter.py:26
 msgid "Adobe InDesign (ICML)"
 msgstr "Adobe InDesign (ICML)"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:597
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
 #: lib/booktype/convert/pandoc/docx/converter.py:26
 msgid "Word (DOCX)"
 msgstr "Word (DOCX)"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
 #: lib/booktype/convert/mobi/converter.py:34
 msgid "MOBI"
 msgstr "MOBI"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:619
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
 #: lib/booktype/convert/xhtml/converter.py:44
 msgid "XHTML"
 msgstr "XHTML"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:629
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:575
 msgid "EXPORT YOUR BOOK"
 msgstr "EKSPORDI OMA RAAMAT"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:679
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:627
 msgid "Failed"
 msgstr "Ebaõnnestus"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:692
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:642
 msgid "pages"
 msgstr "leheküljed"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:710
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:660
 msgid "comments"
 msgstr "kommentaarid"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:719
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:669
 msgid "Your comment here"
 msgstr "Sinu kommentaar siia"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:720
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:670
 msgid "SEND COMMENT"
 msgstr "SAADA KOMMENTAAR"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:740
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:690
 msgid "Exporting, please wait"
-msgstr ""
+msgstr "Eksportimine, palun oota"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:4
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:65
@@ -3719,7 +3731,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:135
 msgid "Delete chapters under this section"
-msgstr ""
+msgstr "Kusuta peatükid sellest sektsioonist"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:150
 msgid ""
@@ -3770,7 +3782,7 @@ msgstr "On kommentaare"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:260
 msgid "Has marker"
-msgstr ""
+msgstr "Markeriga"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:314
 msgid "Assign..."
@@ -3785,7 +3797,7 @@ msgstr "MUUDA PEATÜKKI"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:350
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:366
 msgid "Hold"
-msgstr ""
+msgstr "Ootel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:352
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
@@ -3801,11 +3813,11 @@ msgstr "Ekspordi sisu"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:388
 msgid "UNLOCK"
-msgstr ""
+msgstr "EEMALDA LUKUSTUS"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
 msgid "Put on hold"
-msgstr ""
+msgstr "Pane ootele"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:408
 msgid "Lock editing"
@@ -3878,7 +3890,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_license.html:7
 msgid "Read full text of the license"
-msgstr ""
+msgstr "Loe kogu litsentsi teksti"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:20
 msgid "Delete metadata content"
@@ -3929,59 +3941,55 @@ msgstr "Raamatu keel"
 msgid "Book License"
 msgstr "Raamatu litsents"
 
-#: lib/booktype/apps/edit/views.py:577
+#: lib/booktype/apps/edit/views.py:569
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:655
+#: lib/booktype/apps/edit/views.py:647
 msgid "Chapter diff"
 msgstr "Peatüki erinevused"
 
-#: lib/booktype/apps/edit/views.py:693
+#: lib/booktype/apps/edit/views.py:685
 msgid "Book History | Chapter Revision"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:716
+#: lib/booktype/apps/edit/views.py:708
 #, python-format
 msgid "Reverted to revision %s."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:735
+#: lib/booktype/apps/edit/views.py:727
 msgid "Chapter revision successfully reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:737
+#: lib/booktype/apps/edit/views.py:729
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:808
+#: lib/booktype/apps/edit/views.py:800
 msgid "Successfully saved settings."
-msgstr ""
+msgstr "Seaded on salvestatud."
 
-#: lib/booktype/apps/edit/views.py:810
-msgid "You have no permissions to execute this action."
-msgstr "Sul pole selle toimingu sooritamiseks õigusi."
-
-#: lib/booktype/apps/edit/views.py:813
+#: lib/booktype/apps/edit/views.py:805
 msgid "Unknown error while saving changes."
-msgstr ""
+msgstr "Tundmatu tõrge muudatuste salvestamisel."
 
-#: lib/booktype/apps/edit/views.py:889
+#: lib/booktype/apps/edit/views.py:881
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:903
+#: lib/booktype/apps/edit/views.py:895
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:905
+#: lib/booktype/apps/edit/views.py:897
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:912
+#: lib/booktype/apps/edit/views.py:904
 msgid "USING REVISION"
-msgstr ""
+msgstr "KASUTATAKSE VERSIOONI"
 
 #: lib/booktype/apps/export/__init__.py:5
 msgid "Booktype export application"
@@ -3989,7 +3997,7 @@ msgstr ""
 
 #: lib/booktype/apps/export/__init__.py:8
 msgid "Export book"
-msgstr ""
+msgstr "Ekspordi raamat"
 
 #: lib/booktype/apps/export/__init__.py:9
 msgid "Change export settings"
@@ -3997,11 +4005,11 @@ msgstr ""
 
 #: lib/booktype/apps/export/__init__.py:10
 msgid "View exported file"
-msgstr ""
+msgstr "Vaata eksporditud faili"
 
 #: lib/booktype/apps/export/__init__.py:11
 msgid "Delete exported book"
-msgstr ""
+msgstr "Kustuta eksporditud raamat"
 
 #: lib/booktype/apps/export/__init__.py:12
 msgid "Comment exported files"
@@ -4009,7 +4017,7 @@ msgstr ""
 
 #: lib/booktype/apps/export/__init__.py:13
 msgid "Publish exported book"
-msgstr ""
+msgstr "Avalda eksporditud raamat"
 
 #: lib/booktype/apps/export/models.py:28 lib/booktype/apps/export/models.py:46
 msgid "export"
@@ -4090,17 +4098,17 @@ msgstr "Ekspordi seaded"
 msgid "Filetype not supported."
 msgstr "Failitüüp pole toetatud"
 
-#: lib/booktype/apps/importer/views.py:61
+#: lib/booktype/apps/importer/views.py:60
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr "Impordi raamat %(date)s"
 
-#: lib/booktype/apps/importer/views.py:112
+#: lib/booktype/apps/importer/views.py:111
 msgid "Extension not supported!"
 msgstr "Failitüüp pole toetatud!"
 
-#: lib/booktype/apps/importer/views.py:133
-#: lib/booktype/apps/importer/views.py:221
+#: lib/booktype/apps/importer/views.py:132
+#: lib/booktype/apps/importer/views.py:220
 msgid "Something went wrong!"
 msgstr "Midagi läks valesti!"
 
@@ -4182,7 +4190,7 @@ msgstr "Pole veel ühtegi gruppi"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:65
 msgid "Active groups"
-msgstr ""
+msgstr "Aktiivsed grupid"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:76
 msgid "There are no active groups at the moment"
@@ -4191,7 +4199,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:82
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:45
 msgid "New groups"
-msgstr ""
+msgstr "Uued grupid"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:100
 msgid "There are no new groups at the moment"
@@ -4205,7 +4213,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/books.html:82
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:39
 msgid "There are no books yet"
-msgstr ""
+msgstr "Ühtegi raamatut pole veel"
 
 #: lib/booktype/apps/portal/templates/portal/books.html:66
 msgid "Latest Books"
@@ -4213,7 +4221,7 @@ msgstr "Viimased raamatud"
 
 #: lib/booktype/apps/portal/templates/portal/books.html:86
 msgid "Published Books"
-msgstr ""
+msgstr "Avaldatud raamatud"
 
 #: lib/booktype/apps/portal/templates/portal/books.html:102
 msgid "There are no published books at the moment"
@@ -4221,11 +4229,11 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/books.html:135
 msgid "There is no activity yet"
-msgstr ""
+msgstr "Ühtegi tegevust pole veel"
 
 #: lib/booktype/apps/portal/templates/portal/errors/group_does_not_exist.html:8
 msgid "Group not found!"
-msgstr ""
+msgstr "Gruppi ei leitud!"
 
 #: lib/booktype/apps/portal/templates/portal/errors/group_does_not_exist.html:9
 #, python-format
@@ -4239,15 +4247,15 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 msgid "Members:"
-msgstr ""
+msgstr "Liikmed:"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 msgid "Books:"
-msgstr ""
+msgstr "Raamatud:"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:136
 msgid "There are no users yet"
-msgstr ""
+msgstr "Ühtegi kasutajat pole veel"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 msgid ""
@@ -4257,11 +4265,11 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:9
 msgid "Group Settings"
-msgstr ""
+msgstr "Grupi seaded"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:75
 msgid "Remove Book from this group"
-msgstr ""
+msgstr "Eemalda raamat sellest grupist"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Click this button to select other books and add them to this group"
@@ -4269,18 +4277,18 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
-msgstr ""
+msgstr "Lisa raamat sellesse gruppi"
 
 #: lib/booktype/apps/portal/templates/portal/group_create.html:16
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:20
 msgid "Create"
-msgstr ""
+msgstr "Loo"
 
 #: lib/booktype/apps/portal/templates/portal/group_delete_modal.html:11
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr ""
+msgstr "Oled sa kindel, et soovid seda gruppi kustutada? Sa ei saa seda tegevust hijem tühistada!"
 
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:7
 msgid "Remove the book from"
@@ -4292,15 +4300,15 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/people.html:17
 msgid "All people"
-msgstr ""
+msgstr "Kõik inimesed"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:39
 msgid "There are no people yet"
-msgstr ""
+msgstr "Ühtegi inimest pole veel"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:65
 msgid "Active people"
-msgstr ""
+msgstr "Aktiivsed inimesed"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:84
 msgid "There are no active people at the moment"
@@ -4308,7 +4316,7 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/people.html:90
 msgid "New people"
-msgstr ""
+msgstr "Uued inimesed"
 
 #: lib/booktype/apps/portal/templates/portal/people.html:109
 msgid "There are no new people at the moment"
@@ -4316,11 +4324,11 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/portal_add_book_modal.html:10
 msgid "Select books to add"
-msgstr ""
+msgstr "Vali lisatavad raamatud"
 
 #: lib/booktype/apps/portal/templates/portal/portal_add_book_modal.html:48
 msgid "Anonymous user"
-msgstr ""
+msgstr "Anonüümne kasutaja"
 
 #: lib/booktype/apps/portal/templates/portal/portal_add_book_modal.html:50
 msgid "You have to log in to add books."
@@ -4328,23 +4336,23 @@ msgstr ""
 
 #: lib/booktype/apps/portal/views.py:44
 msgid "Booktype"
-msgstr ""
+msgstr "Booktype"
 
-#: lib/booktype/apps/portal/views.py:112
+#: lib/booktype/apps/portal/views.py:109
 msgid "Group"
-msgstr ""
+msgstr "Grupp"
 
-#: lib/booktype/apps/portal/views.py:293
+#: lib/booktype/apps/portal/views.py:290
 msgid "Group settings"
-msgstr ""
+msgstr "Grupi seaded"
 
-#: lib/booktype/apps/portal/views.py:337
+#: lib/booktype/apps/portal/views.py:334
 msgid "You are not allowed to delete this group"
 msgstr ""
 
-#: lib/booktype/apps/portal/views.py:349
+#: lib/booktype/apps/portal/views.py:346
 msgid "Group successfully deleted."
-msgstr ""
+msgstr "Grupp on kustutatud."
 
 #: lib/booktype/apps/reader/__init__.py:4
 msgid "Booktype reader application"
@@ -4360,27 +4368,27 @@ msgstr ""
 
 #: lib/booktype/apps/reader/__init__.py:10
 msgid "View draft page"
-msgstr ""
+msgstr "Vaata mustandi lehekülge"
 
 #: lib/booktype/apps/reader/__init__.py:11
 msgid "View hidden draft page"
-msgstr ""
+msgstr "Vaata peidetud mustandi lehekülge"
 
 #: lib/booktype/apps/reader/__init__.py:14
 msgid "View hidden book info"
-msgstr ""
+msgstr "Vaata raamatu peidetud infot"
 
 #: lib/booktype/apps/reader/forms.py:10
 msgid "Book description"
-msgstr ""
+msgstr "Raamatu kirjeldus"
 
 #: lib/booktype/apps/reader/forms.py:15
 msgid "Book image"
-msgstr ""
+msgstr "Raamatu pilt"
 
 #: lib/booktype/apps/reader/forms.py:19
 msgid "Hide this book from other people"
-msgstr ""
+msgstr "Peida see raamat teiste inimeste eest"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:12
 msgid ""
@@ -4394,21 +4402,21 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:14
 msgid "Draft"
-msgstr ""
+msgstr "Mustand"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:61
 msgid "No content yet"
-msgstr ""
+msgstr "Sisu pole veel"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:77
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:88
 msgid "Edit this chapter"
-msgstr ""
+msgstr "Muuda seda peatükki"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:80
 msgid "No content yet."
-msgstr ""
+msgstr "Sisu pole veel."
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:38
 msgid "Toggle table of contents"
@@ -4416,32 +4424,32 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show table of contents"
-msgstr ""
+msgstr "Näita sisukorda"
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:40
 msgid "Show contents"
-msgstr ""
+msgstr "Näita sisu"
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide table of contents"
-msgstr ""
+msgstr "Peida sisukord"
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:41
 msgid "Hide contents"
-msgstr ""
+msgstr "Peida sisu"
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:50
 msgid "Table of contents"
-msgstr ""
+msgstr "Sisukord"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:7
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:95
 msgid "Edit Book Info"
-msgstr ""
+msgstr "Muuda raamatu infot"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:33
 msgid "Status:"
-msgstr ""
+msgstr "Staatus:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:35
 msgid "(this book is hidden from other people)"
@@ -4453,19 +4461,19 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:40
 msgid "Current version:"
-msgstr ""
+msgstr "Praegune versioon:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:41
 msgid "Created:"
-msgstr ""
+msgstr "Loodud:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:42
 msgid "Published:"
-msgstr ""
+msgstr "Avaldatud:"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:45
 msgid "Follow changes"
-msgstr ""
+msgstr "Jälgi muudatusi"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:53
 msgid "Click this button to open the editor at the Table of Contents"
@@ -4473,7 +4481,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:54
 msgid "Edit this Book"
-msgstr ""
+msgstr "Muuda seda raamatut"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:59
 msgid "Click this button to view the draft of the book as a single page"
@@ -4481,7 +4489,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:60
 msgid "Read Book"
-msgstr ""
+msgstr "Loe raamatut"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:65
 msgid "Click this button to view the draft of the book by chapter"
@@ -4489,19 +4497,19 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:66
 msgid "View draft"
-msgstr ""
+msgstr "Vaata mustandit"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
 msgid "Invite Codes"
-msgstr ""
+msgstr "Kutsete koodid"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:77
 msgid "More options"
-msgstr ""
+msgstr "Lisavalikud"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:83
 msgid "Download history"
-msgstr ""
+msgstr "Allalaadimiste ajalugu"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
 msgid "Group that book belongs to"
@@ -4509,7 +4517,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:148
 msgid "Recent activity"
-msgstr ""
+msgstr "Hiljutine tegevus"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:181
 msgid "Owner"
@@ -4517,7 +4525,7 @@ msgstr "Omanik"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:204
 msgid "Admins"
-msgstr ""
+msgstr "Adminid"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Contributors"
@@ -4525,7 +4533,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:253
 msgid "Book versions"
-msgstr ""
+msgstr "Raamatu versioonid"
 
 #: lib/booktype/apps/reader/templates/reader/errors/_does_not_exist.html:9
 #, python-format
@@ -4538,15 +4546,15 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:30
 msgid "Chapter saved"
-msgstr ""
+msgstr "Peatükk on salvestatud"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:31
 msgid "Chapter rename"
-msgstr ""
+msgstr "Peatüki ümbernimetamine"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:32
 msgid "Chapter reorder"
-msgstr ""
+msgstr "Peatükkide järjekorra muutmine"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:34
 msgid "Created new section"
@@ -4554,23 +4562,23 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:35
 msgid "Renamed section"
-msgstr ""
+msgstr "Nimeta sektsioon ümber"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:36
 msgid "Created new book"
-msgstr ""
+msgstr "Loodi uus raamat"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:37
 msgid "Minor version"
-msgstr ""
+msgstr "Väike versioon"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:38
 msgid "Major version"
-msgstr ""
+msgstr "Suur versioon"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:39
 msgid "Uploaded"
-msgstr ""
+msgstr "Üles laaditud"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:40
 msgid "Attachment delete"
@@ -4578,12 +4586,12 @@ msgstr ""
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:42
 msgid "Cover update"
-msgstr ""
+msgstr "Kaane uuendus"
 
 #: lib/booktype/apps/reader/views.py:79
 #, python-format
 msgid "%(object)s not found!"
-msgstr ""
+msgstr "%(object)s ei leitud!"
 
 #: lib/booktype/apps/reader/views.py:105
 msgid "Book Details Page"
@@ -4591,7 +4599,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/views.py:106
 msgid "Book Details"
-msgstr ""
+msgstr "Raamatu üksikasjad"
 
 #: lib/booktype/apps/reader/views.py:195
 msgid "Successfully changed book info."
@@ -4607,7 +4615,7 @@ msgstr ""
 
 #: lib/booktype/apps/reader/views.py:226
 msgid "Chapter Draft"
-msgstr ""
+msgstr "Peatüki mustand"
 
 #: lib/booktype/apps/reader/views.py:274
 msgid "Book full view"
@@ -4636,55 +4644,55 @@ msgstr ""
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:14
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:15
 msgid "Total number of books:"
-msgstr ""
+msgstr "Raamatuid kokku:"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:19
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:20
 msgid "Total number of users:"
-msgstr ""
+msgstr "Kasutajaid kokku:"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:24
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:25
 msgid "Total number of groups:"
-msgstr ""
+msgstr "Gruppe kokku:"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:29
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:30
 msgid "Attachments size:"
-msgstr ""
+msgstr "Manuste suurus:"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:34
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:35
 msgid "Database size:"
-msgstr ""
+msgstr "Andmebaasi suurus:"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:40
 msgid "New Users"
-msgstr ""
+msgstr "Uued kasutajad"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:48
 msgid "No new users"
-msgstr ""
+msgstr "Uusi kasutajaid pole"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:53
 msgid "New Books"
-msgstr ""
+msgstr "Uued raamatud"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:59
 msgid "No new books"
-msgstr ""
+msgstr "Uusi raamatuid pole"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:64
 msgid "New Groups"
-msgstr ""
+msgstr "Uued grupid"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:70
 msgid "No new groups"
-msgstr ""
+msgstr "Uusi gruppe pole"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:75
 msgid "Modified chapters"
-msgstr ""
+msgstr "Muudetud peatükid"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:87
 msgid "No Activity"
@@ -4697,51 +4705,51 @@ msgstr ""
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:41
 msgid "Updates"
-msgstr ""
+msgstr "Värskendused"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:43
 msgid "New users"
-msgstr ""
+msgstr "Uued kasutajad"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:44
 msgid "New books"
-msgstr ""
+msgstr "Uued raamatud"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:48
 msgid "Most active books"
-msgstr ""
+msgstr "Kõige aktiivsemad raamatud"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:54
 msgid "No active books"
-msgstr ""
+msgstr "Aktiiveid raamatuid pole"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:59
 msgid "Most active users"
-msgstr ""
+msgstr "Kõige aktiivsemad kasutajad"
 
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:65
 msgid "No active users"
-msgstr ""
+msgstr "Aktiivseid kasutjaid pole"
 
 #: lib/booktype/apps/themes/templates/themes/panel.html:5
 msgid "Select from the themes available"
-msgstr ""
+msgstr "Vali saadaolevatest teemadest"
 
 #: lib/booktype/apps/themes/templates/themes/panel.html:16
 msgid "reset"
-msgstr ""
+msgstr "nulli"
 
 #: lib/booktype/constants.py:31
 msgid "new"
-msgstr ""
+msgstr "uus"
 
 #: lib/booktype/constants.py:32
 msgid "needs content"
-msgstr ""
+msgstr "vajab sisu"
 
 #: lib/booktype/constants.py:33
 msgid "completed"
-msgstr ""
+msgstr "valmis"
 
 #: lib/booktype/constants.py:34
 msgid "to be proofed"
@@ -4785,7 +4793,7 @@ msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:249
 msgid "Title Page"
-msgstr ""
+msgstr "Tiitelleht"
 
 #: lib/booktype/importer/docx/docximporter.py:406
 msgid "Reference not found for endnote: {}"
@@ -4804,7 +4812,7 @@ msgstr ""
 
 #: lib/booktype/importer/epub/epubimporter.py:379
 msgid "Unknown chapter"
-msgstr ""
+msgstr "Tundmatu peatükk"
 
 #: lib/booktype/importer/epub/epubimporter.py:531
 msgid "Not using {} as a cover image -- {}"
@@ -4828,7 +4836,7 @@ msgstr ""
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:6
 msgid ""

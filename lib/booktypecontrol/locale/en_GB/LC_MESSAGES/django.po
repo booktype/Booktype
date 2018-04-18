@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 10:37+0000\n"
-"PO-Revision-Date: 2018-01-30 09:30+0000\n"
+"POT-Creation-Date: 2018-04-16 17:00+0100\n"
+"PO-Revision-Date: 2018-04-17 19:18+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -389,7 +389,7 @@ msgstr "Add new person"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
-#: lib/booktypecontrol/views.py:59
+#: lib/booktypecontrol/views.py:63
 msgid "Archived Users"
 msgstr "Archived Users"
 
@@ -475,7 +475,7 @@ msgstr "Delete"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
-#: lib/booktypecontrol/views.py:58
+#: lib/booktypecontrol/views.py:62
 msgid "List of People"
 msgstr "List of People"
 
@@ -569,7 +569,7 @@ msgid ""
 msgstr "Are you sure you would like to delete this role? You will not be able to undo this operation!"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:38
 msgid "Recent Activity"
 msgstr "Recent Activity"
 
@@ -580,7 +580,7 @@ msgid "Groups"
 msgstr "Groups"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:45
 msgid "ago"
 msgstr "ago"
 
@@ -601,6 +601,7 @@ msgid "This user has no groups"
 msgstr "This user has no groups"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:11
 msgid "Close"
 msgstr "Close"
 
@@ -608,73 +609,77 @@ msgstr "Close"
 msgid "Save changes"
 msgstr "Save changes"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:10
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+msgid "Booktype update log"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:26
 msgid "Info"
 msgstr "Info"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:12
-msgid "version"
-msgstr "version"
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:28
+msgid "version details"
+msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
 msgid "users"
 msgstr "users"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:14
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:30
 msgid "books"
 msgstr "books"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:31
 msgid "groups"
 msgstr "groups"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:32
 msgid "database size"
 msgstr "database size"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:17
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:33
 msgid "files size"
 msgstr "files size"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:51
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:67
 msgid "Online Users"
 msgstr "Online Users"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:93
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:79
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
 msgid "Working on:"
 msgstr "Working on:"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:77
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:93
 msgid "No online users"
 msgstr "No online users"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:100
 msgid "Most Active Users"
 msgstr "Most Active Users"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:100
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:125
 msgid "view all"
 msgstr "view all"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:102
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:118
 msgid "No most active users"
 msgstr "No most active users"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:109
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:125
 msgid "Latest Books"
 msgstr "Latest Books"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:122
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:138
 msgid "No books here"
 msgstr "No books here"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:129
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:145
 msgid "Most Active Books"
 msgstr "Most Active Books"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:142
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:158
 msgid "No active books here"
 msgstr "No active books here"
 
@@ -684,42 +689,42 @@ msgid "Settings"
 msgstr "Settings"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
-#: lib/booktypecontrol/views.py:51
+#: lib/booktypecontrol/views.py:55
 msgid "Site Description"
 msgstr "Site Description"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
-#: lib/booktypecontrol/views.py:52
+#: lib/booktypecontrol/views.py:56
 msgid "Site Appearance"
 msgstr "Site Appearance"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
-#: lib/booktypecontrol/views.py:53
+#: lib/booktypecontrol/views.py:57
 msgid "Site Front Page"
 msgstr "Site Front Page"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
-#: lib/booktypecontrol/views.py:54
+#: lib/booktypecontrol/views.py:58
 msgid "Book Licenses"
 msgstr "Book Licences"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
-#: lib/booktypecontrol/views.py:55
+#: lib/booktypecontrol/views.py:59
 msgid "Book Creation Defaults"
 msgstr "Book Creation Defaults"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
-#: lib/booktypecontrol/views.py:70
+#: lib/booktypecontrol/views.py:74
 msgid "Default Roles"
 msgstr "Default Roles"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
-#: lib/booktypecontrol/views.py:56
+#: lib/booktypecontrol/views.py:60
 msgid "Privacy"
 msgstr "Privacy"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
-#: lib/booktypecontrol/views.py:64
+#: lib/booktypecontrol/views.py:68
 msgid "Publishing Options"
 msgstr "Publishing Options"
 
@@ -729,32 +734,32 @@ msgid "People"
 msgstr "People"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
-#: lib/booktypecontrol/views.py:57
+#: lib/booktypecontrol/views.py:61
 msgid "Add a New Person"
 msgstr "Add a New Person"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
-#: lib/booktypecontrol/views.py:60
+#: lib/booktypecontrol/views.py:64
 msgid "Add a New Book"
 msgstr "Add a New Book"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
-#: lib/booktypecontrol/views.py:61
+#: lib/booktypecontrol/views.py:65
 msgid "List of Books"
 msgstr "List of Books"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
-#: lib/booktypecontrol/views.py:63
+#: lib/booktypecontrol/views.py:67
 msgid "Book Skeletons"
 msgstr "Book Skeletons"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
-#: lib/booktypecontrol/views.py:66
+#: lib/booktypecontrol/views.py:70
 msgid "Add a New Group"
 msgstr "Add a New Group"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:55
-#: lib/booktypecontrol/views.py:67
+#: lib/booktypecontrol/views.py:71
 msgid "List of Groups"
 msgstr "List of Groups"
 
@@ -764,12 +769,12 @@ msgid "Roles"
 msgstr "Roles"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
-#: lib/booktypecontrol/views.py:68
+#: lib/booktypecontrol/views.py:72
 msgid "Add a New Role"
 msgstr "Add a New Role"
 
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:59
-#: lib/booktypecontrol/views.py:69
+#: lib/booktypecontrol/views.py:73
 msgid "List of Roles"
 msgstr "List of Roles"
 
@@ -806,97 +811,97 @@ msgstr "Password:"
 msgid "Home"
 msgstr "Home"
 
-#: lib/booktypecontrol/views.py:62
+#: lib/booktypecontrol/views.py:66
 msgid "Add Book Skeleton"
 msgstr "Add Book Skeleton"
 
-#: lib/booktypecontrol/views.py:65
+#: lib/booktypecontrol/views.py:69
 msgid "Publishing Defaults"
 msgstr "Publishing Defaults"
 
-#: lib/booktypecontrol/views.py:91 lib/booktypecontrol/views.py:196
-#: lib/booktypecontrol/views.py:296 lib/booktypecontrol/views.py:360
-#: lib/booktypecontrol/views.py:437 lib/booktypecontrol/views.py:479
-#: lib/booktypecontrol/views.py:509
+#: lib/booktypecontrol/views.py:95 lib/booktypecontrol/views.py:209
+#: lib/booktypecontrol/views.py:309 lib/booktypecontrol/views.py:373
+#: lib/booktypecontrol/views.py:450 lib/booktypecontrol/views.py:492
+#: lib/booktypecontrol/views.py:522
 msgid "Admin Control Center"
 msgstr "Admin Control Centre"
 
-#: lib/booktypecontrol/views.py:207
+#: lib/booktypecontrol/views.py:220
 msgid "Successfully saved settings."
 msgstr "Successfully saved settings."
 
-#: lib/booktypecontrol/views.py:212
+#: lib/booktypecontrol/views.py:225
 msgid "Unknown error while saving changes."
 msgstr "Unknown error while saving changes."
 
-#: lib/booktypecontrol/views.py:299
+#: lib/booktypecontrol/views.py:312
 msgid "Edit Person Info"
 msgstr "Edit Person Info"
 
-#: lib/booktypecontrol/views.py:319 lib/booktypecontrol/views.py:370
+#: lib/booktypecontrol/views.py:332 lib/booktypecontrol/views.py:383
 msgid "Successfully saved changes."
 msgstr "Successfully saved changes."
 
-#: lib/booktypecontrol/views.py:341
+#: lib/booktypecontrol/views.py:354
 msgid "Rename Book"
 msgstr "Rename Book"
 
-#: lib/booktypecontrol/views.py:345
+#: lib/booktypecontrol/views.py:358
 msgid "Book name successfully changed."
 msgstr "Book name successfully changed."
 
-#: lib/booktypecontrol/views.py:381
+#: lib/booktypecontrol/views.py:394
 msgid "Your password was changed"
 msgstr "Your password was changed"
 
-#: lib/booktypecontrol/views.py:400
+#: lib/booktypecontrol/views.py:413
 #, python-format
 msgid "Change Password: %s"
 msgstr "Change Password: %s"
 
-#: lib/booktypecontrol/views.py:415
+#: lib/booktypecontrol/views.py:428
 msgid "Group successfully deleted."
 msgstr "Group successfully deleted."
 
-#: lib/booktypecontrol/views.py:445
+#: lib/booktypecontrol/views.py:458
 msgid "Edit licence"
 msgstr "Edit licence"
 
-#: lib/booktypecontrol/views.py:451
+#: lib/booktypecontrol/views.py:464
 msgid "License successfully updated."
 msgstr "Licence successfully updated."
 
-#: lib/booktypecontrol/views.py:463
+#: lib/booktypecontrol/views.py:476
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
 msgstr "There are books remaining with this licence. Unable to remove"
 
-#: lib/booktypecontrol/views.py:468
+#: lib/booktypecontrol/views.py:481
 msgid "License successfully deleted."
 msgstr "Licence successfully deleted."
 
-#: lib/booktypecontrol/views.py:487
+#: lib/booktypecontrol/views.py:500
 msgid "Edit role"
 msgstr "Edit role"
 
-#: lib/booktypecontrol/views.py:491
+#: lib/booktypecontrol/views.py:504
 msgid "Role successfully updated."
 msgstr "Role successfully updated."
 
-#: lib/booktypecontrol/views.py:501
+#: lib/booktypecontrol/views.py:514
 msgid "Role successfully deleted."
 msgstr "Role successfully deleted."
 
-#: lib/booktypecontrol/views.py:517
+#: lib/booktypecontrol/views.py:530
 msgid "Edit Book Skeleton"
 msgstr "Edit Book Skeleton"
 
-#: lib/booktypecontrol/views.py:521
+#: lib/booktypecontrol/views.py:534
 msgid "Book Skeleton successfully updated"
 msgstr "Book Skeleton successfully updated"
 
-#: lib/booktypecontrol/views.py:531
+#: lib/booktypecontrol/views.py:544
 msgid "Book Skeleton successfully deleted"
 msgstr "Book Skeleton successfully deleted"
 
