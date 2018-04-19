@@ -17,7 +17,6 @@
 
 import os
 import logging
-import booki
 import sputnik
 import forms as control_forms
 from unipath import Path
@@ -37,9 +36,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.mail import EmailMultiAlternatives
 
-from django.views.generic import TemplateView, FormView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic import TemplateView, FormView, ListView
 from django.views.generic import DetailView, UpdateView, DeleteView
+from django.views.generic.detail import SingleObjectMixin
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
@@ -59,7 +58,6 @@ OPTION_NAMES = {
     'book-settings': _('Book Creation Defaults'),
     'privacy': _('Privacy'),
     'add-person': _('Add a New Person'),
-    'list-of-people': _('List of People'),
     'archived-users': _('Archived Users'),
     'add-book': _('Add a New Book'),
     'list-of-books': _('List of Books'),
@@ -283,6 +281,17 @@ class ControlCenterSettings(BaseCCView, FormView):
         return super(ControlCenterSettings, self).get_success_url()
 
 
+class PeopleListView(BaseCCView, ListView):
+    model = User
+    paginate_by = 50
+    page_title = _('List of people')
+    title = page_title
+    template_name = "booktypecontrol/control_center_people_list.html"
+
+    def get_queryset(self):
+        return User.objects.filter(is_active=True).order_by("username")
+
+
 class PersonInfoView(BaseCCView, DetailView):
     model = User
     slug_field = 'username'
@@ -342,7 +351,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
         return initial_dict
 
     def get_success_url(self):
-        return "%s#list-of-people" % reverse('control_center:settings')
+        return reverse_lazy('control_center:people_list')
 
 
 class BookRenameView(EditPersonInfo):
@@ -414,7 +423,7 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         return context
 
     def get_success_url(self):
-        return "%s#list-of-people" % reverse('control_center:settings')
+        return reverse_lazy('control_center:people_list')
 
 
 class DeleteGroupView(BaseCCView, DeleteView):

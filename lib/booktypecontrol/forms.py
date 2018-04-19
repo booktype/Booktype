@@ -500,7 +500,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
     )
 
     success_message = _('Successfully created new account.')
-    success_url = "#list-of-people"
+    success_url = reverse_lazy('control_center:people_list')
 
     def __init__(self, *args, **kwargs):
         super(AddPersonForm, self).__init__(*args, **kwargs)
@@ -517,7 +517,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         ]
 
     def get_cancel_url(self):
-        return "{0}{1}".format(self.cancel_url, self.success_url)
+        return self.success_url
 
     def clean_username(self):
         try:
@@ -580,16 +580,6 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
                 )
 
         return user
-
-
-class ListOfPeopleForm(BaseControlForm, forms.Form):
-    pass
-
-    @classmethod
-    def extra_context(cls):
-        return {
-            'people': User.objects.filter(is_active=True).order_by("username")
-        }
 
 
 class ArchivedUsersForm(BaseControlForm, forms.Form):
@@ -669,7 +659,7 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         ]
 
     def get_cancel_url(self):
-        return "{0}#list-of-people".format(self.cancel_url)
+        return reverse_lazy('control_center:people_list')
 
 
 class PasswordForm(BaseControlForm, forms.Form):

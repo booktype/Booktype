@@ -1,0 +1,46 @@
+{% extends "booktypecontrol/control_center_settings.html" %}
+{% load i18n booktype_tags %}
+
+{% block settings_container %}
+  <h4>{% trans "List of People" %}
+    <div class="btn-toolbar float-right">
+      <button data-href="#add-person" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Add Person" %}">{% trans "ADD PERSON" %}</button>
+    </div>
+  </h4>
+
+  {% booktype_pagination page_obj %}
+
+  <ul class="list border-top user-avatar circle list-of-pleople">
+    {% for person in object_list %}
+      <li>
+        <figure><img src="{% url "view_profilethumbnail" person %}?width=200" alt=""></figure>
+        <div class="list-info">
+          <h4>
+            <a data-remote="{% url 'control_center:person_info' person.username %}" data-toggle="modal" data-target="#personInfoModal" href="#">{{ person.username }}</a>
+            <div class="action-btns pull-right hide">
+              <button class="btn btn-default" data-href="{% url 'control_center:password_change' person.username %}">
+                {% trans "Change password" %}
+              </button>
+              <button class="btn btn-default" data-href="{% url 'control_center:person_edit' person.username %}">
+                {% trans "Edit Info" %}
+              </button>
+            </div>
+            {% if person.is_superuser %}
+              <b class="label label-default">{% trans "superuser" %}</b>
+            {% endif %}
+            {% if not person.is_active %}
+              <b class="label label-warning">{% trans "archived" %}</b>
+            {% endif %}
+          </h4>
+          <p>
+            {{ person.get_full_name }}
+          </p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% booktype_pagination page_obj %}
+
+  <div id="personInfoModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+{% endblock %}
