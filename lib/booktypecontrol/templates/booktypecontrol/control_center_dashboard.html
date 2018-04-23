@@ -97,7 +97,7 @@
 
                 <div class="box white">
                     <h2 class="box-title">
-                        {% trans "Most Active Users" %} <a class="view_all" href="{% url 'control_center:settings' %}#list-of-people">{% trans "view all" %}</a>
+                        {% trans "Most Active Users" %} <a class="view_all" href="{% url 'control_center:people_list' %}">{% trans "view all" %}</a>
                     </h2>
                     <ul class="list border-top user-avatar circle">
                         {% for user, user_history in most_active_users_history.items %}

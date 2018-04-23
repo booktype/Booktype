@@ -11,8 +11,12 @@
     </li>
 
     {% for page in page_object.paginator.page_range_cutted %}
-      <li {% if page == page_object.number %}class="active"{% endif %}>
-        <a href="?{% add_url_query_param request 'page' page %}">{{ page }}</a>
+      <li {% if page == page_object.number %}class="active" {% elif page == '..' %}class="disabled"{% endif %}>
+        {% if page == '..' %}
+          <a>{{ page }}</a>
+        {% else %}
+          <a href="?{% add_url_query_param request 'page' page %}">{{ page }}</a>
+        {% endif %}
       </li>
     {% endfor %}
 

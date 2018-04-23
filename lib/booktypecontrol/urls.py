@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', cc_views.ControlCenterView.as_view(), name='frontpage'),
     url(r'^settings/$', cc_views.ControlCenterSettings.as_view(), name='settings'),
 
+    url(r'^people/$', cc_views.PeopleListView.as_view(), name='people_list'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/info/$',
         cc_views.PersonInfoView.as_view(), name='person_info'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/edit/$',
