@@ -8,6 +8,19 @@
     </div>
   </h4>
 
+  <div class="well well-sm">
+    <label for="{{ search_form.search.auto_id }}">{{ search_form.search.label }}</label>
+    <form class="form-inline" method="get" action="{% url 'control_center:people_list' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ search_form.search }}
+      </div>
+      <button type="submit" class="btn btn-default">{% trans 'Search' %}</button>
+      <p class="help-block">{{ search_form.search.help_text }}</p>
+      {{ search_form.search.errors }}
+    </form>
+  </div>
+
   {% booktype_pagination page_obj %}
 
   <ul class="list border-top user-avatar circle list-of-pleople">

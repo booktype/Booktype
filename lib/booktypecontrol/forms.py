@@ -1123,3 +1123,17 @@ class ListOfSkeletonsForm(BaseControlForm, forms.ModelForm):
 
     def save_settings(self, request):
         return self.save()
+
+
+class UserSearchForm(forms.Form):
+    search = forms.CharField(
+        label=_('Search users'),
+        max_length=50,
+        required=False,
+        help_text=_('Search by username, email, first name or last name'),
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Example: Tolkien',
+            'class': 'form-control',
+            'size': '50'
+        })
+    )

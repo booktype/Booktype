@@ -28,6 +28,7 @@ from collections import Counter, OrderedDict
 from django import template
 from django.conf import settings
 from django.db import connection
+from django.db.models import Q
 from django.contrib import messages
 from django.template.base import Context
 from django.contrib.auth.models import User
@@ -46,6 +47,8 @@ from booktype.utils import misc
 from booktype.apps.core.models import Role, BookSkeleton
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory, License
+
+from .forms import UserSearchForm
 
 logger = logging.getLogger('booktype')
 
@@ -289,7 +292,29 @@ class PeopleListView(BaseCCView, ListView):
     template_name = "booktypecontrol/control_center_people_list.html"
 
     def get_queryset(self):
-        return User.objects.filter(is_active=True).order_by("username")
+        users_qs = User.objects.filter(is_active=True).order_by("username")
+
+        if 'search' in self.request.GET:
+            users_qs = users_qs.filter(
+                Q(username__icontains=self.request.GET.get('search')) |
+                Q(first_name__icontains=self.request.GET.get('search')) |
+                Q(last_name__icontains=self.request.GET.get('search')) |
+                Q(email__icontains=self.request.GET.get('search'))
+            )
+
+        return users_qs
+
+    def get_context_data(self, **kwargs):
+        context = super(PeopleListView, self).get_context_data(**kwargs)
+
+        if 'search' in self.request.GET:
+            search_form = UserSearchForm(self.request.GET)
+        else:
+            search_form = UserSearchForm()
+
+        context['search_form'] = search_form
+
+        return context
 
 
 class PersonInfoView(BaseCCView, DetailView):
