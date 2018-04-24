@@ -7,9 +7,9 @@ import re
 
 from sphinx import addnodes, __version__ as sphinx_ver
 from sphinx.builders.html import StandaloneHTMLBuilder
-from sphinx.writers.html import SmartyPantsHTMLTranslator
+from sphinx.writers.html import HTMLTranslator
 from sphinx.util.console import bold
-from sphinx.util.compat import Directive
+from docutils.parsers.rst import Directive
 
 # RE for option descriptions without a '--' prefix
 simple_option_desc_re = re.compile(
