@@ -11,14 +11,6 @@ The Booktype server can be installed on various GNU/Linux distributions and
 Mac OS X. Packages for [Debian](https://www.debian.org) and
 [Ubuntu](https://www.ubuntu.com) GNU/Linux are in preparation.
 
-
-Simple Dev Install
-------------------
-
-Instructions for a simple dev install on Debian 8 can be found on
-[Digital Ocean's community site](https://www.digitalocean.com/community/tutorials/how-to-publish-real-books-with-booktype-on-debian-8).
-
-
 Database setup
 --------------
 
@@ -32,27 +24,24 @@ management system for production servers.
 Manual installation
 -------------------
 
-Installation from the git repository is recommended for development and 
-testing.
+Installation from the git repository is recommended for development and testing.
 
  [GNU/Linux](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/manual-installation-on-gnulinux/)
 
  [Mac OS X](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/manual-installation-on-os-x/)
 
-Installation using docker
+Installation using Docker
 --------------------------
 
-Installation with docker can be found on 
-[Bookstype-docker](https://github.com/booktype/booktype-docker)
+Files for Booktype installation with Docker can be found in the [Booktype-docker](https://github.com/booktype/booktype-docker) project.
 
 PDF renderer installation
 -------------------------
 
-Booktype 2.1 can use a variety of renderers to convert HTML book sources into 
+Booktype can use a variety of renderers to convert HTML book sources into 
 PDF. [mPDF](https://github.com/mpdf/mpdf) must be installed separately from Booktype
 in a directory such as /var/www/mpdf/ and the Booktype server configured for 
 the installation path. 
 
-**mPDF** library requires php GD library installed 
-[GD installation](http://php.net/manual/en/image.installation.php)
+The **mPDF** library requires the [PHP GD library](http://php.net/manual/en/image.installation.php) to be installed.
 
