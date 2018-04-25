@@ -1,0 +1,64 @@
+{% extends "booktypecontrol/control_center_settings.html" %}
+{% load i18n booktype_tags compress staticfiles %}
+
+
+{% block extra_control_header %}
+  {% compress js %}
+    <script type="text/javascript" src="{% static 'vendor/chart-2.7.2/js/chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'booktypecontrol/js/statistics.js' %}"></script>
+  {% endcompress %}
+
+{% endblock %}
+
+
+{% block settings_container %}
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{% trans "Users increasing & signups" %}</h3>
+    </div>
+    <div class="panel-body">
+      <canvas id="users-stats" data-chart="{{ statistics }}"></canvas>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{% trans "Active users" %}</h3>
+    </div>
+    <div class="panel-body">
+      <canvas id="last-year-login" data-chart="{{ statistics }}"></canvas>
+      <hr>
+      <canvas id="last-month-login" data-chart="{{ statistics }}"></canvas>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{% trans "Books" %}</h3>
+    </div>
+    <div class="panel-body">
+      <canvas id="books-count" data-chart="{{ statistics }}"></canvas>
+      <hr>
+      <canvas id="last-year-notlogin-avrg-books" data-chart="{{ statistics }}"></canvas>
+      <hr>
+      <canvas id="last-year-login-avrg-books" data-chart="{{ statistics }}"></canvas>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{% trans "Book exports" %}</h3>
+    </div>
+    <div class="panel-body">
+      <canvas id="exports-per-year" data-chart="{{ statistics }}"></canvas>
+      <hr>
+      <canvas id="exports-per-format" data-chart="{{ statistics }}"></canvas>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
