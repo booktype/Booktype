@@ -4,14 +4,16 @@ Booktype
 Booktype makes it easier and quicker for authors, companies and organisations to edit and publish books. 
 It imports DOCX or EPUB files, converts them into single-source HTML for online editing and proofreading, and uses CSS Paged Media to produce good-looking output for print, the open web, and almost any ebook reader, in seconds. Booktype facilitates collaborative, agile production across time zones and borders.
 
-Booktype is built on the [Django](https://github.com/django/django) web framework and many great [Python libraries](https://github.com/booktype/Booktype/tree/master/requirements). The user interface is being [translated into many languages](https://www.transifex.com/sourcefabric/booktype) by our community.
+Booktype is built on the [Django](https://github.com/django/django) web framework and many great [Python libraries](https://github.com/booktype/Booktype/tree/master/requirements). Developer documentation for Booktype is hosted at [Read the Docs](http://booktype.readthedocs.io/en/latest/).
+
+The Booktype user interface is being [translated into many languages](https://www.transifex.com/sourcefabric/booktype) by our [community of contributors](https://github.com/booktype/Booktype/blob/master/AUTHORS.txt). Your help with development or translation is always welcome!
 
 
 More info
 ---------
 
 - Check the [#booktype](https://twitter.com/search?q=%23booktype) hashtag on Twitter, or follow us [@Booktypo](https://twitter.com/Booktypo)      
-- [Booktype manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/)
+- [Booktype user manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/)
 - [Booktype issue tracker](https://dev.sourcefabric.org/browse/BK)
 - [Booktype support forum](https://forum.sourcefabric.org/categories/booktype-support)
 - [Booktype development forum](https://forum.sourcefabric.org/categories/booktype-development)
@@ -25,7 +27,7 @@ Straightforward instructions to get you started on your first dev install of Boo
 
 Installation using Docker can be found at [Booktype-docker](https://github.com/booktype/booktype-docker)
 
-Extra information can be found on the [online instructions](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/before-you-install/) and in the [Booktype manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/).
+Extra information on installation can be found in the [Booktype user manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/before-you-install/).
 
 
 How to contribute
