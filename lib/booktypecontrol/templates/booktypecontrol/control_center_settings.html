@@ -15,6 +15,9 @@
     <link href='{% static "booktypecontrol/css/booktypecontrol.css" %}' rel='stylesheet' type='text/css'/>
   {% endcompress %}
 
+  {% block extra_control_header %}
+  {% endblock %}
+
 {% endblock %}
 
 {% block content %}
@@ -57,6 +60,9 @@
                         <h4 data-menu="roles">{% trans "Roles" %}</h4>
                         <li><a href="#add-role" data-toggle="tab">{% trans "Add a New Role" %}</a></li>
                         <li><a href="#list-of-roles" data-toggle="tab">{% trans "List of Roles" %}</a></li>
+
+                        <h4 data-menu="statistics">{% trans "Statistics" %}</h4>
+                        <li><a href="{% url 'control_center:statistics' %}">{% trans "Statistics" %}</a></li>
                     </ul>
 
                     <div id="settings_container" class="tab-content hide col-xs-9">

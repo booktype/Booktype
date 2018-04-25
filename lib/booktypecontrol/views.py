@@ -16,11 +16,12 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import json
 import logging
 import sputnik
 import forms as control_forms
 from unipath import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import git
 
 from collections import Counter, OrderedDict
@@ -28,7 +29,7 @@ from collections import Counter, OrderedDict
 from django import template
 from django.conf import settings
 from django.db import connection
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib import messages
 from django.template.base import Context
 from django.contrib.auth.models import User
@@ -37,16 +38,17 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.mail import EmailMultiAlternatives
 
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, ListView, View
 from django.views.generic import DetailView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
-from booktype.utils import misc
+from booktype.utils import misc, config
 from booktype.apps.core.models import Role, BookSkeleton
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory, License
+from booktype.apps.export.models import BookExport, ExportFile
 
 from .forms import UserSearchForm
 
@@ -577,3 +579,149 @@ class DeleteBookSkeletonView(BaseCCView, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Book Skeleton successfully deleted'))
         return "%s#list-of-skeletons" % reverse('control_center:settings')
+
+
+class StatisticsView(BaseCCView, TemplateView):
+    template_name = 'booktypecontrol/control_center_statistics.html'
+    page_title = _('Statistics and instance data')
+    title = page_title
+
+    def get_context_data(self, **kwargs):
+        context = super(StatisticsView, self).get_context_data(**kwargs)
+
+        statistics = {}
+        today = date.today()
+        month_ago = today - timedelta(days=30)
+        year_ago = today.replace(year=today.year - 1)
+        begin_year = User.objects.all().order_by('date_joined')[0].date_joined.year
+        current_year = User.objects.all().order_by('-date_joined')[0].date_joined.year
+        all_users_count = User.objects.filter(is_active=True, is_superuser=False).count()
+
+        # users increasing
+        statistics['users_increasing'] = {
+            'labels': [],
+            'data': []
+        }
+        users_count = 0
+
+        for year in range(begin_year, current_year + 1):
+            statistics['users_increasing']['labels'].append(year)
+            users_count += User.objects.filter(date_joined__year=year).count()
+            statistics['users_increasing']['data'].append(users_count)
+
+        # signups per year
+        statistics['signups'] = {
+            'labels': [],
+            'data': []
+        }
+        for year in range(begin_year, current_year + 1):
+            statistics['signups']['labels'].append(year)
+            statistics['signups']['data'].append(User.objects.filter(date_joined__year=year).count())
+
+        # last year login
+        statistics['last_year_login'] = {}
+        active_during_last_year = User.objects.filter(
+            is_active=True, is_superuser=False, last_login__gte=year_ago, last_login__lte=today
+        ).count()
+
+        statistics['last_year_login']['labels'] = ["Login", "Not login"]
+        statistics['last_year_login']['data'] = [active_during_last_year, all_users_count - active_during_last_year]
+
+        # last month login
+        statistics['last_month_login'] = {}
+        active_during_last_month = User.objects.filter(
+            is_active=True, is_superuser=False, last_login__gte=month_ago, last_login__lte=today
+        ).count()
+        statistics['last_month_login']['labels'] = ["Login", "Not login"]
+        statistics['last_month_login']['data'] = [active_during_last_month, all_users_count - active_during_last_month]
+
+        # count of books per active/not active users
+        statistics['active_users_books_count'] = {
+            'labels': [],
+            'data': []
+        }
+        statistics['not_active_users_books_count'] = {
+            'labels': [],
+            'data': []
+        }
+        _active = {}
+        _not_active = {}
+
+        for limit in range(0, 10):
+            _active[limit] = 0
+            _not_active[limit] = 0
+
+        # books per year
+        statistics['books_per_year'] = {
+            'labels': [],
+            'data': []
+        }
+        for year in range(begin_year, current_year + 1):
+            statistics['books_per_year']['labels'].append(year)
+            statistics['books_per_year']['data'].append(Book.objects.filter(created__year=year).count())
+
+        # books increasing per year
+        statistics['books_increasing_per_year'] = {
+            'labels': [],
+            'data': []
+        }
+        books_count = 0
+        for year in range(begin_year, current_year + 1):
+            statistics['books_increasing_per_year']['labels'].append(year)
+            books_count += Book.objects.filter(created__year=year).count()
+            statistics['books_increasing_per_year']['data'].append(books_count)
+
+        # not active users
+        not_active_during_last_year = User.objects.filter(
+            is_active=True, is_superuser=False, last_login__lte=year_ago
+        )
+        _stats = not_active_during_last_year.annotate(count_of_books=Count('book')).values_list('count_of_books')
+        for _count in [i[0] for i in _stats]:
+            try:
+                _not_active[_count] += 1
+            except KeyError:
+                _not_active[_count] = 1
+
+        for k, v in _not_active.items():
+            statistics['not_active_users_books_count']['labels'].append('{} book(s)'.format(k))
+            statistics['not_active_users_books_count']['data'].append(v)
+
+        # active users
+        active_during_last_year = User.objects.filter(
+            is_active=True, is_superuser=False, last_login__gte=year_ago, last_login__lte=today
+        )
+
+        _stats = active_during_last_year.annotate(count_of_books=Count('book')).values_list('count_of_books')
+
+        for _count in [i[0] for i in _stats]:
+            try:
+                _active[_count] += 1
+            except KeyError:
+                _active[_count] = 1
+
+        for k, v in _active.items():
+            statistics['active_users_books_count']['labels'].append('{} book(s)'.format(k))
+            statistics['active_users_books_count']['data'].append(v)
+
+        # exports per year
+        statistics['exports_per_year'] = {
+            'labels': [],
+            'data': []
+        }
+        for year in range(begin_year, current_year + 1):
+            statistics['exports_per_year']['labels'].append(year)
+            statistics['exports_per_year']['data'].append(BookExport.objects.filter(created__year=year).count())
+
+        # export formats
+        statistics['exports_per_format'] = {
+            'labels': [],
+            'data': []
+        }
+
+        for _data in ExportFile.objects.all().values('typeof').annotate(total=Count('typeof')).order_by('typeof'):
+            statistics['exports_per_format']['labels'].append(_data['typeof'])
+            statistics['exports_per_format']['data'].append(_data['total'])
+
+        context['statistics'] = json.dumps(statistics)
+
+        return context
