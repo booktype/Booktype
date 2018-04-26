@@ -158,7 +158,7 @@ Update your project settings.py. You don't have to but you can comment LANGUAGES
 
 By default "createbooktype" script will now create "locale" directory in your Booktype project.
 
-Update you project settings.py::
+Update your project settings.py::
 
     LOCALE_PATHS = (
          '%s/locale' % os.path.dirname(booki.__file__),
