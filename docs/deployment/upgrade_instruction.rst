@@ -7,8 +7,7 @@ Upgrade instructions
 Booktype 1.6.1
 --------------
 
-Templates have been changed a bit in this release. Check lib/booki/editor/templates/edito
-r/
+Templates have been changed a bit in this release. Check lib/booki/editor/templates/editor/
 directory. Structure has been changed for:
 
 * edit_book.html
@@ -157,7 +156,7 @@ Update your project settings.py. You don't have to but you can comment LANGUAGES
     #  ('en-us', gettext('English'))
     # )
 
-By default "createbooki" script will now create "locale" directory in your Booktype project.
+By default "createbooktype" script will now create "locale" directory in your Booktype project.
 
 Update you project settings.py::
 
