@@ -45,10 +45,10 @@ How to install
     git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
-    ./Booktype/scripts/createbooki --database sqlite mybook
+    ./Booktype/scripts/createbooktype --database sqlite mybook
 
     # Initialise Booktype
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
     django-admin.py loaddata documentation_licenses
@@ -62,7 +62,7 @@ Deploy using built in web server (not recommended but good for testing)
     # This has to be done every time you want to start a server
     cd mybooktype
     source bin/activate
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py runserver 0.0.0.0:8080
 
 Deploy using Apache (recommended)
@@ -72,16 +72,6 @@ Deploy using Apache (recommended)
 
     # Install needed packages
     yum install httpd mod_wsgi
-
-You need to modify *mybook/booki.wsgi* file. This will not be needed in
-version 1.5.4 and more. Be careful and add full path to the
-*mybooktype/bin/activate*\ this.py\_ file. Add this after the
-*sys.path.insert* line:
-
-::
-
-    activate_this = 'FULL_PATH_TO/mybooktype/bin/activate_this.py' 
-    execfile(activate_this, dict(__file__=activate_this))
 
 Copy configuration file:
 
@@ -130,7 +120,7 @@ How to install
     git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
-    ./Booktype/scripts/createbooki --database postgresql mybook
+    ./Booktype/scripts/createbooktype --database postgresql mybook
 
     # Initialize PostgreSQL. ONLY if you did not have PostgreSQL installed before
     chkconfig postgresql on
@@ -184,7 +174,7 @@ You can continue now with initialisation.
 
 ::
 
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
     django-admin.py loaddata documentation_licenses
@@ -205,7 +195,7 @@ Deploy using built in web server (not recommended but good for testing)
     # This has to be done every time you want to start a server
     cd mybooktype
     source bin/activate
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py runserver 0.0.0.0:8080
 
 Deploy using Apache (recommended)
@@ -215,16 +205,6 @@ Deploy using Apache (recommended)
 
     # Install needed packages
     yum install httpd mod_wsgi
-
-You need to modify *mybook/booki.wsgi* file. This will not be needed in
-version 1.5.4 and more. Be careful and add full path to the
-*mybooktype/bin/activate*\ this.py\_ file. Add this after the
-*sys.path.insert* line:
-
-::
-
-    activate_this = 'FULL_PATH_TO/mybooktype/bin/activate_this.py' 
-    execfile(activate_this, dict(__file__=activate_this))
 
 Copy configuration file:
 

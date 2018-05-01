@@ -51,10 +51,10 @@ How to install
     git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
-    ./Booktype/scripts/createbooki --database sqlite mybook
+    ./Booktype/scripts/createbooktype --database sqlite mybook
 
     # Initialise Booktype
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
     django-admin.py loaddata documentation_licenses
@@ -70,7 +70,7 @@ How to run it again
 
     cd mybooktype
     source bin/activate
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py runserver 0.0.0.0:8080
 
 Booktype with PostgreSQL
@@ -109,7 +109,7 @@ How to install
     git clone https://github.com/booktype/Booktype.git
 
     # Create Booktype project
-    ./Booktype/scripts/createbooki --database postgresql mybook
+    ./Booktype/scripts/createbooktype --database postgresql mybook
 
     # Create PostgreSQL user and enter password
     /usr/local/bin/createuser -SDRP booktype
@@ -138,7 +138,7 @@ You can continue now with initialisation.
 
 ::
 
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
     django-admin.py loaddata documentation_licenses
@@ -154,6 +154,6 @@ How to run it again
 
     cd mybooktype
     source bin/activate
-    source mybook/booki.env
+    source mybook/booktype.env
     django-admin.py runserver 0.0.0.0:8080
 

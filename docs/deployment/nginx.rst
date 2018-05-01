@@ -1,20 +1,16 @@
 Running Booktype on the Nginx web server
 ========================================
 
-For more information consult the Django documentation at: \*
-https://code.djangoproject.com/wiki/DjangoAndNginx \*
-https://docs.djangoproject.com/en/dev/howto/deployment/fastcgi/
-
-Example commands are for Debian/Ubuntu based system. It is recommended
+Example commands are for a Debian/Ubuntu based system. It is recommended
 to use Supervisor (http://supervisord.org/) or similar software (Upstart
 on Ubuntu) to control your Gunicorn or FastCGI processes.
 
 As Gunicorn
 ===========
 
-Let us imagine our Booktype project is installed in
+Let us imagine our Booktype project is installed in the
 */var/www/mybooktype/mybook/* directory. This directory should be owned
-by user who is going to run gunicorn\_django process (probably
+by the user who is going to run the gunicorn\_django process (probably
 www-data).
 
 ::
@@ -42,7 +38,7 @@ www-data).
     pip install gunicorn
 
     # Load environment variables
-    source /var/www/mybooktype/mybook/booki.env
+    source /var/www/mybooktype/mybook/booktype.env
 
     # Start Gunicorn (Basic example)
     gunicorn_django -b 127.0.0.1:8000 -w 4
@@ -81,7 +77,7 @@ Let us imagine our Booktype project is installed in
     pip install flup
 
     # Load environment variables
-    source /var/www/mybooktype/mybook/booki.env
+    source /var/www/mybooktype/mybook/booktype.env
 
     # Start FastCGI process (Basic example)
     django-admin.py runfcgi host=127.0.0.1 port=8000
