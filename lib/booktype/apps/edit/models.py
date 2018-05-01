@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+import json
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 
-from booki.editor.models import Chapter, Book
+from booki.editor.models import Chapter, Book, BookToc
 from booktype.apps.core.models import Role
 
 
@@ -119,3 +120,21 @@ class ChatMessage(models.Model):
 
     def __str__(self):
         return '{} Message from {} at {}.'.format(self.thread, self.sender, self.datetime)
+
+
+# post user save hook
+def default_section_settings(sender, instance, created, **kwargs):
+    """
+    Django signal that fires when BookToc model is being saved.
+
+    This will only set "mark_section_as" setting to "mainmatter" to
+    newly created Sections
+    """
+
+    SECTION_TYPE = 0
+
+    if created and instance.typeof == SECTION_TYPE:
+        instance.settings = json.dumps({"mark_section_as": "mainmatter"})
+        instance.save()
+
+models.signals.post_save.connect(default_section_settings, sender=BookToc)
