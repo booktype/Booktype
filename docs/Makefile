@@ -48,6 +48,10 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -f booki*.rst
+	rm -f booktype*.rst
+	rm -f modules*.rst
+	rm -f sputnik*.rst
 	rm -f api/*
 
 html:
