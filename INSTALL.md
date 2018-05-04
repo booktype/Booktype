@@ -1,4 +1,4 @@
-Installing Booktype 2.3
+Installing Booktype 2.4
 -----------------------
 
 Booktype is web-based software which means you do not install it on the author's 
@@ -18,7 +18,7 @@ Before you can install your own Booktype server, you will need a database to be
 available. [PostgreSQL](https://www.postgresql.org) is the recommended database
 management system for production servers.
 
- [Setting up the database](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/setting-up-the-database/)
+ [Setting up the database](https://sourcefabric.booktype.pro/booktype-24-for-authors-and-publishers/setting-up-the-database/)
 
 
 Manual installation
@@ -26,9 +26,9 @@ Manual installation
 
 Installation from the git repository is recommended for development and testing.
 
- [GNU/Linux](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/manual-installation-on-gnulinux/)
+ [GNU/Linux](https://sourcefabric.booktype.pro/booktype-24-for-authors-and-publishers/manual-installation-on-gnulinux/)
 
- [Mac OS X](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/manual-installation-on-os-x/)
+ [Mac OS X](https://sourcefabric.booktype.pro/booktype-24-for-authors-and-publishers/manual-installation-on-os-x/)
 
 Installation using Docker
 --------------------------

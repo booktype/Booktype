@@ -13,7 +13,7 @@ More info
 ---------
 
 - Check the [#booktype](https://twitter.com/search?q=%23booktype) hashtag on Twitter, or follow us [@Booktypo](https://twitter.com/Booktypo)      
-- [Booktype user manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/)
+- [Booktype user manual](https://sourcefabric.booktype.pro/booktype-24-for-authors-and-publishers/)
 - [Booktype issue tracker](https://dev.sourcefabric.org/browse/BK)
 - [Booktype support forum](https://forum.sourcefabric.org/categories/booktype-support)
 - [Booktype development forum](https://forum.sourcefabric.org/categories/booktype-development)
@@ -27,7 +27,7 @@ Straightforward instructions to get you started on your first dev install of Boo
 
 Installation using Docker can be found at [Booktype-docker](https://github.com/booktype/booktype-docker)
 
-Extra information on installation can be found in the [Booktype user manual](https://sourcefabric.booktype.pro/booktype-23-for-authors-and-publishers/before-you-install/).
+Extra information on installation can be found in the [Booktype user manual](https://sourcefabric.booktype.pro/booktype-24-for-authors-and-publishers/before-you-install/).
 
 
 How to contribute
