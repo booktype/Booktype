@@ -129,7 +129,7 @@ def set_booktype_metada(epub_book, book):
 
     # set epub isbn
     try:
-        epub_isbn = book.metadata.get(name='BKTERMS.epub_isbn').value
+        epub_isbn = book.metadata.get(name='BKTERMS.ebook_isbn').value
         epub_book.add_metadata('DC', 'identifier', epub_isbn, {'id': 'epub_ISBN'})
     except:
         pass
@@ -171,7 +171,7 @@ def set_booktype_metada(epub_book, book):
     # set the rest of metadata information stored in book info model
     excluded = [
         'DC.title', 'DC.title', 'DC.creator',
-        'BKTERMS.print_isbn', 'BKTERMS.epub_isbn'
+        'BKTERMS.print_isbn', 'BKTERMS.ebook_isbn'
     ] + titles_map.keys()
 
     for info in book.metadata.exclude(name__in=excluded):
