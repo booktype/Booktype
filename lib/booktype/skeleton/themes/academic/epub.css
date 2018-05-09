@@ -1,4 +1,5 @@
-/* Theme 'Academic (Compact)' Version 0.2 update: 2016-08-24T13:51:23+02:00 */
+/* Created with www.booktype.pro */
+/* Theme 'Academic (Compact)' Version 0.5 update: 2017-07-18T10:34:10+02:00 */
 @font-face {
     font-family: 'roboto';
     font-weight: normal;
@@ -84,61 +85,130 @@
 }
 
 body {
-  font-size: 1em;
-  line-height: normal;
-  margin: 0;
-  padding: 0;
-  font-family: "roboto";
-  color: #000000;
+    font-family: "roboto";
+    font-size: 1em;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    widows: 2;
+    orphans: 2;
 }
+div.page-break,
+.do_pagebreak
+/* bod legacy */
+
+{
+    page-break-after: always;
+}
+/* Paragraph styles *****************************************************/
+
+p,
+a {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1.4em;
+    margin: 0;
+}
+/* first paragraph beneath headlines */
+/* missing: first paragraph beneath special chapter headings, like authorname, abstract */
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+p.normal-first
+/* bod legacy */
+
+{
+    font-style: normal;
+    /* font-weight: normal; */
+
+    font-family: "roboto";
+    text-indent: 0;
+    margin-bottom: 0.15em;
+    text-align: justify;
+    hyphens: auto;
+}
+/* custom text indent of first line for paragraph, not first paragraph */
+
+p+p,
+p.normal
+/* bod legacy */
+
+{
+    font-style: normal;
+    text-indent: 1em;
+    margin-bottom: 0.15em;
+    text-align: justify;
+    hyphens: auto;
+}
+/* no indent for images and table cells */
+
+ul+p,
+ol+p,
+div.group_img+p,
+table+p {
+    text-indent: 0em;
+    margin-bottom: 0em;
+}
+p.hanging {
+    text-indent: -1em;
+    padding-left: 1em;
+}
+/* front matter dedication */
 
 div.dedication {
-  text-align: left;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 50px;
-  font-family: "roboto";
-  font-size: 2em;
-  font-style: italic;
+    font-family: "roboto";
+    text-align: left;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 50px;
+    font-size: 2em;
+    font-style: italic;
 }
+/* section pages (== bookparts) */
 
 h1.section {
-  font-family: "roboto";
-  text-align: left;
-  font-weight: bold;
-  font-size: 2.4em;
-  text-transform: none;
-  text-decoration: none;
-  margin-top: 0;
+    font-family: "roboto";
+    text-align: left;
+    font-weight: bold;
+    font-size: 3em;
+    text-transform: none;
+    text-decoration: none;
+    margin-top: 0;
 }
+/* front matter */
 
 h1.frontmatter-title {
-  text-align: left;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-family: "roboto";
-  text-decoration: none;
-  border-bottom: 0px;
-  font-size: 2.4em;
-  line-height: normal;
-  margin-top: 1.5em;
-  margin-bottom: 0;
+    font-family: "roboto";
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 0px;
+    font-size: 3em;
+    line-height: normal;
+    margin-top: 1.5em;
+    margin-bottom: 0;
 }
-
 h2.frontmatter-author {
-  text-align: left;
-  font-family: "roboto";
-  border-bottom: 0px;
-  font-size: 1.8em;
-  line-height: normal;
-  margin-top: 2em;
+    font-family: "roboto";
+    text-align: left;
+    border-bottom: 0px;
+    font-size: 2em;
+    line-height: normal;
+    margin-top: 2em;
 }
 div.frontmatter-line {
-  width: 6em;
-  background-color: black;
-  height: 0.3em;
-  margin-top: 1em;
-  margin-bottom: 1em;
+    width: 6em;
+    background-color: black;
+    height: 0.3em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 /*
 h2.frontmatter-author-title {
@@ -146,7 +216,7 @@ h2.frontmatter-author-title {
   font-family: "roboto";
   border-bottom: 0px;
   margin-top: 2em;
-  font-size: 1.8em;
+  font-size: 2em;
   line-height: normal;
 }
 
@@ -155,215 +225,265 @@ h3.frontmatter-subtitle {
   font-family: "roboto";
   border-bottom: 0px;
   margin-top: 10mm;
-  font-size: 1.8em;
+  font-size: 2em;
   line-height: normal;
 }
 */
 
 p.quote {
-  font-family: "roboto";
-  display: block;
-  font-weight: normal;
-  font-size: 1em;
-  font-style: italic;
-  text-indent: 0;
-  border-left: 0.5em solid #ccc;
-  padding-left: 1em;
-  margin-left: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  text-align: left;
-  line-height: 14.7pt;
-  text-transform: none;
-  text-decoration: none;
+    font-family: "roboto";
+    display: block;
+    font-weight: normal;
+    font-size: 1em;
+    font-style: normal;
+    text-indent: 0;
+    border-left: medium solid #ccc;
+    padding-left: 1em;
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: left;
+    line-height: 1em;
+    text-transform: none;
+    text-decoration: none;
 }
-
 p.quote:before {
-  display: none;
-/*
-  color: #333;
-  content: open-quote;
-  font-size: 72px;
-  margin-right: 20px;
-  position: absolute;
-  top: 14px;
-  left: 6px;
-  bottom: 0;
-*/
+    display: none;
 }
 
+
+/* citation ***********************************************/
+cite,
+p.bk-cite {
+    font-style: italic;
+    display: inline;
+}
+
+/* headlines logic ***************************************/
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    -webkit-hyphens:none;
-    hyphens:none;
-    adobe-hyphenate:none;
-    page-break-after:avoid;
+    -webkit-hyphens: none;
+    hyphens: none;
+    adobe-hyphenate: none;
+    page-break-after: avoid;
     color: black;
 }
+/* chapter title ***************************************/
 
-h1 {
-  font-family: "roboto-condensed";
-  font-weight: normal;
-  text-transform: none;
-  text-align: left;
-  text-decoration: none;
-  line-height: normal;
-  font-size: 2.13em;
-  /*font-size: 3.6em;*/
-  margin-top: 2.4em;
-  margin-bottom: 2.4em;
+h1,
+h1.bod-title,
+/* bod legacy */
+
+h1.chapter-h1 {
+    font-family: "roboto-condensed";
+    color: #000000;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 2.66em;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    padding-bottom: 0em;
+    border-bottom: 0em solid #000000;
+    margin-left: 0%;
+    margin-right: 0%;
 }
+/* chapter header abstract / summary / intro */
+
+h3.bod-description,
+/* bod legacy */
+
+h2.sub,
+/* bod legacy */
+
+div.chapterabstract {
+    hyphens: none;
+    display: none;
+    font-family: "roboto";
+    color: #000000;
+    text-align: justify;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 1em;
+    text-transform: none;
+    border-bottom: none dotted #000000;
+    margin-bottom: 0.15em;
+    margin-top: 0em;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+/* dateline above chapter title */
+
+.bod-date,
+/* bod legacy */
+
+div.chapterdateline {
+    display: none;
+    font-family: "roboto";
+    color: #000000;
+    text-align: left;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 1em;
+    text-transform: none;
+    border-bottom: none dotted #000000;
+    margin-bottom: 1em;
+    margin-top: 0em;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+/* author in chapter title, last item before chapter text */
+
+h2.bod-author,
+/* bod legacy */
+
+h2.bod-author-space,
+/* bod legacy */
+
+div.chapterauthor {
+    display: none;
+    font-family: "roboto";
+    color: #000000;
+    text-align: left;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 1em;
+    text-transform: none;
+    border-bottom: none dotted #000000;
+    margin-bottom: 1em;
+    padding-top: 0em;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+/* chapter body */
 
 h2 {
-  font-family: "roboto-condensed";
-  font-weight: normal;
-  text-transform: none;
-  text-align: left;
-  text-decoration: none;
-  line-height: normal;
-  font-size: 1.8em;
-  /*font-size: 2.2em;*/
-  margin-top: 0.66em;
-  margin-bottom: 0.33em;
+    font-family: "roboto-condensed";
+    font-weight: normal;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 2em;
+    margin-top: 2em;
+    margin-bottom: 1em;
 }
-
 h3 {
-  font-family: "roboto-condensed";
-  font-weight: normal;
-  text-transform: none;
-  text-align: left;
-  text-decoration: none;
-  line-height: normal;
-  font-size: 1.35em;
-  /*font-size: 1.8em;*/
-  margin-top: 0.66em;
-  margin-bottom: 0.33em;
+    font-family: "roboto-condensed";
+    font-weight: normal;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
 }
-
 h4 {
-  font-family: "roboto-condensed";
-  font-weight: normal;
-  text-transform: none;
-  text-align: left;
-  text-decoration: none;
-  line-height: normal;
-  font-size: 1.33em;
-  /*font-size: 1.4em;*/
-  margin-top: 0.66em;
-  margin-bottom: 0.33em;
+    font-family: "roboto-condensed";
+    font-weight: normal;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 1.33em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
 }
-
 h5 {
-  font-family: "roboto-condensed";
-  font-weight: normal;
-  text-transform: none;
-  text-align: left;
-  text-decoration: none;
-  line-height: normal;
-  font-size: 1em;
-  /*font-size: 1.2em;*/
-  margin-top: 0.66em;
-  margin-bottom: 0.33em;
-}
-
-/* Paragraph Styles *****************************************************/
-
-body {
-    widows:2;
-    orphans:2;
-}
-
-h1 + p,
-h2 + p,
-h3 + p,
-h4 + p {
-  font-family: "roboto";
+    font-family: "roboto-condensed";
     font-weight: normal;
-    font-size: 1em;
-    line-height: 1.4em;
-    text-indent: 0;
-    margin-bottom: 0;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 1.2em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
 }
-
-p,
-a {
-  font-family: "roboto";
+h6 {
+    font-family: "roboto-condensed";
     font-weight: normal;
-    font-size: 1em;
-    line-height: 1.4em;
-    margin: 0;
+    text-transform: none;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 1.2em;
+    margin-top: 0.66em;
+    margin-bottom: 0.33em;
 }
+/* images */
 
-p+p,
-ul+p,
-ol+p,
-div.group_img+p,
-table+p {
-    text-indent: 1em;
-    margin-bottom: 0.15em;
+div.image-full-page img {
+    /* bod fix for full page images */
+
+    width: 100%;
 }
-
-p.hanging {
-  text-indent: -1em;
-  padding-left: 1em;
+img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0px auto;
 }
-
 /* Info Box ****************************************************/
+
 .bk-box {
-  font-family: "roboto";
-  color: #000000;
-  background-color: #eeeeee;
-  padding-bottom: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  border-left: 0pt solid #000000;
-  border-top: 0.5pt solid #000000;
-  border-right: 0pt solid #000000;
-  border-bottom: 0.5pt solid #000000;
+    font-family: "roboto";
+    color: #000000;
+    background-color: #eeeeee;
+    padding-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-left: 0em solid #000000;
+    border-top: 0.05em solid #000000;
+    border-right: 0em solid #000000;
+    border-bottom: 0.05em solid #000000;
 }
 .bk-box p {
-  font-family: "roboto";
-  padding: 0 1em;
-  text-indent: 0em;
-  margin-bottom: 0;
+    font-family: "roboto";
+    padding: 0 1em;
+    text-indent: 0em;
+    margin-bottom: 0;
 }
 .bk-box .box-caption {
-  font-family: "roboto";
-  color: #000000;
-  font-weight: bold;
-  background-color: #aaaaaa;
-  padding: 1em;
-  border-bottom: 0.5pt solid #000000;
-  margin-bottom: 1em;
+    font-family: "roboto";
+    color: #000000;
+    font-weight: bold;
+    background-color: #aaaaaa;
+    padding: 1em;
+    border-bottom: 0.05em solid #000000;
+    margin-bottom: 1em;
 }
 /* if p tag inside caption, this is needed */
+
 .bk-box .box-caption p {
-  padding: 0em;
-  font-weight: bold;
+    padding: 0em;
+    font-weight: bold;
 }
+/* lists ******************************************************/
 
 ul,
 ol {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 li {
     font-family: "roboto";
     font-weight: normal;
     font-size: 1em;
     line-height: 1.4em;
 }
-
-img {
-    max-width:100%;
-    max-height:100%;
-    margin: 0px auto;
-}
+/* table ***************************************************/
 
 table {
     border-collapse: collapse;
@@ -371,7 +491,6 @@ table {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 table {
     border-top: 0.5mm solid black;
     border-bottom: 0.5mm solid black;
@@ -380,7 +499,6 @@ th,
 td {
     border-top: 0.3mm solid black;
 }
-
 td {
     font-family: "roboto";
     font-weight: normal;
@@ -388,15 +506,13 @@ td {
     line-height: normal;
     margin: 0;
 }
-
 th,
 td {
     padding: .6rem .8em;
     text-indent: none;
 }
-
 .center {
-  text-align: center;
+    text-align: center;
 }
 
 /* images **************************************************/
@@ -409,13 +525,12 @@ td {
 }
 
 img {
-  vertical-align: top;
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
-  box-sizing: border-box;
+    vertical-align: top;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
 }
-
 
 .image-layout-1image_1caption_left img {
     float: right;
@@ -426,8 +541,8 @@ img {
 }
 
 .image-layout-2images_2captions_bottom div.wrap {
-  display: inline-block;
-  vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .image-layout-2images img:first-child,
@@ -451,62 +566,101 @@ caption,
     font-weight: normal;
     color: #000000;
 }
+
 div.caption_small {
-  padding-top: 0;
-  margin-top: 10px;
-  display: block;
-  box-sizing: border-box;
+    padding-top: 0;
+    margin-top: 10px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .image-layout-1image_1caption_right div.caption_small {
-  display: inline-block;
-  margin-top: 0;
-  padding-left: 0.8em;
+    display: inline-block;
+    margin-top: 0;
+    padding-left: 0.8em;
 }
 
 .image-layout-1image_1caption_left div.caption_small {
-  display: inline-block;
-  margin-top: 0;
-  padding-right: 0.8em;
+    display: inline-block;
+    margin-top: 0;
+    padding-right: 0.8em;
 }
 
 .frontmatter-bottom {
     margin-bottom: 50px;
     font-size: 1.2em;
 }
+/* Impressum ***********************************************/
 
 p.impl {
-  margin: 0;
-  text-indent: 0em;
+    margin: 0;
+    text-indent: 0em;
 }
-
-div.page-break {
-  page-break-after: always;
-}
+/* endnotes ***********************************************/
 
 sup.endnote {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
-
 ol.endnotes {
-  padding-left: 1.2em;
-  margin-top: 2em;
+    padding-left: 1.2em;
+    margin-top: 2em;
 }
-
 ol.endnotes li {
-  font-family: "roboto";
-  font-weight: normal;
-  font-size: 0.8em;
-  line-height: 1.2em;
-  margin: 0;
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: 1.2em;
+    margin: 0;
 }
-
 ol.endnotes p,
 ol.endnotes li p {
-  text-indent: 0;
+    text-indent: 0;
 }
+/* BoD features *********************************************/
+/* impressum */
 
-cite, p.bk-cite {
-  font-style: italic;
-  display: inline;
+.cpytxt,
+.cpytxt2
+/* bod legacy - cpytxt2 is the same as cpytxt but aligned center, which is done with the theme editor now */
+
+{
+    font-family: "roboto";
+    text-align: left;
+    font-size: 0.8em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    text-indent: 0;
 }
+div.bod {
+    margin-top: 1.5em;
+    width: 25%;
+}
+.cpysocial {
+    font-size: 0.8em;
+    text-align: left;
+    margin-top: 2em;
+    color: #27455a;
+}
+.cpyicon {
+    float: left;
+    display: inline;
+    vertical-align: bottom;
+}
+.cpyicon2 {
+    float: left;
+    display: inline;
+    vertical-align: bottom;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+.cpyicon3 {
+    float: left;
+    display: inline;
+    vertical-align: bottom;
+    padding-right: 1.5em;
+}
+a.cpylink:link {
+    color: #27455a;
+    text-decoration: underline;
+}
+/* / BoD features *********************************************/

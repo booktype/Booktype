@@ -1,4 +1,5 @@
-/* Theme 'Academic (Compact)' Version 0.2 update: 2016-08-24T13:51:23+02:00 */
+/* Created with www.booktype.pro */
+/* Theme 'Academic (Compact)' Version 0.5 update: 2017-07-18T10:34:10+02:00 */
 
         "roboto" => array(
           'R' => "Roboto-Regular.ttf",
