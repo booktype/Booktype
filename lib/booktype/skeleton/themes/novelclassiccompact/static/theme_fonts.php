@@ -1,4 +1,5 @@
-/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-08-24T13:56:13+02:00 */
+/* Created with www.booktype.pro */
+/* Theme 'Novel Classic (Compact)' Version 0.2 update: 2017-07-18T10:35:19+02:00 */
 
         "texgyreschola" => array(
           'R' => "TeXGyreSchola-Regular.ttf",

@@ -42,7 +42,7 @@
 <!-- START FRONTMATTER -->
 
 <!-- START HALF TITLE -->
-<div class="frontmatter-half-title">{{ title }}</div>
+<div class="frontmatter-half-title frontmatter-spacingtop">{{ title }}</div>
 {% if author != None %}
 <div class="frontmatter-author">{{ author }}</div>
 {% endif %}
@@ -53,7 +53,7 @@
 <pagebreak />
 
 <!-- START TITLE PAGE -->
-<div class="frontmatter-title">{{ title }}</div>
+<div class="frontmatter-title frontmatter-spacingtop">{{ title }}</div>
 <div class="frontmatter-line"></div>
 <div class="frontmatter-subtitle">{{ subtitle }}</div>
 {% if author %}
@@ -69,6 +69,7 @@
 <pagebreak />
 
 <!-- START IMPRESSUM -->
+<div class="colophon-valign">
 
 {% assign needs_br 0 %}
 
@@ -226,15 +227,16 @@
 <p class="impl">Bibliographic information published by {{ bibliographic_information }}</p>
 <br/>
 {% endif %}
-
-<p class="impl">This book was created with Booktype.<br/>
+<p class="impl">This book was created with Booktype.
 For more information, please visit: www.booktype.pro</p>
+<p class="impl">Discover Omnibook, a social platform for writing books, and create your own book at www.omnibook.pro</p>
 
+</div><!-- ./colophon-valign -->
 <!-- END IMPRESSUM -->
 
 {% if dedication %}
 <pagebreak />
-<div class="dedication">
+<div class="dedication frontmatter-spacingtop">
   <p class="dedication">{{ dedication }}</p>
 </div>
 {% endif %}
