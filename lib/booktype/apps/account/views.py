@@ -599,6 +599,17 @@ class SignInView(PageView):
         except auth.models.User.DoesNotExist:
             pass
 
+        # TODO all this register logic is horrible, we must rewrite it completely
+        # check if this email exists
+        try:
+            auth.models.User.objects.get(
+                email=request.POST.get("email", "").strip())
+            return 12
+        except auth.models.User.MultipleObjectsReturned:
+            return 12
+        except auth.models.User.DoesNotExist:
+            pass
+
         return 0
 
     def post(self, request, *args, **kwargs):
