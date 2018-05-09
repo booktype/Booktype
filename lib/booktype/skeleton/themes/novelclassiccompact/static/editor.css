@@ -1,147 +1,152 @@
 /* Created with www.booktype.pro */
-/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-11-22T11:30:52+01:00 */
+/* Theme 'Novel Classic (Compact)' Version 0.2 update: 2017-07-18T10:35:19+02:00 */
 #contenteditor {
-  font-size: 13pt;
-  line-height: normal;
-  margin: 0;
-  padding: 0;
-  font-family: "texgyreschola";
-  color: #000000;
+    font-family: "texgyreschola";
+    font-size: 13pt;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    color: #000000;
 }
-
 /* QUOTE **************************************************/
 
-#contenteditor blockquote, 
+#contenteditor blockquote,
 #contenteditor p.quote {
-  font-family: "texgyreschola"; 
-  font-weight: normal; 
-  font-size: 1em;
-  font-style: italic;
-  quotes: "\201C" "\201D" "\2018" "\2019";
-  position: relative;
-  text-align: left; 
-  text-indent: 0;
-  line-height: inherit; 
-  border-left: none solid #fff;
-  padding-left: 0em;
-  padding-top: 0em;
-  margin-left: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  text-transform: none; 
-  text-decoration: none;
+    font-family: "texgyreschola";
+    font-weight: normal;
+    font-size: 1em;
+    font-style: italic;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+    position: relative;
+    text-align: left;
+    text-indent: 0;
+    line-height: inherit;
+    border-left: none solid #fff;
+    padding-left: 0em;
+    padding-top: 0em;
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-transform: none;
+    text-decoration: none;
 }
 /* undo the quotes from booki-new.css */
-p.quote:before {
-  display: none;
+
+#contenteditor p.quote:before {
+    display: none;
 }
 
+/* citation ***********************************************/
+#contenteditor cite, 
+#contenteditor p.bk-cite {
+    font-style: italic;
+    display: inline;
+}
 /* Headlines ************************************************/
+
 #contenteditor h1,
 #contenteditor h2,
 #contenteditor h3,
 #contenteditor h4,
 #contenteditor h5,
 #contenteditor h6 {
-    -webkit-hyphens:none;
-    hyphens:none;
-    adobe-hyphenate:none;
-    page-break-after:avoid;
+    -webkit-hyphens: none;
+    hyphens: none;
+    adobe-hyphenate: none;
+    page-break-after: avoid;
     color: black;
 }
-
 #contenteditor .aloha-block-TitleBlock h1 {
     font-family: "texgyreschola";
     font-size: 1.33em;
-    text-align: center; 
-    font-weight: normal; 
-    text-transform: none; 
+    text-align: center;
+    font-weight: normal;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 39pt; 
-    margin-bottom: 39pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 30pt;
+    margin-bottom: 30pt;
+    line-height: 1.1em;
 }
-
 #contenteditor h1 {
     font-family: "texgyreschola";
     font-size: 1em;
-    text-align: left; 
-    font-weight: bold; 
-    text-transform: none; 
+    text-align: left;
+    font-weight: bold;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 8.71pt; 
-    margin-bottom: 4.29pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
 }
-
 #contenteditor h2 {
     font-family: "texgyreschola";
     font-size: 1em;
-    text-align: left; 
-    font-weight: bold; 
-    text-transform: none; 
+    text-align: left;
+    font-weight: bold;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 8.71pt; 
-    margin-bottom: 4.29pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
 }
-
 #contenteditor h3 {
     font-family: "texgyreschola";
     font-size: 1em;
-    text-align: left; 
-    font-weight: bold; 
-    text-transform: none; 
+    text-align: left;
+    font-weight: bold;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 8.71pt; 
-    margin-bottom: 4.29pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
 }
-
-#contenteditor h4 {    
+#contenteditor h4 {
     font-family: "texgyreschola";
     font-size: 1em;
-    text-align: left; 
-    font-weight: normal; 
-    text-transform: none; 
+    text-align: left;
+    font-weight: normal;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 8.71pt; 
-    margin-bottom: 4.29pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
 }
-
-#contenteditor h5 { 
+#contenteditor h5 {
     font-family: "texgyreschola";
     font-size: 1em;
-    text-align: left; 
-    font-weight: normal; 
-    text-transform: none; 
+    text-align: left;
+    font-weight: normal;
+    text-transform: none;
     border-bottom: none solid black;
     text-decoration: none;
-    padding-top: 8.71pt; 
-    margin-bottom: 4.29pt;
-    line-height: inherit;
-    line-height: 13pt; 
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
 }
-
+#contenteditor h6 {
+    font-family: "texgyreschola";
+    font-size: 1em;
+    text-align: left;
+    font-weight: normal;
+    text-transform: none;
+    border-bottom: none solid black;
+    text-decoration: none;
+    padding-top: 6.6pt;
+    margin-bottom: 3.3pt;
+    line-height: 1.1em;
+}
 /* Paragraph Styles *****************************************************/
 
-#contenteditor, 
+#contenteditor,
 #contenteditor p {
-    widows:2;
-    orphans:2;
+    widows: 2;
+    orphans: 2;
 }
-
 #contenteditor p {
     font-family: "texgyreschola";
     text-align: justify;
@@ -149,21 +154,23 @@ p.quote:before {
     font-size: inherit;
     line-height: inherit;
 }
-
 /* First paragraph *******************************************************/
 
 #contenteditor .aloha-block-TitleBlock + p,
 #contenteditor h2 + p,
 #contenteditor h3 + p,
-#contenteditor h4 + p {
+#contenteditor h4 + p,
+#contenteditor h5 + p,
+#contenteditor h6 + p {
     font-family: "texgyreschola";
     font-weight: normal;
-    font-size: inherit; 
+    font-size: inherit;
     line-height: inherit;
     text-indent: 0;
     margin-bottom: 0.18em;
 }
 /* Not first paragraph **************************************************/
+
 #contenteditor p+p,
 #contenteditor ul+p,
 #contenteditor ol+p,
@@ -171,151 +178,139 @@ p.quote:before {
 #contenteditor div.aloha-table+p {
     margin-top: 0;
     text-indent: 1em;
-    margin-bottom: 0.18em;
+    margin-bottom: 0em;
 }
 /* Hanging paragraph: first line not indented, rest of paragraph indented */
-#contenteditor p.hanging {
-  text-indent: -1em;
-  padding-left: 1em;
-}
 
+#contenteditor p.hanging {
+    text-indent: -1em;
+    padding-left: 1em;
+}
 /* Info Box ****************************************************/
+
 #contenteditor .bk-box {
-  font-family: "texgyreschola"; 
-  font-size: 0.9em; 
-  color: #000000;
-  background-color: #eeeeee;
-  padding-bottom: 1em; 
-  margin-top: 1em; 
-  margin-bottom: 1em; 
-  border-left: 0pt solid #000000;
-  border-top: 0.5pt solid #000000;
-  border-right: 0pt solid #000000;
-  border-bottom: 0.5pt solid #000000; 
+    font-family: "texgyreschola";
+    font-size: 0.9em;
+    color: #000000;
+    background-color: #eeeeee;
+    padding-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-left: 0pt solid #000000;
+    border-top: 0.5pt solid #000000;
+    border-right: 0pt solid #000000;
+    border-bottom: 0.5pt solid #000000;
 }
 #contenteditor .bk-box p {
-  padding: 0 1em;
-  text-indent: 0em;
-  margin-bottom: 0;
+    padding: 0 1em;
+    text-indent: 0em;
+    margin-bottom: 0;
 }
 #contenteditor .bk-box .box-caption {
-  color: #000000;
-  font-weight: bold;
-  background-color: #eeeeee;
-  padding: 1em;
-  border-bottom: 0pt solid #000000; 
-  margin-bottom: 1em;
+    color: #000000;
+    font-weight: bold;
+    background-color: #eeeeee;
+    padding: 1em;
+    border-bottom: 0pt solid #000000;
+    margin-bottom: 1em;
 }
 /* if p tag inside caption, this is needed */
+
 #contenteditor .bk-box .box-caption p {
-  padding: 0em;
-  font-weight: bold;
+    padding: 0em;
+    font-weight: bold;
 }
 #contenteditor .bk-box .box-caption span.icon-trash {
-  color: #000000;
+    color: #000000;
 }
-
 /* Lists *****************************************************************/
+
 #contenteditor ul,
 #contenteditor ol {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: inherit;
-  line-height: inherit;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: inherit;
+    line-height: inherit;
 }
-
 #contenteditor ul,
 #contenteditor ol,
 #contenteditor li {
-  font-family: "texgyreschola";
+    font-family: "texgyreschola";
 }
-
 /* Preformatted text *******************************/
 
 #contenteditor pre {
-  font-family: "texgyrecursor";
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: inherit;
-  line-height: inherit;
+    font-family: "texgyrecursor";
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: inherit;
+    line-height: inherit;
 }
-
 /* Table *****************************************/
+
 #contenteditor table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1em;
-  margin-bottom: 2em;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 2em;
 }
-
-#contenteditor table, 
-#contenteditor th, 
+#contenteditor table,
+#contenteditor th,
 #contenteditor td {
-  border: 0.5mm solid black;
+    border: 0.5mm solid black;
 }
-
 #contenteditor table td {
-  font-family: "texgyreschola";
-  font-weight: normal;
-  font-size: 0.8em;
-  margin: 0;
+    font-family: "texgyreschola";
+    font-weight: normal;
+    font-size: 0.8em;
+    margin: 0;
 }
-
-#contenteditor th, 
+#contenteditor th,
 #contenteditor td {
-  padding: .6em .8em;
+    padding: .6em .8em;
 }
-
 /* IMAGES ***********************************************/
 
 #contenteditor img,
 #contenteditor div.image {
-  max-width: 100%;
-  height: auto;
-  margin: 0px auto;
+    max-width: 100%;
+    height: auto;
+    margin: 0px auto;
 }
-
 #contenteditor .group_img {
-  page-break-inside: avoid;
-  margin-top: 1em;
-  margin-bottom: 1em;
+    page-break-inside: avoid;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
-
 #contenteditor .center {
-  text-align: center;
+    text-align: center;
 }
-
-#contenteditor caption, 
-#contenteditor .caption_small, 
+#contenteditor caption,
+#contenteditor .caption_small,
 #contenteditor .caption_table,
-#contenteditor .caption_img, 
-#contenteditor .caption_fig, 
-#contenteditor .caption_image, 
+#contenteditor .caption_img,
+#contenteditor .caption_fig,
+#contenteditor .caption_image,
 #contenteditor .caption_figure {
-  margin-top: 0.5em;
-  font-size: 0.9em;
-  font-style: italic;
+    margin-top: 0.5em;
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: normal;
+    color: #000000;
 }
-
 /* Endnotes ******************************************/
-#contenteditor .endnotes-container {
-  font-size: 0.9em;
-  margin-top: 2em;
-}
 
+#contenteditor .endnotes-container {
+    font-size: 0.9em;
+    margin-top: 2em;
+}
 #contenteditor .endnotes-container .endnote-counter,
 #contenteditor .endnotes-container .endnoteText {
-  font-family: "texgyreschola";
-  font-weight: normal;
-  font-size: inherit;
-  line-height: normal;
+    font-family: "texgyreschola";
+    font-weight: normal;
+    font-size: inherit;
+    line-height: normal;
 }
-
 #contenteditor .endnotes-container .endnoteText p {
-  text-indent: 0px;
-}
-
-#contenteditor cite, p.bk-cite {
-  font-style: italic;
-  display: inline;
+    text-indent: 0px;
 }
