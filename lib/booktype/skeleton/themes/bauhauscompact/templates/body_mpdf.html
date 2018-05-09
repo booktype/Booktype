@@ -27,7 +27,8 @@
     {% if not forloop.first %}
     <pagebreak />
     {% endif %}
-    {{ item.render }}
+    <tocentry level="1" content="{{ item.title }}"></tocentry>
+    {{ item.content|safe }}
   {% endif %}
 
   {% if item.type == 'section' %}
@@ -36,6 +37,7 @@
     {% endif %}
     <sethtmlpagefooter page="odd" value="off" />
     <sethtmlpagefooter page="even" value="off" />
-    {{ item.render }}
+    <tocentry level="0" content="{{ item.title }}"></tocentry>
+    <h1 class="section">{{ item.title }}</h1>
   {% endif %}
 {% endfor %}
