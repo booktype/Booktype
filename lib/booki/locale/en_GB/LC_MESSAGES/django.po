@@ -1,5 +1,5 @@
 # English (en) translation strings for Booktype.
-# Copyright (C) 2014 Booktype contributors
+# Copyright (C) 2014-2018 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-03 18:47+0100\n"
-"PO-Revision-Date: 2018-05-07 14:51+0000\n"
+"POT-Creation-Date: 2018-05-09 10:15+0100\n"
+"PO-Revision-Date: 2018-05-09 12:37+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -22,52 +22,612 @@ msgstr ""
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:2
-#, python-format
-msgid "Hi %(first_name)s!"
-msgstr "Hello %(first_name)s!"
+#: lib/booki/editor/models.py:38 lib/booki/editor/models.py:52
+#: lib/booki/editor/models.py:74 lib/booki/editor/models.py:101
+#: lib/booki/editor/models.py:358 lib/booki/editor/models.py:424
+#: lib/booki/editor/models.py:763
+msgid "name"
+msgstr "name"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:4
-msgid ""
-"This is a notification of a new message for you at your Booktype profile:"
-msgstr "This is a notification of a new message for you, at your Booktype profile:"
+#: lib/booki/editor/models.py:39 lib/booki/editor/models.py:53
+msgid "abbreviation"
+msgstr "abbreviation"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:7
-msgid "Sender:"
-msgstr "Sender:"
+#: lib/booki/editor/models.py:40
+msgid "url"
+msgstr "URL"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:8
-msgid "Date:"
-msgstr "Date:"
+#: lib/booki/editor/models.py:46
+msgid "License"
+msgstr "Licence"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:9
-msgid "Content:"
-msgstr "Content:"
+#: lib/booki/editor/models.py:47
+msgid "Licenses"
+msgstr "Licences"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:12
-msgid "Attachment:"
-msgstr "Attachment:"
+#: lib/booki/editor/models.py:60
+msgid "Language"
+msgstr "Language"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:14
+#: lib/booki/editor/models.py:61
+msgid "Languages"
+msgstr "Languages"
+
+#: lib/booki/editor/models.py:66 lib/booki/editor/models.py:200
+msgid "published"
+msgstr "published"
+
+#: lib/booki/editor/models.py:67
+msgid "not published"
+msgstr "not published"
+
+#: lib/booki/editor/models.py:68
+msgid "not translated"
+msgstr "not translated"
+
+#: lib/booki/editor/models.py:73 lib/booki/editor/models.py:89
+#: lib/booki/editor/models.py:333 lib/booki/editor/models.py:393
+#: lib/booki/editor/models.py:410 lib/booki/editor/models.py:421
+#: lib/booki/editor/models.py:472 lib/booki/editor/models.py:679
+#: lib/booki/editor/models.py:761 lib/booki/editor/models.py:807
+#: lib/booki/editor/models.py:816 lib/booki/editor/models.py:828
+#: lib/booki/editor/models.py:848
+msgid "book"
+msgstr "book"
+
+#: lib/booki/editor/models.py:75 lib/booki/editor/models.py:765
+msgid "weight"
+msgstr "weight"
+
+#: lib/booki/editor/models.py:76
+msgid "color"
+msgstr "colour"
+
+#: lib/booki/editor/models.py:83 lib/booki/editor/models.py:84
+msgid "Book status"
+msgstr "Book status"
+
+#: lib/booki/editor/models.py:90 lib/booki/editor/models.py:871
+msgid "notes"
+msgstr "notes"
+
+#: lib/booki/editor/models.py:96
+msgid "Book note"
+msgstr "Book note"
+
+#: lib/booki/editor/models.py:97
+msgid "Book notes"
+msgstr "Book notes"
+
+#: lib/booki/editor/models.py:102
+msgid "url name"
+msgstr "URL name"
+
+#: lib/booki/editor/models.py:103 lib/booki/editor/models.py:205
+#: lib/booki/editor/models.py:426
+msgid "description"
+msgstr "description"
+
+#: lib/booki/editor/models.py:105 lib/booki/editor/models.py:195
+msgid "owner"
+msgstr "owner"
+
+#: lib/booki/editor/models.py:107
+msgid "members"
+msgstr "members"
+
+#: lib/booki/editor/models.py:109 lib/booki/editor/models.py:199
+#: lib/booki/editor/models.py:429 lib/booki/editor/models.py:483
+#: lib/booki/editor/models.py:644 lib/booki/editor/models.py:682
+#: lib/booki/editor/models.py:875
+msgid "created"
+msgstr "created"
+
+#: lib/booki/editor/models.py:151
+msgid "Booktype group"
+msgstr "Booktype group"
+
+#: lib/booki/editor/models.py:152
+msgid "Booktype groups"
+msgstr "Booktype groups"
+
+#: lib/booki/editor/models.py:163
+msgid "Author(s)"
+msgstr "Author(s)"
+
+#: lib/booki/editor/models.py:165
+msgid "Title"
+msgstr "Title"
+
+#: lib/booki/editor/models.py:166
+msgid "Short title"
+msgstr "Short title"
+
+#: lib/booki/editor/models.py:167
+msgid "Subtitle"
+msgstr "Subtitle"
+
+#: lib/booki/editor/models.py:169
+msgid "Publisher"
+msgstr "Publisher"
+
+#: lib/booki/editor/models.py:170
+msgid "Publication date"
+msgstr "Publication date"
+
+#: lib/booki/editor/models.py:171
+msgid "Copyright date"
+msgstr "Copyright date"
+
+#: lib/booki/editor/models.py:172
+msgid "Copyright holder"
+msgstr "Copyright holder"
+
+#: lib/booki/editor/models.py:175
+msgid "City of publication"
+msgstr "City of publication"
+
+#: lib/booki/editor/models.py:176
+msgid "Country of publication"
+msgstr "Country of publication"
+
+#: lib/booki/editor/models.py:177
+msgid "Short description"
+msgstr "Short description"
+
+#: lib/booki/editor/models.py:178
+msgid "Long description"
+msgstr "Long description"
+
+#: lib/booki/editor/models.py:180
+msgid "Ebook ISBN"
+msgstr "Ebook ISBN"
+
+#: lib/booki/editor/models.py:181
+msgid "Print ISBN"
+msgstr "Print ISBN"
+
+#: lib/booki/editor/models.py:186 lib/booki/editor/models.py:473
+msgid "url title"
+msgstr "URL title"
+
+#: lib/booki/editor/models.py:187 lib/booki/editor/models.py:474
+msgid "title"
+msgstr "title"
+
+#: lib/booki/editor/models.py:188 lib/booki/editor/models.py:475
+#: lib/booki/editor/models.py:681
+msgid "status"
+msgstr "status"
+
+#: lib/booki/editor/models.py:189
+msgid "language"
+msgstr "language"
+
+#: lib/booki/editor/models.py:191 lib/booki/editor/models.py:335
+#: lib/booki/editor/models.py:471 lib/booki/editor/models.py:678
+#: lib/booki/editor/models.py:759
+msgid "version"
+msgstr "version"
+
+#: lib/booki/editor/models.py:193 lib/booki/editor/models.py:808
+msgid "group"
+msgstr "group"
+
+#: lib/booki/editor/models.py:197 lib/booki/editor/models.py:869
+msgid "license"
+msgstr "licence"
+
+#: lib/booki/editor/models.py:202
+msgid "hidden"
+msgstr "hidden"
+
+#: lib/booki/editor/models.py:203 lib/booki/editor/models.py:809
+msgid "permission"
+msgstr "permission"
+
+#: lib/booki/editor/models.py:206
+msgid "cover"
+msgstr "cover"
+
+#: lib/booki/editor/models.py:209
+msgid "Book"
+msgstr "Book"
+
+#: lib/booki/editor/models.py:210
+msgid "Books"
+msgstr "Books"
+
+#: lib/booki/editor/models.py:336 lib/booki/editor/models.py:599
+#: lib/booki/editor/models.py:764
+msgid "chapter"
+msgstr "chapter"
+
+#: lib/booki/editor/models.py:337
+msgid "chapter history"
+msgstr "chapter history"
+
+#: lib/booki/editor/models.py:338 lib/booki/editor/models.py:484
+#: lib/booki/editor/models.py:601
+msgid "modified"
+msgstr "modified"
+
+#: lib/booki/editor/models.py:339
+msgid "args"
+msgstr "arguments"
+
+#: lib/booki/editor/models.py:340 lib/booki/editor/models.py:602
+#: lib/booki/editor/models.py:642 lib/booki/editor/models.py:806
+#: lib/booki/editor/models.py:817 lib/booki/editor/models.py:829
+#: lib/booki/editor/models.py:849
+msgid "user"
+msgstr "user"
+
+#: lib/booki/editor/models.py:341 lib/booki/editor/models.py:359
+msgid "kind"
+msgstr "kind"
+
+#: lib/booki/editor/models.py:361
+msgid "value string"
+msgstr "value string"
+
+#: lib/booki/editor/models.py:362
+msgid "value integer"
+msgstr "value integer"
+
+#: lib/booki/editor/models.py:363
+msgid "value text"
+msgstr "value text"
+
+#: lib/booki/editor/models.py:364
+msgid "value date"
+msgstr "value date"
+
+#: lib/booki/editor/models.py:397 lib/booki/editor/models.py:398
+msgid "Metadata"
+msgstr "Metadata"
+
+#: lib/booki/editor/models.py:415
+msgid "Book setting"
+msgstr "Book setting"
+
+#: lib/booki/editor/models.py:416
+msgid "Book settings"
+msgstr "Book settings"
+
+#: lib/booki/editor/models.py:422
+msgid "major"
+msgstr "major"
+
+#: lib/booki/editor/models.py:423
+msgid "minor"
+msgstr "minor"
+
+#: lib/booki/editor/models.py:481
+msgid "assigned"
+msgstr "assigned"
+
+#: lib/booki/editor/models.py:485 lib/booki/editor/models.py:603
+msgid "revision"
+msgstr "revision"
+
+#: lib/booki/editor/models.py:486 lib/booki/messaging/models.py:34
+msgid "content"
+msgstr "content"
+
+#: lib/booki/editor/models.py:487
+msgid "content json"
+msgstr "content json"
+
+#: lib/booki/editor/models.py:490
+msgid "Chapter"
+msgstr "Chapter"
+
+#: lib/booki/editor/models.py:491
+msgid "Chapters"
+msgstr "Chapters"
+
+#: lib/booki/editor/models.py:604
+msgid "comment"
+msgstr "comment"
+
+#: lib/booki/editor/models.py:611
+msgid "Chapter history"
+msgstr "Chapter history"
+
+#: lib/booki/editor/models.py:647
+msgid "Chapter Lock"
+msgstr "Chapter Lock"
+
+#: lib/booki/editor/models.py:648
+msgid "Chapters Locks"
+msgstr "Chapter Locks"
+
+#: lib/booki/editor/models.py:680 lib/booki/editor/models.py:853
+msgid "filename"
+msgstr "filename"
+
+#: lib/booki/editor/models.py:694
+msgid "Attachment"
+msgstr "Attachment"
+
+#: lib/booki/editor/models.py:695
+msgid "Attachments"
+msgstr "Attachments"
+
+#: lib/booki/editor/models.py:754
+msgid "section name"
+msgstr "section name"
+
+#: lib/booki/editor/models.py:755
+msgid "chapter name"
+msgstr "chapter name"
+
+#: lib/booki/editor/models.py:756
+msgid "line"
+msgstr "line"
+
+#: lib/booki/editor/models.py:762
+msgid "parent"
+msgstr "parent"
+
+#: lib/booki/editor/models.py:766
+msgid "typeof"
+msgstr "type of"
+
+#: lib/booki/editor/models.py:768
+msgid "settings"
+msgstr "settings"
+
+#: lib/booki/editor/models.py:791
+msgid "Book TOC"
+msgstr "Book TOC"
+
+#: lib/booki/editor/models.py:792
+msgid "Book TOCs"
+msgstr "Book TOCs"
+
+#: lib/booki/editor/models.py:823 lib/booki/editor/models.py:824
+msgid "Attribution Exclude"
+msgstr "Attribution Exclude"
+
+#: lib/booki/editor/models.py:830
+msgid "wizard type"
+msgstr "wizard type"
+
+#: lib/booki/editor/models.py:831
+msgid "wizard options"
+msgstr "wizard options"
+
+#: lib/booki/editor/models.py:837 lib/booki/editor/models.py:838
+msgid "Publish Wizard"
+msgstr "Publish Wizard"
+
+#: lib/booki/editor/models.py:855
+msgid "Cover title"
+msgstr "Cover title"
+
+#: lib/booki/editor/models.py:857
+msgid "Width"
+msgstr "Width"
+
+#: lib/booki/editor/models.py:858
+msgid "Height"
+msgstr "Height"
+
+#: lib/booki/editor/models.py:859
+msgid "Unit"
+msgstr "Unit"
+
+#: lib/booki/editor/models.py:860
+msgid "Booksize"
+msgstr "Book size"
+
+#: lib/booki/editor/models.py:862
+msgid "Book cover"
+msgstr "Book cover"
+
+#: lib/booki/editor/models.py:863
+msgid "E-book cover"
+msgstr "E-book cover"
+
+#: lib/booki/editor/models.py:864
+msgid "PDF cover"
+msgstr "PDF cover"
+
+#: lib/booki/editor/models.py:866
+msgid "Cover type"
+msgstr "Cover type"
+
+#: lib/booki/editor/models.py:868
+msgid "Cover"
+msgstr "Cover"
+
+#: lib/booki/editor/models.py:873
+msgid "Approved"
+msgstr "Approved"
+
+#: lib/booki/editor/templates/authors.html:13
+msgid "Modifications:"
+msgstr "Modifications:"
+
+#: lib/booki/editor/templates/errors/editing_forbidden.html:8
+msgid "Access error"
+msgstr "Access error"
+
+#: lib/booki/editor/templates/errors/editing_forbidden.html:9
+msgid "You have no permission to edit this book."
+msgstr "You do not have permission to edit this book."
+
+#: lib/booki/messaging/models.py:32
+msgid "sender"
+msgstr "sender"
+
+#: lib/booki/messaging/models.py:33 lib/booki/messaging/models.py:67
+msgid "timestamp"
+msgstr "timestamp"
+
+#: lib/booki/messaging/models.py:35
+msgid "attachment"
+msgstr "attachment"
+
+#: lib/booki/messaging/models.py:36
+msgid "snippet"
+msgstr "snippet"
+
+#: lib/booki/messaging/models.py:37
+msgid "context"
+msgstr "context"
+
+#: lib/booki/messaging/models.py:61
+msgid "Post"
+msgstr "Post"
+
+#: lib/booki/messaging/models.py:62
+msgid "Posts"
+msgstr "Posts"
+
+#: lib/booki/messaging/models.py:66
+msgid "post"
+msgstr "post"
+
+#: lib/booki/messaging/models.py:68
+msgid "endpoint"
+msgstr "endpoint"
+
+#: lib/booki/messaging/models.py:74
+msgid "Post appearance"
+msgstr "Post appearance"
+
+#: lib/booki/messaging/models.py:75
+msgid "Post appearances"
+msgstr "Post appearances"
+
+#: lib/booki/messaging/models.py:85
+msgid "syntax"
+msgstr "syntax"
+
+#: lib/booki/messaging/models.py:146
+msgid "Endpoint"
+msgstr "Endpoint"
+
+#: lib/booki/messaging/models.py:147
+msgid "Endpoints"
+msgstr "Endpoints"
+
+#: lib/booki/messaging/models.py:150
+msgid "notification filter"
+msgstr "notification filter"
+
+#: lib/booki/messaging/models.py:156
+msgid "Endpoint config"
+msgstr "Endpoint configuration"
+
+#: lib/booki/messaging/models.py:157
+msgid "Endpoint configs"
+msgstr "Endpoint configurations"
+
+#: lib/booki/messaging/models.py:160
+msgid "follower"
+msgstr "follower"
+
+#: lib/booki/messaging/models.py:161
+msgid "target"
+msgstr "target"
+
+#: lib/booki/messaging/models.py:167
+msgid "Following"
+msgstr "Following"
+
+#: lib/booki/messaging/models.py:168
+msgid "Followings"
+msgstr "Followings"
+
+#: lib/booki/messaging/templates/messaging/book_followbutton.html:5
+msgid "Follow this book"
+msgstr "Follow this book"
+
+#: lib/booki/messaging/templates/messaging/book_followbutton.html:10
+msgid "Stop following this book"
+msgstr "Stop following this book"
+
+#: lib/booki/messaging/templates/messaging/messagefield.html:6
+msgid "Attach file"
+msgstr "Attach file"
+
+#: lib/booki/messaging/templates/messaging/messagefield.html:9
+msgid "Add Snippet"
+msgstr "Add Snippet"
+
+#: lib/booki/messaging/templates/messaging/messagefield.html:10
+msgid "Optional snippet context URL:"
+msgstr "Optional snippet context URL:"
+
+#: lib/booki/messaging/templates/messaging/messagefield.html:13
+msgid "Share"
+msgstr "Share"
+
+#: lib/booki/messaging/templates/messaging/messagefield_button.html:3
+msgid "Post a message"
+msgstr "Post a message"
+
+#: lib/booki/messaging/templates/messaging/post.html:8
+msgid "send a reply"
+msgstr "send a reply"
+
+#: lib/booki/messaging/templates/messaging/post.html:11
+msgid "ago"
+msgstr "ago"
+
+#: lib/booki/messaging/templates/messaging/post.html:22
 msgid "Snippet:"
 msgstr "Snippet:"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:14
-msgid "not shown"
-msgstr "not shown"
+#: lib/booki/messaging/templates/messaging/post.html:24
+msgid "Context"
+msgstr "Context"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:16
-msgid "Snippet context:"
-msgstr "Snippet context:"
+#: lib/booki/messaging/templates/messaging/tag_followbutton.html:5
+msgid "Follow this tag"
+msgstr "Follow this tag"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:19
-msgid ""
-"This email address receives these notifications because of your settings:"
-msgstr "This email address receives these notifications because of your settings:"
+#: lib/booki/messaging/templates/messaging/tag_followbutton.html:10
+msgid "Stop following this tag"
+msgstr "Stop following this tag"
 
-#: lib/booki/messaging/templates/messaging/new_message_email.txt:22
-msgid "Need a new password?"
-msgstr "Need a new password?"
+#: lib/booki/messaging/templates/messaging/timeline.html:4
+#, python-format
+msgid "Timeline of %(syntax)s:"
+msgstr "Timeline of %(syntax)s:"
+
+#: lib/booki/messaging/templates/messaging/timeline.html:10
+msgid "No messages."
+msgstr "No messages."
+
+#: lib/booki/messaging/templates/messaging/user_followbutton.html:5
+msgid "Follow me"
+msgstr "Follow me"
+
+#: lib/booki/messaging/templates/messaging/user_followbutton.html:10
+msgid "Stop following me"
+msgstr "Stop following me"
+
+#: lib/booki/messaging/templates/messaging/view_tag.html:5
+msgid "Tag timeline"
+msgstr "Tag timeline"
+
+#: lib/booki/messaging/views.py:113
+#, python-format
+msgid "Message from %s"
+msgstr "Message from %s"
+
+#: lib/booki/messaging/views.py:172
+msgid "Error"
+msgstr "Error"
+
+#: lib/booki/messaging/views.py:218
+msgid "Sent."
+msgstr "Sent."
 
 #~ msgid ""
 #~ "\n"
