@@ -1,5 +1,5 @@
 # English (en) translation strings for Booktype.
-# Copyright (C) 2014 Booktype contributors
+# Copyright (C) 2014-2018 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 17:00+0100\n"
-"PO-Revision-Date: 2018-04-17 19:15+0000\n"
+"POT-Creation-Date: 2018-05-09 10:15+0100\n"
+"PO-Revision-Date: 2018-05-09 19:43+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Polish (http://www.transifex.com/sourcefabric/booktype/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -541,25 +541,25 @@ msgstr "Widok"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:43
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:27
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:545
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:540
 msgid "Edit"
 msgstr "Edycja"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:46
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:267
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:67
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:362
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:66
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:344
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:391
 msgid "Rename"
 msgstr "Zmień nazwę"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:49
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:270
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:351
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:399
 msgid "Delete"
 msgstr "Usuń"
 
@@ -815,7 +815,7 @@ msgid "Your account is inactive! Please, contact site support."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
-#: lib/booktype/apps/account/templates/account/register_form.html:26
+#: lib/booktype/apps/account/templates/account/register_form.html:27
 msgid "Unknown error!"
 msgstr ""
 
@@ -925,11 +925,15 @@ msgstr ""
 msgid "Username already taken. Please try a different one."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/register_form.html:27
+#: lib/booktype/apps/account/templates/account/register_form.html:26
+msgid "Email already taken. Please try a different one."
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/register_form.html:28
 msgid "Fullname is too long!"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/register_form.html:31
+#: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"
 msgstr ""
 
@@ -979,7 +983,7 @@ msgstr ""
 msgid "Wrong secret code"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:782
+#: lib/booktype/apps/account/views.py:793
 msgid ""
 "You have been added to \"{}\". Click Accept button to reload screen and see "
 "the book"
@@ -1090,16 +1094,20 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/footer-demo.html:11
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
-"regular basis, and any books created here will be deleted at that time. "
-"Please read the <a href=\"//sourcefabric.booktype.pro/booktype-23-for-"
+"regular basis, and any books created here will be deleted at that time."
+msgstr ""
+
+#: lib/booktype/apps/core/templates/core/footer-demo.html:12
+msgid ""
+"Please read the <a href=\"//sourcefabric.booktype.pro/booktype-24-for-"
 "authors-and-publishers/\">Booktype user manual</a>."
 msgstr ""
 
-#: lib/booktype/apps/core/templates/core/footer-demo.html:17
+#: lib/booktype/apps/core/templates/core/footer-demo.html:18
 msgid "How to use"
 msgstr ""
 
-#: lib/booktype/apps/core/templates/core/footer-demo.html:20
+#: lib/booktype/apps/core/templates/core/footer-demo.html:21
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
 "href=\"https://github.com/booktype/Booktype/releases/\">GitHub</a> or check "
@@ -1107,11 +1115,17 @@ msgid ""
 "href=\"https://booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
 
-#: lib/booktype/apps/core/templates/core/footer-demo.html:27
+#: lib/booktype/apps/core/templates/core/footer-demo.html:22
+msgid ""
+"Please watch a short video introduction to Booktype on <a target=\"_blank\" "
+"href=\"https://www.youtube.com/watch?v=Ac0rgtBHv_4\">YouTube</a>."
+msgstr ""
+
+#: lib/booktype/apps/core/templates/core/footer-demo.html:28
 msgid "Need Help?"
 msgstr ""
 
-#: lib/booktype/apps/core/templates/core/footer-demo.html:30
+#: lib/booktype/apps/core/templates/core/footer-demo.html:31
 msgid ""
 "With social tools, easy workflows and freedom to choose your own licences, "
 "Booktype Pro is perfect for internal, or public-facing, use. Publishers, "
@@ -1120,7 +1134,7 @@ msgid ""
 "hosting, upgrades, and security. "
 msgstr ""
 
-#: lib/booktype/apps/core/templates/core/footer-demo.html:41
+#: lib/booktype/apps/core/templates/core/footer-demo.html:42
 #: lib/booktype/apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional "
@@ -1386,46 +1400,46 @@ msgstr ""
 msgid "Generate Invite Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1585
-#: lib/booktype/apps/edit/channel.py:1590
+#: lib/booktype/apps/edit/channel.py:1629
+#: lib/booktype/apps/edit/channel.py:1634
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1596
+#: lib/booktype/apps/edit/channel.py:1640
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1603
-#: lib/booktype/apps/edit/channel.py:1607
+#: lib/booktype/apps/edit/channel.py:1647
+#: lib/booktype/apps/edit/channel.py:1651
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1616
+#: lib/booktype/apps/edit/channel.py:1660
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1620
+#: lib/booktype/apps/edit/channel.py:1664
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1767
+#: lib/booktype/apps/edit/channel.py:1811
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1776
+#: lib/booktype/apps/edit/channel.py:1820
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1781
+#: lib/booktype/apps/edit/channel.py:1825
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1785
+#: lib/booktype/apps/edit/channel.py:1829
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:2399
+#: lib/booktype/apps/edit/channel.py:2443
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1507,11 +1521,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:128
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:469
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:66
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:88
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:65
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:87
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:517
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:512
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
@@ -1650,9 +1664,9 @@ msgid "Split chapter"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:23
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:354
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:382
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:417
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:377
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:412
 msgid "Import DOCX File"
 msgstr ""
 
@@ -1825,7 +1839,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:470
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:106
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:105
 msgid "OK"
 msgstr "OK"
 
@@ -2294,9 +2308,9 @@ msgid "Set status."
 msgstr "Status"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:21
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:170
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:184
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:207
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:172
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:186
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:211
 msgid "Unhold"
 msgstr ""
 
@@ -2412,10 +2426,9 @@ msgid "You have no permission to delete this book"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:59
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:165
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:202
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:310
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:166
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:205
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:332
 msgid "Terminate editing"
 msgstr ""
 
@@ -2724,7 +2737,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:142
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:265
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:620
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:544
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:539
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:275
 msgid "Download"
 msgstr ""
@@ -2990,9 +3003,9 @@ msgid "REMOVE"
 msgstr "USUŃ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:278
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:178
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:180
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:197
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:223
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:78
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:89
@@ -3258,29 +3271,23 @@ msgstr ""
 msgid "Rename filename"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:58
-msgid ""
-"Renaming can produce an issue if this image was inserted into the chapter. "
-"You must edit raw html manually to fix a file path."
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:78
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:77
 msgid "Remove media files"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:83
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:84
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:83
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:104
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:133
 msgid "I understand and agree"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:89
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:88
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:112
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:142
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:17
@@ -3288,11 +3295,11 @@ msgstr ""
 msgid "Remove"
 msgstr "Usuń"
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:100
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:99
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: lib/booktype/apps/edit/templates/edit/panel_media.html:103
+#: lib/booktype/apps/edit/templates/edit/panel_media.html:102
 msgid "You can only upload JPEG/PNG files."
 msgstr ""
 
@@ -3739,104 +3746,102 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:160
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:303
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:333
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:326
 msgid "Locked"
 msgstr "Zablokowane"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:162
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:305
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
 msgid "Table of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:232
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:236
 msgid "Expand all Sections"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:237
 msgid "Collapse all Sections"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:238
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:242
 msgid "New Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:244
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:248
 msgid "New Section"
 msgstr "Nowa sekcja"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:256
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:260
 msgid "Has comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:260
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:264
 msgid "Has marker"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:314
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:307
 msgid "Assign..."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:346
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:358
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:392
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:341
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:387
 msgid "EDIT CHAPTER"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:350
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:366
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:345
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:361
 msgid "Hold"
 msgstr "Wstrzymaj"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:352
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:347
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:369
 msgid "Unlock"
 msgstr "Odblokuj"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:378
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:413
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:538
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:348
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:373
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:533
 msgid "Export Content"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:388
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:383
 msgid "UNLOCK"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:395
 msgid "Put on hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:403
 msgid "Lock editing"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:409
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:404
 msgid "Lock exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:428
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:443
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:459
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:423
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:438
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:454
 msgid "STATUS"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:480
 msgid "RENAME"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:486
 msgid "SETTINGS"
 msgstr ""
 

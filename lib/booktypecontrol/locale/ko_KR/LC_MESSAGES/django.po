@@ -1,5 +1,5 @@
 # English (en) translation strings for Booktype Control Centre.
-# Copyright (C) 2014 Booktype contributors
+# Copyright (C) 2014-2018 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 17:00+0100\n"
-"PO-Revision-Date: 2018-04-17 19:18+0000\n"
-"Last-Translator: Daniel James <daniel@64studio.com>\n"
+"POT-Creation-Date: 2018-05-09 10:15+0100\n"
+"PO-Revision-Date: 2018-05-09 19:03+0000\n"
+"Last-Translator: Seongho Jang <spcblack@gmail.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/sourcefabric/booktype/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,53 +170,53 @@ msgstr "최고 관리자만 책을 만들 수 있습니다."
 msgid "Only the superuser can import books"
 msgstr "최고 관리자만 책을 불러오기 할 수 있습니다."
 
-#: lib/booktypecontrol/forms.py:445 lib/booktypecontrol/forms.py:607
+#: lib/booktypecontrol/forms.py:445 lib/booktypecontrol/forms.py:597
 msgid "Username"
 msgstr "아이디"
 
-#: lib/booktypecontrol/forms.py:448 lib/booktypecontrol/forms.py:611
+#: lib/booktypecontrol/forms.py:448 lib/booktypecontrol/forms.py:601
 msgid "Username is required."
 msgstr "아이디가 필요합니다."
 
 #: lib/booktypecontrol/forms.py:449 lib/booktypecontrol/forms.py:455
-#: lib/booktypecontrol/forms.py:612 lib/booktypecontrol/forms.py:617
+#: lib/booktypecontrol/forms.py:602 lib/booktypecontrol/forms.py:607
 msgid "Illegal characters in username."
 msgstr "아이디에 사용할 수 없는 문자가 있습니다"
 
-#: lib/booktypecontrol/forms.py:461 lib/booktypecontrol/forms.py:623
+#: lib/booktypecontrol/forms.py:461 lib/booktypecontrol/forms.py:613
 msgid "Full name"
 msgstr "전체 이름"
 
-#: lib/booktypecontrol/forms.py:463 lib/booktypecontrol/forms.py:625
+#: lib/booktypecontrol/forms.py:463 lib/booktypecontrol/forms.py:615
 msgid "Full name is required."
 msgstr "전체 이름이 필요합니다."
 
-#: lib/booktypecontrol/forms.py:467 lib/booktypecontrol/forms.py:629
+#: lib/booktypecontrol/forms.py:467 lib/booktypecontrol/forms.py:619
 msgid "Email"
 msgstr "이메일"
 
-#: lib/booktypecontrol/forms.py:469 lib/booktypecontrol/forms.py:631
+#: lib/booktypecontrol/forms.py:469 lib/booktypecontrol/forms.py:621
 msgid "Email is required."
 msgstr "이메일이 필요합니다."
 
-#: lib/booktypecontrol/forms.py:473 lib/booktypecontrol/forms.py:643
+#: lib/booktypecontrol/forms.py:473 lib/booktypecontrol/forms.py:633
 msgid "User description"
 msgstr "사용자 설명"
 
-#: lib/booktypecontrol/forms.py:478 lib/booktypecontrol/forms.py:681
+#: lib/booktypecontrol/forms.py:478 lib/booktypecontrol/forms.py:671
 msgid "Password"
 msgstr "암호"
 
 #: lib/booktypecontrol/forms.py:480 lib/booktypecontrol/forms.py:487
-#: lib/booktypecontrol/forms.py:683 lib/booktypecontrol/forms.py:691
+#: lib/booktypecontrol/forms.py:673 lib/booktypecontrol/forms.py:681
 msgid "Password is required."
 msgstr "암호가 필요합니다."
 
-#: lib/booktypecontrol/forms.py:485 lib/booktypecontrol/forms.py:688
+#: lib/booktypecontrol/forms.py:485 lib/booktypecontrol/forms.py:678
 msgid "Password confirmation"
 msgstr "암호 확인"
 
-#: lib/booktypecontrol/forms.py:490 lib/booktypecontrol/forms.py:693
+#: lib/booktypecontrol/forms.py:490 lib/booktypecontrol/forms.py:683
 msgid "Enter the same password as above, for verification."
 msgstr "확인을 위해 위와 동일한 암호를 입력하십시오."
 
@@ -224,7 +224,7 @@ msgstr "확인을 위해 위와 동일한 암호를 입력하십시오."
 msgid "Notify person by email"
 msgstr "이메일로 알림"
 
-#: lib/booktypecontrol/forms.py:498 lib/booktypecontrol/forms.py:649
+#: lib/booktypecontrol/forms.py:498 lib/booktypecontrol/forms.py:639
 msgid "This person is a superuser"
 msgstr "이 사람은 최고 사용자입니다."
 
@@ -245,142 +245,150 @@ msgstr "암호가 맞지 않습니다"
 msgid "You have a new %s account"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:635
+#: lib/booktypecontrol/forms.py:625
 msgid "Profile picture"
 msgstr "프로필 사진"
 
-#: lib/booktypecontrol/forms.py:653
+#: lib/booktypecontrol/forms.py:643
 msgid "Active account"
 msgstr "활동 계정"
 
-#: lib/booktypecontrol/forms.py:655
+#: lib/booktypecontrol/forms.py:645
 msgid "Indicate whether user's account is archived or active."
 msgstr "사용자 계정의 활성/비활성 여부를 나타남"
 
-#: lib/booktypecontrol/forms.py:677
+#: lib/booktypecontrol/forms.py:667
 msgid "The two password fields didn't match."
 msgstr "암호가 서로 맞지 않습니다."
 
-#: lib/booktypecontrol/forms.py:696
+#: lib/booktypecontrol/forms.py:686
 msgid "Send login data"
 msgstr "로그인 정보 전송"
 
-#: lib/booktypecontrol/forms.py:698
+#: lib/booktypecontrol/forms.py:688
 msgid "Send new login data to the user via email."
 msgstr "새 로그인 정보를 사용자에게 이메일로 알림"
 
-#: lib/booktypecontrol/forms.py:702
+#: lib/booktypecontrol/forms.py:692
 msgid "Short message"
 msgstr "단문"
 
-#: lib/booktypecontrol/forms.py:704
+#: lib/booktypecontrol/forms.py:694
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
 msgstr "신규 사용자의 비밀 정보 다음의 이메일  하단에 추가됨"
 
-#: lib/booktypecontrol/forms.py:706
+#: lib/booktypecontrol/forms.py:696
 msgid "You can change password in your profile settings page."
 msgstr "개인 프로필 설정 페이지에서 암호를 변경할 수 있습니다."
 
-#: lib/booktypecontrol/forms.py:731 lib/booktypecontrol/forms.py:804
+#: lib/booktypecontrol/forms.py:721 lib/booktypecontrol/forms.py:794
 msgid "Title"
 msgstr "제목"
 
-#: lib/booktypecontrol/forms.py:732 lib/booktypecontrol/forms.py:806
+#: lib/booktypecontrol/forms.py:722 lib/booktypecontrol/forms.py:796
 #: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "제목이 필요합니다."
 
-#: lib/booktypecontrol/forms.py:737 lib/booktypecontrol/forms.py:1111
+#: lib/booktypecontrol/forms.py:727 lib/booktypecontrol/forms.py:1101
 msgid "Description"
 msgstr "설명"
 
-#: lib/booktypecontrol/forms.py:742
+#: lib/booktypecontrol/forms.py:732
 msgid "Owner"
 msgstr "소유자"
 
-#: lib/booktypecontrol/forms.py:743
+#: lib/booktypecontrol/forms.py:733
 msgid "Book owner is required."
 msgstr "책 소유자가 필요합니다."
 
-#: lib/booktypecontrol/forms.py:748
+#: lib/booktypecontrol/forms.py:738
 msgid "License"
 msgstr "라이선스"
 
-#: lib/booktypecontrol/forms.py:750
+#: lib/booktypecontrol/forms.py:740
 msgid "License is required."
 msgstr "라이선스가 필요합니다."
 
-#: lib/booktypecontrol/forms.py:754
+#: lib/booktypecontrol/forms.py:744
 msgid "Hide this book from other people"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:758
+#: lib/booktypecontrol/forms.py:748
 msgid "Book image"
 msgstr "책 "
 
-#: lib/booktypecontrol/forms.py:762
+#: lib/booktypecontrol/forms.py:752
 msgid "Successfully created new book."
 msgstr "새 책을 만들었습니다."
 
-#: lib/booktypecontrol/forms.py:766
+#: lib/booktypecontrol/forms.py:756
 msgid "That book already exists."
 msgstr "이미 존재하는 "
 
-#: lib/booktypecontrol/forms.py:810
+#: lib/booktypecontrol/forms.py:800
 msgid "URL title"
 msgstr "url 제목"
 
-#: lib/booktypecontrol/forms.py:813
+#: lib/booktypecontrol/forms.py:803
 msgid "Illegal characters in URL title."
 msgstr "URL 제목에 사용할 수 없는 문자가 있습니다."
 
-#: lib/booktypecontrol/forms.py:814
+#: lib/booktypecontrol/forms.py:804
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr "이 항목을 비어두면 URL 제목을 자동으로 부여합니다."
 
-#: lib/booktypecontrol/forms.py:911
+#: lib/booktypecontrol/forms.py:901
 msgid "Book CSS"
 msgstr "도서 CSS"
 
-#: lib/booktypecontrol/forms.py:919
+#: lib/booktypecontrol/forms.py:909
 msgid "E-Book CSS"
 msgstr "E-Book CSS"
 
-#: lib/booktypecontrol/forms.py:927
+#: lib/booktypecontrol/forms.py:917
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: lib/booktypecontrol/forms.py:935
+#: lib/booktypecontrol/forms.py:925
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: lib/booktypecontrol/forms.py:989
+#: lib/booktypecontrol/forms.py:979
 msgid "Successfully created new group."
 msgstr "새 그룹을 "
 
-#: lib/booktypecontrol/forms.py:1026
+#: lib/booktypecontrol/forms.py:1016
 msgid "Successfully created new role."
 msgstr "새 역할을 만들었습니다."
 
-#: lib/booktypecontrol/forms.py:1065
+#: lib/booktypecontrol/forms.py:1055
 msgid "Role for anonymous users"
 msgstr "익명 사용자 "
 
-#: lib/booktypecontrol/forms.py:1069
+#: lib/booktypecontrol/forms.py:1059
 msgid "Role for registered users"
 msgstr "등록 사용자 역할"
 
-#: lib/booktypecontrol/forms.py:1074
+#: lib/booktypecontrol/forms.py:1064
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_skeletons.html:17
 msgid "None"
 msgstr "None"
 
-#: lib/booktypecontrol/forms.py:1116
+#: lib/booktypecontrol/forms.py:1106
 msgid "Successfully created new Book Skeleton"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:1130
+msgid "Search users"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:1133
+msgid "Search by username, email, first name or last name"
 msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
@@ -388,23 +396,23 @@ msgid "Add new person"
 msgstr "새로운 사람 "
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
-#: lib/booktypecontrol/views.py:63
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
+#: lib/booktypecontrol/views.py:66
 msgid "Archived Users"
 msgstr "비활 사용자"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:17
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:22
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:38
 msgid "Edit Info"
 msgstr "정보 수정"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:21
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:26
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:42
 msgid "superuser"
 msgstr "최고 관리자"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:24
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:29
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:45
 msgid "archived"
 msgstr "비활동"
 
@@ -458,7 +466,8 @@ msgstr "회원"
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:39
 #: lib/booktypecontrol/templates/control_base.html:19
 msgid "Books"
 msgstr "책"
@@ -472,24 +481,6 @@ msgstr "편집"
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:22
 msgid "Delete"
 msgstr "삭제"
-
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
-#: lib/booktypecontrol/views.py:62
-msgid "List of People"
-msgstr "사람 "
-
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "Add Person"
-msgstr "신규 사람 추가"
-
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "ADD PERSON"
-msgstr "사람 추가"
-
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:19
-msgid "Change password"
-msgstr "암호 변경"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:9
 msgid "Add new role"
@@ -574,7 +565,7 @@ msgid "Recent Activity"
 msgstr "최근 활동"
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
 #: lib/booktypecontrol/templates/control_base.html:22
 msgid "Groups"
 msgstr "그룹"
@@ -683,100 +674,138 @@ msgstr "최근 활동 도서"
 msgid "No active books here"
 msgstr "여기에는 최근 활동 도서가 없습니다."
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:33
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+msgid "List of People"
+msgstr "사람 "
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:7
+msgid "Add Person"
+msgstr "신규 사람 추가"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:7
+msgid "ADD PERSON"
+msgstr "사람 추가"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:18
+msgid "Search"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_people_list.html:35
+msgid "Change password"
+msgstr "암호 변경"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
 #: lib/booktypecontrol/templates/control_base.html:13
 msgid "Settings"
 msgstr "설정"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
-#: lib/booktypecontrol/views.py:55
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
+#: lib/booktypecontrol/views.py:59
 msgid "Site Description"
 msgstr "사이트 설명"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
-#: lib/booktypecontrol/views.py:56
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
+#: lib/booktypecontrol/views.py:60
 msgid "Site Appearance"
 msgstr "사이트 외양"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
-#: lib/booktypecontrol/views.py:57
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
+#: lib/booktypecontrol/views.py:61
 msgid "Site Front Page"
 msgstr "사이트 첫 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
-#: lib/booktypecontrol/views.py:58
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/views.py:62
 msgid "Book Licenses"
 msgstr "도서 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
-#: lib/booktypecontrol/views.py:59
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
+#: lib/booktypecontrol/views.py:63
 msgid "Book Creation Defaults"
 msgstr "도서 생성 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
-#: lib/booktypecontrol/views.py:74
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:42
+#: lib/booktypecontrol/views.py:77
 msgid "Default Roles"
 msgstr "기본 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
-#: lib/booktypecontrol/views.py:60
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/views.py:64
 msgid "Privacy"
 msgstr "프라이버시"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
-#: lib/booktypecontrol/views.py:68
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
+#: lib/booktypecontrol/views.py:71
 msgid "Publishing Options"
 msgstr "출판 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
 #: lib/booktypecontrol/templates/control_base.html:16
 msgid "People"
 msgstr "사람들"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
-#: lib/booktypecontrol/views.py:61
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:47
+#: lib/booktypecontrol/views.py:65
 msgid "Add a New Person"
 msgstr "새로운 사람 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
-#: lib/booktypecontrol/views.py:64
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:52
+#: lib/booktypecontrol/views.py:67
 msgid "Add a New Book"
 msgstr "신규 도서 추가"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
-#: lib/booktypecontrol/views.py:65
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/views.py:68
 msgid "List of Books"
 msgstr "도서 목록"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
-#: lib/booktypecontrol/views.py:67
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
+#: lib/booktypecontrol/views.py:70
 msgid "Book Skeletons"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
-#: lib/booktypecontrol/views.py:70
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/views.py:73
 msgid "Add a New Group"
 msgstr "신규 그룹 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:55
-#: lib/booktypecontrol/views.py:71
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
+#: lib/booktypecontrol/views.py:74
 msgid "List of Groups"
 msgstr "그룹 목록"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:60
 #: lib/booktypecontrol/templates/control_base.html:25
 msgid "Roles"
 msgstr "역할"
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
-#: lib/booktypecontrol/views.py:72
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:61
+#: lib/booktypecontrol/views.py:75
 msgid "Add a New Role"
 msgstr "신규 역할 "
 
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:59
-#: lib/booktypecontrol/views.py:73
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:62
+#: lib/booktypecontrol/views.py:76
 msgid "List of Roles"
 msgstr "역할 "
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:64
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:65
+msgid "Statistics"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:19
+msgid "Users increasing & signups"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:28
+msgid "Active users"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:52
+msgid "Book exports"
+msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:4
 msgid "Hello"
@@ -811,98 +840,106 @@ msgstr "암호:"
 msgid "Home"
 msgstr "홈"
 
-#: lib/booktypecontrol/views.py:66
+#: lib/booktypecontrol/views.py:69
 msgid "Add Book Skeleton"
 msgstr ""
 
-#: lib/booktypecontrol/views.py:69
+#: lib/booktypecontrol/views.py:72
 msgid "Publishing Defaults"
 msgstr "출판 "
 
-#: lib/booktypecontrol/views.py:95 lib/booktypecontrol/views.py:209
-#: lib/booktypecontrol/views.py:309 lib/booktypecontrol/views.py:373
-#: lib/booktypecontrol/views.py:450 lib/booktypecontrol/views.py:492
-#: lib/booktypecontrol/views.py:522
+#: lib/booktypecontrol/views.py:98 lib/booktypecontrol/views.py:212
+#: lib/booktypecontrol/views.py:345 lib/booktypecontrol/views.py:409
+#: lib/booktypecontrol/views.py:486 lib/booktypecontrol/views.py:528
+#: lib/booktypecontrol/views.py:558
 msgid "Admin Control Center"
 msgstr "관리자 제어 센터"
 
-#: lib/booktypecontrol/views.py:220
+#: lib/booktypecontrol/views.py:223
 msgid "Successfully saved settings."
 msgstr "설정을 저장했습니다."
 
-#: lib/booktypecontrol/views.py:225
+#: lib/booktypecontrol/views.py:228
 msgid "Unknown error while saving changes."
 msgstr "변경 사항을 저장하는데 알 수 없는 오류가 발생했습니다."
 
-#: lib/booktypecontrol/views.py:312
+#: lib/booktypecontrol/views.py:292
+msgid "List of people"
+msgstr ""
+
+#: lib/booktypecontrol/views.py:348
 msgid "Edit Person Info"
 msgstr "사람 정보 편집"
 
-#: lib/booktypecontrol/views.py:332 lib/booktypecontrol/views.py:383
+#: lib/booktypecontrol/views.py:368 lib/booktypecontrol/views.py:419
 msgid "Successfully saved changes."
 msgstr "변경 사항을 저장했습니다."
 
-#: lib/booktypecontrol/views.py:354
+#: lib/booktypecontrol/views.py:390
 msgid "Rename Book"
 msgstr "도서"
 
-#: lib/booktypecontrol/views.py:358
+#: lib/booktypecontrol/views.py:394
 msgid "Book name successfully changed."
 msgstr "도서명을 변경했습니다."
 
-#: lib/booktypecontrol/views.py:394
+#: lib/booktypecontrol/views.py:430
 msgid "Your password was changed"
 msgstr "암호를 변경했습니다."
 
-#: lib/booktypecontrol/views.py:413
+#: lib/booktypecontrol/views.py:449
 #, python-format
 msgid "Change Password: %s"
 msgstr "변경 암호: %s"
 
-#: lib/booktypecontrol/views.py:428
+#: lib/booktypecontrol/views.py:464
 msgid "Group successfully deleted."
 msgstr "그룹을 삭제했습니다."
 
-#: lib/booktypecontrol/views.py:458
+#: lib/booktypecontrol/views.py:494
 msgid "Edit licence"
 msgstr "라이선스 "
 
-#: lib/booktypecontrol/views.py:464
+#: lib/booktypecontrol/views.py:500
 msgid "License successfully updated."
 msgstr "라이선스를 갱신했습니다."
 
-#: lib/booktypecontrol/views.py:476
+#: lib/booktypecontrol/views.py:512
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
 msgstr "이 책들의 라이선스 변경은 없습니다. 삭제할 수 없습니다."
 
-#: lib/booktypecontrol/views.py:481
+#: lib/booktypecontrol/views.py:517
 msgid "License successfully deleted."
 msgstr "라이선스를 삭제했습니다."
 
-#: lib/booktypecontrol/views.py:500
+#: lib/booktypecontrol/views.py:536
 msgid "Edit role"
 msgstr "역할 "
 
-#: lib/booktypecontrol/views.py:504
+#: lib/booktypecontrol/views.py:540
 msgid "Role successfully updated."
 msgstr "역할을 갱신했습니다."
 
-#: lib/booktypecontrol/views.py:514
+#: lib/booktypecontrol/views.py:550
 msgid "Role successfully deleted."
 msgstr "역할을 삭제했습니다."
 
-#: lib/booktypecontrol/views.py:530
+#: lib/booktypecontrol/views.py:566
 msgid "Edit Book Skeleton"
 msgstr ""
 
-#: lib/booktypecontrol/views.py:534
+#: lib/booktypecontrol/views.py:570
 msgid "Book Skeleton successfully updated"
 msgstr ""
 
-#: lib/booktypecontrol/views.py:544
+#: lib/booktypecontrol/views.py:580
 msgid "Book Skeleton successfully deleted"
+msgstr ""
+
+#: lib/booktypecontrol/views.py:586
+msgid "Statistics and instance data"
 msgstr ""
 
 #: lib/booktypecontrol/widgets.py:22
