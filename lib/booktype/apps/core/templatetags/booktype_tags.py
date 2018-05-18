@@ -55,10 +55,10 @@ class FormatGroupsNode(template.Node):
     def render(self, context):
         t = template.loader.get_template('core/booktype_groups.html')
 
-        return t.render(Context({
+        return t.render({
             'groups': models.BookiGroup.objects.all().order_by("name"),
-            'books': models.Book.objects.filter(
-                hidden=False)}, autoescape=context.autoescape))
+            'books': models.Book.objects.filter(hidden=False)
+        })
 
 
 @register.tag(name="booktype_groups")
@@ -125,13 +125,11 @@ class FormatBooktypeNode(template.Node):
                             {%% booktype_%s book args %%}'
                         t = template.loader.get_template_from_string(
                             tag_text % (mtch.group(1).lower(),))
-                        con = t.render(
-                            Context({
-                                "content": chapter,
-                                "book": chapter.version.book,
-                                "args": mtch.group(2)
-                            })
-                        )
+                        con = t.render({
+                            "content": chapter,
+                            "book": chapter.version.book,
+                            "args": mtch.group(2)
+                        })
                     except template.TemplateSyntaxError:
                         con = '<span style="background-color: red; \
                             color: white; font-weight: bold">\
@@ -215,12 +213,10 @@ class FormatAuthorsNode(template.Node):
 
         copyright_description = self.args.resolve(context) or ''
 
-        return t.render(
-            Context({
-                'chapters': chapters,
-                "copyright": copyright_description[1:-1]
-            }, autoescape=context.autoescape)
-        )
+        return t.render({
+            'chapters': chapters,
+            "copyright": copyright_description[1:-1]
+        })
 
 
 @register.tag(name="booktype_authors")

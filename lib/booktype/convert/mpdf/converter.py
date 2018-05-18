@@ -29,7 +29,7 @@ from copy import deepcopy
 
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.template.base import Context, Template
+from django.template.base import Template
 from django.utils.translation import ugettext_lazy as _
 
 from booktype.apps.convert import plugin
@@ -507,8 +507,7 @@ class MPDFConverter(BaseConverter):
                     self.config.update(custom)
 
                 tmpl = Template(theme_style)
-                ctx = Context(self.config)
-                _style = tmpl.render(ctx)
+                _style = tmpl.render(self.config)
                 theme_style = _style
             except:
                 logger.exception("Writing styles failed for `%s` theme." % self.theme_name)

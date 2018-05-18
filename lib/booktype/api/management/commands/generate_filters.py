@@ -79,15 +79,17 @@ class Command(BaseCommand):
     Fast made command for automation generating django-filters class
     for provided app.Model
     """
-    args = '<app app ...>'
     help = 'Generate filters class by provided app.Model'
 
+    def add_arguments(self, parser):
+        parser.add_argument('<app app ...>', nargs=1, type=str)
+
     def handle(self, *args, **options):
-        if not args:
+        if not options['<app app ...>'][0]:
             raise CommandError('Enter app.Model')
 
-        app_name = args[0].split('.')[0]
-        model_name = args[0].split('.')[1]
+        app_name = options['<app app ...>'][0].split('.')[0]
+        model_name = options['<app app ...>'][0].split('.')[1]
 
         model = apps.get_model(app_label=app_name, model_name=model_name)
 

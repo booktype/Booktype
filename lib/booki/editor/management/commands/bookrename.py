@@ -15,52 +15,52 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 from django.contrib.auth.models import User
 
 from booki.editor import models
+from booktype.utils.book import rename_book
+
 
 class Command(BaseCommand):
-    args = "<book name>"
     help = "Rename book."
-
-    option_list = BaseCommand.option_list + (
-        make_option('--owner',
-                    action='store',
-                    dest='owner',
-                    default=None,
-                    help='Set new owner of the book.'),
-        
-        make_option('--new-book-title',
-                    action='store',
-                    dest='new_book_title',
-                    default=None,
-                    help='Set new book title.'),
-
-        make_option('--new-book-url',
-                    action='store',
-                    dest='new_book_url',
-                    default=None,
-                    help='Set new book url name.'),
-
-        )
-
     requires_model_validation = False
+    BOOK_NAME = '<book name>'
+
+    def add_arguments(self, parser):
+        parser.add_argument(self.BOOK_NAME, nargs=1, type=str)
+        parser.add_argument('--owner',
+                            action='store',
+                            dest='owner',
+                            default=None,
+                            help='Set new owner of the book.')
+
+        parser.add_argument('--new-book-title',
+                            action='store',
+                            dest='new_book_title',
+                            default=None,
+                            help='Set new book title.')
+
+        parser.add_argument('--new-book-url',
+                            action='store',
+                            dest='new_book_url',
+                            default=None,
+                            help='Set new book url name.')
 
     def handle(self, *args, **options):
-        if len(args) != 1:
+        book_name = options[self.BOOK_NAME][0]
+
+        if not book_name:
             raise CommandError("You must specify book name.")
 
         try:
-            book = models.Book.objects.get(url_title__iexact=args[0])
+            book = models.Book.objects.get(url_title__iexact=book_name)
         except models.Book.DoesNotExist:
-            raise CommandError('Book "%s" does not exist.' % args[0])
+            raise CommandError('Book "%s" does not exist.' % book_name)
 
         if options['new_book_title']:
             book.title = options['new_book_title']
 
         if options['new_book_url']:
-            from booktype.utils.book import rename_book
             rename_book(book,  book.title, options['new_book_url'])
 
         if options['owner']:

@@ -21,6 +21,7 @@ import logging
 
 from uuid import uuid4
 from celery import group
+from celery.result import allow_join_result
 
 from booktype.convert import loader
 from booktype.convert.runner import run_conversion
@@ -93,6 +94,8 @@ def convert(request_data, base_path):
         }
     """
 
+    # TODO we should use a chain of tasks
+
     assets = AssetCollection(base_path)
 
     assets.add_urls(request_data.assets)
@@ -118,9 +121,13 @@ def convert(request_data, base_path):
         )
         subtasks.append(subtask)
 
-    job = group(subtasks)
+    job = group(subtasks, disable_sync_subtasks=False)
     result = job.apply_async()
-    result.join(propagate=False)
+
+    # TODO we should use chain here
+    # http://docs.celeryq.org/en/latest/userguide/tasks.html#task-synchronous-subtasks
+    with allow_join_result():
+        result.join(propagate=False)
 
     subtasks_info = {async.task_id: async for async in result.children}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)

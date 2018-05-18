@@ -38,8 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_results',
     'compressor',
-    'djcelery',
 
     # list of booki apps
     'booki.editor',

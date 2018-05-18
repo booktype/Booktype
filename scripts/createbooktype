@@ -21,7 +21,6 @@ import sys
 import os
 import argparse
 import string
-import unipath
 import random
 
 
@@ -187,17 +186,6 @@ def check_redis_available():
 
     try:
         import redis
-    except ImportError:
-        raise InstallError()
-    else:
-        logln("[OK]")
-
-
-def check_south_available():
-    log("+ Trying to import South module.  ")
-
-    try:
-        import south
     except ImportError:
         raise InstallError()
     else:
@@ -588,10 +576,6 @@ sys.path.insert(0, '%(booki_path)s/')
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.%(profile)s"
 
-# Initialise celery
-import djcelery
-djcelery.setup_loader()
-
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
@@ -608,6 +592,71 @@ application = get_wsgi_application()
         raise InstallError()
     else:
         logln("[OK]")
+
+def include_celery(destination):
+    log("+ Import celery in {}_site __init__ file".format(get_project_name(destination)))
+    try:
+        f = open('%s/%s_site/__init__.py' % (destination, get_project_name(destination)), 'wt')
+        f.write('''
+from __future__ import absolute_import, unicode_literals
+
+# TODO we should have ability to change profile mode for celery
+# in general we need ENV-variables driven settings, but it will require bigger changes
+from .celery import app as celery_app
+
+__all__ = ['celery_app']
+
+    ''')
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def create_celery(destination):
+    log("+ Creating celery.py file.  ".format(profile))
+
+    import booki
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__) + '/..')
+
+    try:
+        f = open('%s/%s_site/celery.py' % (destination, get_project_name(destination)), 'wt')
+        f.write('''
+from __future__ import absolute_import, unicode_literals
+
+import os
+import sys
+from unipath import Path
+from celery import Celery
+
+BASE_DIR = Path(os.path.abspath(__file__)).ancestor(2)
+
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, BASE_DIR.child("lib"))
+sys.path.insert(0, '{booki_path}')
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{project_name}_site.settings.dev')
+
+app = Celery('celery_booktype')
+
+# Using a string here means the worker doesn't have to serialize
+# the configuration object to child processes.
+# - namespace='CELERY' means all celery-related configuration keys
+#   should have a `CELERY_` prefix.
+app.config_from_object('django.conf:settings', namespace='CELERY')
+
+# Load task modules from all registered Django app configs.
+app.autodiscover_tasks()
+    '''.format(booki_path=booki_path, project_name=get_project_name(destination)))
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+
 
 
 def create_supervisor(destination, profile, virtual_env):
@@ -902,7 +951,6 @@ if __name__ == '__main__':
             check_lxml_available()
             check_pil_available()
             check_redis_available()
-            # check_south_available()
             check_unidecode_available()
 
         # show info about user id, group id and etc...
@@ -954,9 +1002,13 @@ if __name__ == '__main__':
         # create urls
         create_urls(project_destination)
 
-        # create wsgi file
+        # create wsgi files
         for profile in PROFILES:
             create_wsgi(project_destination, profile, args.virtual_env)
+
+        # create celery files
+        include_celery(project_destination)
+        create_celery(project_destination)
 
         # create supervisor file for wsgi (stage and prod only)
         for profile in PROFILES[1:]:

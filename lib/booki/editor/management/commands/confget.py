@@ -14,41 +14,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
-
-from django.conf import settings
-
-from booktype.utils import config
 import json
 
+from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
+
+
 class Command(BaseCommand):
-    args = "<key>"
     help = "Get value for configuration variable."
-
-    option_list = BaseCommand.option_list + (
-        make_option('--as_json',
-                    action='store_true',
-                    dest='as_json',
-                    default=False,
-                    help='Value is defined as JSON encoded string.'),
-        )
-
     requires_model_validation = False
+
+    def add_arguments(self, parser):
+        parser.add_argument("<key>", nargs=1, type=str)
+        parser.add_argument('--as_json',
+                            action='store_true',
+                            dest='as_json',
+                            default=False,
+                            help='Value is defined as JSON encoded string.')
 
     def handle(self, *args, **options):
         if not hasattr(settings, 'BOOKTYPE_CONFIG'):
             raise CommandError('Does not have BOOKTYPE_CONFIG in settings.py file.')
 
-        if len(args) != 1:
+        if not options["<key>"][0]:
             raise CommandError("You must specify variable name")
 
-        if not settings.BOOKTYPE_CONFIG.has_key(args[0]):
+        if not settings.BOOKTYPE_CONFIG.has_key(options["<key>"][0]):
             raise CommandError("There is no such variable.")
 
-        value = settings.BOOKTYPE_CONFIG[args[0]]
+        value = settings.BOOKTYPE_CONFIG[options["<key>"][0]]
 
         if options['as_json']:
             value = json.dumps(value)
 
-        self.stdout.write(str(value)+"\n")
+        self.stdout.write(str(value) + "\n")

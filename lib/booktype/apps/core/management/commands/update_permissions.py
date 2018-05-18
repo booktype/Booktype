@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from optparse import make_option
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
@@ -18,12 +17,9 @@ class Command(BaseCommand):
 
     # TODO: load permissions just for one app specified as param
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--delete-orphans', action='store_true',
-            help='Specify this param to delete undeclared permissions'
-        ),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--delete-orphans', action='store_true',
+                            help='Specify this param to delete undeclared permissions')
 
     def handle(self, *args, **options):
         saved_perms = []

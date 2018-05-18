@@ -377,7 +377,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 messages.success(
                     self.request, _('Password changed successfully!'))
 
-                return redirect(self.get_success_url())
+                return redirect(reverse('accounts:signin'))
             else:
                 self.object = self.get_object()
                 form_class = self.get_form_class()

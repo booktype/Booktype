@@ -14,49 +14,44 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
+import json
 
+from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
 from booktype.utils import config
-import json
+
 
 class Command(BaseCommand):
-    args = "<name> <value>"
     help = "Set value for configuration variable."
 
-    option_list = BaseCommand.option_list + (
-        make_option('--as_json',
-                    action='store_true',
-                    dest='as_json',
-                    default=False,
-                    help='Value is defined as JSON encoded string.'),
-
-        make_option('--integer',
-                    action='store_true',
-                    dest='integer',
-                    default=False,
-                    help='Value is a integer.'),
-
-        make_option('--float',
-                    action='store_true',
-                    dest='float',
-                    default=False,
-                    help='Value is a float.'),
-
-        make_option('--append',
-                    action='store_true',
-                    dest='append',
-                    default=False,
-                    help='Append value to the end of list.'),
-
-        make_option('--remove',
-                    action='store_true',
-                    dest='remove',
-                    default=False,
-                    help='Remove value from the list.'),
-        )
+    def add_arguments(self, parser):
+        parser.add_argument("<name> <value>", nargs=2, type=str)
+        parser.add_argument('--as_json',
+                            action='store_true',
+                            dest='as_json',
+                            default=False,
+                            help='Value is defined as JSON encoded string.')
+        parser.add_argument('--integer',
+                            action='store_true',
+                            dest='integer',
+                            default=False,
+                            help='Value is a integer.')
+        parser.add_argument('--float',
+                            action='store_true',
+                            dest='float',
+                            default=False,
+                            help='Value is a float.')
+        parser.add_argument('--append',
+                            action='store_true',
+                            dest='append',
+                            default=False,
+                            help='Append value to the end of list.')
+        parser.add_argument('--remove',
+                            action='store_true',
+                            dest='remove',
+                            default=False,
+                            help='Remove value from the list.')
 
     requires_model_validation = False
 
@@ -64,11 +59,11 @@ class Command(BaseCommand):
         if not hasattr(settings, 'BOOKTYPE_CONFIG'):
             raise CommandError('Does not have BOOKTYPE_CONFIG in settings.py file.')
 
-        if len(args) != 2:
+        if len(options['<name> <value>']) != 2:
             raise CommandError("You must specify variable name and value.")
 
-        key = args[0]
-        value = args[1]
+        key = options['<name> <value>'][0]
+        value = options['<name> <value>'][1]
 
         if options['integer']:
             try:
@@ -81,7 +76,6 @@ class Command(BaseCommand):
                 value = float(value)
             except ValueError:
                 raise CommandError("I don't think this %s is a number!" % value)
-                
 
         if options['as_json']:
             try:
@@ -112,9 +106,8 @@ class Command(BaseCommand):
                 raise CommandError("Can not append to something that is not a list")
         else:
             config.set_configuration(key, value)
-            
+
         try:
             config.save_configuration()
         except config.ConfigurationError:
             raise CommandError("Could not save the file.")
-

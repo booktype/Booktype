@@ -31,7 +31,6 @@ from django.conf import settings
 from django.db import connection
 from django.db.models import Q, Count
 from django.contrib import messages
-from django.template.base import Context
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
@@ -420,11 +419,11 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
 
         if form.cleaned_data['send_login_data']:
             t = template.loader.get_template('booktypecontrol/password_changed_email.html')
-            content = t.render(Context({
+            content = t.render({
                 "username": self.object.username,
                 "password": form.cleaned_data['password2'],
                 "short_message": form.cleaned_data['short_message']
-            }))
+            })
 
             msg = EmailMultiAlternatives(
                 _('Your password was changed'),

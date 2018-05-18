@@ -14,24 +14,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
+from django.core.management.base import BaseCommand
 
 from django.conf import settings
 
+
 class Command(BaseCommand):
-    args = ""
     help = "List all user defined configuration variables."
-
-    option_list = BaseCommand.option_list + (
-        make_option('--values',
-                    action='store_true',
-                    dest='values',
-                    default=False,
-                    help='Show variable values.'),
-        )
-
     requires_model_validation = False
+
+    def add_arguments(self, parser):
+        parser.add_argument('--values',
+                            action='store_true',
+                            dest='values',
+                            default=False,
+                            help='Show variable values.')
 
     def handle(self, *args, **options):
         if not hasattr(settings, 'BOOKTYPE_CONFIG'):
@@ -55,6 +52,5 @@ class Command(BaseCommand):
                     s += str(value)
 
             s += "\n"
-                
-            self.stdout.write(s)
 
+            self.stdout.write(s)
