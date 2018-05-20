@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-10 10:06+0000\n"
+"POT-Creation-Date: 2018-05-09 13:12+0100\n"
+"PO-Revision-Date: 2018-05-12 08:54+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/sourcefabric/booktype/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -1969,8 +1969,14 @@ msgid "Chapters"
 msgstr "Kapituj"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "ZGJEROJE TEL"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr "Braktise këtë kapitull dhe kthehu te Pasqyra e Lëndës"
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Tabelë e Lëndës"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -2686,7 +2692,7 @@ msgstr "Citim i Ri"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:123
 msgid "Cite for this quote"
-msgstr ""
+msgstr "Lëndë për këtë citim"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:124
 msgid "Author name (optional)"
@@ -3755,11 +3761,6 @@ msgstr "Kyçur"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Tabelë e Lëndës"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"
