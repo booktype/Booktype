@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 13:12+0100\n"
-"PO-Revision-Date: 2018-05-11 18:18+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/sourcefabric/booktype/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -886,20 +886,20 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "Solo el administrador puede crear nuevas cuentas en este momento."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "Numbre de usuario"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "Contraseña (mínimo 6 caracteres)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
-msgstr "¡Falta el nombre de usuario!"
+msgid "Missing user name!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
-msgstr "¡Falta el correo electrónico!"
+msgid "Missing email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -911,18 +911,17 @@ msgstr "Por favor, proporciona tu nombre real."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Usuario inválido. Por favor, pruebe con otro distinto. Puede usar carácteres alfanuméricos y los carácteres \".\", \"_\", \"-\" (punto, guión bajo y guión). <br/><br/>Ejemplos:<ul><li>vnazareno</li><li>Marina.Diaz</li><li>camilo_sesto</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "Esta no es una dirección de correo electrónico válida"
+msgid "This is not a valid email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr "Tus contraseñas no concuerdan. Por favor intenta de nuevo con una diferente."
+msgid "Your passwords don't match. Please try entering them again."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -937,8 +936,8 @@ msgid "Email already taken. Please try a different one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
-msgstr "¡El nombre completo es demasiado largo!"
+msgid "Full name is too long!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"

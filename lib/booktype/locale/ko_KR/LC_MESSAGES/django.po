@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 13:12+0100\n"
-"PO-Revision-Date: 2018-05-11 18:18+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/sourcefabric/booktype/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
@@ -880,20 +880,20 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "지금은 관리자만 신규 계정을 생성할 수 있습니다."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "사용자명"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "암호 ( 최소 6 글자)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
-msgstr "사용자명 누락!"
+msgid "Missing user name!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
-msgstr "메일 주소 누락!"
+msgid "Missing email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -905,18 +905,17 @@ msgstr "실명을 입력해 주십시오."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "유효하지 않은 사용자명입니다. 다른 것을 시도해 주십시오. 사용 가능한 문자는 알파벳, 숫자와 문자 \".\",\"_\",\"-\" (마침표, 아래 밑줄, 빼기 부호) 입니다. <br/><br/> 예제: <li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "유효하지 않은 메일 주소입니다."
+msgid "This is not a valid email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr "암호쌍이 맞지 않습니다. 다른 것으로 시도해 보십시오."
+msgid "Your passwords don't match. Please try entering them again."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -931,8 +930,8 @@ msgid "Email already taken. Please try a different one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
-msgstr "전체 이름이 너무 깁니다!"
+msgid "Full name is too long!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"
