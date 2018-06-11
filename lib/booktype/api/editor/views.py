@@ -18,7 +18,6 @@ from booktype.apps.core.models import BookRole, Role
 from booki.utils.log import logBookHistory
 from booktype.utils.security import BookSecurity
 from booktype.utils.misc import booktype_slugify
-from booktype.apps.edit.utils import send_notification
 
 from . import serializers
 from .filters import ChapterFilter, BookUserListFilter
@@ -129,12 +128,14 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         Grants a given user to be part of certain given role name under the
         current book
 
+        ---
         parameters:
-            -   name: role_name
-                required: true
-                type: Unique role name to be granted
-            -   name: user_id
-                required: true
+            - name: role_name
+              required: true
+              type: string
+            - name: user_id
+              required: true
+              type: int
         """
         book = self.get_object()
 
@@ -215,12 +216,14 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         Remove given roles from the user
         current book
 
+        ---
         parameters:
-            -   name: role_names
-                required: true
-                type: Unique role names array to be granted
-            -   name: user_id
-                required: true
+            - name: role_names
+              required: true
+              type: string[]
+            - name: user_id
+              required: true
+              type: int
         """
 
         role_names = request.data.getlist('role_names[]')
