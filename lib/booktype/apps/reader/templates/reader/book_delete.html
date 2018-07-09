@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <p>{% trans "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!" %}</p>
-                <p><b>{% trans "Type full title of the book to delete it" %} - <i>"{{ book.title }}"</i>.</b></p>
+                <p><b>{% trans "Type full title of the book to delete it" %} - "{{ book.title }}".</b></p>
                 <input type="text" style="width: 100%;" placeholder="{{ book.title }}" name="title" class="form-control"/>
                 {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
             </div>
