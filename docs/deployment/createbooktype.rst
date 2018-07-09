@@ -2,16 +2,16 @@
 Createbooktype
 ==============
 
-Createbooktype is Booktype's command-line utility for creating :doc:`Booktype projects </deployment/structure>` on the disk with auto generated configuration files.
+Createbooktype is a command-line utility for creating :doc:`Booktype projects </deployment/structure>` with automatically generated configuration files.
 
 Usage
 =====
 
 .. code-block:: bash
 
-    createbooktype [--database <type>|--profile <type>|--check-versions] <project location>
+    createbooktype [--database <type>|--check-versions] <project location>
 
-<project location> can be full path to project location or name of the project. 
+<project location> can be the full path to the project location or the name of the project.
 
 Example:
 
@@ -25,7 +25,7 @@ argument                  project name
 
 .. note::
 
-   User must have write permissions to create or write to the project location. If project location already exists it will just create the needed files. 
+   The user must have write permissions to create or write to the project location. If the project location already exists it will just create the needed files.
 
 Options
 =======
@@ -56,12 +56,6 @@ Configure *Project* to use specific database backend. Options are: "postgres", "
 
 .. code-block:: bash
 
-    --profile <type>
-
-Configure *Project* to use profile <type>. Options are: "dev", "prod".
-
-.. code-block:: bash
-
     --check-versions
 
 Check versions of packages
@@ -76,15 +70,15 @@ Specifies the default VIRTUAL_ENV
 Examples of usage
 =================
 
-This will create project called **bk2** in current directory. It will use PostgreSQL database as a backend and automatically be set i$
+This will create a project called **bk2** in the current directory. It will use the PostgreSQL database as a backend by default.
 
 .. code-block:: bash
 
     $ ./scripts/createbooktype bk2
 
 
-This will create project called **mybk** in /var/www/ directory. It will use Sqlite3 as a backend and will be set in development prof$
+This will create a project called **mybk** in the /var/www/ directory using Sqlite3 as a backend.
 
 .. code-block:: bash
 
-    $ ./scripts/createbooktype --database sqlite3  --profile dev /var/www/mybk/
+    $ ./scripts/createbooktype --database sqlite3 /var/www/mybk/
