@@ -119,7 +119,8 @@
                     <p>
                       {% trans "No book skeletons yet." %}
                       {% check_perm 'account.can_manage_book_skeletons' %}
-                      {% trans "You can manage them from the" %} <a href="{% url 'control_center:settings' %}#list-of-skeletons">{% trans "Control Center" %}</a>
+                      {% url 'control_center:settings' as t_url %}
+                      {% blocktrans %}You can manage them from the <a href="{{t_url}}#list-of-skeletons">Control Center</a>{% endblocktrans %}
                       {% endcheck_perm %}
                     </p>
                   </div>

@@ -135,7 +135,7 @@
     {% trans "Roles" %}
   </h4>
   <div class="roles">
-    {% trans "This book doesn't contain invited people. Please invite people in your " %}
-    <a target="_blank" href="{% url "accounts:view_profile" request.user.username %}">{% trans "Dashboard" %}</a>.
+    {% url "accounts:view_profile" request.user.username as t_url%}
+    {% blocktrans %}This book doesn't contain invited people. Please invite people in your <a target="_blank" href="{{t_url}}">Dashboard</a>.{% endblocktrans %}
   </div>
 </script>

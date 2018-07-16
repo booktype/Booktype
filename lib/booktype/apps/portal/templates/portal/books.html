@@ -112,7 +112,7 @@
                         <li>
                             <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                             <div class="list-info">
-                                <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
+                                <span class="time">{% blocktrans with time_t=_activity.modified|timesince %}{{time_t}} "ago" {% endblocktrans %}</span>
                                 <h4>
                                   {% has_perm 'account.can_view_user_info' as access %}
                                   {% if access or request.user == activity.user %}

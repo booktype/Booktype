@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
+"POT-Creation-Date: 2018-07-16 18:04+0100\n"
 "PO-Revision-Date: 2014-12-29 15:54+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -456,17 +456,13 @@ msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
-msgid "Members"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:74
+msgid "Members:"
 msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
-#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:39
-#: lib/booktypecontrol/templates/control_base.html:19
-msgid "Books"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:74
+msgid "Books:"
 msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:24
@@ -561,34 +557,42 @@ msgstr ""
 msgid "Recent Activity"
 msgstr ""
 
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:51
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_statistics.html:39
+#: lib/booktypecontrol/templates/control_base.html:19
+msgid "Books"
+msgstr ""
+
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
 #: lib/booktypecontrol/templates/control_base.html:22
 msgid "Groups"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:27
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:45
-msgid "ago"
+#, python-format
+msgid "%(time_t)s \"ago\" "
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:41
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:39
 msgid "There is no activity yet"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:56
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:54
 msgid "Current version"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:62
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:60
 msgid "This user has no books"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:82
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:80
 msgid "This user has no groups"
 msgstr ""
 
-#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:85
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:11
 msgid "Close"
 msgstr ""

@@ -15,7 +15,7 @@
             <li class="border-bottom role-entry">
                 <div class="list-info">
                     <h4><span class="title">{{ role.name }}</span> - {{ role.description }}</h4>
-                    <span>{% trans "Members" %}: {{ role.members_count }}</span>
+                    <span>{% trans "Members:" %} {{ role.members_count }}</span>
                 </div>
                 <div class="action-btns float-right hide">
                     <button data-href="{% url 'control_center:role_edit' role.pk %}" role="button" class="btn btn-default">{% trans "Edit" %}</button>

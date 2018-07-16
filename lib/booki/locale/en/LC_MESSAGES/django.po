@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
+"POT-Creation-Date: 2018-07-16 18:04+0100\n"
 "PO-Revision-Date: 2014-12-29 15:53+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -573,7 +573,8 @@ msgid "send a reply"
 msgstr ""
 
 #: lib/booki/messaging/templates/messaging/post.html:11
-msgid "ago"
+#, python-format
+msgid "%(time_t)s \"ago\" "
 msgstr ""
 
 #: lib/booki/messaging/templates/messaging/post.html:22

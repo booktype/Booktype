@@ -51,8 +51,8 @@
       </tr>
       {% empty %}
 
-      {% trans "This book doesn't contain invited people. Please invite people in your " %}
-
+      {% url "accounts:view_profile" request.user.username as t_url %}
+      {% blocktrans %}This book doesn't contain invited people. Please invite people in your <a target="_blank" href="{{t_url}}">Dashboard</a>.{% endblocktrans %}
       {% endfor %}
     </tbody>
   </table>
