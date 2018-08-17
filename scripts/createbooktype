@@ -664,7 +664,7 @@ def create_supervisor(destination, profile, virtual_env):
 
     s = '''[program:%(project_name)s-celery-worker]
 directory       = %(project_directory)s
-command         = %(virtualenv)s/bin/python %(project_directory)s/manage_%(profile)s.py celery worker --concurrency=20
+command         = %(virtualenv)s/bin/python -m celery worker --app=%(project_name)s_site --concurrency=20
 user            = www-data
 stopwaitsecs    = 60
 ''' % {
