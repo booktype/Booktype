@@ -3,10 +3,9 @@ import os
 from .base import *
 
 # WEB SITE URL
-THIS_BOOKTYPE_SERVER = os.environ.get('BOOKTYPE_SERVER', '')
+THIS_BOOKTYPE_SERVER = os.environ.get('BOOKTYPE_SERVER', '127.0.0.1:8000')
 
-BOOKTYPE_URL = os.environ.get('BOOKTYPE_URL', '')
-# BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
+BOOKTYPE_URL = os.environ.get('BOOKTYPE_URL', 'http://{}'.format(THIS_BOOKTYPE_SERVER))
 
 STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
 DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
