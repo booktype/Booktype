@@ -51,6 +51,56 @@ class Epub3Writer(ebooklib.epub.EpubWriter):
             display_options_xml
         )
 
+    def _write_opf_metadata(self, root):
+        nsmap = {'dc': NAMESPACES['DC'], 'opf': NAMESPACES['OPF']}
+        nsmap.update(self.book.namespaces)
+
+        metadata = etree.SubElement(root, 'metadata', nsmap=nsmap)
+
+        el = etree.SubElement(metadata, 'meta', {'property': 'dcterms:modified'})
+        if 'mtime' in self.options:
+            mtime = self.options['mtime']
+        else:
+            import datetime
+            mtime = datetime.datetime.now()
+        el.text = mtime.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+        for ns_name, values in six.iteritems(self.book.metadata):
+            if ns_name == NAMESPACES['OPF']:
+                for values in values.values():
+                    for v in values:
+                        if 'property' in v[1] and v[1]['property'] == 'dcterms:modified':
+                            continue
+                        try:
+                            el = etree.SubElement(metadata, 'meta', v[1])
+                            if v[0]:
+                                el.text = v[0]
+                        except ValueError:
+                            logging.error('Could not create metadata.')
+            else:
+                for name, values in six.iteritems(values):
+                    for v in values:
+
+                        try:
+                            # remove print ISBN
+                            if v[1]['id'] == 'id':
+                                continue
+                            elif v[1]['id'] == 'epub_ISBN':
+                                v[1]['id'] = 'id'
+                                # v[1]['opf:scheme'] = 'isbn'
+                        except (KeyError, IndexError):
+                            pass
+
+                        try:
+                            if ns_name:
+                                el = etree.SubElement(metadata, '{%s}%s' % (ns_name, name), v[1])
+                            else:
+                                el = etree.SubElement(metadata, '%s' % name, v[1])
+
+                            el.text = v[0]
+                        except ValueError:
+                            logging.error('Could not create metadata "{}".'.format(name))
+
 
 class Epub2Writer(Epub3Writer):
     """
@@ -82,7 +132,16 @@ class Epub2Writer(Epub3Writer):
         self.book.templates['chapter'] = self.CHAPTER_XML
         self.book.templates['nav'] = self.NAV_XML
 
-    def _write_opf_file(self):
+    # TODO since the _write_opf_file method was refactored in ebooklib,
+    # we should update _write_opf method and override next methods:
+    # - _write_opf_metadata
+    # - _write_opf_manifest
+    # - _write_opf_spine
+    # - _write_opf_guide
+    # - _write_opf_bindings
+    # - _write_opf_file
+    # to provide epub2 support
+    def _write_opf(self):
         root = etree.Element(
             'package',
             {
@@ -107,6 +166,17 @@ class Epub2Writer(Epub3Writer):
             else:
                 for name, values in six.iteritems(values):
                     for v in values:
+
+                        try:
+                            # remove print ISBN
+                            if v[1]['id'] == 'id':
+                                continue
+                            elif v[1]['id'] == 'epub_ISBN':
+                                v[1]['id'] = 'id'
+                                # v[1]['opf:scheme'] = 'isbn'
+                        except (KeyError, IndexError):
+                            pass
+
                         try:
                             if ns_name:
                                 el = etree.SubElement(metadata, '{%s}%s' % (ns_name, name), v[1])

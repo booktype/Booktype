@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-09 19:43+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -882,20 +882,20 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "管理者のみが新しいアカウントを作成することが出来ます。"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "ユーザ名"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "パスワード(6文字以上)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
-msgstr "ユーザ名の誤り！"
+msgid "Missing user name!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
-msgstr "Eメールアドレスの誤り"
+msgid "Missing email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -907,18 +907,17 @@ msgstr "あなたの本名を入れてください"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "ユーザ名が誤っています。別の名前にしてください。アルファベットと\".\", \"_\", \"-\" (ピリオド、アンダースコア、マイナス)が利用可能です。 <br/><br/>例：<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "無効なメールアドレス"
+msgid "This is not a valid email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr "パスワードが一致しません。別のパスワードを入力してください。"
+msgid "Your passwords don't match. Please try entering them again."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -933,8 +932,8 @@ msgid "Email already taken. Please try a different one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
-msgstr "フルネームが長すぎます。"
+msgid "Full name is too long!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"
@@ -1971,8 +1970,14 @@ msgid "Chapters"
 msgstr "章"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "目次の拡張"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "目次"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -3757,11 +3762,6 @@ msgstr "ロックされています"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr "排他的なロックがされています"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "目次"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-09 19:43+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -884,20 +884,20 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "Nur Administratoren sind aktuell berechtigt neue Accounts zu erstellen."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "Nutzername"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "Passwort (mindestens 6 Zeichen)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
-msgstr "Nutzername fehlt!"
+msgid "Missing user name!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
-msgstr "E-Mail fehlt!"
+msgid "Missing email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -909,18 +909,17 @@ msgstr "Bitte vollen Namen eingeben."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Nutzername is nicht gültig. Bitte einen anderen versuchen. Erlaubt sind folgende Zeichen: Alphabet, \".\", \"_\", \"-\" (Punkt, Unterstrich, Minus). <br/><br/>Beispiele:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "Ungültige E-Mail Adresse"
+msgid "This is not a valid email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr "Die Passwörter stimmen nicht überein. Bitte erneut eingeben. "
+msgid "Your passwords don't match. Please try entering them again."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -935,8 +934,8 @@ msgid "Email already taken. Please try a different one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
-msgstr "Der volle Name ist zu lang!"
+msgid "Full name is too long!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"
@@ -1973,8 +1972,14 @@ msgid "Chapters"
 msgstr "Kapitel"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "Inhaltsverzeichnis erweitern"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Inhaltsverzeichnis"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -3759,11 +3764,6 @@ msgstr "Gesperrt"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr "Exklusiv gesperrt"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Inhaltsverzeichnis"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-09 19:43+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/sourcefabric/booktype/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -880,19 +880,19 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "Login"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
+msgid "Missing user name!"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
+msgid "Missing email address!"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
@@ -905,17 +905,16 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
+msgid "This is not a valid email address!"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
+msgid "Your passwords don't match. Please try entering them again."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
@@ -931,7 +930,7 @@ msgid "Email already taken. Please try a different one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
+msgid "Full name is too long!"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
@@ -1969,8 +1968,14 @@ msgid "Chapters"
 msgstr "Hoofdstukken"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "BREID TOC UIT"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Inhoudsopgave"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -3755,11 +3760,6 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Inhoudsopgave"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"

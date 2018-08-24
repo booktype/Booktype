@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-10 09:12+0000\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-31 10:54+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -881,19 +881,19 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "Only the administrator is allowed to create new accounts at the moment."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "User name"
+msgid "User name (up to 20 characters)"
+msgstr "User name (up to 20 characters)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "Password (6 characters at least)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
+msgid "Missing user name!"
 msgstr "Missing user name!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
+msgid "Missing email address!"
 msgstr "Missing email address!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
@@ -906,18 +906,17 @@ msgstr "Please provide your real name."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Sorry, that user name is invalid. Please try a different one. You may use alphanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>dave.jones</li><li>David_Jones</li><li>davey-jones</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr "User name is too long or invalid. You may use up to 20 alphanumeric characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "This is not a valid email address"
+msgid "This is not a valid email address!"
+msgstr "This is not a valid email address!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr ""
+msgid "Your passwords don't match. Please try entering them again."
+msgstr "Your passwords don't match. Please try entering them again."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -932,7 +931,7 @@ msgid "Email already taken. Please try a different one."
 msgstr "Email already taken. Please try a different one."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
+msgid "Full name is too long!"
 msgstr "Full name is too long!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
@@ -1970,8 +1969,14 @@ msgid "Chapters"
 msgstr "Chapters"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "Expand Table of Contents"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr "Leave this chapter and return to the Table of Contents"
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Table of Contents"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -3756,11 +3761,6 @@ msgstr "Locked"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr "Locked exclusively"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Table of Contents"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 10:15+0100\n"
-"PO-Revision-Date: 2018-05-10 10:06+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"PO-Revision-Date: 2018-05-30 20:06+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Albanian (http://www.transifex.com/sourcefabric/booktype/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -880,20 +880,20 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "Hëpërhë vetëm përgjegjësit i lejohet të krijojë llogari të reja."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
-msgid "User name"
-msgstr "Emër përdoruesi"
+msgid "User name (up to 20 characters)"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "Fjalëkalim (e pakta 6 shenja i gjatë)"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:17
-msgid "Missing username!"
-msgstr "Mungon emri përdoruesi!"
+msgid "Missing user name!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:18
-msgid "Missing e-mail!"
-msgstr "Mungon e-mail-i!"
+msgid "Missing email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
@@ -905,18 +905,17 @@ msgstr "Ju lutemi, jepni emrin tuaj real."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:21
 msgid ""
-"Username is invalid. Please try a different one. You may use alphanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Emri i përdoruesit është i pavlefshëm. Ju lutemi, provoni një tjetër. Mund të përdorni shenja alfanumerike dhe shenjat \".\", \"_\", \"-\" (pikë, nënvijë dhe minus). <br/><br/>Shembuj:<ul><li>skulptori</li><li>Vlash.Shkurti</li><li>liu_arixhiu</li></ul>"
+"User name is too long or invalid. You may use up to 20 alphanumeric "
+"characters including \".\", \"_\" and \"-\" (dot, underscore and minus)."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
-msgid "This is not a valid e-mail"
-msgstr "Kjo nuk është adresë e-mail e vlefshme"
+msgid "This is not a valid email address!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:23
-msgid "Your passwords dont match. Please try a different one."
-msgstr "Fjalëkalimet tuaj nuk përputhen me njëri-tjetrin. Ju lutemi, provoni një tjetër."
+msgid "Your passwords don't match. Please try entering them again."
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
@@ -931,8 +930,8 @@ msgid "Email already taken. Please try a different one."
 msgstr "Email i përdorur tashmë. Ju lutemi, përdorni një tjetër."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:28
-msgid "Fullname is too long!"
-msgstr "Emri i plotë është shumë e gjatë!"
+msgid "Full name is too long!"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:32
 msgid "CREATE ACCOUNT"
@@ -1969,8 +1968,14 @@ msgid "Chapters"
 msgstr "Kapituj"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:61
-msgid "EXPAND TOC"
-msgstr "ZGJEROJE TEL"
+msgid "Leave this chapter and return to the Table of Contents"
+msgstr "Braktise këtë kapitull dhe kthehu te Pasqyra e Lëndës"
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:61
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Tabelë e Lëndës"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:69
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:31
@@ -2686,7 +2691,7 @@ msgstr "Citim i Ri"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:123
 msgid "Cite for this quote"
-msgstr ""
+msgstr "Lëndë për këtë citim"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:124
 msgid "Author name (optional)"
@@ -3755,11 +3760,6 @@ msgstr "Kyçur"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
 msgid "Locked exclusively"
 msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:230
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Tabelë e Lëndës"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Detail View"
