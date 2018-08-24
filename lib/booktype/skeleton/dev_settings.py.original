@@ -7,8 +7,8 @@ THIS_BOOKTYPE_SERVER = os.environ.get('BOOKTYPE_SERVER', '127.0.0.1:8000')
 
 BOOKTYPE_URL = os.environ.get('BOOKTYPE_URL', 'http://{}'.format(THIS_BOOKTYPE_SERVER))
 
-STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
-DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
+STATIC_URL = '/static/'
+DATA_URL = '/data/'
 MEDIA_URL = DATA_URL
 
 # URL where is publishing engine located. By default it is on local machine.
