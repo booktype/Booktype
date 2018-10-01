@@ -24,9 +24,7 @@
                                         <li class="border-bottom">
                                             <figure><img src="{{ activity.image_url }}"></figure>
                                             <div class="list-info">
-                                                <span class="time">
-                                                    {{ base_activ.modified|timesince }} {% trans "ago" %}
-                                                </span>
+                                                <span class="time">{% blocktrans with time_t=base_activ.modified|timesince %}{{time_t}} "ago" {% endblocktrans %}</span>
                                                 {{ activity.verbose }}
                                                 {% if activity.link_url %}
                                                 <a target="_blank" href="{{ activity.link_url }}">
@@ -73,7 +71,7 @@
                                                     <a target="_blank" href="{% url "portal:group" group.url_name %}">{{ group.name }}</a>
                                                 </h4>
                                                 <span>
-                                                  {% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.book_set.count }}
+                                                  {% trans "Members:" %} {{ group.members.all.count }}  {% trans "Books:" %} {{ group.book_set.count }}
                                                 </span>
                                             </div>
                                             <div class="clearfix"></div>

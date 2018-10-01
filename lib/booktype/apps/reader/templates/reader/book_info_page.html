@@ -137,7 +137,7 @@
                         <figure><img src="{% static 'core/img/groups.png' %}"></figure>
                         <div class="list-info">
                             <h4><a href="{% url 'portal:group' book_group.url_name %}">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
-                            <span>{% trans "Members" %}: {{ book_group.members.count }}  {% trans "Books" %}: {{ book_group.book_set.all.count }}</span>
+                            <span>{% trans "Members:" %} {{ book_group.members.count }}  {% trans "Books:" %} {{ book_group.book_set.all.count }}</span>
                         </div>
                     </li>
                 </ul>
@@ -152,7 +152,7 @@
                     <li>
                         <figure><img src="{{ activity.image_url }}"></figure>
                         <div class="list-info">
-                          <span class="time">{{ base_activ.modified|timesince }} {% trans "ago" %}</span>
+                          <span class="time">{% blocktrans with time_t=base_activ.modified|timesince %}{{time_t}} "ago" {% endblocktrans %}</span>
                           <h4>
                             {% if can_view_user_info or request.user == base_activ.user %}
                               <a href="{% url 'accounts:view_profile' base_activ.user %}">{{ base_activ.user }}</a>

@@ -17,7 +17,7 @@
                 <div class="list-info">
                     <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
                     <span>
-                        {% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.book_set.count }}
+                        {% trans "Members:" %} {{ group.members.all.count }}  {% trans "Books:" %} {{ group.book_set.count }}
                     </span>
                 </div>
                 <div class="action-btns float-right hide">

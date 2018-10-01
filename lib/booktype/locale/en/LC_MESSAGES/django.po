@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"POT-Creation-Date: 2018-07-16 18:04+0100\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -256,17 +256,11 @@ msgid "My Books"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:46
-#: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
 #: lib/booktype/apps/core/templates/core/nav_menu.html:21
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:33
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:72
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/books.html:19
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:22
-#: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:387 lib/booktype/apps/portal/views.py:388
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Books"
 msgstr ""
 
@@ -416,7 +410,8 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard.html:177
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:155
-msgid "ago"
+#, python-format
+msgid "%(time_t)s \"ago\" "
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:190
@@ -620,29 +615,26 @@ msgstr ""
 msgid "No book skeletons yet."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
-msgid "You can manage them from the"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:123
+#, python-format
+msgid ""
+"You can manage them from the <a href=\"%(t_url)s#list-of-skeletons\">Control "
+"Center</a>"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
-#: lib/booktype/apps/core/templates/core/nav_bar.html:12
-#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
-msgid "Control Center"
-msgstr ""
-
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:134
 msgid "Drag Your File Here"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:138
 msgid "or Select from folder"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:142
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:143
 msgid "Filename:"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:148
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:224
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:258
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:292
@@ -652,7 +644,7 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:150
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
@@ -678,10 +670,20 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:72
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
+#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 #: lib/booktype/apps/portal/templates/portal/group.html:22
-#: lib/booktype/apps/portal/templates/portal/group.html:117
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
-msgid "Members"
+msgid "Members:"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:33
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:72
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:96
+#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
+#: lib/booktype/apps/portal/templates/portal/group.html:23
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
+msgid "Books:"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:16
@@ -930,7 +932,6 @@ msgid "CREATE ACCOUNT"
 msgstr ""
 
 #: lib/booktype/apps/account/views.py:71
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr ""
 
@@ -1131,6 +1132,11 @@ msgstr ""
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
+msgstr ""
+
+#: lib/booktype/apps/core/templates/core/nav_bar.html:12
+#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
+msgid "Control Center"
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
@@ -3670,9 +3676,12 @@ msgstr ""
 msgid "CHANGE"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:138
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:54
-msgid "This book doesn't contain invited people. Please invite people in your "
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:55
+#, python-format
+msgid ""
+"This book doesn't contain invited people. Please invite people in your <a "
+"target=\"_blank\" href=\"%(t_url)s\">Dashboard</a>."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:19
@@ -4240,14 +4249,6 @@ msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
 msgstr ""
 
-#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
-msgid "Members:"
-msgstr ""
-
-#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
-msgid "Books:"
-msgstr ""
-
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:136
 msgid "There are no users yet"
 msgstr ""
@@ -4272,6 +4273,10 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
+msgstr ""
+
+#: lib/booktype/apps/portal/templates/portal/group.html:117
+msgid "Members"
 msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/group_create.html:16

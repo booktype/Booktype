@@ -42,7 +42,7 @@
                         <li>
                             <figure>{% profile_image activity.user %}</figure>
                             <div class="list-info">
-                              <span class="time">{{ activity.modified|timesince }} {% trans "ago" %}</span>
+                              <span class="time">{% blocktrans with time_t=activity.modified|timesince %}{{time_t}} "ago" {% endblocktrans %}</span>
                               <h4><a href="{% url 'accounts:view_profile' activity.user %}">{{ activity.user }}</a></h4>
                               <p>
                                 {{ activity.verbose }}
