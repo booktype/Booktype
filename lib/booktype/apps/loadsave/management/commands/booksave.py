@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 
 from booki.editor import models
@@ -22,37 +21,28 @@ from booki.editor import models
 
 class Command(BaseCommand):
     help = "Export book content as EPUB file."
-    args = "<book name>"
-
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--book-version',
-            action='store',
-            dest='book_version',
-            default=None,
-            help='Book version, e.g.'
-        ),
-
-        make_option(
-            '--output',
-            action='store',
-            dest='output_name',
-            default=None,
-            help='Output filename or -- for STDOUT, e.g. my_book.zip.'
-        ),
-    )
-
     requires_model_validation = False
 
-    def handle(self, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument('<book name>', nargs=1, type=str)
+        parser.add_argument('--book-version',
+                            action='store',
+                            dest='book_version',
+                            default=None,
+                            help='Book version, e.g.')
+        parser.add_argument('--output',
+                            action='store',
+                            dest='output_name',
+                            default=None,
+                            help='Output filename or -- for STDOUT, e.g. my_book.epub.')
 
-        if len(args) == 0:
-            raise CommandError("You must specify book name!")
+    def handle(self, *args, **options):
+        book_name = options['<book name>'][0]
 
         try:
-            book = models.Book.objects.get(url_title__iexact=args[0])
+            book = models.Book.objects.get(url_title__iexact=book_name)
         except models.Book.DoesNotExist:
-            raise CommandError('Book "%s" does not exist.' % args[0])
+            raise CommandError('Book "%s" does not exist.' % book_name)
 
         book_version = book.get_version(options['book_version'])
 

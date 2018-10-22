@@ -2,7 +2,6 @@ import os
 
 from django import template
 from django.template.base import Template
-from django.template.context import Context
 from django.conf import settings
 
 from ..utils import read_theme_info
@@ -37,9 +36,7 @@ def list_theme_options(context):
                 f.close()
 
                 t = Template(unicode(s, 'utf8'))
-                c = Context(context)
-
-                content = t.render(c)
+                content = t.render(context)
 
                 options.append({'name': theme, 'content': content})
 

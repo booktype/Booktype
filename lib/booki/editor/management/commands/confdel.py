@@ -15,27 +15,28 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 
 from django.conf import settings
 
 from booktype.utils import config
 
 class Command(BaseCommand):
-    args = "<key>"
     help = "Delete configuration variable."
     requires_model_validation = False
+
+    def add_arguments(self, parser):
+        parser.add_argument("<key>", nargs=1, type=str)
 
     def handle(self, *args, **options):
         if not hasattr(settings, 'BOOKTYPE_CONFIG'):
             raise CommandError('Does not have BOOKTYPE_CONFIG in settings.py file.')
 
-        if len(args) != 1:
+        if not options['<key>'][0]:
             raise CommandError("You must specify variable name")
 
-        if not settings.BOOKTYPE_CONFIG.has_key(args[0]):
+        if not settings.BOOKTYPE_CONFIG.has_key(options['<key>'][0]):
             raise CommandError("There is no such variable.")
 
-        del settings.BOOKTYPE_CONFIG[args[0]]
+        del settings.BOOKTYPE_CONFIG[options['<key>'][0]]
 
         config.save_configuration()

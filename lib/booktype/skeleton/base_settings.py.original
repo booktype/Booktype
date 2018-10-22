@@ -2,9 +2,6 @@
 import os
 from unipath import Path
 
-import djcelery
-djcelery.setup_loader()
-
 # DJANGO ADMIN
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -267,8 +264,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_results',
     'compressor',
-    'djcelery',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
@@ -330,8 +327,11 @@ REST_FRAMEWORK = {
 }
 
 # CELERY
-BROKER_URL = os.environ.get('BOOKTYPE_BROKER_URL', 'amqp://guest:guest@localhost:5672/')
+CELERY_BROKER_URL = os.environ.get('BOOKTYPE_BROKER_URL', 'amqp://guest:guest@localhost:5672/')
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_RESULT_SERIALIZER = 'pickle'
+CELERY_RESULT_BACKEND = 'django-db'
 
 # set of default roles and corresponding permissions
 BOOKTYPE_DEFAULT_ROLES = {

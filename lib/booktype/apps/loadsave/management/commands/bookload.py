@@ -15,48 +15,40 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 from django.contrib.auth.models import User
 
 from booktype.utils.misc import import_book_from_file
 
+
 class Command(BaseCommand):
-    args = "<epub file> [, <epub file>, ...]"
     help = "Imports one or many books from epub files."
-
-    option_list = BaseCommand.option_list + (
-        make_option('--owner',
-                    action='store',
-                    dest='owner',
-                    default='booki',
-                    help='Who is owner of the imported book.'),
-        
-        make_option('--new-book-title',
-                    action='store',
-                    dest='new_book_title',
-                    default=None,
-                    help='Title of the new book.'),
-
-        make_option('--new-book-url',
-                    action='store',
-                    dest='new_book_url',
-                    default=None,
-                    help='URL name of the new book.'),
-
-        )
-
     requires_model_validation = False
 
-    def handle(self, *args, **options):
-        if len(args) == 0:
-            raise CommandError("You must specify at least one booki-zip filename.")
+    def add_arguments(self, parser):
+        parser.add_argument("<epub file> [, <epub file>, ...]", nargs='+', type=str)
+        parser.add_argument('--owner',
+                            action='store',
+                            dest='owner',
+                            default='booki',
+                            help='Who is owner of the imported book.')
+        parser.add_argument('--new-book-title',
+                            action='store',
+                            dest='new_book_title',
+                            default=None,
+                            help='Title of the new book.')
+        parser.add_argument('--new-book-url',
+                            action='store',
+                            dest='new_book_url',
+                            default=None,
+                            help='URL name of the new book.')
 
+    def handle(self, *args, **options):
         try:
             user = User.objects.get(username=options['owner'])
         except User.DoesNotExist:
             raise CommandError('User "%s" does not exist. Can not finish import.' % options['owner'])
 
-        for fileName in args:
+        for fileName in options['<epub file> [, <epub file>, ...]']:
             try:
                 extraOptions = {}
 

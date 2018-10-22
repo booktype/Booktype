@@ -14,18 +14,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
-import os.path
+import os
 import urllib2
-
-from booki.editor import models
 from lxml import etree, html
 
 from django.test import Client
-
+from django.core.management.base import BaseCommand, CommandError
+from booki.editor import models
 
 cacheLinks = {}
+
 
 class HeadRequest(urllib2.Request):
     def get_method(self):
@@ -59,13 +57,14 @@ def checkLink(options, chapter, urlLink):
 
             if not options['no_cache']:
                 cacheLinks[urlLink] = returnCode
-            
+
         print '  [%s]' % returnCode
     else:
         if options['no_local']: return
 
         c = Client()
-        newUrl = os.path.normpath('/%s/_v/%s/%s/%s' % (chapter.version.book.url_title, chapter.version.getVersion(), chapter.url_title, urlLink))
+        newUrl = os.path.normpath('/%s/_v/%s/%s/%s' % (
+            chapter.version.book.url_title, chapter.version.getVersion(), chapter.url_title, urlLink))
 
         print '    >> ', newUrl,
         response = c.get(newUrl)
@@ -74,60 +73,61 @@ def checkLink(options, chapter, urlLink):
 
 
 class Command(BaseCommand):
-    args = '<book name> [, <book name>, ...]'
+    BOOK_NAMES = '<book name> [, <book name>, ...]'
     help = 'Check links in books.'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--no-remote',
-                    action='store_true',
-                    dest='no_remote',
-                    default=False,
-                    help='Do we check for remote links?'),
+    def add_arguments(self, parser):
+        parser.add_argument(self.BOOK_NAMES, nargs='+', type=str)
 
-        make_option('--no-local',
-                    action='store_true',
-                    dest='no_local',
-                    default=False,
-                    help='Do we check for local links?'),
+        parser.add_argument('--no-remote',
+                            action='store_true',
+                            dest='no_remote',
+                            default=False,
+                            help='Do we check for remote links?')
 
-        make_option('--no-cache',
-                    action='store_true',
-                    dest='no_cache',
-                    default=False,
-                    help='Do not cache network links.'),
+        parser.add_argument('--no-local',
+                            action='store_true',
+                            dest='no_local',
+                            default=False,
+                            help='Do we check for local links?')
 
-        make_option('--ignore-url',
-                    action='append',
-                    dest='ignore_url',
-                    default=[],
-                    help='What hosts to ignore, e.g. http://www.wikipedia.org/'),
+        parser.add_argument('--no-cache',
+                            action='store_true',
+                            dest='no_cache',
+                            default=False,
+                            help='Do not cache network links.')
 
-        )
-    
+        parser.add_argument('--ignore-url',
+                            action='append',
+                            dest='ignore_url',
+                            default=[],
+                            help='What hosts to ignore, e.g. http://www.wikipedia.org/')
+
     def handle(self, *args, **options):
         global cacheLinks
 
+        book_names = options.get(self.BOOK_NAMES, [])
+
         # filter only books we want
-        if len(args) > 0:
-            booksList = models.Book.objects.filter(url_title__in=args).order_by('url_title')
+        if book_names:
+            booksList = models.Book.objects.filter(url_title__in=book_names).order_by('url_title')
         else:
             booksList = models.Book.objects.all().order_by('url_title')
 
-            
         for book in booksList:
             print '[%s]' % book.url_title
 
             try:
                 for chapter in models.Chapter.objects.filter(version__book=book):
                     print '  [%s]' % chapter.url_title,
-                    
+
                     try:
                         tree = html.document_fromstring(chapter.content)
                         print ''
                     except:
                         print '   [ERROR PARSING HTML]'
                         continue
-                    
+
                     for elem in tree.iter():
                         src = elem.get('src')
                         if src:

@@ -17,11 +17,10 @@
 import os.path
 import datetime
 import StringIO
-from optparse import make_option
+from email.MIMEImage import MIMEImage
 
 from django import template
 from django.conf import settings
-from django.template.context import Context
 from django.core.management.base import BaseCommand
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
@@ -61,6 +60,7 @@ def get_history():
 
     return history
 
+
 def get_chart():
     hours = [0] * 24
     max_num = 0
@@ -89,19 +89,19 @@ def get_chart():
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--send-email',
-                    action='store_true',
-                    dest='send_email',
-                    default=False,
-                    help='Send email to admin'),
 
-        make_option('--days',
-                    action='store',
-                    dest='days',
-                    default=0,
-                    help='N days ago')
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--send-email',
+                            action='store_true',
+                            dest='send_email',
+                            default=False,
+                            help='Send email to admin')
+
+        parser.add_argument('--days',
+                            action='store',
+                            dest='days',
+                            default=0,
+                            help='N days ago')
 
     def handle(self, *args, **options):
         global now
@@ -120,8 +120,8 @@ class Command(BaseCommand):
 
         # get groups created today
         groups = BookiGroup.objects.filter(created__year=now.year,
-                                     created__month=now.month,
-                                     created__day=now.day)
+                                           created__month=now.month,
+                                           created__day=now.day)
 
         history = get_history()
         info = get_info()
@@ -135,15 +135,15 @@ class Command(BaseCommand):
         # render result
         t = template.loader.get_template('reports/booktype_daily_report.html')
 
-        con = t.render(Context({"users": users,
-                                         "books": books,
-                                         "groups": groups,
-                                         "history": history,
-                                         "report_date": now,
-                                         "info": info,
-                                         "booktype_name": BOOKTYPE_NAME,
-                                         "site_url": settings.BOOKTYPE_URL
-                                         }))
+        con = t.render({"users": users,
+                        "books": books,
+                        "groups": groups,
+                        "history": history,
+                        "report_date": now,
+                        "info": info,
+                        "booktype_name": BOOKTYPE_NAME,
+                        "site_url": settings.BOOKTYPE_URL
+                        })
 
         if options['send_email']:
             reports_email_from = config.get_configuration('REPORTS_EMAIL_FROM')
@@ -193,8 +193,6 @@ class Command(BaseCommand):
             image.save(output, 'PNG')
 
             data = output.getvalue()
-
-            from email.MIMEImage import MIMEImage
 
             msgImage = MIMEImage(data)
             msgImage.add_header('Content-ID', '<graph.png>')

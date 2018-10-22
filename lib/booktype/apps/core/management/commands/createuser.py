@@ -15,32 +15,24 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 from django.db.utils import Error
-
 from django.contrib.auth.models import User
 
 
 class Command(BaseCommand):
     help = "Used to create a user"
 
-    option_list = BaseCommand.option_list + (
-        make_option('--username', dest='username', default=None,
-            help='Specifies the username for the superuser.'),
-
-        make_option('--email', dest='email', default=None,
-            help='Specifies the email address for the user.'),
-
-        make_option('--fullname', dest='fullname', default=None,
-            help='Specifies the fullname for the user.'),
-
-        make_option('--password', dest='password', default=None,
-            help='Specifies the password address for the user.'),
-
-        make_option('--is-superuser', action='store_true',  dest='is_superuser', 
-                    default=False, help='User has superpowers.'),
-
-        )
+    def add_arguments(self, parser):
+        parser.add_argument('--username', dest='username', default=None,
+                            help='Specifies the username for the superuser.')
+        parser.add_argument('--email', dest='email', default=None,
+                            help='Specifies the email address for the user.')
+        parser.add_argument('--fullname', dest='fullname', default=None,
+                            help='Specifies the fullname for the user.')
+        parser.add_argument('--password', dest='password', default=None,
+                            help='Specifies the password address for the user.')
+        parser.add_argument('--is-superuser', action='store_true', dest='is_superuser',
+                            default=False, help='User has superpowers.')
 
     requires_model_validation = False
 

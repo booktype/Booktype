@@ -25,7 +25,6 @@ from copy import deepcopy
 from lxml import etree
 
 from django.template.base import Template
-from django.template.context import Context
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ImproperlyConfigured
@@ -402,8 +401,7 @@ class Epub3Converter(BaseConverter):
                     data = json.loads(self.config['theme']['custom'].encode('utf8'))
 
                     tmpl = Template(content)
-                    ctx = Context(data)
-                    content = tmpl.render(ctx)
+                    content = tmpl.render(data)
                 except:
                     logger.exception("Fails with custom theme.")
 

@@ -31,7 +31,11 @@ class BookRenameManagementCommandTest(TestCase):
 
     def test_save_new_book_title(self):
         user = User.objects.create_user('rochard')
-        book = Book.objects.create(title='The Island of Truth', owner=user)
+        book = Book.objects.create(
+            title='The Island of Truth',
+            owner=user,
+            url_title='the_island_of_truth'
+        )
 
         call_command(
             'bookrename',
@@ -44,7 +48,11 @@ class BookRenameManagementCommandTest(TestCase):
 
     def test_save_new_book_url(self):
         user = User.objects.create_user('rochard')
-        book = Book.objects.create(title='The Island of Truth', owner=user)
+        book = Book.objects.create(
+            title='The Island of Truth',
+            owner=user,
+            url_title='the_island_of_truth'
+        )
 
         call_command(
             'bookrename',

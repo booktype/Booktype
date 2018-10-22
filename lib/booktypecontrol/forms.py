@@ -556,11 +556,11 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         if self.cleaned_data.get('send_email', False):
             t = template.loader.get_template(
                 'booktypecontrol/new_person_email.html')
-            content = t.render(Context({
+            content = t.render({
                 "username": self.cleaned_data['username'],
                 "password": self.cleaned_data['password2'],
                 "server": settings.BOOKTYPE_URL
-            }))
+            })
 
             from django.core.mail import EmailMultiAlternatives
             emails = [self.cleaned_data['email']]
