@@ -40,7 +40,8 @@ class GroupedCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
             value = []
 
         has_id = attrs and 'id' in attrs
-        final_attrs = self.build_attrs(attrs, name=name)
+        attrs.update({u'name':name})
+        final_attrs = self.build_attrs(attrs)
 
         grouped_list = []
         for order_key, elems in self.grouped.items():
