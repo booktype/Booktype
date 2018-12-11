@@ -8,7 +8,7 @@
 <a class="action-button" href="{% url "view_profile" post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">{% trans "send a reply" %}</a>
 <br />
 <div class="post-time">
-{% blocktrans with time_t=post.timestamp|timesince %}{{time_t}} "ago" {% endblocktrans %}
+{% blocktrans with time_t=post.timestamp|timesince %}{{time_t}} ago{% endblocktrans %}
 </div>
 {{ post.content_as_html|safe }}
 {% if post.attachment %}
