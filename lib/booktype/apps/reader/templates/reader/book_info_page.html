@@ -152,7 +152,7 @@
                     <li>
                         <figure><img src="{{ activity.image_url }}"></figure>
                         <div class="list-info">
-                          <span class="time">{% blocktrans with time_t=base_activ.modified|timesince %}{{time_t}} "ago" {% endblocktrans %}</span>
+                          <span class="time">{% blocktrans with time_t=base_activ.modified|timesince %}{{time_t}} ago{% endblocktrans %}</span>
                           <h4>
                             {% if can_view_user_info or request.user == base_activ.user %}
                               <a href="{% url 'accounts:view_profile' base_activ.user %}">{{ base_activ.user }}</a>
