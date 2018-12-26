@@ -10,7 +10,7 @@ from ebooklib.plugins.base import BasePlugin
 
 from booktype.convert.utils.epub import reformat_endnotes
 from ..constants import (
-    STYLES_DIR, IMAGES_DIR,
+    STYLES_DIR, IMAGES_DIR, DEFAULT_DIRECTION,
     DEFAULT_LANG, EPUB_VALID_IMG_ATTRS
 )
 
@@ -23,6 +23,10 @@ class WriterPlugin(BasePlugin):
     def __init__(self, *args, **kwargs):
         super(WriterPlugin, self).__init__(*args, **kwargs)
         self.options = {}
+
+    def before_write(self, book):
+        book.set_direction(self.options.get('direction', DEFAULT_DIRECTION))
+        return True
 
     def html_before_write(self, book, item):
         if item.get_type() != ebooklib.ITEM_DOCUMENT:
@@ -44,6 +48,7 @@ class WriterPlugin(BasePlugin):
             return True
 
         item.lang = self.options.get('lang', DEFAULT_LANG)
+        item.direction = self.options.get('direction', DEFAULT_DIRECTION)
 
         root = ebooklib.utils.parse_html_string(item.content)
         self._fix_text(root)

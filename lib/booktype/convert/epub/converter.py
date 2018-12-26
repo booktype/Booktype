@@ -200,7 +200,8 @@ class Epub3Converter(BaseConverter):
             'css': self._add_css_styles(epub_book),
             'style': self.config.get('style', self.default_style),
             'lang': self._get_language(original_book),
-            'preview': self.config.get('preview', True)
+            'preview': self.config.get('preview', True),
+            'direction': self._get_dir(epub_book)
         }
 
         writer_plugin.options.update(opts)
