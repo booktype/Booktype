@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014-2018 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # AlbertFR <albert.bruc.ab@gmail.com>, 2014-2015
 # SourceLucile <lucile.neden@sourcefabric.org>, 2014
@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 12:35+0100\n"
+"POT-Creation-Date: 2019-01-07 18:28+0100\n"
 "PO-Revision-Date: 2018-05-30 20:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: French (http://www.transifex.com/sourcefabric/booktype/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/sourcefabric/booktype/"
+"language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -180,12 +181,11 @@ msgstr ""
 msgid ""
 "BE AWARE: If you tick this box ALL users on the system can see or read the "
 "book. (It is not necessary to tick the box to invite people to read or "
-"collaborate into the book. To invite people, please use the function on your"
-" dashboard or the info page of this book)."
+"collaborate into the book. To invite people, please use the function on your "
+"dashboard or the info page of this book)."
 msgstr ""
 
-#: lib/booktype/apps/account/forms.py:146
-#: lib/booktype/apps/export/models.py:51
+#: lib/booktype/apps/account/forms.py:146 lib/booktype/apps/export/models.py:51
 msgid "Description"
 msgstr "Description"
 
@@ -228,8 +228,8 @@ msgid "description"
 msgstr "description"
 
 #: lib/booktype/apps/account/models.py:38
-#: lib/booktype/apps/account/models.py:64
-#: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
+#: lib/booktype/apps/account/models.py:64 lib/booktype/apps/export/models.py:29
+#: lib/booktype/apps/export/models.py:61
 msgid "user"
 msgstr "utilisateur"
 
@@ -242,20 +242,17 @@ msgstr "code secret"
 msgid "created"
 msgstr "créé le"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
 msgstr "agent utilisateur distant"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
 msgstr "addr distant"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
 msgstr "hôte distant"
@@ -265,17 +262,11 @@ msgid "My Books"
 msgstr "Mes livres"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:46
-#: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
 #: lib/booktype/apps/core/templates/core/nav_menu.html:21
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:33
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:72
-#: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/books.html:19
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:22
-#: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:387 lib/booktype/apps/portal/views.py:388
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
 msgid "Books"
 msgstr "Livres"
 
@@ -337,7 +328,9 @@ msgstr ""
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "C'est le moment idéal pour commencer à écrire votre livre, il suffit de cliquer sur le bouton ci-dessus!"
+msgstr ""
+"C'est le moment idéal pour commencer à écrire votre livre, il suffit de "
+"cliquer sur le bouton ci-dessus!"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:83
 msgid "This user has no books"
@@ -352,9 +345,10 @@ msgid "My Groups"
 msgstr "Mes groupes"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:113
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "Travailler avec les autres dans les groupes. Pour créer un groupe, cliquez sur le bouton ci-dessous"
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"Travailler avec les autres dans les groupes. Pour créer un groupe, cliquez "
+"sur le bouton ci-dessous"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:119
 msgid "Participating Groups"
@@ -426,8 +420,9 @@ msgstr "Activité récente"
 #: lib/booktype/apps/account/templates/account/dashboard.html:177
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:155
-msgid "ago"
-msgstr "déjà"
+#, python-format
+msgid "%(time_t)s ago"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:190
 msgid "This user has no recent activity."
@@ -586,8 +581,7 @@ msgstr "Métadonnées"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid ""
-"Please enter metadata of the book. Metadata is necessary for later "
-"publishing"
+"Please enter metadata of the book. Metadata is necessary for later publishing"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:64
@@ -631,29 +625,26 @@ msgstr ""
 msgid "No book skeletons yet."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
-msgid "You can manage them from the"
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:123
+#, python-format
+msgid ""
+"You can manage them from the <a href=\"%(t_url)s#list-of-skeletons\">Control "
+"Center</a>"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:122
-#: lib/booktype/apps/core/templates/core/nav_bar.html:12
-#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
-msgid "Control Center"
-msgstr "Centre de contrôle "
-
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:133
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:134
 msgid "Drag Your File Here"
 msgstr "Faites glisser votre fichier ici"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:137
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:138
 msgid "or Select from folder"
 msgstr "Ou sélectionnez le à partir de son emplacement"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:142
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:143
 msgid "Filename:"
 msgstr "Nom du fichier :"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:147
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:148
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:224
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:258
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:292
@@ -663,7 +654,7 @@ msgstr "Nom du fichier :"
 msgid "Cover"
 msgstr "Couverture"
 
-#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:149
+#: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:150
 msgid ""
 "If you have a cover for the book, you can add it now (this can be added or "
 "changed later)"
@@ -689,11 +680,21 @@ msgstr "Pas encore suivi."
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:72
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
+#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
 #: lib/booktype/apps/portal/templates/portal/group.html:22
-#: lib/booktype/apps/portal/templates/portal/group.html:117
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
-msgid "Members"
-msgstr "Membres"
+msgid "Members:"
+msgstr "Membres : "
+
+#: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:33
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:72
+#: lib/booktype/apps/portal/templates/portal/all_groups.html:96
+#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
+#: lib/booktype/apps/portal/templates/portal/group.html:23
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:140
+msgid "Books:"
+msgstr "Livres :"
 
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:31
@@ -740,7 +741,9 @@ msgstr "Vérifiez vos courriels !"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr "Des instructions pour réinitialiser votre mot de passe ont été envoyées par courriel à votre adresse."
+msgstr ""
+"Des instructions pour réinitialiser votre mot de passe ont été envoyées par "
+"courriel à votre adresse."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
@@ -829,9 +832,12 @@ msgstr "Mot de passe oublié ?"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Pour réinitialiser votre mot de passe Booktype, cliquez simplement sur le lien ci-dessous. Cela vous mènera vers une page web où vous pourrez créer un nouveau mot de passe."
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Pour réinitialiser votre mot de passe Booktype, cliquez simplement sur le "
+"lien ci-dessous. Cela vous mènera vers une page web où vous pourrez créer un "
+"nouveau mot de passe."
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -842,7 +848,11 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Si vous n'avez pas essayé de réinitialiser votre mot de passe, ne vous inquiétez pas – votre compte est toujours bloqué et personne n'y eu accès. Très probablement, quelqu'un a juste mal tapé son adresse de courriel tout en essayant de réinitialiser son mot de passe."
+msgstr ""
+"Si vous n'avez pas essayé de réinitialiser votre mot de passe, ne vous "
+"inquiétez pas – votre compte est toujours bloqué et personne n'y eu accès. "
+"Très probablement, quelqu'un a juste mal tapé son adresse de courriel tout "
+"en essayant de réinitialiser son mot de passe."
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
@@ -880,7 +890,9 @@ msgstr "La limite des utilisateurs a été atteinte."
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:107
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "Seul l'administrateur est autorisé à créer de nouveaux comptes pour le moment."
+msgstr ""
+"Seul l'administrateur est autorisé à créer de nouveaux comptes pour le "
+"moment."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
 msgid "User name (up to 20 characters)"
@@ -926,7 +938,8 @@ msgstr "Le mot de passe doit contenir au moins 6 caractères ou plus !"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr "Nom d'utilisateur déjà utilisé. Choisissez en un autre s'il-vous-plaît."
+msgstr ""
+"Nom d'utilisateur déjà utilisé. Choisissez en un autre s'il-vous-plaît."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:26
 msgid "Email already taken. Please try a different one."
@@ -941,7 +954,6 @@ msgid "CREATE ACCOUNT"
 msgstr "CRÉER UN COMPTE"
 
 #: lib/booktype/apps/account/views.py:71
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -1114,8 +1126,8 @@ msgstr "Comment ça marche"
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
 "href=\"https://github.com/booktype/Booktype/releases/\">GitHub</a> or check "
-"out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"https://booktype.pro/\">https://booktype.pro/</a>."
+"out Booktype Pro, our cloud-hosted publishing service - <a href=\"https://"
+"booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:22
@@ -1135,7 +1147,13 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "Avec des outils sociaux, des workflows faciles et la liberté de choisir vos propres licences, Booktype Pro est parfait pour une utilisation interne ou publique. Les éditeurs, les services d'impression à la demande et les établissements d'enseignement produisent de meilleurs livres, plus rapide, tandis que Sourcefabric prend soin de l'installation de votre propre plate-forme, l'hébergement, les mises à niveau, et la sécurité."
+msgstr ""
+"Avec des outils sociaux, des workflows faciles et la liberté de choisir vos "
+"propres licences, Booktype Pro est parfait pour une utilisation interne ou "
+"publique. Les éditeurs, les services d'impression à la demande et les "
+"établissements d'enseignement produisent de meilleurs livres, plus rapide, "
+"tandis que Sourcefabric prend soin de l'installation de votre propre plate-"
+"forme, l'hébergement, les mises à niveau, et la sécurité."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:42
 #: lib/booktype/apps/core/templates/core/footer.html:12
@@ -1143,6 +1161,11 @@ msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
 msgstr ""
+
+#: lib/booktype/apps/core/templates/core/nav_bar.html:12
+#: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
+msgid "Control Center"
+msgstr "Centre de contrôle "
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:10
@@ -1444,7 +1467,8 @@ msgstr "Le chapitre courant est verrouillé pour tout le monde."
 
 #: lib/booktype/apps/edit/channel.py:2443
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr "Un des formats sélectionné est désactivé. Essayez de recharger la page. "
+msgstr ""
+"Un des formats sélectionné est désactivé. Essayez de recharger la page. "
 
 #: lib/booktype/apps/edit/forms.py:64
 msgid "Right to left text"
@@ -2131,9 +2155,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:304
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> a joint  </p><span class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> a joint  </p><span class="
+"\"notification-info\"><%%= info %%></span>"
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -2213,7 +2239,9 @@ msgstr "Revenir à cette révision ?"
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Le contenu du chapitre courant sera réinitialisé avec celui de cette révision. Voulez-vous confirmer ?"
+msgstr ""
+"Le contenu du chapitre courant sera réinitialisé avec celui de cette "
+"révision. Voulez-vous confirmer ?"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -2733,8 +2761,7 @@ msgstr ""
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:272
 msgid ""
 "Please notice this EPUB is NOT valid for distribution, but only to generate "
-"book templates (\"skeletons\") on Booktype. Click Download button to "
-"proceed."
+"book templates (\"skeletons\") on Booktype. Click Download button to proceed."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:141
@@ -3159,7 +3186,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Erreur: Le type de fichier sélectionné n'est pas pris en charge. S'il vous plaît choisir l'un des types de fichiers suivants et essayez encore: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Erreur: Le type de fichier sélectionné n'est pas pris en charge. S'il vous "
+"plaît choisir l'un des types de fichiers suivants et essayez encore: PNG, "
+"JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -3172,8 +3202,8 @@ msgid ""
 "appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
 "TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
 "spine (if any) and back cover of print books can also be uploaded and "
-"managed, but will be kept separate from the Printers' PDF when exporting the"
-" inside pages."
+"managed, but will be kept separate from the Printers' PDF when exporting the "
+"inside pages."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
@@ -3258,7 +3288,9 @@ msgstr "Ajouter des fichiers..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Toutes les images ajoutées à votre livre sont listées ici ainsi que tous les fichiers supplémentaires que vous avez téléchargées."
+msgstr ""
+"Toutes les images ajoutées à votre livre sont listées ici ainsi que tous les "
+"fichiers supplémentaires que vous avez téléchargées."
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -3288,7 +3320,9 @@ msgstr "Supprimer les fichiers multimédias"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Êtes-vous sûr de vouloir supprimer des fichiers multimédia ? Vous ne serez pas en mesure d'annuler cette opération !"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer des fichiers multimédia ? Vous ne serez "
+"pas en mesure d'annuler cette opération !"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:83
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:104
@@ -3349,15 +3383,15 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:50
 msgid ""
-"Front matter is generated automatically. Please ensure all <a "
-"href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
+"Front matter is generated automatically. Please ensure all <a href="
+"\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:51
 msgid ""
-"If exporting screen PDF, EPUB or MOBI, please check the <a "
-"href=\"#covers\">cover manager</a> first."
+"If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers"
+"\">cover manager</a> first."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:69
@@ -3574,12 +3608,12 @@ msgid "Screen PDF"
 msgstr "Écran PDF"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:511
-#: lib/booktype/convert/epub/converter.py:57
+#: lib/booktype/convert/epub/converter.py:56
 msgid "EPUB3"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
-#: lib/booktype/convert/epub/converter.py:513
+#: lib/booktype/convert/epub/converter.py:511
 msgid "EPUB2"
 msgstr ""
 
@@ -3682,10 +3716,12 @@ msgstr "Permissions requises pour accéder à ce module"
 msgid "CHANGE"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_settings.html:138
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:54
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
+#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:55
+#, python-format
 msgid ""
-"This book doesn't contain invited people. Please invite people in your "
+"This book doesn't contain invited people. Please invite people in your <a "
+"target=\"_blank\" href=\"%(t_url)s\">Dashboard</a>."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:19
@@ -3732,7 +3768,10 @@ msgstr "Supprimer le chapitre"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Êtes-vous sûr de vouloir supprimer ce chapitre ? Vous allez perdre toutes les données associées à ce chapitre et vous ne serez pas en mesure d'annuler cette opération !"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer ce chapitre ? Vous allez perdre toutes "
+"les données associées à ce chapitre et vous ne serez pas en mesure d'annuler "
+"cette opération !"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:123
 msgid "Remove section"
@@ -3742,7 +3781,10 @@ msgstr "Supprimer la section"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Êtes-vous sûr de vouloir supprimer cette section ? Vous allez perdre toutes les données associées à cette section et vous ne serez pas en mesure d'annuler cette opération!"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette section ? Vous allez perdre toutes "
+"les données associées à cette section et vous ne serez pas en mesure "
+"d'annuler cette opération!"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:135
 msgid "Delete chapters under this section"
@@ -3906,8 +3948,8 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
-"Are you sure you would like to delete this metadata content? You will not be"
-" able to undo this operation!"
+"Are you sure you would like to delete this metadata content? You will not be "
+"able to undo this operation!"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:66
@@ -4253,14 +4295,6 @@ msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
 msgstr ""
 
-#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
-msgid "Members:"
-msgstr "Membres : "
-
-#: lib/booktype/apps/portal/templates/portal/frontpage.html:71
-msgid "Books:"
-msgstr "Livres :"
-
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:136
 msgid "There are no users yet"
 msgstr "Il n'y a pas encore d'utilisateurs"
@@ -4287,6 +4321,10 @@ msgstr ""
 msgid "Add books to this group"
 msgstr ""
 
+#: lib/booktype/apps/portal/templates/portal/group.html:117
+msgid "Members"
+msgstr "Membres"
+
 #: lib/booktype/apps/portal/templates/portal/group_create.html:16
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:20
 msgid "Create"
@@ -4296,7 +4334,9 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "Êtes-vous sûr de vouloir supprimer ce groupe ? Vous ne serez pas en mesure d'annuler cette opération !"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer ce groupe ? Vous ne serez pas en mesure "
+"d'annuler cette opération !"
 
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:7
 msgid "Remove the book from"
@@ -4402,7 +4442,10 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Etes-vous sûr de vouloir supprimer ce livre? Vous allez perdre toutes les données associées à ce livre et vous ne serez pas en mesure d'annuler cette opération!"
+msgstr ""
+"Etes-vous sûr de vouloir supprimer ce livre? Vous allez perdre toutes les "
+"données associées à ce livre et vous ne serez pas en mesure d'annuler cette "
+"opération!"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -4634,7 +4677,7 @@ msgstr "Vue plein écran du livre"
 msgid "Daily report for {0} ({1})"
 msgstr ""
 
-#: lib/booktype/apps/reports/management/commands/reportweekly.py:158
+#: lib/booktype/apps/reports/management/commands/reportweekly.py:157
 #, python-brace-format
 msgid "Weekly report for ({0} - {1})"
 msgstr ""
@@ -4776,15 +4819,20 @@ msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:137
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "Le fichier n'a pas pu être importé car il n'a pas été enregistré dans le format .docx . Essayez d'ouvrir le fichier dans Word et l'enregistrer comme un .docx ."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"Le fichier n'a pas pu être importé car il n'a pas été enregistré dans le "
+"format .docx . Essayez d'ouvrir le fichier dans Word et l'enregistrer comme "
+"un .docx ."
 
 #: lib/booktype/importer/docx/docximporter.py:140
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "Le fichier .docx  que vous avez téléversé contient des erreurs et ne peut être converti . S'il vous plaît contactez le service client ."
+msgstr ""
+"Le fichier .docx  que vous avez téléversé contient des erreurs et ne peut "
+"être converti . S'il vous plaît contactez le service client ."
 
 #: lib/booktype/importer/docx/docximporter.py:188
 msgid ""
@@ -4855,6 +4903,9 @@ msgstr ""
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
 "Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
-"feeling. No header, centered page numbers. 'Compact' means line indentations"
-" and no spacing between paragraphs."
+"feeling. No header, centered page numbers. 'Compact' means line indentations "
+"and no spacing between paragraphs."
 msgstr ""
+
+#~ msgid "ago"
+#~ msgstr "déjà"

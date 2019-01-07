@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-16 18:04+0100\n"
+"POT-Creation-Date: 2019-01-07 18:28+0100\n"
 "PO-Revision-Date: 2014-12-29 15:53+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -568,17 +568,61 @@ msgstr ""
 msgid "Post a message"
 msgstr ""
 
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:2
+#, python-format
+msgid "Hi %(first_name)s!"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:4
+msgid ""
+"This is a notification of a new message for you at your Booktype profile:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:7
+msgid "Sender:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:8
+msgid "Date:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:9
+msgid "Content:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:12
+msgid "Attachment:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:14
+#: lib/booki/messaging/templates/messaging/post.html:22
+msgid "Snippet:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:14
+msgid "not shown"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:16
+msgid "Snippet context:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:19
+msgid ""
+"This email address receives these notifications because of your settings:"
+msgstr ""
+
+#: lib/booki/messaging/templates/messaging/new_message_email.txt:22
+msgid "Need a new password?"
+msgstr ""
+
 #: lib/booki/messaging/templates/messaging/post.html:8
 msgid "send a reply"
 msgstr ""
 
 #: lib/booki/messaging/templates/messaging/post.html:11
 #, python-format
-msgid "%(time_t)s \"ago\" "
-msgstr ""
-
-#: lib/booki/messaging/templates/messaging/post.html:22
-msgid "Snippet:"
+msgid "%(time_t)s ago"
 msgstr ""
 
 #: lib/booki/messaging/templates/messaging/post.html:24
