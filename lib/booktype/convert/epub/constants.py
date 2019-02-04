@@ -6,6 +6,7 @@ STYLES_DIR = 'Styles'
 FONTS_DIR = 'Fonts'
 DOCUMENTS_DIR = 'Text'
 DEFAULT_LANG = 'en'
+DEFAULT_DIRECTION = 'ltr'
 
 EPUB_VALID_IMG_ATTRS = frozenset([
     "alt", "class", "dir", "height", "id", "ismap", "longdesc",
