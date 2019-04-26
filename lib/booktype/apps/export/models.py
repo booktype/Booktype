@@ -16,12 +16,20 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
+import os
+import shutil
+import logging
 
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_delete
+from django.dispatch.dispatcher import receiver
+from django.conf import settings
 
 from booki.editor.models import BookVersion, Book
+
+logger = logging.getLogger('booktype')
 
 
 class BookExport(models.Model):
@@ -54,6 +62,26 @@ class ExportFile(models.Model):
     class Meta:
         verbose_name = _('Export File')
         verbose_name_plural = _('Export Files')
+
+def has_subdir(dirpath):
+    for subname in os.listdir(dirpath):
+        subpath = os.path.join(dirpath, subname)
+        if os.path.isdir(subpath):
+            return True
+    return False
+
+@receiver(post_delete, sender=ExportFile)
+def _exportfile_delete(sender, instance, **kwargs):
+    relative_export_file = instance.filename.lstrip('/')
+    export_file = os.path.join(settings.BOOKTYPE_ROOT, relative_export_file)
+    export_type_dir = os.path.dirname(export_file)
+    export_main_dir = os.path.dirname(export_type_dir)
+    try:
+        shutil.rmtree(export_type_dir)
+        if not has_subdir(export_main_dir):
+            shutil.rmtree(export_main_dir)
+    except Exception as e:
+        logger.error('Error deleting export files: {}'.format(e))
 
 
 class ExportComment(models.Model):
