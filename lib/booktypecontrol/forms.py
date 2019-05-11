@@ -103,7 +103,7 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
 
                 config.set_configuration(
                     'BOOKTYPE_SITE_FAVICON',
-                    '{}/static/{}'.format(settings.BOOKTYPE_URL, rand_name)
+                    '{}{}'.format(settings.STATIC_URL, rand_name)
                 )
 
                 # delete prev icon to avoid garbage
