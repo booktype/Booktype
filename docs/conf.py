@@ -56,7 +56,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Booktype'
-copyright = u'2018, Aleksandar Erkalović'
+copyright = u'2019, Sourcefabric z.u. and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -209,7 +209,7 @@ latex_elements = {
 # author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'Booktype.tex', u'Booktype Documentation',
-   u'Aleksandar Erkalović', 'manual'),
+   u'Sourcefabric z.u. and contributors', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -239,7 +239,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'booktype', u'Booktype Documentation',
-     [u'Aleksandar Erkalović'], 1)
+     [u'Sourcefabric z.u. and contributors'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -253,7 +253,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Booktype', u'Booktype Documentation',
-   u'Aleksandar Erkalović', 'Booktype', 'Booktype is a free, open source platform that produces beautiful, engaging books formatted for print, Amazon, iBooks and almost any ereader within minutes.',
+   u'Sourcefabric z.u. and contributors', 'Booktype', 'Booktype is a free, open source platform that produces beautiful, engaging books formatted for print, Amazon, iBooks and almost any ereader within minutes.',
    'Miscellaneous'),
 ]
 
@@ -274,9 +274,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'Booktype'
-epub_author = u'Aleksandar Erkalović'
-epub_publisher = u'Aleksandar Erkalović'
-epub_copyright = u'2018, Aleksandar Erkalović'
+epub_author = u'Sourcefabric z.u. and contributors'
+epub_publisher = u'Sourcefabric z.u. and contributors'
+epub_copyright = u'2019, Sourcefabric z.u. and contributors'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
