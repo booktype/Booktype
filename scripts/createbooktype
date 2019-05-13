@@ -699,7 +699,7 @@ def create_apache(destination, profile):
 
     # TODO add path to booki
 
-    s = '''# Apache configuration for Booktype server V1.0.6
+    s = '''# Apache configuration for Booktype Server
 
 <VirtualHost *:80>
 
@@ -714,22 +714,26 @@ def create_apache(destination, profile):
 
      WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi_%(profile)s.py
 
-     # uncomment 'Require all granted' for Apache 2.4 without mod_access_compat
+     # Comment next 2 lines if using older Apache than v2.4
+     WSGIDaemonProcess %(project_name)s_wsgi python-path="__PATH_TO_ENV_SITE-PACKAGES_FOLDER__"
+     WSGIProcessGroup %(project_name)s_wsgi
+
+     # Comment 'Require all granted' for older Apache than v2.4
 
      <Location "/">
-       #Require all granted
+       Require all granted
        Options FollowSymLinks
      </Location>
 
      Alias /static/ "%(destination)s/static/"
      <Directory "%(destination)s/static/">
-       #Require all granted
+       Require all granted
        Options -Indexes
      </Directory>
 
      Alias /data/ "%(destination)s/data/"
      <Directory "%(destination)s/data/">
-       #Require all granted
+       Require all granted
        Options -Indexes
      </Directory>
 
