@@ -147,7 +147,7 @@ def upload_cover(request, bookid, version=None):
 
         h = hashlib.sha1()
         h.update(filename)
-        h.update(title)
+        h.update(unidecode.unidecode(title))
         h.update(str(datetime.datetime.now()))
 
         license = models.License.objects.get(

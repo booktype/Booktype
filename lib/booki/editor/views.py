@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+import unidecode
 
 from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -371,7 +372,7 @@ def upload_cover(request, bookid, version=None):
                 import hashlib
 
                 h = hashlib.sha1()
-                h.update(name)
+                h.update(unidecode.unidecode(name))
                 h.update(request.POST.get('format', ''))
                 h.update(request.POST.get('license', ''))
                 h.update(str(datetime.datetime.now()))
