@@ -7,6 +7,7 @@
 <link href='{% static "vendor/bootstrap-toggle-2.2.2/css/bootstrap-toggle.min.css" %}' type="text/css" rel="stylesheet"/>
 <link href='{% static "vendor/selectizejs-0.12.4/css/selectize.css" %}' type="text/css" rel="stylesheet"/>
 <link href='{% static "vendor/selectizejs-0.12.4/css/selectize.default.css" %}' type="text/css" rel="stylesheet"/>
+<link href='{% static "vendor/codemirror-5.47.0/css/codemirror.css" %}' rel='stylesheet' type='text/css' />
 
 <link href='{% static "core/css/bootstrap-theme.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-custom.css" %}' rel='stylesheet' type='text/css' />
@@ -15,7 +16,6 @@
 <link href='{% static "core/css/bt20.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/helpers.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "edit/css/edit.css" %}' rel='stylesheet' type='text/css' />
-<link href='{% static "edit/css/codemirror.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "edit/css/slider.css" %}' rel='stylesheet' type='text/css'>
 <link href='{% static "edit/css/select2.css" %}' rel='stylesheet' type='text/css'>
 <link href='{% static "edit/css/animate.css" %}' rel='stylesheet' type='text/css'>
@@ -38,11 +38,11 @@
 <script type="text/javascript" src="{% static "core/js/booki.js" %}"></script>
 <script type="text/javascript" src="{% static "core/js/booktype.js" %}"></script>
 
-<script type="text/javascript" src="{% static "edit/js/codemirror/codemirror.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/codemirror/mode/htmlmixed/htmlmixed.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/codemirror/mode/xml/xml.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/codemirror/mode/javascript/javascript.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/codemirror/mode/css/css.js" %}"></script>
+<script type="text/javascript" src="{% static 'vendor/codemirror-5.47.0/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/codemirror-5.47.0/mode/htmlmixed/htmlmixed.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/codemirror-5.47.0/mode/xml/xml.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/codemirror-5.47.0/mode/javascript/javascript.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/codemirror-5.47.0/mode/css/css.js' %}"></script>
 
 <!-- NOTE: to be move to right place later -->
 <script type="text/javascript" src="{% static "edit/js/bootstrap-notify.min.js" %}"></script>

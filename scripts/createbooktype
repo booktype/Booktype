@@ -697,8 +697,6 @@ def create_apache(destination, profile):
     except ImportError:
         django_path = ''
 
-    # TODO add path to booki
-
     s = '''# Apache configuration for Booktype Server
 
 <VirtualHost *:80>
