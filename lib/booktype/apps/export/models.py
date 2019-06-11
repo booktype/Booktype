@@ -72,11 +72,11 @@ def has_subdir(dirpath):
 
 @receiver(post_delete, sender=ExportFile)
 def _exportfile_delete(sender, instance, **kwargs):
-    relative_export_file = instance.filename.lstrip('/')
-    export_file = os.path.join(settings.BOOKTYPE_ROOT, relative_export_file)
-    export_type_dir = os.path.dirname(export_file)
-    export_main_dir = os.path.dirname(export_type_dir)
     try:
+        relative_export_file = instance.filename.lstrip('/')
+        export_file = os.path.join(settings.BOOKTYPE_ROOT, relative_export_file)
+        export_type_dir = os.path.dirname(export_file)
+        export_main_dir = os.path.dirname(export_type_dir)
         shutil.rmtree(export_type_dir)
         if not has_subdir(export_main_dir):
             shutil.rmtree(export_main_dir)
