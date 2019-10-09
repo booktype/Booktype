@@ -214,7 +214,7 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
         book.author = data.get('author')
         book.license = license
         book.language = language
-        book.hidden = (data.get('visible_to_everyone', None) == 'off')
+        book.hidden = (data.get('visible_to_everyone', None) != 'on')
         book.description = data.get('description', '')
 
         # STEP 2: Metadata
