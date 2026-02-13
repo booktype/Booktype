@@ -102,7 +102,7 @@ def convert(request_data, base_path):
     assets.add_files(request_data.files)
 
     subtasks = []
-    for (name, output) in request_data.outputs.iteritems():
+    for (name, output) in request_data.outputs.items():
         sandbox_path = os.path.join(base_path, name)
         output_path = os.path.join(sandbox_path, output.output)
 

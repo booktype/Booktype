@@ -785,7 +785,7 @@ class BookToc(models.Model):
         return None
 
     def __str__(self):
-        return unicode(self.weight)
+        return str(self.weight)
 
     class Meta:
         verbose_name = _('Book TOC')

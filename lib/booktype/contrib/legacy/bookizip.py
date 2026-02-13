@@ -41,7 +41,7 @@ class BookiZip:
 
         chapters = []
 
-        for key, value in info['manifest'].iteritems():
+        for key, value in info['manifest'].items():
             if value['mimetype'] in ['text/html', 'application/xhtml+xml']:
                 chapters.append(value['url'])
 
@@ -52,7 +52,7 @@ class BookiZip:
 
         chapters = []
 
-        for key, value in info['manifest'].iteritems():
+        for key, value in info['manifest'].items():
             if value['mimetype'] in ['image/png', 'image/jpeg', 'image/gif', 'image/tiff']:
                 chapters.append(value['url'])
 

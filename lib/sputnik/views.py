@@ -164,19 +164,19 @@ def dispatcher(request, **sputnik_dict):
                             # For now they all do the same thing but this might change in the future
                             try:
                                 ret = fnc(request, message, **a)
-                            except ObjectDoesNotExist, e:
+                            except ObjectDoesNotExist as e:
                                 execute_status = False
                                 logger.error("[{}] Object you are trying to find does not exist.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)
-                            except SuspiciousOperation, e:
+                            except SuspiciousOperation as e:
                                 execute_status = False
                                 logger.error("[{}] Suspicious operation.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)
-                            except PermissionDenied, e:
+                            except PermissionDenied as e:
                                 execute_status = False
                                 logger.error("[{}] Permission denied.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)
-                            except Exception, e:
+                            except Exception as e:
                                 execute_status = False
                                 logger.error("[{}] Unknown exception.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)

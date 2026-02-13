@@ -133,7 +133,7 @@ class AppearanceForm(BaseControlForm, forms.Form):
     def initial_data(cls):
         try:
             f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'r')
-            css_content = unicode(f.read(), 'utf8')
+            css_content = str(f.read(), 'utf8')
             f.close()
         except IOError:
             css_content = ''
@@ -192,7 +192,7 @@ class FrontpageForm(BaseControlForm, forms.Form):
                 % settings.BOOKTYPE_ROOT,
                 'r'
             )
-            _dict['description'] = unicode(f.read(), 'utf8')
+            _dict['description'] = str(f.read(), 'utf8')
             f.close()
         except IOError:
             _dict['description'] = ''

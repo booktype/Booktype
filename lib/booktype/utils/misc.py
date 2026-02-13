@@ -320,7 +320,7 @@ def import_book_from_file(epub_file, user, **kwargs):
         chapter = models.Chapter(
             book=book,
             version=book.version,
-            url_title=booktype_slugify(unicode(name)),
+            url_title=booktype_slugify(str(name)),
             title=name,
             status=stat,
             content=content,

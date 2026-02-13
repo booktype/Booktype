@@ -31,7 +31,7 @@ def create_permissions(app_name, app_perms, stdout=True):
             app_name=perms_app_name,
             name=codename
         )
-        perm.description = unicode(description)
+        perm.description = str(description)
         perm.save()
         created_perms.append(perm)
         if stdout:

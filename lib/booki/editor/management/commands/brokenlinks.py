@@ -47,7 +47,7 @@ def checkLink(options, chapter, urlLink):
         else:
             try:
                 response = urllib2.urlopen(HeadRequest(urlLink))
-            except IOError, e:
+            except IOError as e:
                 if hasattr(e, 'reason'):
                     returnCode = e.reason
                 elif hasattr(e, 'code'):

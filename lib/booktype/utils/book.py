@@ -226,7 +226,7 @@ def set_book_cover(book, file_name):
 
         # If we have used book.cover.save we would end up with obsolete files  on disk
         book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
-    except Exception, e:
+    except Exception as e:
         logger.exception(e)
 
 

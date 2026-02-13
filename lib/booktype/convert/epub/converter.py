@@ -439,7 +439,7 @@ class Epub3Converter(BaseConverter):
     def _add_theme_assets(self, epub_book):
         assets = self._get_theme_assets()
 
-        for asset_type, asset_list in assets.iteritems():
+        for asset_type, asset_list in assets.items():
             if asset_type == 'images':
                 for image_name in asset_list:
                     name = os.path.basename(image_name)

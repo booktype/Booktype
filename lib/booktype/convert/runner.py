@@ -39,7 +39,7 @@ def run_conversion(profile, input, output, config=None, sandbox_path=None, asset
     if converters is None:
         converters = loader.find_all()
 
-    if not converters.has_key(profile):
+    if profile not in converters:
         raise ConversionError("no converter registered for " + profile)
 
     book_asset = assets.get(input)

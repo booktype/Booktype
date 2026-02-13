@@ -19,7 +19,7 @@ def convert_endnotes(apps, schema_editor):
         # converting
         tree, _ = EpubImporter.convert_endnotes(tree)
 
-        content = unicode(etree.tostring(tree, pretty_print=True, encoding='utf-8',
+        content = str(etree.tostring(tree, pretty_print=True, encoding='utf-8',
                                          xml_declaration=False), 'utf-8')
 
         # remove redundant div wrapper

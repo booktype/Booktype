@@ -35,7 +35,7 @@ def list_theme_options(context):
                 s = f.read()
                 f.close()
 
-                t = Template(unicode(s, 'utf8'))
+                t = Template(str(s, 'utf8'))
                 content = t.render(context)
 
                 options.append({'name': theme, 'content': content})

@@ -187,7 +187,7 @@ class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
                 self.object.set_cover(fname)
                 os.unlink(fname)
                 self.object.save()
-            except Exception, e:
+            except Exception as e:
                 logger.exception(e)
                 all_ok = False
 

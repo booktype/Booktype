@@ -29,11 +29,11 @@ class AssetCollection(object):
         self.files = {}
 
     def add_files(self, files):
-        for (asset_id, file_path) in files.iteritems():
+        for (asset_id, file_path) in files.items():
             self.files[asset_id] = AssetFile(asset_id, file_path)
 
     def add_urls(self, urls):
-        for (asset_id, url) in urls.iteritems():
+        for (asset_id, url) in urls.items():
             file_path = os.path.join(self.base_path, slugify(asset_id))
             download(url, file_path)
             self.files[asset_id] = AssetFile(asset_id, file_path, original_url=url)

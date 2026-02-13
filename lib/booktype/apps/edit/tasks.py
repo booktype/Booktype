@@ -110,7 +110,7 @@ def publish_book(*args, **kwargs):
     logger.debug(data)
 
     output_results = {}
-    # _format: False for _format in data["outputs"].iterkeys()}
+    # _format: False for _format in data["outputs"].keys()}
 
     convert_url = '{}/_convert/'.format(settings.CONVERT_URL)
     result = download.fetch_url(convert_url, data, method='POST')
@@ -157,7 +157,7 @@ def publish_book(*args, **kwargs):
                 'Could not communicate with a server to fetch polling data.')
 
         if dta['state'] == 'SUCCESS':
-            for _key in data["outputs"].iterkeys():
+            for _key in data["outputs"].keys():
                 if 'state' in dta['result'][_key]:
                     if dta['result'][_key]['state'] == 'SUCCESS':
                         output_results[_key] = True
@@ -187,7 +187,7 @@ def publish_book(*args, **kwargs):
 
                 _files = {}
 
-                for output_type, result in dta['result'].iteritems():
+                for output_type, result in dta['result'].items():
                     if 'state' in result:
                         if result['state'] == 'SUCCESS':
                             status = 0

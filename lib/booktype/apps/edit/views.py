@@ -804,7 +804,7 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
             print(err)
             error, message = True, _('Unknown error while saving changes.')
 
-        return self.render_json_response({'message': unicode(message), 'error': error,
+        return self.render_json_response({'message': str(message), 'error': error,
                                           'updated_settings': updated_settings})
 
     def form_invalid(self, form):

@@ -266,7 +266,7 @@ class MPDFConverter(BaseConverter):
 
         dc_metadata = {
             key: value[0][0] for key, value in
-            book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
+            book.metadata.get("http://purl.org/dc/elements/1.1/").items()
         }
 
         m = book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
@@ -540,7 +540,7 @@ class MPDFConverter(BaseConverter):
         data.update(self.get_extra_configuration())
 
         f = codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8')
-        f.write(unicode(json.dumps(data), 'utf8'))
+        f.write(str(json.dumps(data), 'utf8'))
         f.close()
 
     def _save_images(self, book):
@@ -809,7 +809,7 @@ class MPDFConverter(BaseConverter):
                 except IOError:
                     pass
 
-        for asset_type, asset_list in assets.iteritems():
+        for asset_type, asset_list in assets.items():
             if asset_type == 'images':
                 for image_name in asset_list:
                     name = os.path.basename(image_name)

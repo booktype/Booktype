@@ -228,7 +228,7 @@ class EpubImporter(object):
                 "Imported chapter: {} -> {}".format(document, chapter))
 
         # fix links to chapters
-        for file_name, chapter in self._chapters.iteritems():
+        for file_name, chapter in self._chapters.items():
             self._fix_links(chapter, base_path=os.path.dirname(file_name))
 
         # create TOC objects
@@ -236,7 +236,7 @@ class EpubImporter(object):
 
     def _create_content(self, document, title):
         if not isinstance(title, unicode):
-            title = unicode(title, 'utf-8')
+            title = str(title, 'utf-8')
 
         content = document.get_body_content()
 
@@ -288,7 +288,7 @@ class EpubImporter(object):
             return None
 
         def matches(heading):
-            heading_text = unicode(
+            heading_text = str(
                 etree.tostring(heading, method='text', encoding='utf-8'),
                 'utf-8'
             )
