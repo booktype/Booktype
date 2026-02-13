@@ -61,7 +61,7 @@ class UserPassword(models.Model):
     @ivar host: Client host.
     """
 
-    user = models.ForeignKey(User, unique=False, verbose_name=_("user"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, verbose_name=_("user"))
     secretcode = models.CharField(_('secretcode'), max_length=30, blank=False, null=False)
     created = models.DateTimeField(_('created'), auto_now=True)
 

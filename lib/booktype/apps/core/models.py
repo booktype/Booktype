@@ -81,8 +81,8 @@ class BookRole(models.Model):
     Roles scoped by the desired Book
     """
 
-    role = models.ForeignKey(Role, verbose_name=_('role'))
-    book = models.ForeignKey(Book, verbose_name=_('book'))
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, verbose_name=_('role'))
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name=_('book'))
     members = models.ManyToManyField(
         User, verbose_name=_('users'),
         blank=True, null=True,

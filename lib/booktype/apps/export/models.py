@@ -33,8 +33,8 @@ logger = logging.getLogger('booktype')
 
 
 class BookExport(models.Model):
-    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("export"))
-    user = models.ForeignKey(auth_models.User, verbose_name=_("user"), null=True)
+    version = models.ForeignKey(BookVersion, on_delete=models.CASCADE, null=False, verbose_name=_("export"))
+    user = models.ForeignKey(auth_models.User, on_delete=models.CASCADE, verbose_name=_("user"), null=True)
     name = models.CharField(_('Name'), max_length=100, blank=False)
     task_id = models.CharField(_('Task ID'), max_length=64, null=False, unique=True, db_index=True)
     created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
@@ -51,7 +51,7 @@ class BookExport(models.Model):
 
 
 class ExportFile(models.Model):
-    export = models.ForeignKey(BookExport, null=False, verbose_name=_("export"))
+    export = models.ForeignKey(BookExport, on_delete=models.CASCADE, null=False, verbose_name=_("export"))
     typeof = models.CharField(_('Export type'), max_length=20, blank=False, null=False)
     filesize = models.IntegerField(_('File size'), default=0, null=True)
     pages = models.IntegerField(_('Number of pages'), default=0, null=True)
@@ -85,8 +85,8 @@ def _exportfile_delete(sender, instance, **kwargs):
 
 
 class ExportComment(models.Model):
-    export = models.ForeignKey(BookExport, null=False, verbose_name=_("version"))
-    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    export = models.ForeignKey(BookExport, on_delete=models.CASCADE, null=False, verbose_name=_("version"))
+    user = models.ForeignKey(auth_models.User, on_delete=models.CASCADE, verbose_name=_("user"))
     created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
     content = models.TextField(_('Content'), default='')
 
@@ -96,7 +96,7 @@ class ExportComment(models.Model):
 
 
 class ExportSettings(models.Model):
-    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null=False, verbose_name=_("book"))
     typeof = models.CharField(_('Export type'), max_length=20, blank=False, null=False)
     data = models.TextField(_('Data'), default='{}', null=False)
     created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
