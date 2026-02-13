@@ -39,7 +39,7 @@ class License(models.Model):
     abbrevation = models.CharField(_('abbreviation'), max_length=30)
     url = models.URLField(_('url'), blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -53,7 +53,7 @@ class Language(models.Model):
     abbrevation = models.CharField(_('abbreviation'),
                                    max_length=10, blank=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -75,7 +75,7 @@ class BookStatus(models.Model):
     weight = models.SmallIntegerField(_('weight'))
     color = models.CharField(_('color'), max_length=30, default='', blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -89,7 +89,7 @@ class BookNotes(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     notes = models.TextField(_('notes'))
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Notes for " + self.book.title
 
     class Meta:
@@ -144,7 +144,7 @@ class BookiGroup(models.Model):
             except Exception as e:
                 logger.exception(e)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -209,7 +209,7 @@ class Book(models.Model):
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -340,7 +340,7 @@ class BookHistory(models.Model):
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     kind = models.SmallIntegerField(_('kind'), default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.args
 
 
@@ -363,7 +363,7 @@ class BaseInfo(models.Model):
     value_text = models.TextField(_('value text'), null=True)
     value_date = models.DateTimeField(_('value date'), auto_now=False, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -454,7 +454,7 @@ class BookVersion(models.Model):
     def get_absolute_url(self):
         return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.book.url_title, self.get_version())
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%d.%d (%s)' % (self.major, self.minor, self.name)
 
     # DEPRECATED API NAMES
@@ -493,7 +493,7 @@ class Chapter(models.Model):
     def get_absolute_url(self):
         return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
@@ -603,7 +603,7 @@ class ChapterHistory(models.Model):
     revision = models.IntegerField(_('revision'), default=1)
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{0} | {1} - {2}. Comment: {3}'.format(
             self.chapter.book, self.chapter, self.modified, self.comment)
 
@@ -648,7 +648,7 @@ class ChapterLock(models.Model):
         verbose_name_plural = _('Chapters Locks')
         ordering = ('created',)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{0} - {1}".format(self.chapter.title, self.get_type_display())
 
 
@@ -687,7 +687,7 @@ class Attachment(models.Model):
 
         super(Attachment, self).delete()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.attachment.name
 
     class Meta:
@@ -784,7 +784,7 @@ class BookToc(models.Model):
             return self.chapter.url_title
         return None
 
-    def __unicode__(self):
+    def __str__(self):
         return unicode(self.weight)
 
     class Meta:
@@ -808,7 +808,7 @@ class BookiPermission(models.Model):
     group = models.ForeignKey(BookiGroup, null=True, verbose_name=_("group"))
     permission = models.SmallIntegerField(_('permission'))
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s ' % (self.user.username, self.permission)
 
 
@@ -816,7 +816,7 @@ class AttributionExclude(models.Model):
     book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.user.username, )
 
     class Meta:
@@ -830,7 +830,7 @@ class PublishWizzard(models.Model):
     wizz_type = models.CharField(_('wizard type'), max_length=20, blank=False)
     wizz_options = models.TextField(_('wizard options'), default='', null=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.book.url_title, )
 
     class Meta:
@@ -879,7 +879,7 @@ class BookCover(models.Model):
 
         super(BookCover, self).delete()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.id, )
 
 

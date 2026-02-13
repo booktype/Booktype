@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
         if options['delete_orphans']:
             orphan_perms.delete()
-            print BOLD_ON + "All undeclared permissions has been deleted." + BOLD_OFF
+            print(BOLD_ON + "All undeclared permissions has been deleted." + BOLD_OFF)
         else:
             if orphan_perms.count() > 0:
                 suggestion = (
@@ -41,4 +41,4 @@ class Command(BaseCommand):
                     "To delete them use: \n"
                     "./manage.py update_permissions --delete-orphans"
                 )
-                print BOLD_ON + suggestion % orphan_perms.count() + BOLD_OFF
+                print(BOLD_ON + suggestion % orphan_perms.count() + BOLD_OFF)

@@ -45,7 +45,7 @@ class UserProfile(models.Model):
         try:
             os.remove('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, self.user.username))
         except Exception as err:
-            print err
+            print(err)
 
 
 class UserPassword(models.Model):

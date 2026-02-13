@@ -24,9 +24,9 @@ import sputnik
 import time
 import requests
 import logging
-import urlparse
+from urllib import parse as urlparse
 
-from StringIO import StringIO
+from io import StringIO
 from collections import OrderedDict
 
 from django.views.generic.base import View

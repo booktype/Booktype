@@ -17,11 +17,11 @@
 import os
 import uuid
 import pprint
-import urllib
+from urllib import parse as urllib_parse, request as urllib_request
 import difflib
 import logging
 import hashlib
-import urlparse
+from urllib import parse as urlparse
 import datetime
 
 import lxml.html
@@ -103,7 +103,7 @@ class EpubImporter(object):
                     _parse_toc(_elem[1], unique_id)
                 elif isinstance(_elem, ebooklib.epub.Link):
                     _urlp = urlparse.urlparse(_elem.href)
-                    _name = os.path.normpath(urllib.unquote(_urlp.path))
+                    _name = os.path.normpath(urlparse.unquote(_urlp.path))
 
                     # check in case _name is an empty string
                     if not _name:
@@ -468,7 +468,7 @@ class EpubImporter(object):
 
             urlp = urlparse.urlparse(href)
             name = os.path.normpath(
-                os.path.join(base_path, urllib.unquote(urlp.path)))
+                os.path.join(base_path, urlparse.unquote(urlp.path)))
 
             if name in self._chapters:
                 title = self._chapters[name].url_title
@@ -488,7 +488,7 @@ class EpubImporter(object):
 
             urlp = urlparse.urlparse(src)
             name = os.path.normpath(
-                os.path.join(base_path, urllib.unquote(urlp.path)))
+                os.path.join(base_path, urlparse.unquote(urlp.path)))
 
             if urlp.netloc:
                 continue
@@ -498,7 +498,7 @@ class EpubImporter(object):
                     self._attachments[name].attachment.name)
                 attName, attExt = os.path.splitext(file_name)
 
-                fixed_src = urllib.quote(
+                fixed_src = urlparse.quote(
                     'static/{}{}'.format(booktype_slugify(attName), attExt))
                 image.set('src', fixed_src)
                 to_save = True

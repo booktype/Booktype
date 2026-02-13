@@ -1361,7 +1361,7 @@ def remote_chapters_changed(request, message, bookid, version):
             toc_item.parent = parent
             toc_item.save()
         except Exception, e:
-            print e
+            print(e)
 
         weight -= 1
 

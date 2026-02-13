@@ -37,9 +37,9 @@ def load_data(apps, schema_editor):
             license = License.objects.get(pk=data['pk'])
             license.url = data['url']
             license.save()
-            print "Updating url '%s' to license '%s'" % (data['url'], license.name)
+            print("Updating url '%s' to license '%s'" % (data['url'], license.name))
         except License.DoesNotExist:
-            print "License with pk %s does not exist. Doing nothing" % data['pk']
+            print("License with pk %s does not exist. Doing nothing" % data['pk'])
 
 
 class Migration(migrations.Migration):

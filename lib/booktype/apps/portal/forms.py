@@ -14,7 +14,7 @@ from widgets import RemovableImageWidget
 
 
 class SpanErrorList(ErrorList):
-    def __unicode__(self):
+    def __str__(self):
         return unicode(self.as_spans())
 
     def as_spans(self):
@@ -72,7 +72,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
                 misc.set_group_image("{}_small".format(group_id), group_image, 18, 18)
         except Exception as err:
             # TODO: we should do something here
-            print err
+            print(err)
 
 
 class GroupCreateForm(BaseGroupForm):

@@ -611,7 +611,7 @@ class BookUserDetailRoles(views.APIView):
             Role.objects.get(name='registered_users')
         ).data)
 
-        print Role.objects.get(name='registered_users').permissions
+        print(Role.objects.get(name='registered_users').permissions)
 
         # get book roles
         for role in user.roles.filter(book=book):

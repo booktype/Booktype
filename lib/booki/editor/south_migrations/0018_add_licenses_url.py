@@ -35,9 +35,9 @@ class Migration(DataMigration):
                 license = orm.License.objects.get(pk=data['pk'])
                 license.url = data['url']
                 license.save()
-                print "Updating url '%s' to license '%s'" % (data['url'], license.name)
+                print("Updating url '%s' to license '%s'" % (data['url'], license.name))
             except orm.License.DoesNotExist:
-                print "License with pk %s does not exist. Doing nothing" % data['pk']
+                print("License with pk %s does not exist. Doing nothing" % data['pk'])
 
     def backwards(self, orm):
         "Write your backwards methods here."

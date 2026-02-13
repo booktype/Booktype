@@ -18,7 +18,7 @@ import os
 import uuid
 import json
 import logging
-import urlparse
+from urllib import parse as urlparse
 import ebooklib
 import datetime
 from copy import deepcopy

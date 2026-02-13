@@ -1,16 +1,14 @@
 -r _base.txt
 
-requests==2.9.2
-sqlparse==0.2.2
-django-debug-toolbar==1.6
-django-discover-runner
+requests>=2.20.0
+sqlparse>=0.3.0
+django-debug-toolbar>=2.0
 mock
-selenium
+selenium>=3.141.0
 factory_boy
 sphinx
-pep8
-pytest==3.0.7
-pytest-cov==2.4.0
-pytest-django==3.1.2
-pytest-pythonpath==0.7.1
-Faker==0.7.10
+pytest>=5.0.0
+pytest-cov>=2.8.0
+pytest-django>=3.8.0
+pytest-pythonpath>=0.7.3
+Faker>=4.0.0

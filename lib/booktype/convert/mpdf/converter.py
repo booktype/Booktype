@@ -18,7 +18,7 @@ import os
 import json
 import uuid
 import codecs
-import urllib2
+from urllib import request as urllib2
 import logging
 import datetime
 from lxml import etree

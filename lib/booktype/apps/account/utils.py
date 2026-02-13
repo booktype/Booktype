@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import urllib
-import urlparse
+from urllib import parse as urllib_parse, request as urllib_request
+from urllib import parse as urlparse
 import hashlib
 
 from django.conf import settings
@@ -35,7 +35,7 @@ def get_profile_image(user, size=100):
             hashlib.md5(
                 profile.user.email.encode('utf-8').lower()
             ).hexdigest(),
-            urllib.urlencode({'d': default, 's': str(size)})
+            urlparse.urlencode({'d': default, 's': str(size)})
         )
 
     filename = profile.image.name

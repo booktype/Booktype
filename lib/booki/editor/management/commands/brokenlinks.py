@@ -15,7 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import urllib2
+from urllib import request as urllib2
 from lxml import etree, html
 
 from django.test import Client
@@ -40,7 +40,7 @@ def checkLink(options, chapter, urlLink):
             if urlLink.startswith(hostUrl):
                 return
 
-        print '   >>> ', urlLink,
+        print('   >>> ', urlLink,)
 
         if cacheLinks.get(urlLink):
             returnCode = cacheLinks.get(urlLink)
@@ -58,7 +58,7 @@ def checkLink(options, chapter, urlLink):
             if not options['no_cache']:
                 cacheLinks[urlLink] = returnCode
 
-        print '  [%s]' % returnCode
+        print('  [%s]' % returnCode)
     else:
         if options['no_local']: return
 
@@ -66,10 +66,10 @@ def checkLink(options, chapter, urlLink):
         newUrl = os.path.normpath('/%s/_v/%s/%s/%s' % (
             chapter.version.book.url_title, chapter.version.getVersion(), chapter.url_title, urlLink))
 
-        print '    >> ', newUrl,
+        print('    >> ', newUrl,)
         response = c.get(newUrl)
 
-        print '   [%s]' % response.status_code
+        print('   [%s]' % response.status_code)
 
 
 class Command(BaseCommand):
@@ -115,17 +115,17 @@ class Command(BaseCommand):
             booksList = models.Book.objects.all().order_by('url_title')
 
         for book in booksList:
-            print '[%s]' % book.url_title
+            print('[%s]' % book.url_title)
 
             try:
                 for chapter in models.Chapter.objects.filter(version__book=book):
-                    print '  [%s]' % chapter.url_title,
+                    print('  [%s]' % chapter.url_title,)
 
                     try:
                         tree = html.document_fromstring(chapter.content)
-                        print ''
+                        print('')
                     except:
-                        print '   [ERROR PARSING HTML]'
+                        print('   [ERROR PARSING HTML]')
                         continue
 
                     for elem in tree.iter():

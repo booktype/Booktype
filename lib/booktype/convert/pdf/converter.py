@@ -22,7 +22,7 @@ import lxml
 import lxml.html
 from lxml import etree
 
-import urllib2
+from urllib import request as urllib2
 
 import logging
 

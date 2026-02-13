@@ -58,4 +58,4 @@ class Command(BaseCommand):
         get_exporter_class()(filename, book_version).run()
 
         if options['verbosity'] in ['1', '2']:
-            print 'Book successfully exported into "%s" file.' % filename
+            print('Book successfully exported into "%s" file.' % filename)

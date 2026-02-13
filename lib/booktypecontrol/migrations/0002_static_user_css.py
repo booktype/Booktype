@@ -13,14 +13,14 @@ def create_user_css(apps, schema_editor):
             try:
                 os.mkdir('%s/css/' % settings.STATIC_ROOT)
             except OSError as err:
-                print err
+                print(err)
                 raise RuntimeError('Can not create css directory.')
 
         f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'w')
         f.write(' ')
         f.close()
     except IOError as err:
-        print err
+        print(err)
         raise RuntimeError('Can not create the file.')
 
 

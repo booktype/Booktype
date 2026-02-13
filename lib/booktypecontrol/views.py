@@ -222,7 +222,7 @@ class ControlCenterSettings(BaseCCView, FormView):
                 form.success_message or _('Successfully saved settings.')
             )
         except Exception as err:
-            print err
+            print(err)
             messages.warning(self.request,
                              _('Unknown error while saving changes.'))
         return super(ControlCenterSettings, self).form_valid(form)
@@ -473,7 +473,7 @@ class DeleteGroupView(BaseCCView, DeleteView):
         try:
             group.remove_group_images()
         except Exception as e:
-            print e
+            print(e)
 
         return super(DeleteGroupView, self).delete(request, *args, **kwargs)
 
