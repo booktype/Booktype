@@ -129,7 +129,7 @@ def convert(request_data, base_path):
     with allow_join_result():
         result.join(propagate=False)
 
-    subtasks_info = {async.task_id: async for async in result.children}
+    subtasks_info = {task.task_id: task for task in result.children}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
 
     return subtasks_info

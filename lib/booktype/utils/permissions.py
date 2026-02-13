@@ -35,8 +35,8 @@ def create_permissions(app_name, app_perms, stdout=True):
         perm.save()
         created_perms.append(perm)
         if stdout:
-            print("\t- saving %s.%s permission".expandtabs(4) \)
-                % (perms_app_name, codename)
+            print("\t- saving %s.%s permission".expandtabs(4)
+                % (perms_app_name, codename))
 
     return created_perms
 
