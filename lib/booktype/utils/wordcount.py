@@ -50,14 +50,14 @@ def _wordcount(i):
 
 
 def wordcount(text):
-    if isinstance(text, str):
-        text = str(text, "utf-8")
+    if isinstance(text, bytes):
+        text = text.decode('utf-8')
     return _wordcount(iter(text))
 
 
 def charcount(text):
-    if isinstance(text, str):
-        text = str(text, "utf-8")
+    if isinstance(text, bytes):
+        text = text.decode('utf-8')
     count = 0
     try:
         i = iter(text)
@@ -70,8 +70,8 @@ def charcount(text):
 
 
 def charspacecount(text):
-    if isinstance(text, str):
-        text = str(text, "utf-8")
+    if isinstance(text, bytes):
+        text = text.decode('utf-8')
     count = 0
     try:
         i = iter(text)

@@ -239,7 +239,7 @@ class Epub3Converter(BaseConverter):
         m[None] = list(filter(lambda item: not (isinstance(item[1], dict) and item[1].get("property") == "dcterms:modified"), m[None]))  # noqa
 
         # we also need to remove the `additional metadata` which here is just garbage
-        m[None] = list(filter(lambda item: not (isinstance(item[1], dict) and item[1].get("property").startswith("add_meta_terms:")), m[None]))  # noqa
+        m[None] = list(filter(lambda item: not (isinstance(item[1], dict) and item[1].get("property") and item[1].get("property").startswith("add_meta_terms:")), m[None]))  # noqa
 
         # NOTE: probably going to extend this function in future
 

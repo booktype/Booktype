@@ -539,9 +539,8 @@ class MPDFConverter(BaseConverter):
         data = {'metadata': dc_metadata, 'config': self.config}
         data.update(self.get_extra_configuration())
 
-        f = codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8')
-        f.write(str(json.dumps(data), 'utf8'))
-        f.close()
+        with codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8') as f:
+            f.write(json.dumps(data))
 
     def _save_images(self, book):
         """Saves all the images from EPUB file to the temporary directory.

@@ -132,9 +132,8 @@ class AppearanceForm(BaseControlForm, forms.Form):
     @classmethod
     def initial_data(cls):
         try:
-            f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'r')
-            css_content = str(f.read(), 'utf8')
-            f.close()
+            with open('%s/css/_user.css' % settings.STATIC_ROOT, 'r', encoding='utf-8') as f:
+                css_content = f.read()
         except IOError:
             css_content = ''
 
@@ -190,9 +189,10 @@ class FrontpageForm(BaseControlForm, forms.Form):
             f = open(
                 '%s/templates/portal/welcome_message.html'
                 % settings.BOOKTYPE_ROOT,
-                'r'
+                'r',
+                encoding='utf-8'
             )
-            _dict['description'] = str(f.read(), 'utf8')
+            _dict['description'] = f.read()
             f.close()
         except IOError:
             _dict['description'] = ''

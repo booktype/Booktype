@@ -31,11 +31,10 @@ def list_theme_options(context):
     for theme in os.listdir('{}/themes/'.format(settings.BOOKTYPE_ROOT)):
         if os.path.isdir('{}/themes/{}/'.format(settings.BOOKTYPE_ROOT, theme)):
             if os.path.exists('{}/themes/{}/panel.html'.format(settings.BOOKTYPE_ROOT, theme)):
-                f = open('{}/themes/{}/panel.html'.format(settings.BOOKTYPE_ROOT, theme), 'rt')
-                s = f.read()
-                f.close()
+                with open('{}/themes/{}/panel.html'.format(settings.BOOKTYPE_ROOT, theme), 'rt', encoding='utf-8') as f:
+                    s = f.read()
 
-                t = Template(str(s, 'utf8'))
+                t = Template(s)
                 content = t.render(context)
 
                 options.append({'name': theme, 'content': content})

@@ -22,7 +22,7 @@ from urllib import parse as urlparse
 import tempfile
 import ebooklib
 import datetime
-from io import StringIO
+from io import StringIO, BytesIO
 import importlib
 
 from django.conf import settings
@@ -288,7 +288,11 @@ def import_book_from_file(epub_file, user, **kwargs):
         )
 
         s = attach.get_content()
-        f = StringIO(s)
+        # Use BytesIO for binary data
+        if isinstance(s, bytes):
+            f = BytesIO(s)
+        else:
+            f = StringIO(s)
         f2 = File(f)
         f2.size = len(s)
         att.attachment.save(attach.file_name, f2, save=False)

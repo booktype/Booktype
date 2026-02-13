@@ -235,8 +235,8 @@ class EpubImporter(object):
         self._make_toc(book, toc)
 
     def _create_content(self, document, title):
-        if not isinstance(title, unicode):
-            title = str(title, 'utf-8')
+        if isinstance(title, bytes):
+            title = title.decode('utf-8')
 
         content = document.get_body_content()
 
