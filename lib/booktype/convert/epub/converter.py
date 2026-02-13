@@ -18,7 +18,7 @@ import os
 import uuid
 import json
 import logging
-import urlparse
+from urllib import parse as urlparse
 import ebooklib
 import datetime
 from copy import deepcopy
@@ -236,10 +236,10 @@ class Epub3Converter(BaseConverter):
 
         # delete existing 'modified' tag
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
-        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property") == "dcterms:modified"), m[None])  # noqa
+        m[None] = list(filter(lambda item: not (isinstance(item[1], dict) and item[1].get("property") == "dcterms:modified"), m[None]))  # noqa
 
         # we also need to remove the `additional metadata` which here is just garbage
-        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property").startswith("add_meta_terms:")), m[None])  # noqa
+        m[None] = list(filter(lambda item: not (isinstance(item[1], dict) and item[1].get("property") and item[1].get("property").startswith("add_meta_terms:")), m[None]))  # noqa
 
         # NOTE: probably going to extend this function in future
 
@@ -439,7 +439,7 @@ class Epub3Converter(BaseConverter):
     def _add_theme_assets(self, epub_book):
         assets = self._get_theme_assets()
 
-        for asset_type, asset_list in assets.iteritems():
+        for asset_type, asset_list in assets.items():
             if asset_type == 'images':
                 for image_name in asset_list:
                     name = os.path.basename(image_name)

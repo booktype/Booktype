@@ -63,4 +63,4 @@ class Command(BaseCommand):
                 raise CommandError('File "%s" does not exist. Can not finish import.' % fileName)
             else:
                 if options['verbosity'] in ['1', '2']:
-                    print 'Booki-zip "%s" file successfully imported.' % fileName
+                    print('Booki-zip "%s" file successfully imported.' % fileName)

@@ -44,15 +44,20 @@ setup(
     },
     scripts=['scripts/createbooktype'],
 
-    install_requires=['setuptools', 'simplejson', 'django'],
+    install_requires=['setuptools', 'django'],
     classifiers=[
           "License :: OSI Approved :: GNU General Public License (GPL)",
           "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
           "Development Status :: 3 - Alpha",
           "Intended Audience :: Developers",
       "Intended Audience :: Information Technology",
       "Framework :: Django",
       ],
+      python_requires='>=3.6',
       keywords='collaborative book writing sprint',
       license='AGPL',
 

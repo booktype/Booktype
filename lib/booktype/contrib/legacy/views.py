@@ -24,9 +24,9 @@ import sputnik
 import time
 import requests
 import logging
-import urlparse
+from urllib import parse as urlparse
 
-from StringIO import StringIO
+from io import StringIO
 from collections import OrderedDict
 
 from django.views.generic.base import View
@@ -91,7 +91,7 @@ def export_book(input_file, filename):
             title=title,
             file_name='{}.xhtml'.format(file_name[6:-5])
         )
-        cont = unicode(bookizip.read(file_name), 'utf-8')
+        cont = str(bookizip.read(file_name), 'utf-8')
         _section.append(c1)
 
         try:
@@ -274,7 +274,7 @@ def send_request(book_url, conf, request):
             logger.exception('Could not read response data.')
 
         if dta['state'] == 'SUCCESS':
-            for _key in data["outputs"].iterkeys():
+            for _key in data["outputs"].keys():
                 if 'state' in dta['result'][_key]:
                     if dta['result'][_key]['state'] == 'SUCCESS':
                         output_results[_key] = True
@@ -289,13 +289,13 @@ def send_request(book_url, conf, request):
                     d['status'] = output_results[_key]
                     return d
 
-                urls = {_key: _x(_key) for _key in output_results.iterkeys()}
+                urls = {_key: _x(_key) for _key in output_results.keys()}
 
                 _now = datetime.datetime.now()
 
                 _files = {}
 
-                for output_type, result in dta['result'].iteritems():
+                for output_type, result in dta['result'].items():
                     if 'state' in result:
                         if result['state'] == 'SUCCESS':
                             return result

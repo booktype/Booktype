@@ -20,7 +20,7 @@ class Permission(models.Model):
         max_length=255
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
     class Meta:
@@ -62,7 +62,7 @@ class Role(models.Model):
         blank=True, null=True
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % self.name
 
     class Meta:
@@ -81,15 +81,15 @@ class BookRole(models.Model):
     Roles scoped by the desired Book
     """
 
-    role = models.ForeignKey(Role, verbose_name=_('role'))
-    book = models.ForeignKey(Book, verbose_name=_('book'))
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, verbose_name=_('role'))
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name=_('book'))
     members = models.ManyToManyField(
         User, verbose_name=_('users'),
         blank=True, null=True,
         related_name='roles'
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s' % (self.book.title, self.role.name)
 
     class Meta:
@@ -130,7 +130,7 @@ class BookSkeleton(models.Model):
         upload_to=SKELETON_UPLOAD_DIR,
         verbose_name=_('File'))
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{0} - {1}'.format(self.name, self.language)
 
     class Meta:

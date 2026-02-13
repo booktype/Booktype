@@ -45,7 +45,7 @@ class UserProfile(models.Model):
         try:
             os.remove('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, self.user.username))
         except Exception as err:
-            print err
+            print(err)
 
 
 class UserPassword(models.Model):
@@ -61,7 +61,7 @@ class UserPassword(models.Model):
     @ivar host: Client host.
     """
 
-    user = models.ForeignKey(User, unique=False, verbose_name=_("user"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, verbose_name=_("user"))
     secretcode = models.CharField(_('secretcode'), max_length=30, blank=False, null=False)
     created = models.DateTimeField(_('created'), auto_now=True)
 

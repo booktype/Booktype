@@ -34,7 +34,7 @@ def render(html_path, pdf_path, **kwargs):
         "-output", pdf_path,
     ]
 
-    if kwargs.has_key("page_config"):
+    if "page_config" in kwargs:
         params += ["-page-config", kwargs.get("page_config")]
 
     custom_css_file = None
@@ -93,8 +93,8 @@ def make_pagination_config(args):
 def _get_page_settings(args):
     settings = {}
 
-    for key, (min_val, max_val, multiplier) in constants.PAGE_EXTREMA.iteritems():
-        if not args.has_key(key):
+    for key, (min_val, max_val, multiplier) in constants.PAGE_EXTREMA.items():
+        if key not in args:
             continue
 
         val = float(args.get(key))
@@ -104,10 +104,10 @@ def _get_page_settings(args):
         else:
             settings[key] = val * multiplier
 
-    if args.has_key("page_size"):
+    if "page_size" in args:
         page_size = args.get("page_size")
 
-        if constants.PAGE_SIZE_DATA.has_key(page_size):
+        if page_size in constants.PAGE_SIZE_DATA:
             settings.update(constants.PAGE_SIZE_DATA.get(page_size))
         else:
             raise ValueError("invalid page size specifier")

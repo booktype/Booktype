@@ -15,14 +15,14 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import urllib
+from urllib import parse as urllib_parse, request as urllib_request
 import config
 import logging
-import urlparse
+from urllib import parse as urlparse
 import tempfile
 import ebooklib
 import datetime
-import StringIO
+from io import StringIO, BytesIO
 import importlib
 
 from django.conf import settings
@@ -206,7 +206,7 @@ def _convert_file_name(file_name):
         _ext = name[name.rfind('.'):]
         name = booktype_slugify(_np) + _ext
 
-    name = urllib.unquote(name)
+    name = urlparse.unquote(name)
     name = name.replace(' ', '_')
 
     return name
@@ -261,7 +261,7 @@ def import_book_from_file(epub_file, user, **kwargs):
                 pass
             elif isinstance(_elem, epub.Link):
                 _u = urlparse.urlparse(_elem.href)
-                _name = urllib.unquote(os.path.basename(_u.path))
+                _name = urlparse.unquote(os.path.basename(_u.path))
                 if not _name:
                     _name = _elem.title
 
@@ -288,7 +288,11 @@ def import_book_from_file(epub_file, user, **kwargs):
         )
 
         s = attach.get_content()
-        f = StringIO.StringIO(s)
+        # Use BytesIO for binary data
+        if isinstance(s, bytes):
+            f = BytesIO(s)
+        else:
+            f = StringIO(s)
         f2 = File(f)
         f2.size = len(s)
         att.attachment.save(attach.file_name, f2, save=False)
@@ -304,7 +308,7 @@ def import_book_from_file(epub_file, user, **kwargs):
             continue
 
         # check if this chapter name already exists
-        name = urllib.unquote(os.path.basename(chap.file_name))
+        name = urlparse.unquote(os.path.basename(chap.file_name))
         content = chap.get_body_content()
 
         # maybe this part has to go to the plugin
@@ -320,7 +324,7 @@ def import_book_from_file(epub_file, user, **kwargs):
         chapter = models.Chapter(
             book=book,
             version=book.version,
-            url_title=booktype_slugify(unicode(name)),
+            url_title=booktype_slugify(str(name)),
             title=name,
             status=stat,
             content=content,
@@ -328,7 +332,7 @@ def import_book_from_file(epub_file, user, **kwargs):
             modified=now
         )
         chapter.save()
-        _imported[urllib.unquote(os.path.basename(chap.file_name))] = chapter
+        _imported[urlparse.unquote(os.path.basename(chap.file_name))] = chapter
 
     # fix links
     for chap in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
@@ -354,7 +358,7 @@ def import_book_from_file(epub_file, user, **kwargs):
 
                     if _href:
                         _u = urlparse.urlparse(_href)
-                        pth = urllib.unquote(os.path.basename(_u.path))
+                        pth = urlparse.unquote(os.path.basename(_u.path))
 
                         if pth in _imported:
                             _name = _imported[pth].url_title
@@ -365,8 +369,8 @@ def import_book_from_file(epub_file, user, **kwargs):
 
             if to_save:
                 chap.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-                _imported[urllib.unquote(os.path.basename(chap.file_name))].content = chap.content
-                _imported[urllib.unquote(os.path.basename(chap.file_name))].save()
+                _imported[urlparse.unquote(os.path.basename(chap.file_name))].content = chap.content
+                _imported[urlparse.unquote(os.path.basename(chap.file_name))].save()
 
     n = len(toc) + 1
     parents = {}

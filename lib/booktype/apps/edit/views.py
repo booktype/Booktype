@@ -801,10 +801,10 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
             else:
                 error, message = True, _('You have no permissions to execute this action.')
         except Exception as err:
-            print err
+            print(err)
             error, message = True, _('Unknown error while saving changes.')
 
-        return self.render_json_response({'message': unicode(message), 'error': error,
+        return self.render_json_response({'message': str(message), 'error': error,
                                           'updated_settings': updated_settings})
 
     def form_invalid(self, form):

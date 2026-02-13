@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import urllib
-import urlparse
+from urllib import parse as urllib_parse, request as urllib_request
+from urllib import parse as urlparse
 import ebooklib
 import logging
 
@@ -85,7 +85,7 @@ class WriterPlugin(BasePlugin):
             if not src:
                 continue
 
-            path = urllib.unquote(src)
+            path = urlparse.unquote(src)
 
             # if hostname, then it is an image with absolute url
             if urlparse.urlparse(path).hostname:

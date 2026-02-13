@@ -41,7 +41,7 @@ def tidy_cleanup(content, **extra):
 
     content = misc.remove_unknown_tags(content)
 
-    for k, v in extra.iteritems():
+    for k, v in extra.items():
         cmd.append('--%s' % k)
 
         if v:

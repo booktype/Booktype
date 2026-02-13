@@ -22,7 +22,7 @@ import lxml
 import lxml.html
 from lxml import etree
 
-import urllib2
+from urllib import request as urllib2
 
 import logging
 
@@ -71,7 +71,7 @@ class PdfConverter(BaseConverter):
     def convert(self, book, output_path):
         self._save_images(book)
 
-        dc_metadata = {key : value[0][0] for (key, value) in book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()}
+        dc_metadata = {key : value[0][0] for (key, value) in book.metadata.get("http://purl.org/dc/elements/1.1/").items()}
 
         head_params = {
             "title"     : dc_metadata.get("title", ""),

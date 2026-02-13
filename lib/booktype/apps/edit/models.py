@@ -12,7 +12,7 @@ class Comment(models.Model):
     """Model for storing Word comments"""
 
     # Every comment is connected with certain chapter document
-    chapter = models.ForeignKey(Chapter, null=False, verbose_name="chapter")
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, null=False, verbose_name="chapter")
 
     # Comments can have parents. This is when one user participates in the discussion
     parent = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
@@ -24,7 +24,7 @@ class Comment(models.Model):
     author = models.CharField("author", max_length=50, default='', null=False)
 
     # user who created the comment if any
-    user = models.ForeignKey(User, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     # Date when comments was written
     date = models.DateTimeField("date", null=False)
@@ -82,7 +82,7 @@ class InviteCode(models.Model):
     """
 
     code = models.CharField(max_length=20, unique=True, db_index=True)
-    book = models.ForeignKey(Book, related_name='invite_codes')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='invite_codes')
     roles = models.ManyToManyField(Role, verbose_name='Roles to assign')
     created = models.DateTimeField(auto_now_add=True)
     expire_on = models.DateField()
@@ -103,7 +103,7 @@ class ChatThread(models.Model):
     In future book can have more than 1 thread,
     that is why we have this proxy model.
     """
-    book = models.ForeignKey(Book)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     def __str__(self):
         return '"{}" thread.'.format(self.book.title)
@@ -113,8 +113,8 @@ class ChatMessage(models.Model):
     """
     Chat message.
     """
-    thread = models.ForeignKey(ChatThread, related_name='messages')
-    sender = models.ForeignKey(User)
+    thread = models.ForeignKey(ChatThread, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 

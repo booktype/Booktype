@@ -341,7 +341,7 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
             try:
                 group.remove_group_images()
             except Exception as e:
-                print e
+                print(e)
 
             messages.success(self.request, _('Group successfully deleted.'))
         return super(GroupDeleteView, self).delete(request, *args, **kwargs)

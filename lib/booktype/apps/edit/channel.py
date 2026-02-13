@@ -1355,13 +1355,13 @@ def remote_chapters_changed(request, message, bookid, version):
                         id__exact=int(chap[1]),
                         version=book_version
                     )
-                except Exception, e:
+                except Exception as e:
                     pass
 
             toc_item.parent = parent
             toc_item.save()
-        except Exception, e:
-            print e
+        except Exception as e:
+            print(e)
 
         weight -= 1
 

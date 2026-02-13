@@ -92,7 +92,7 @@ class Redis(object):
         if isinstance(s, unicode):
             try:
                 return s.encode(self.charset, self.errors)
-            except UnicodeEncodeError, e:
+            except UnicodeEncodeError as e:
                 raise InvalidData("Error encoding unicode value '%s': %s" % (value.encode(self.charset, 'replace'), e))
         return str(s)
     
@@ -103,7 +103,7 @@ class Redis(object):
         >>> r._sock.close()
         >>> try:
         ...     r._send_command('pippo')
-        ... except ConnectionError, e:
+        ... except ConnectionError as e:
         ...     print e
         Error 9 while writing to socket. Bad file descriptor.
         >>>
@@ -114,7 +114,7 @@ class Redis(object):
 
         try:
             self._sock.sendall(s)
-        except socket.error, e:
+        except socket.error as e:
             self.lck.release()
             if e.args[0] == 32:
                 # broken pipe
@@ -137,7 +137,7 @@ class Redis(object):
     def _read(self):
         try:
             return self._fp.readline()
-        except socket.error, e:
+        except socket.error as e:
             if e.args and e.args[0] == errno.EAGAIN:
                 return
             self.disconnect()
@@ -363,14 +363,14 @@ class Redis(object):
         >>> r = Redis(db=9)
         >>> try:
         ...     r.rename('a', 'a')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         source and destination objects are the same
         >>> r.rename('a', 'b')
         'OK'
         >>> try:
         ...     r.rename('a', 'b')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         no such key
         >>> r.set('a', 1)
@@ -432,7 +432,7 @@ class Redis(object):
         'OK'
         >>> try:
         ...     r.push('a', 'a')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         Operation against a key holding the wrong kind of value
         >>> 
@@ -492,7 +492,7 @@ class Redis(object):
         1
         >>> try:
         ...     r.ltrim('l', 0, 1)
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         no such key
         >>> r.push('l', 'aaa')
@@ -600,14 +600,14 @@ class Redis(object):
         1
         >>> try:
         ...     r.lset('l', 0, 'a')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         no such key
         >>> r.push('l', 'aaa')
         'OK'
         >>> try:
         ...     r.lset('l', 1, 'a')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         index out of range
         >>> r.lset('l', 0, 'bbb')
@@ -699,7 +699,7 @@ class Redis(object):
             stmt.append("LIMIT %s %s" % (start, num))
         if get is None:
             pass
-        elif isinstance(get, basestring):
+        elif isinstance(get, str):
             stmt.append("GET %s" % get)
         elif isinstance(get, list) or isinstance(get, tuple):
             for g in get:
@@ -827,12 +827,12 @@ class Redis(object):
         1
         >>> try:
         ...     r.sinter()
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         wrong number of arguments for 'sinter' command
         >>> try:
         ...     r.sinter('l')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         Operation against a key holding the wrong kind of value
         >>> r.sinter('s1', 's2', 's3')
@@ -876,7 +876,7 @@ class Redis(object):
         1
         >>> try:
         ...     r.smembers('l')
-        ... except ResponseError, e:
+        ... except ResponseError as e:
         ...     print e
         Operation against a key holding the wrong kind of value
         >>> r.smembers('s')
@@ -1328,7 +1328,7 @@ class Redis(object):
                     sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, self.nodelay)
                 setattr(connections, self.connection_key, sock)
             sock = getattr(connections, self.connection_key)
-        except socket.error, e:
+        except socket.error as e:
             raise ConnectionError("Error %s connecting to %s:%s. %s." % (e.args[0], self.host, self.port, e.args[1]))
         else:
             # no exceptions

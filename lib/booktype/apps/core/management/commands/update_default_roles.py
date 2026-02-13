@@ -31,4 +31,4 @@ class Command(BaseCommand):
                     raise CommandError(err_msg)
 
             statuses = ['updated', 'created']
-            print 'Role %s has been %s.' % (role_name, statuses[created])
+            print('Role %s has been %s.' % (role_name, statuses[created]))

@@ -215,4 +215,4 @@ class Command(BaseCommand):
                   "\n        model = {0}" \
                   "\n        fields = {1}\n".format(model.__name__, tuple(filters))
 
-        print result
+        print(result)

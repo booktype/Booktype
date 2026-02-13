@@ -24,19 +24,19 @@ def create_permissions(app_name, app_perms, stdout=True):
 
     if len(permissions) > 0:
         if stdout:
-            print "Updating permissions for %s" % app_name
+            print("Updating permissions for %s" % app_name)
 
     for codename, description in permissions:
         perm, _ = Permission.objects.get_or_create(
             app_name=perms_app_name,
             name=codename
         )
-        perm.description = unicode(description)
+        perm.description = str(description)
         perm.save()
         created_perms.append(perm)
         if stdout:
-            print "\t- saving %s.%s permission".expandtabs(4) \
-                % (perms_app_name, codename)
+            print("\t- saving %s.%s permission".expandtabs(4)
+                % (perms_app_name, codename))
 
     return created_perms
 

@@ -34,7 +34,7 @@ class Command(BaseCommand):
         if not options['<key>'][0]:
             raise CommandError("You must specify variable name")
 
-        if not settings.BOOKTYPE_CONFIG.has_key(options['<key>'][0]):
+        if options['<key>'][0] not in settings.BOOKTYPE_CONFIG:
             raise CommandError("There is no such variable.")
 
         del settings.BOOKTYPE_CONFIG[options['<key>'][0]]

@@ -18,7 +18,7 @@ import os
 import json
 import uuid
 import codecs
-import urllib2
+from urllib import request as urllib2
 import logging
 import datetime
 from lxml import etree
@@ -266,7 +266,7 @@ class MPDFConverter(BaseConverter):
 
         dc_metadata = {
             key: value[0][0] for key, value in
-            book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
+            book.metadata.get("http://purl.org/dc/elements/1.1/").items()
         }
 
         m = book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
@@ -539,9 +539,8 @@ class MPDFConverter(BaseConverter):
         data = {'metadata': dc_metadata, 'config': self.config}
         data.update(self.get_extra_configuration())
 
-        f = codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8')
-        f.write(unicode(json.dumps(data), 'utf8'))
-        f.close()
+        with codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8') as f:
+            f.write(json.dumps(data))
 
     def _save_images(self, book):
         """Saves all the images from EPUB file to the temporary directory.
@@ -809,7 +808,7 @@ class MPDFConverter(BaseConverter):
                 except IOError:
                     pass
 
-        for asset_type, asset_list in assets.iteritems():
+        for asset_type, asset_list in assets.items():
             if asset_type == 'images':
                 for image_name in asset_list:
                     name = os.path.basename(image_name)

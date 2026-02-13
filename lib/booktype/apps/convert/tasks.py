@@ -102,7 +102,7 @@ def convert(request_data, base_path):
     assets.add_files(request_data.files)
 
     subtasks = []
-    for (name, output) in request_data.outputs.iteritems():
+    for (name, output) in request_data.outputs.items():
         sandbox_path = os.path.join(base_path, name)
         output_path = os.path.join(sandbox_path, output.output)
 
@@ -129,7 +129,7 @@ def convert(request_data, base_path):
     with allow_join_result():
         result.join(propagate=False)
 
-    subtasks_info = {async.task_id: async for async in result.children}
+    subtasks_info = {task.task_id: task for task in result.children}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
 
     return subtasks_info

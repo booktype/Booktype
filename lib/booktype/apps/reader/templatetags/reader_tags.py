@@ -53,7 +53,7 @@ def verbose_activity(activity):
     fields to it.
     """
 
-    verbose = unicode(ACTIVITY_KIND_VERBOSE.get(activity.kind, None))
+    verbose = str(ACTIVITY_KIND_VERBOSE.get(activity.kind, None))
     default_image = static('core/img/chapter-default.png')
     link_url = None
     book = activity.book

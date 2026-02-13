@@ -18,7 +18,7 @@
 import os
 import json
 import logging
-import urlparse
+from urllib import parse as urlparse
 
 from lxml import etree
 from collections import OrderedDict

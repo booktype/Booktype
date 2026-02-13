@@ -29,7 +29,7 @@ def uploadAttachmentTo(message, filename):
 
 # XXX class "Message" with field "sender" would cause Django Admin to crash...
 class Post(models.Model):
-    sender = models.ForeignKey("Endpoint", verbose_name=_("sender"))
+    sender = models.ForeignKey("Endpoint", on_delete=models.CASCADE, verbose_name=_("sender"))
     timestamp = models.DateTimeField(_('timestamp'), null=False, auto_now=True)
     content = models.TextField(_('content'))
     attachment = models.FileField(_('attachment'), upload_to=uploadAttachmentTo, max_length=2500)
@@ -54,7 +54,7 @@ class Post(models.Model):
             res.append(part)
         return " ".join(res)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s-%s" % (self.sender, self.timestamp)
 
     class Meta:
@@ -63,11 +63,11 @@ class Post(models.Model):
 
 
 class PostAppearance(models.Model):
-    post = models.ForeignKey('Post', verbose_name=_("post"))
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, verbose_name=_("post"))
     timestamp = models.DateTimeField(_('timestamp'), null=False)
-    endpoint = models.ForeignKey('Endpoint', verbose_name=_('endpoint'))
+    endpoint = models.ForeignKey('Endpoint', on_delete=models.CASCADE, verbose_name=_('endpoint'))
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s-%s-%s" % (self.post.sender, self.endpoint, self.timestamp)
 
     class Meta:
@@ -83,7 +83,7 @@ def match_wildcard(pattern, word):
 
 class Endpoint(models.Model):
     syntax = models.CharField(_('syntax'), max_length=2500, unique=True)
-    config = models.ForeignKey('EndpointConfig', unique=True, null=True, blank=True)
+    config = models.ForeignKey('EndpointConfig', on_delete=models.CASCADE, unique=True, null=True, blank=True)
 
     def as_user(self):
         if not self.syntax.startswith("@"):
@@ -139,7 +139,7 @@ class Endpoint(models.Model):
 
         return True # no filters matched
 
-    def __unicode__(self):
+    def __str__(self):
         return self.syntax
 
     class Meta:
@@ -149,7 +149,7 @@ class Endpoint(models.Model):
 class EndpointConfig(models.Model):
     notification_filter = models.CharField(_('notification filter'), max_length=2500, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"config-"+"-".join(str(x) for x in self.endpoint_set.all())
 
     class Meta:
@@ -157,10 +157,10 @@ class EndpointConfig(models.Model):
         verbose_name_plural = _('Endpoint configs')
 
 class Following(models.Model):
-    follower = models.ForeignKey('Endpoint', verbose_name=_("follower"), related_name='follower')
-    target = models.ForeignKey('Endpoint', verbose_name=_("target"), related_name='target')
+    follower = models.ForeignKey('Endpoint', on_delete=models.CASCADE, verbose_name=_("follower"), related_name='follower')
+    target = models.ForeignKey('Endpoint', on_delete=models.CASCADE, verbose_name=_("target"), related_name='target')
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s-%s" % (self.follower, self.target)
 
     class Meta:

@@ -35,7 +35,7 @@ class Command(BaseCommand):
             self.stderr.write('Does not have BOOKTYPE_CONFIG in settings.py file.')
             return False
 
-        for name in settings.BOOKTYPE_CONFIG.iterkeys():
+        for name in settings.BOOKTYPE_CONFIG.keys():
             s = name
 
             if options['values']:

@@ -16,8 +16,8 @@
 
 import os
 import logging
-import urlparse
-import urllib
+from urllib import parse as urlparse
+from urllib import parse as urllib_parse, request as urllib_request
 import zipfile
 
 import ebooklib
@@ -162,7 +162,7 @@ class XHTMLConverter(BaseConverter):
 
         for element in root.iter('img'):
 
-            path = urllib.unquote(element.get('src'))
+            path = urlparse.unquote(element.get('src'))
 
             # if hostname, then it is an image with absolute url
             if urlparse.urlparse(path).hostname:

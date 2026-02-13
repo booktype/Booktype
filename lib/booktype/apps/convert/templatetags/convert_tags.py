@@ -16,8 +16,8 @@ def find_with_key(data, key, value):
       Returns metadata entries
     """
 
-    for k, v in data.iteritems():
-        for a, b in v.iteritems():
+    for k, v in data.items():
+        for a, b in v.items():
             for c in b:
                 if c[1].get(key, '') == value:
                     yield c
@@ -79,8 +79,8 @@ def get_metadata(data, name):
       Returns metadata entry.
     """
 
-    for k, v in data.iteritems():
-        for a, b in v.iteritems():
+    for k, v in data.items():
+        for a, b in v.items():
             if a == name:
                 if len(b) > 0 and len(b[0]) > 0:
                     return b[0][0]
